@@ -27,8 +27,6 @@ def update():
     global frameCount
     frameCount += 1
  
-#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
 def draw():
     pygame.draw.rect(canvas, [frameCount % 255, 0, 200], [0, 0, 800, 600])
  
