@@ -19,7 +19,6 @@ def events():
             global ejecutando
             ejecutando = False
  
- 
 def update():
     events()
     pygame.display.flip()
@@ -33,6 +32,8 @@ def draw():
 while ejecutando:
     draw()
     update()
+
+#SHJJSHSLKSJLKSJLKSJLKSJKL
  
 sys.exit()
  
