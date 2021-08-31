@@ -2,7 +2,9 @@
 import pygame
 import sys
 import time
- 
+
+"""bingo bango bongo i don't wanna leave the congo o no no no no no"""
+
 ejecutando = True
 frameRate = 60
 frameCount = 0
