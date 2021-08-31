@@ -2,7 +2,7 @@
 import pygame
 import sys
 import time
- 
+"""davinshi estuvo aquí"""
 ejecutando = True
 frameRate = 60
 frameCount = 0
