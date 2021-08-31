@@ -35,7 +35,5 @@ while ejecutando:
 
 #SHJJSHSLKSJLKSJLKSJLKSJKL
 #skksjsk
-
- 
 sys.exit()
  
