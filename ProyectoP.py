@@ -3,8 +3,6 @@ import pygame
 import sys
 import time
 
-"""bingo bango bongo i don't wanna leave the congo o no no no no no"""
-
 ejecutando = True
 frameRate = 60
 frameCount = 0
@@ -33,7 +31,55 @@ while ejecutando:
     draw()
     update()
 
-#SHJJSHSLKSJLKSJLKSJLKSJKL
-#skksjsk
+class tank:
+    #atributos
+        #estos atributos son temporales, hay que pensar bien la estructura del tanque ~JR
+    def __init___(self,health,proyectile,speed,angle,color):
+        
+            self.health=health #Vida del tanque
+            
+            self.proyectile=proyectile #tipo de proyectil
+            #este ultimo puede transformarse en una clase a futuro ~JR
+            
+            self.speed=speed#Velocidad del tanque
+            
+            self.angle=angle#Angulo de la torreta
+            
+            self.color=color#Color del tanque
+            #Este color está en formato de texto, debido al uso futuro de los sprites ~JR
+            
+    #constructores
+                    #getters
+    def getHealth(self):
+        return self.health
+    def getProyectile(self):
+        return self.proyectile
+    def getSpeed(self):
+        return self.speed
+    def getAngle(self):
+        return self.angle
+    def getColor(self):
+        return self.Color
+    
+                    #setters
+    
+    def setHealth(self,health):
+        self.health=health
+        
+    # def setProyectile(self,proyectile):
+    #     self.proyectile=proyectile
+    # def setSpeed(self,speed):
+    #     self.speed=speed
+        #estos 2 atributos de momento son estaticos, 
+        #puede que se exija a futuro poder modificarlos ~JR
+        
+    def setAngle(self,angle):
+        self.angle=angle
+        
+    def setColor(self,color):
+        self.color=color
+        
+    #metodos
+
 sys.exit()
  
