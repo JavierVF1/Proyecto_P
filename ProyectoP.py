@@ -27,7 +27,7 @@ def update():
  
  
 def draw():
-    pygame.draw.rect(canvas, [frameCount % 255, 254, 0], [0, 0, 800, 600])
+    pygame.draw.rect(canvas, [frameCount % 255, 0, 200], [0, 0, 800, 600])
  
 while ejecutando:
     draw()
