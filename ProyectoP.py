@@ -34,6 +34,8 @@ while ejecutando:
     update()
 
 #SHJJSHSLKSJLKSJLKSJLKSJKL
+#skksjsk
+
  
 sys.exit()
  
