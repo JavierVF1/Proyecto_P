@@ -14,15 +14,9 @@ class Shell(pygame.sprite.Sprite):
     def __init__(self,imagen):
         self.imagem=imagen
         self.rect=self.imagen.get_rect()
-    def disparo(t, centro, radio):
-        x = radio * math.cos(t) + centro[0]
-        y = radio * math.sin(t) + centro[1]
-        # x = V0 * cos(a) * t
-        # y = 0 +V0 * sin()*t-1/2*g*t**2
-        return [round(x), round(y)]
-    
+        
 #########################  TORRETA #########################
-class Turret(pygame.sprite.Sprite):
+class Turret(pygame.sprite.Sprite,Shell):
     def __init__(self,imagen):
         self.imagen=imagen
         self.rect=self.imagen.get_rect()
@@ -30,13 +24,18 @@ class Turret(pygame.sprite.Sprite):
         self.rect.left=20
     def angulo(self,ang):
         self.ang=ang
+    def velocidad_proyect(self,Turret):
+        if keys[pygame.K_DOWN]:
+                self.vel=Turret.vel-1
+        if keys[pygame.K_UP]:
+                self.vel=Turret.vel+1    
     def disparo(self,ang,vel):
         self.ang=ang
         self,vel=vel
         # if keys[pygame.K_SPACE]:
         
 #########################  TANQUE #########################
-class Tank(pygame.sprite.Sprite):
+class Tank(pygame.sprite.Sprite,Turret):
     def __init__(self,imagen,spawn):
         self.imagen=imagen
         self.rect=self.imagen.get_rect()
