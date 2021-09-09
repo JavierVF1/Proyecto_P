@@ -8,13 +8,17 @@ Created on Tue Sep  7 18:19:21 2021
 
 import pygame
 import math
+
 keys=pygame.key.get_pressed()
+time=0
 #########################  SHELL #########################
 class Shell(pygame.sprite.Sprite):
     def __init__(self,imagen):
         self.imagem=imagen
         self.rect=self.imagen.get_rect()
-        
+    def pos(self,x,y):
+        self.x=x
+        self.y=y
 #########################  TORRETA #########################
 class Turret(pygame.sprite.Sprite,Shell):
     def __init__(self,imagen):
@@ -31,15 +35,14 @@ class Turret(pygame.sprite.Sprite,Shell):
                 self.vel=Turret.vel+1    
     def disparo(self,ang,vel):
         self.ang=ang
-        self,vel=vel
-        # if keys[pygame.K_SPACE]:
-        
+        self.vel=vel
 #########################  TANQUE #########################
 class Tank(pygame.sprite.Sprite,Turret):
-    def __init__(self,imagen,spawn):
+    def __init__(self,imagen,spawn,turno):
         self.imagen=imagen
         self.rect=self.imagen.get_rect()
         self.spawn=spawn
+        self.turno
         #tamaño
         self.rect.top=100
         self.rect.left=200
@@ -59,12 +62,18 @@ class Tank(pygame.sprite.Sprite,Turret):
         
 #########################  MAPA #########################
 class g_map(pygame.sprite.Sprite,Tank):
-    def __init__(self,imagen,f_gravedad):
+    def __init__(self,imagen,f_gravedad,turno_map):
         self.imagen=imagen
         self.rect=self.imagen.get_rect()
+        self.turno_map=turno_map
         self.rect.top=800
         self.rect.left=600
         self.f_gravedad=f_gravedad
+    def turno(self,Tank):
+        if Tank.turno==self.turno_map:
+            Tank.move=True
+        else:
+            Tank.move=False
     # def gravedad(self,gravedad):
     #     self.gravedad=gravedad
     #     Tank.rect
