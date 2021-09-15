@@ -28,11 +28,11 @@ class Turret(pygame.sprite.Sprite):
         self.rect.left=20
     def angulo(self,ang):
         self.ang=ang
-    def velocidad_proyect(self,Turret):
-        if keys[pygame.K_DOWN]:
-                self.vel=Turret.vel-1
-        if keys[pygame.K_UP]:
-                self.vel=Turret.vel+1    
+    # def velocidad_proyect(self,Turret):
+    #     if keys[pygame.K_DOWN]:
+    #             self.vel=Turret.vel-1
+    #     if keys[pygame.K_UP]:
+    #             self.vel=Turret.vel+1    
     def disparo(self,ang,vel):
         self.ang=ang
         self.vel=vel
@@ -74,13 +74,10 @@ class Map(pygame.sprite.Sprite):
     # def gravedad(self,gravedad):
     #     self.gravedad=gravedad
     #     Tank.rect
-
-
-def main():
-    import pygame
-    pygame.init()
-    pantalla=pygame.display.set_mode((600,600))
-    
+import pygame
+pygame.init()
+keys=pygame.key.get_pressed()
+pantalla=pygame.display.set_mode((600,600))
     #tank obj
     #ejemplo para futuro:
     #tank_x=pygame.image.load("assets\Sprites\PLAYERS\X_P\duck_s.png)
@@ -93,12 +90,11 @@ def main():
     #un sprite tank_x
     #y finalmente un numero de turno que debiese ser modificado manualmente
         #tank green
-    tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-    tank_gc=Tank(500,100,10,10,tank_g,1)
+tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+tank_gc=Tank(500,100,10,10,tank_g,1)
         #tank red
     # tank_r=pygame.image.load("assets\sprites\PLAYERS\RED_P\duck_s.png")
-    tank_rc=Tank(500,500,10,10,tank_g,2)
-    pantalla.fill((200,200,200))
-    pantalla.blit(tank_gc.imagen,tank_gc.rect)
-    pygame.display.update()
-main()
+tank_rc=Tank(500,500,10,10,tank_g,2)
+pantalla.fill((200,200,200))
+pantalla.blit(tank_gc.imagen,tank_gc.rect)
+pygame.display.update()
