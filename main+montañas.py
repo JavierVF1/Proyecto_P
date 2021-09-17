@@ -158,9 +158,7 @@ while run:
 
     screen.fill(blue_sky)
     #montain()
-    
     screen.blit(floor,floorect)
-    
     screen.blit(tank,tankrect)
     screen.blit(tank2,tank2rect)
     

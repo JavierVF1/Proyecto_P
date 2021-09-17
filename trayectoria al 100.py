@@ -50,11 +50,11 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             
-    rectangulobala = rectangulobala.move(speed)
+    
     
     screen.fill(fondo)
 
-    
+    rectangulobala = rectangulobala.move(speed)
     if posicionX < 900:
         posicionX = posicionX + velocidadiX * ti
         posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)

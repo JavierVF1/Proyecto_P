@@ -7,35 +7,31 @@ Created on Tue Sep  7 18:19:21 2021
 
 
 import pygame
-import math
+from math import cos, sin, pi, tan
 
-
+blue_sky=135,206,235
+floor=pygame.image.load("assets/maps/cp_orange/floor.png")
+floorect=floor.get_rect()
+floorect.move_ip(0,500)
 time=0
-#########################  SHELL #########################
-class Shell(pygame.sprite.Sprite):
-    def __init__(self,imagen):
-        self.imagem=imagen
-        self.rect=self.imagen.get_rect()
-    def pos(self,x,y):
-        self.x=x
-        self.y=y
+# #########################  SHELL #########################
+# class Shell(pygame.sprite.Sprite):
+#     def __init__(self,imagen):
+#         self.imagem=imagen
+#         self.rect=self.imagen.get_rect()
+#     def pos(self,x,y):
+#         self.x=x
+#         self.y=y
 #########################  TORRETA #########################
 class Turret(pygame.sprite.Sprite):
-    def __init__(self,imagen):
-        self.imagen=imagen
-        self.rect=self.imagen.get_rect()
+    def __init__(self,vel,ang):
+        # self.imagen=imagen
+        # self.rect=self.imagen.get_rect()
+        self.vel=vel
+        self.ang=ang
         self.rect.top=10
         self.rect.left=20
-    def angulo(self,ang):
-        self.ang=ang
-    # def velocidad_proyect(self,Turret):
-    #     if keys[pygame.K_DOWN]:
-    #             self.vel=Turret.vel-1
-    #     if keys[pygame.K_UP]:
-    #             self.vel=Turret.vel+1    
-    def disparo(self,ang,vel):
-        self.ang=ang
-        self.vel=vel
+            
 #########################  TANQUE #########################
 class Tank(pygame.sprite.Sprite):
     def __init__(self,x,y,width,height,imagen,turno):
@@ -47,9 +43,23 @@ class Tank(pygame.sprite.Sprite):
         self.rect=self.imagen.get_rect()
         self.turno=turno
 
-    def spawn(self,x,y):
-        self.rect.move_ip(x,y)
-
+    def spawn(self):
+        self.rect.move_ip(self.x,self.y)
+    
+    def vel_ang(self,Turret):
+        if keys[pygame.K_DOWN]:
+                self.vel=Turret.vel-1
+        if keys[pygame.K_UP]:
+                self.vel=Turret.vel+1
+        if keys[pygame.K_LEFT]:
+                self.ang=self.ang+1
+        if keys[pygame.K_RIGHT]:
+                self.ang=self.ang-1
+        if keys[pygame.K_SPACE]:
+            if turno==1:
+                turno=turno+1
+            if turno==2:
+                turno=1
     #codigo para despues, cuando pidan movimiento será util ~JR
     # def boundaries(self):
     #     if self.rect.move <0:
@@ -58,26 +68,23 @@ class Tank(pygame.sprite.Sprite):
     #         self.rect.move(-2,0)
         
 #########################  MAPA #########################
-class Map(pygame.sprite.Sprite):
-    def __init__(self,imagen,gravity,turno_map):
-        self.imagen=imagen
-        self.rect=self.imagen.get_rect()
-        self.turno_map=turno_map
-        self.rect.top=800
-        self.rect.left=600
-        self.f_gravedad=f_gravedad
-    def turno(self,Tank):
-        if Tank.turno==self.turno_map:
-            Tank.move=True
-        else:
-            Tank.move=False
-    # def gravedad(self,gravedad):
-    #     self.gravedad=gravedad
-    #     Tank.rect
-import pygame
-pygame.init()
-keys=pygame.key.get_pressed()
-pantalla=pygame.display.set_mode((600,600))
+# class Map(pygame.sprite.Sprite):
+#     def __init__(self,imagen,turno):
+#         self.imagen=imagen
+#         self.rect=self.imagen.get_rect()
+#         self.turno_map=turno_map
+#         self.rect.top=800
+#         self.rect.left=600
+#         # self.gravityt=gravity
+#     def turno(self,Tank):
+#         if Tank.turno==self.turno_map:
+#             Tank.move=True
+#         else:
+#             Tank.move=False
+#     # def gravedad(self,gravedad):
+#     #     self.gravedad=gravedad
+#     #     Tank.rect
+##########################################################
     #tank obj
     #ejemplo para futuro:
     #tank_x=pygame.image.load("assets\Sprites\PLAYERS\X_P\duck_s.png)
@@ -90,11 +97,52 @@ pantalla=pygame.display.set_mode((600,600))
     #un sprite tank_x
     #y finalmente un numero de turno que debiese ser modificado manualmente
         #tank green
-tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-tank_gc=Tank(500,100,10,10,tank_g,1)
+
         #tank red
     # tank_r=pygame.image.load("assets\sprites\PLAYERS\RED_P\duck_s.png")
-tank_rc=Tank(500,500,10,10,tank_g,2)
-pantalla.fill((200,200,200))
-pantalla.blit(tank_gc.imagen,tank_gc.rect)
-pygame.display.update()
+
+
+run=True
+while run:
+    pygame.init()
+
+    Sreen_width=800
+    Sreen_height=600
+    
+    size = Sreen_width, Sreen_height
+    screen = pygame.display.set_mode(size)
+    pygame.display.set_caption("Panzerquack")
+
+        
+    pygame.time.delay(2)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: run=False
+    keys=pygame.key.get_pressed()
+    turno=1
+    tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+    tank_gc=Tank(200,100,10,10,tank_g,1)
+    tank_rc=Tank(300,120,10,10,tank_g,2)
+    
+    screen.fill(blue_sky)
+    #tanque green
+    tank_gc.spawn()
+    screen.blit(tank_gc.imagen,tank_gc.rect)
+    tank_rc.spawn()
+    screen.blit(tank_rc.imagen,tank_rc.rect)
+    def disparo(tanque):
+        speed = [1,1]
+        bala = pygame.image.load("imagen.png")
+        rectangulobala = bala.get_rect()
+        rectangulobala = rectangulobala.move(speed)
+        velocidadi = 2
+        velocidadiY = velocidadi * sin(tanque.ang)
+        velocidadiX = velocidadi * cos(tanque.ang) 
+        if posicionX < 900:
+            tanque.x = tanque.x + velocidadiX * ti
+            posicionY = tanque.y - velocidadiY * ti +(1/2)*6*(ti**2)
+            velocidadY = velocidadiY - (6 * ti)
+            # ti modifica la velocidad del tiro
+            ti += 0.001
+    screen.blit(floor,floorect)
+    pygame.display.flip()
+    disparo(tank_gc)
