@@ -8,11 +8,20 @@ Created on Tue Sep  7 18:19:21 2021
 
 import pygame
 from math import cos, sin, pi, tan
-
+gray = 127,127,127
 blue_sky=135,206,235
+blue_sky=0,170,255
+
+fondo=pygame.image.load("assets/maps/world.png")
+fondorect=fondo.get_rect()
+fondorect.move_ip(0,0)
+
 floor=pygame.image.load("assets/maps/cp_orange/floor.png")
 floorect=floor.get_rect()
 floorect.move_ip(0,500)
+
+
+
 time=0
 # #########################  SHELL #########################
 # class Shell(pygame.sprite.Sprite):
@@ -101,6 +110,22 @@ class Tank(pygame.sprite.Sprite):
         #tank red
     # tank_r=pygame.image.load("assets\sprites\PLAYERS\RED_P\duck_s.png")
 
+def mapa():
+    screen.blit(fondo,fondorect)
+    montaña =pygame.draw.polygon(screen, gray, [[175,440],[100,500],[250,500]]) #izquierda
+    montaña2=pygame.draw.polygon(screen, gray, [[673,440],[600,500],[750,500]])
+    pygame.draw.polygon(screen, gray, [[175,440],[100,500],[250,500]])    #izquierda
+    pygame.draw.polygon(screen, gray, [[673,440],[600,500],[750,500]])
+
+    screen.blit(floor,floorect)
+
+    pygame.draw.polygon(screen, blue_sky, [[350,545],[300,500],[400,500]])
+    pygame.draw.polygon(screen, blue_sky, [[500,545],[450,500],[550,500]])
+
+
+
+    return montaña,montaña2
+
 
 run=True
 while run:
@@ -113,22 +138,28 @@ while run:
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("Panzerquack")
 
-        
+    
+    montaña,montaña2=mapa()
+
+
     pygame.time.delay(2)
     for event in pygame.event.get():
         if event.type == pygame.QUIT: run=False
     keys=pygame.key.get_pressed()
     turno=1
+
     tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
     tank_gc=Tank(200,100,10,10,tank_g,1)
     tank_rc=Tank(300,120,10,10,tank_g,2)
     
-    screen.fill(blue_sky)
+    #screen.fill(blue_sky)
     #tanque green
+    
     tank_gc.spawn()
     screen.blit(tank_gc.imagen,tank_gc.rect)
     tank_rc.spawn()
     screen.blit(tank_rc.imagen,tank_rc.rect)
+    
     def disparo(tanque):
         speed = [1,1]
         bala = pygame.image.load("imagen.png")
@@ -143,6 +174,7 @@ while run:
             velocidadY = velocidadiY - (6 * ti)
             # ti modifica la velocidad del tiro
             ti += 0.001
-    screen.blit(floor,floorect)
+    
+    
     pygame.display.flip()
     disparo(tank_gc)
