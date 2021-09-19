@@ -43,7 +43,7 @@ class Turret(pygame.sprite.Sprite):
             
 #########################  TANQUE #########################
 class Tank(pygame.sprite.Sprite):
-    def __init__(self,x,y,width,height,imagen,turno):
+    def __init__(self,x,y,width,height,imagen,turno,ang,vel):
         self.x=x
         self.y=y
         self.width=width
@@ -51,24 +51,16 @@ class Tank(pygame.sprite.Sprite):
         self.imagen=imagen
         self.rect=self.imagen.get_rect()
         self.turno=turno
-
+        self.ang=ang
+        self.vel=vel
     def spawn(self):
         self.rect.move_ip(self.x,self.y)
-    
-    def vel_ang(self,Turret):
-        if keys[pygame.K_DOWN]:
-                self.vel=Turret.vel-1
-        if keys[pygame.K_UP]:
-                self.vel=Turret.vel+1
-        if keys[pygame.K_LEFT]:
-                self.ang=self.ang+1
-        if keys[pygame.K_RIGHT]:
-                self.ang=self.ang-1
-        if keys[pygame.K_SPACE]:
-            if turno==1:
-                turno=turno+1
-            if turno==2:
-                turno=1
+    def setVel(self,x):
+        self.vel=x
+    def setAng(self,y):
+        self.Ang=y
+        # if keys[pygame.K_SPACE]:
+        #     disparo()
     #codigo para despues, cuando pidan movimiento será util ~JR
     # def boundaries(self):
     #     if self.rect.move <0:
@@ -110,10 +102,11 @@ class Tank(pygame.sprite.Sprite):
         #tank red
     # tank_r=pygame.image.load("assets\sprites\PLAYERS\RED_P\duck_s.png")
 
+
 def mapa():
     screen.blit(fondo,fondorect)
-    montaña =pygame.draw.polygon(screen, gray, [[175,440],[100,500],[250,500]]) #izquierda
-    montaña2=pygame.draw.polygon(screen, gray, [[673,440],[600,500],[750,500]])
+    montana =pygame.draw.polygon(screen, gray, [[175,440],[100,500],[250,500]]) #izquierda
+    montana2=pygame.draw.polygon(screen, gray, [[673,440],[600,500],[750,500]])
     pygame.draw.polygon(screen, gray, [[175,440],[100,500],[250,500]])    #izquierda
     pygame.draw.polygon(screen, gray, [[673,440],[600,500],[750,500]])
 
@@ -122,24 +115,22 @@ def mapa():
     pygame.draw.polygon(screen, blue_sky, [[350,545],[300,500],[400,500]])
     pygame.draw.polygon(screen, blue_sky, [[500,545],[450,500],[550,500]])
 
-
-
-    return montaña,montaña2
-
+    return montana,montana2
 
 run=True
 while run:
     pygame.init()
-
+    #ancho y alto
     Sreen_width=800
     Sreen_height=600
+    
     
     size = Sreen_width, Sreen_height
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("Panzerquack")
 
     
-    montaña,montaña2=mapa()
+    montana,montana2=mapa()
 
 
     pygame.time.delay(2)
@@ -149,8 +140,8 @@ while run:
     turno=1
 
     tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-    tank_gc=Tank(200,100,10,10,tank_g,1)
-    tank_rc=Tank(300,120,10,10,tank_g,2)
+    tank_gc=Tank(200,100,10,10,tank_g,1,0,0)
+    tank_rc=Tank(500,100,10,10,tank_g,2,0,0)
     
     #screen.fill(blue_sky)
     #tanque green
@@ -160,21 +151,34 @@ while run:
     tank_rc.spawn()
     screen.blit(tank_rc.imagen,tank_rc.rect)
     
-    def disparo(tanque):
-        speed = [1,1]
-        bala = pygame.image.load("imagen.png")
-        rectangulobala = bala.get_rect()
-        rectangulobala = rectangulobala.move(speed)
-        velocidadi = 2
-        velocidadiY = velocidadi * sin(tanque.ang)
-        velocidadiX = velocidadi * cos(tanque.ang) 
-        if posicionX < 900:
-            tanque.x = tanque.x + velocidadiX * ti
-            posicionY = tanque.y - velocidadiY * ti +(1/2)*6*(ti**2)
-            velocidadY = velocidadiY - (6 * ti)
-            # ti modifica la velocidad del tiro
-            ti += 0.001
-    
-    
+    # def disparo(self):
+    #     speed = [1,1]
+    #     ti = 0
+    #     bala = pygame.image.load("imagen.png")
+    #     rectangulobala = bala.get_rect()
+    #     rectangulobala = rectangulobala.move(speed)
+    #     velocidadiY = self.vel * sin(self.ang)
+    #     velocidadiX = self.vel * cos(self.ang) 
+    #     if posicionX < 900:
+    #         posicionX = posicionX + velocidadiX * ti
+    #         posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
+    #         velocidadY = velocidadiY - (6 * ti)
+    #         # ti modifica la velocidad del tiro
+    #         ti += 0.001
+    def turnos(x):
+        if x==1:
+            x=input("ingrese la velocidad:")
+            tank_gc.setVel(x)
+            y=input("ingrese el angulo:")
+            tank_gc.setAng(y)
+            return turnos(2)
+        if x==2:
+            x=input("ingrese la velocidad:")
+            tank_rc.setVel(x)
+            y=input("ingrese el angulo:")
+            tank_rc.setAng(y)
+            return turnos(1)
+
     pygame.display.flip()
-    disparo(tank_gc)
+    turnos(1)
+    # disparo(tank_gc)
