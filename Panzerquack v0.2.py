@@ -124,7 +124,8 @@ def disparo(tanque):
     rectangulobala = bala.get_rect()
     posicionY = tanque.y
     posicionX = tanque.x
-
+    rectangulobala = rectangulobala.move(speed)
+    
     #velocidad i modifica la intensidad del disparo
     velocidadi = tanque.vel
 
@@ -132,16 +133,15 @@ def disparo(tanque):
     velocidadiY = velocidadi * sin(tanque.ang)
     velocidadiX = velocidadi * cos(tanque.ang) 
     ti = 0
-    rectangulobala = rectangulobala.move(speed)
-    
-    if posicionY < 800:
+
+    while posicionY < 500:
         posicionX = posicionX + velocidadiX * ti
         posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
         velocidadY = velocidadiY - (6 * ti)
         # ti modifica la velocidad del tiro
-        ti += 0.01
+        ti += 0.01          
         screen.blit(bala,(posicionX,posicionY))
-        
+        pygame.display.flip()
 
 run=True
 
@@ -216,6 +216,4 @@ while run:
             return turnos(1)"""
     #screen.blit(bala,(tank_gc))
     disparo(tank_gc)
-    pygame.display.flip()
     #turnos(1)
-    # disparo(tank_gc)
