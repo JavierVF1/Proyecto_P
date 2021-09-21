@@ -132,17 +132,19 @@ def disparo(tanque):
     velocidadiY = velocidadi * sin(tanque.ang)
     velocidadiX = velocidadi * cos(tanque.ang) 
     ti = 0
-
-    while posicionX < 900:
-        rectangulobala = rectangulobala.move(speed)
+    rectangulobala = rectangulobala.move(speed)
+    
+    if posicionY < 800:
         posicionX = posicionX + velocidadiX * ti
         posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
         velocidadY = velocidadiY - (6 * ti)
         # ti modifica la velocidad del tiro
         ti += 0.01
-    screen.blit(bala,(tank_gc))
+        screen.blit(bala,(posicionX,posicionY))
+        
 
 run=True
+
 while run:
     pygame.init()
     #ancho y alto
@@ -158,15 +160,15 @@ while run:
     montana,montana2=mapa()
 
 
-    pygame.time.delay(2000)
+    pygame.time.delay(2)
     for event in pygame.event.get():
         if event.type == pygame.QUIT: run=False
     keys=pygame.key.get_pressed()
     turno=1
 
     tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-    tank_gc=Tank(200,100,10,10,tank_g,1,20,5)
-    tank_rc=Tank(500,100,10,10,tank_g,2,0,0)
+    tank_gc=Tank(45,486,10,10,tank_g,1,1.24,5)
+    tank_rc=Tank(770,486,10,10,tank_g,2,0,0)
     
     #screen.fill(blue_sky)
     #tanque green
@@ -198,7 +200,7 @@ while run:
     #     # ti modifica la velocidad del tiro
     #     ti += 0.01
     
-    disparo(tank_gc)
+    
     """def turnos(x):
         if x==1:
             x=input("ingrese la velocidad:")
@@ -212,8 +214,8 @@ while run:
             y=input("ingrese el angulo:")
             tank_rc.setAng(y)
             return turnos(1)"""
-
     #screen.blit(bala,(tank_gc))
+    disparo(tank_gc)
     pygame.display.flip()
     #turnos(1)
     # disparo(tank_gc)
