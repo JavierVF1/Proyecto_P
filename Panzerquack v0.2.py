@@ -34,14 +34,14 @@ time=0
 #         self.x=x
 #         self.y=y
 #########################  TORRETA #########################
-class Turret(pygame.sprite.Sprite):
-    def __init__(self,vel,ang):
-        # self.imagen=imagen
-        # self.rect=self.imagen.get_rect()
-        self.vel=vel
-        self.ang=ang
-        self.rect.top=10
-        self.rect.left=20
+#class Turret(pygame.sprite.Sprite):
+#    def __init__(self,vel,ang):
+#        # self.imagen=imagen
+#        # self.rect=self.imagen.get_rect()
+#        self.vel=vel
+#        self.ang=ang
+#        self.rect.top=10
+#        self.rect.left=20
             
 #########################  TANQUE #########################
 class Tank(pygame.sprite.Sprite):
@@ -142,43 +142,10 @@ def disparo(tanque):
         ti += 0.01          
         screen.blit(bala,(posicionX,posicionY))
         pygame.display.flip()
-
-run=True
-
-while run:
-    pygame.init()
-    #ancho y alto
-    Sreen_width=800
-    Sreen_height=600
     
-    
-    size = Sreen_width, Sreen_height
-    screen = pygame.display.set_mode(size)
-    pygame.display.set_caption("Panzerquack")
-
-    
-    montana,montana2=mapa()
 
 
-    pygame.time.delay(2)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: run=False
-    keys=pygame.key.get_pressed()
-    turno=1
-
-    tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-    tank_gc=Tank(45,486,10,10,tank_g,1,1.24,5)
-    tank_rc=Tank(770,486,10,10,tank_g,2,0,0)
-    
-    #screen.fill(blue_sky)
-    #tanque green
-    
-    tank_gc.spawn()
-    screen.blit(tank_gc.imagen,tank_gc.rect)
-    tank_rc.spawn()
-    screen.blit(tank_rc.imagen,tank_rc.rect)
-    
-    # def disparo(self):
+# def disparo(self):
     #     speed = [1,1]
     #     ti = 0
     #     bala = pygame.image.load("imagen.png")
@@ -199,21 +166,74 @@ while run:
     #     velocidadY = velocidadiY - (6 * ti)
     #     # ti modifica la velocidad del tiro
     #     ti += 0.01
+
+
+
+pygame.init()
+#ancho y alto
+Sreen_width=800
+Sreen_height=600
+
+
+size = Sreen_width, Sreen_height
+screen = pygame.display.set_mode(size)
+pygame.display.set_caption("Panzerquack")
+
+
+run=True
+turno=0
+contador=0
+while run:
+    
+    montana,montana2=mapa()
+    
+    pygame.time.delay(2)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: run=False
+    keys=pygame.key.get_pressed()
+
+    tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+    tank_gc=Tank(45,486,10,10,tank_g,1,1.24,5)
+    tank_rc=Tank(770,486,10,10,tank_g,2,90,5)
+    
+    tank_gc.spawn()
+    screen.blit(tank_gc.imagen,tank_gc.rect)
+    tank_rc.spawn()
+    screen.blit(tank_rc.imagen,tank_rc.rect)
+    
+   
+    if keys[pygame.K_SPACE]:
+        turno = 1
+    
+    if turno==100:
+        turno=2
+    
+    if turno == 1:
+        
+        print("Truno UNO")
+        x=float(input("ingrese la velocidad:"))
+        tank_gc.setVel(x)
+        y=float(input("ingrese el angulo:"))
+        tank_gc.setAng(y)
+
+
+        disparo(tank_gc)
+        pygame.display.flip()
+        turno=100
+    
+    if turno == 2:
+
+        print("Truno DOS")
+        x=float(input("ingrese la velocidad:"))
+        tank_rc.setVel(x)
+        y=float(input("ingrese el angulo:"))
+        tank_rc.setAng(y)
+
+        
+        disparo(tank_rc)
+        pygame.display.flip()
+        turno=1
+    
+    pygame.display.flip()
     
     
-    """def turnos(x):
-        if x==1:
-            x=input("ingrese la velocidad:")
-            tank_gc.setVel(x)
-            y=input("ingrese el angulo:")
-            tank_gc.setAng(y)
-            return turnos(2)
-        if x==2:
-            x=input("ingrese la velocidad:")
-            tank_rc.setVel(x)
-            y=input("ingrese el angulo:")
-            tank_rc.setAng(y)
-            return turnos(1)"""
-    #screen.blit(bala,(tank_gc))
-    disparo(tank_gc)
-    #turnos(1)
