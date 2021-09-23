@@ -7,7 +7,7 @@ Created on Tue Sep  7 18:19:21 2021
 
 
 import pygame
-from math import cos, sin, pi, tan
+from math import cos, sin, pi, tan, radians
 gray = 127,127,127
 blue_sky=135,206,235
 blue_sky=0,170,255
@@ -60,7 +60,7 @@ class Tank(pygame.sprite.Sprite):
     def setVel(self,x):
         self.vel=x
     def setAng(self,y):
-        self.Ang=y
+        self.ang=y
         # if keys[pygame.K_SPACE]:
         #     disparo()
     #codigo para despues, cuando pidan movimiento será util ~JR
@@ -128,16 +128,17 @@ def disparo(tanque):
     
     #velocidad i modifica la intensidad del disparo
     velocidadi = tanque.vel
-
+    angulo= tanque.ang
     #velocidad iY e iX modifican el angulo de disparo
-    velocidadiY = velocidadi * sin(tanque.ang)
-    velocidadiX = velocidadi * cos(tanque.ang) 
+    velocidadiY = velocidadi * sin(radians(angulo))
+    velocidadiX = velocidadi * cos(radians(angulo))
     ti = 0
 
-    while posicionY < 500:
+    while posicionY < 500 and posicionX<800:
         posicionX = posicionX + velocidadiX * ti
         posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
         velocidadY = velocidadiY - (6 * ti)
+        velocidadX = velocidadiX - (6 * ti)
         # ti modifica la velocidad del tiro
         ti += 0.01          
         screen.blit(bala,(posicionX,posicionY))
@@ -195,8 +196,8 @@ while run:
 
 
     tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-    tank_gc=Tank(45,486,10,10,tank_g,1,1.24,5)
-    tank_rc=Tank(770,486,10,10,tank_g,2,90,5)
+    tank_gc=Tank(45,486,10,10,tank_g,1,10,10)
+    tank_rc=Tank(770,486,10,10,tank_g,2,10,10)
     
     montana,montana2=mapa()
 
@@ -216,9 +217,9 @@ while run:
         
         print("Truno DOS")
         x=float(input("ingrese la velocidad:"))
-        tank_rc.setVel(x)
+        tank_rc.setVel(-x)
         y=float(input("ingrese el angulo:"))
-        tank_rc.setAng(y)
+        tank_rc.setAng(-y)
 
         
         disparo(tank_rc)
