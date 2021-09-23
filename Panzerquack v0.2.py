@@ -185,44 +185,35 @@ turno=0
 contador=0
 while run:
     
-    montana,montana2=mapa()
+   
     
-    pygame.time.delay(2)
+    pygame.time.delay(4)
     for event in pygame.event.get():
         if event.type == pygame.QUIT: run=False
     keys=pygame.key.get_pressed()
+
+
 
     tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
     tank_gc=Tank(45,486,10,10,tank_g,1,1.24,5)
     tank_rc=Tank(770,486,10,10,tank_g,2,90,5)
     
+    montana,montana2=mapa()
+
     tank_gc.spawn()
     screen.blit(tank_gc.imagen,tank_gc.rect)
     tank_rc.spawn()
     screen.blit(tank_rc.imagen,tank_rc.rect)
     
-   
+    
     if keys[pygame.K_SPACE]:
         turno = 1
     
-    if turno==100:
-        turno=2
-    
-    if turno == 1:
-        
-        print("Truno UNO")
-        x=float(input("ingrese la velocidad:"))
-        tank_gc.setVel(x)
-        y=float(input("ingrese el angulo:"))
-        tank_gc.setAng(y)
-
-
-        disparo(tank_gc)
-        pygame.display.flip()
-        turno=100
+    if turno==10:
+       turno=1
     
     if turno == 2:
-
+        
         print("Truno DOS")
         x=float(input("ingrese la velocidad:"))
         tank_rc.setVel(x)
@@ -232,8 +223,25 @@ while run:
         
         disparo(tank_rc)
         pygame.display.flip()
-        turno=1
+        turno=10
     
+    
+    if turno == 1:
+
+        print("Truno UNO")
+        x=float(input("ingrese la velocidad:"))
+        tank_gc.setVel(x)
+        y=float(input("ingrese el angulo:"))
+        tank_gc.setAng(y)
+
+
+        disparo(tank_gc)
+        pygame.display.flip()
+        turno=2
+    
+        
     pygame.display.flip()
     
+    if keys[pygame.K_ESCAPE]:
+        run=False
     
