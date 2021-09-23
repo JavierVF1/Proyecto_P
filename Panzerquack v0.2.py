@@ -8,6 +8,7 @@ Created on Tue Sep  7 18:19:21 2021
 
 import pygame
 from math import cos, sin, pi, tan, radians
+from random import randint
 gray = 127,127,127
 blue_sky=135,206,235
 blue_sky=0,170,255
@@ -171,9 +172,56 @@ def disparo(tanque):
 
 
 pygame.init()
+
 #ancho y alto
 Sreen_width=800
 Sreen_height=600
+
+#     SPAWN RANDOM
+
+xtanki = randint(10,Sreen_width/2)
+ytanki = 486
+constantesuelo = 0.8
+
+if xtanki > 90 and xtanki < 167:
+    ytanki = ytanki - constantesuelo*(xtanki-90)  
+
+if xtanki == 167:
+    ytanki = 428
+
+if xtanki > 167 and xtanki < 250:
+    ytanki = 428 + constantesuelo*(xtanki-167)
+
+if xtanki > 290 and xtanki < 340:
+    ytanki = ytanki + (xtanki-290)
+    
+if xtanki == 340:
+    ytanki = 530
+
+if xtanki > 340 and xtanki < 400:
+    ytanki = 530 - (xtanki-340)
+
+
+xtankd=randint(xtanki+Sreen_width/2,Sreen_width-10)
+ytankd = 486
+
+if xtankd < 748 and xtankd > 665:
+    ytankd = ytankd - constantesuelo*(748-xtankd)
+
+if xtankd == 665:
+    ytankd = 428
+
+if xtankd < 665 and xtankd > 595:
+    ytankd = 428 + constantesuelo*(665-xtankd)
+
+if xtankd < 540 and xtankd > 520:
+    ytankd = ytankd + (xtankd-540)
+    
+if xtankd == 495:
+    ytankd = 530
+
+if xtankd < 495 and xtankd > 438:
+    ytankd = 530 - (495-xtankd)
 
 
 size = Sreen_width, Sreen_height
@@ -196,8 +244,8 @@ while run:
 
 
     tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-    tank_gc=Tank(45,486,10,10,tank_g,1,10,10)
-    tank_rc=Tank(770,486,10,10,tank_g,2,10,10)
+    tank_gc=Tank(xtanki,ytanki,10,10,tank_g,1,10,10)
+    tank_rc=Tank(xtankd,ytankd,10,10,tank_g,2,10,10)
     
     montana,montana2=mapa()
 
