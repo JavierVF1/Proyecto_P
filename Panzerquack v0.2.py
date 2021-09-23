@@ -196,8 +196,9 @@ while run:
 
 
     tank_g=pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+    tank_r=pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
     tank_gc=Tank(45,486,10,10,tank_g,1,10,10)
-    tank_rc=Tank(770,486,10,10,tank_g,2,10,10)
+    tank_rc=Tank(770,486,10,10,tank_r,2,10,10)
     
     montana,montana2=mapa()
 
