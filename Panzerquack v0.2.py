@@ -214,8 +214,8 @@ if xtankd == 665:
 if xtankd < 665 and xtankd > 595:
     ytankd = 428 + constantesuelo*(665-xtankd)
 
-if xtankd < 540 and xtankd > 520:
-    ytankd = ytankd + (xtankd-540)
+if xtankd < 540 and xtankd > 495:
+    ytankd = ytankd + (540-xtankd)
     
 if xtankd == 495:
     ytankd = 530
