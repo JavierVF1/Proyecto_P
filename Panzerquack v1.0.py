@@ -456,4 +456,5 @@ while run:
             victoria()
             run=False
     
+pygame.quit()
     
