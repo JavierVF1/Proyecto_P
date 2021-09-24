@@ -214,13 +214,13 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
             if turno == 2:
                 if  (ytanki-10 <= posicion_Y <= ytanki+10) and (xtanki-10 <= posicion_X <= xtanki+10): 
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                    print("Victoaria para Jugador N°2\n")
+                    print("Victoria para Jugador N°2\n")
                     flag= False
                     win=False
             if turno == 1:
                 if  (ytankd-10 <= posicion_Y <= ytankd+10) and (xtankd-10 <= posicion_X <= xtankd+10): 
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                    print("Victoaria para Jugador N°1\n")
+                    print("Victoria para Jugador N°1\n")
                     flag= False
                     win=False
             
@@ -323,7 +323,7 @@ def victoria():
     time.sleep(0.5)
     print("⠀⠀⠀⠀⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆")
     time.sleep(0.5)
-    print("⠀⠀⠀⠀⢀⡀⠁⠀⠀⠈⠙⠛⠂⠈⣿⣿⣿⣿⣿⠿⡿⢿⣆                               Enorabuena")
+    print("⠀⠀⠀⠀⢀⡀⠁⠀⠀⠈⠙⠛⠂⠈⣿⣿⣿⣿⣿⠿⡿⢿⣆                               Enhorabuena")
     time.sleep(0.5)
     print("⠀⠀⠀⢀⡾⣁⣀⠀⠴⠂⠙⣗⡀⠀⢻⣿⣿⠭⢤⣴⣦⣤⣹⠀⠀⠀⢀⢴⣶⣆")
     time.sleep(0.5)
@@ -424,7 +424,7 @@ while run:
     if turno == 2:
         pygame.display.flip()
 
-        print("\nTruno DOS")
+        print("\nTurno DOS")
         x=float(input("ingrese la velocidad:"))
         tank_rc.setVel(-x)
         y=float(input("ingrese el angulo:"))
@@ -441,7 +441,7 @@ while run:
     if turno == 1:
         pygame.display.flip()
 
-        print("\nTruno UNO")
+        print("\nTurno UNO")
         x=float(input("ingrese la velocidad:"))
         tank_gc.setVel(x)
         y=float(input("ingrese el angulo:"))
