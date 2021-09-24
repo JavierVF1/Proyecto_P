@@ -208,7 +208,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
             posicion_X=posicionX 
             
             
-            text2(int(posicion_Y),int(posicion_X))
+            text2(int(posicion_Y),int(posicion_X),tanque)
            
 
             if turno == 2:
@@ -284,10 +284,11 @@ def text():
 
     return
 
-def text2(posicion_Y,posicion_X):
+def text2(posicion_Y,posicion_X,tanque):
 
     posicionY=600-posicion_Y
-    posicionX=posicion_X
+    posicionX=posicion_X - tanque.x
+
 
     texto3= pygame.font.SysFont("Comic Sans MS",20)
     altura= texto3.render(str(posicionY), 0, ColorMagico)
