@@ -34,13 +34,25 @@ def mapa():
     pygame.draw.polygon(screen, blue_sky, [[350,545],[300,500],[400,500]])
     pygame.draw.polygon(screen, blue_sky, [[500,545],[450,500],[550,500]])
 
+    
+
     return montana,montana2
 
 def colision(posicionY,posicionX,flag):
     flag=False
 
+    if  posicionY <= 0  : 
+        print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
+        return flag
     
-    #print("cord x gT", xtanki, "cord y gT",ytanki)
+    if  posicionX <= 0  : 
+        print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
+        return flag
+    
+    if  posicionX >= 800  : 
+        print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
+        return flag
+    
 
 
     ##COLICION MONTAÑA IZQUIERDA
@@ -162,9 +174,6 @@ def colision(posicionY,posicionX,flag):
     #COLISION VICTORIA
     #xtanki,ytanki
     #COLISION PISO
-    
-
-
 
 def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win): 
     rectangulobala = bala.get_rect()
@@ -180,6 +189,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
     velocidadiX = velocidadi * cos(radians(angulo))
     ti = 0
 
+    
     while posicionY < 545 and posicionX<800:
         posicionX = posicionX + velocidadiX * ti
         posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
@@ -188,33 +198,40 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
         # ti modifica la velocidad del tiro
         ti += 0.01       
 
-        #colision con montañas
+        
         flag=True
         if flag == True:
+            #condicion para asegurarnos de que saldra de la funcion cuando colisione
             flag=colision(posicionY,posicionX,flag)
 
             posicion_Y=posicionY
             posicion_X=posicionX 
+            
+            
+            text2(int(posicion_Y),int(posicion_X))
+           
 
             if turno == 2:
                 if  (ytanki-10 <= posicion_Y <= ytanki+10) and (xtanki-10 <= posicion_X <= xtanki+10): 
-                    print("WEON GANASTE POR LA CHUCHA")
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Victoaria para Jugador N°2\n")
                     flag= False
                     win=False
             if turno == 1:
                 if  (ytankd-10 <= posicion_Y <= ytankd+10) and (xtankd-10 <= posicion_X <= xtankd+10): 
-                    print("WEON GANASTE POR LA CHUCHA")
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Victoaria para Jugador N°1\n")
                     flag= False
                     win=False
             
-        #condicion para asegurarnos de que saldra de la funcion cuando colisione
+        
         if flag == False:
             return win  
             
 
         screen.blit(bala,(posicionX,posicionY))
         pygame.display.flip()
-        
+        time.sleep(0.01)
         
 def SpawnRandom(Sreen_width):
     #     SPAWN RANDOM
@@ -252,6 +269,48 @@ def SpawnRandom(Sreen_width):
         ytankd = 530 - (495-xtankd)
     return xtanki,ytanki,xtankd,ytankd
 
+def text():
+
+    texto1= pygame.font.SysFont("Comic Sans MS",65)
+    Titulo= texto1.render("Panzerquack", 0, ColorMagico)
+
+    texto2= pygame.font.SysFont("Comic Sans MS",20)
+    SubTitulo= texto2.render("Presione espacio para comenzar", 0, ColorMagico)
+
+
+
+    screen.blit(Titulo,(200,220))
+    screen.blit(SubTitulo,(240,310))
+
+    return
+
+def text2(posicion_Y,posicion_X):
+
+    posicionY=600-posicion_Y
+    posicionX=posicion_X
+
+    texto3= pygame.font.SysFont("Comic Sans MS",20)
+    altura= texto3.render(str(posicionY), 0, ColorMagico)
+    pygame.draw.rect(screen, gray, [15, 550, 100, 30])
+
+    texto4= pygame.font.SysFont("Comic Sans MS",20)
+    altura_a= texto4.render("Altura:", 0, ColorMagico)
+
+    texto5= pygame.font.SysFont("Comic Sans MS",20)
+    distancia= texto5.render(str(posicionX), 0, ColorMagico)
+    pygame.draw.rect(screen, gray, [100, 550, 100, 30])
+
+    texto6= pygame.font.SysFont("Comic Sans MS",20)
+    distancia_d= texto4.render("Distancia:", 0, ColorMagico)
+
+
+    screen.blit(altura_a,(15,530))
+    screen.blit(altura,(15,550))
+    screen.blit(distancia_d,(100,530))
+    screen.blit(distancia,(100,550))
+    
+
+    return
 
 def victoria():
 
@@ -289,7 +348,7 @@ def victoria():
 
 
 
-
+ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=135,206,235
 blue_sky=0,170,255
@@ -311,14 +370,14 @@ pygame.init()
 Sreen_width=800
 Sreen_height=600
 
-aux=1
-while aux==1:
+aux=True
+while aux==True:
     xtanki = 0
     ytanki = 0
     xtankd = 0
     ytankd = 0
     xtanki,ytanki,xtankd,ytankd=SpawnRandom(Sreen_width)
-    aux=2
+    aux=False
 
 
 size = Sreen_width, Sreen_height
@@ -326,11 +385,12 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Panzerquack")
 
 
-
+auxT=True
 run=True
 turno=0
 contador=0
 win=True
+
 while run:
     
     pygame.display.flip()
@@ -348,19 +408,23 @@ while run:
     
     montana,montana2=mapa()
 
+    if auxT == True: text()
+        
     tank_gc.spawn()
     screen.blit(tank_gc.imagen,tank_gc.rect)
     tank_rc.spawn()
     screen.blit(tank_rc.imagen,tank_rc.rect)
     
-    
-    if keys[pygame.K_SPACE]: turno = 1
     if turno==10: turno=1
     
+    if keys[pygame.K_SPACE]: turno = 10
+
+    if turno!= 0: auxT=False
+
     if turno == 2:
         pygame.display.flip()
 
-        print("Truno DOS")
+        print("\nTruno DOS")
         x=float(input("ingrese la velocidad:"))
         tank_rc.setVel(-x)
         y=float(input("ingrese el angulo:"))
@@ -377,7 +441,7 @@ while run:
     if turno == 1:
         pygame.display.flip()
 
-        print("Truno UNO")
+        print("\nTruno UNO")
         x=float(input("ingrese la velocidad:"))
         tank_gc.setVel(x)
         y=float(input("ingrese el angulo:"))
