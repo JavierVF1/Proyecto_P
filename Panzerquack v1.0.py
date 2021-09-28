@@ -191,6 +191,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
     aux=0
     
     while posicionY < 545 and posicionX<800:
+        time.sleep(0.001)
         posicionX = posicionX + velocidadiX * ti
         posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
         velocidadY = velocidadiY - (6 * ti)
@@ -212,7 +213,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
            
 
             if turno == 2:
-                
+
                 if  (ytanki-10 <= posicion_Y <= ytanki+10) and (xtanki-10 <= posicion_X <= xtanki+10): 
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°2\n")
@@ -251,7 +252,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
 
         screen.blit(bala,(posicionX,posicionY))
         pygame.display.flip()
-        time.sleep(0.01)
+        
         
 def SpawnRandom(Sreen_width):
     #     SPAWN RANDOM
@@ -443,7 +444,7 @@ while run:
     if turno!= 0: auxT=False
 
     if turno == 2:
-        pygame.display.flip()
+        
 
         print("\nTurno DOS")
         x=float(input("ingrese la velocidad:"))
@@ -452,7 +453,7 @@ while run:
         tank_rc.setAng(-y)
         
         win=disparo(tank_rc,xtanki,ytanki,xtankd,ytankd,turno,win)
-        pygame.display.flip()
+        
         turno=10
         if win == False:
             #victoria()
@@ -460,7 +461,7 @@ while run:
     
     
     if turno == 1:
-        pygame.display.flip()
+        
 
         print("\nTurno UNO")
         x=float(input("ingrese la velocidad:"))
@@ -470,7 +471,7 @@ while run:
 
 
         win=disparo(tank_gc,xtanki,ytanki,xtankd,ytankd,turno,win)
-        pygame.display.flip()
+        
         turno=2
         if win == False:
             #victoria()
