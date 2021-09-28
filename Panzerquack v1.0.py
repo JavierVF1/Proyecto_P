@@ -188,7 +188,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
     velocidadiY = velocidadi * sin(radians(angulo))
     velocidadiX = velocidadi * cos(radians(angulo))
     ti = 0
-
+    aux=0
     
     while posicionY < 545 and posicionX<800:
         posicionX = posicionX + velocidadiX * ti
@@ -212,18 +212,38 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
            
 
             if turno == 2:
+                
                 if  (ytanki-10 <= posicion_Y <= ytanki+10) and (xtanki-10 <= posicion_X <= xtanki+10): 
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°2\n")
                     flag= False
                     win=False
+
+                if aux >= 40:
+                    if  (ytankd-10 <= posicion_Y <= ytankd+10) and (xtankd-10 <= posicion_X <= xtankd+10):  
+                        print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                        print("Victoria para Jugador N°1\n")
+                        flag= False
+                        win=False
+
+
+
+
             if turno == 1:
                 if  (ytankd-10 <= posicion_Y <= ytankd+10) and (xtankd-10 <= posicion_X <= xtankd+10): 
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°1\n")
                     flag= False
                     win=False
-            
+
+                if aux >= 40:
+                    if  (ytanki-10 <= posicion_Y <= ytanki+10) and (xtanki-10 <= posicion_X <= xtanki+10): 
+                        print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                        print("Victoria para Jugador N°2\n")
+                        flag= False
+                        win=False
+            aux+=1
+                
         
         if flag == False:
             return win  
@@ -435,7 +455,7 @@ while run:
         pygame.display.flip()
         turno=10
         if win == False:
-            victoria()
+            #victoria()
             run=False
     
     
@@ -453,7 +473,7 @@ while run:
         pygame.display.flip()
         turno=2
         if win == False:
-            victoria()
+            #victoria()
             run=False
     
 pygame.quit()
