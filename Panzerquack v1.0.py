@@ -1,3 +1,4 @@
+import sys
 import pygame
 from math import cos, sin, pi, tan, radians
 import time 
@@ -370,6 +371,71 @@ def victoria():
 
 
 
+
+def textbox():
+    
+    font = pygame.font.Font(None, 32)
+    clock = pygame.time.Clock()
+    input_box = pygame.Rect(520, 560, 140, 32)
+    color_inactive = pygame.Color('lightskyblue3')
+    color_active = pygame.Color("black")
+    color = color_inactive
+    active = False
+    text = ''
+    done = False
+    aux2=0
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done=True
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # If the user clicked on the input_box rect.
+                if input_box.collidepoint(event.pos):
+                    # Toggle the active variable.
+                    active = not active
+                else:
+                    active = False
+                # Change the current color of the input box.
+                color = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    if event.key == pygame.K_RETURN:
+                        
+                        aux=text
+                        aux2=1
+                        text = ''
+                        
+                        
+
+
+                    elif event.key == pygame.K_BACKSPACE:
+                        text = text[:-1]
+                    else:
+                        text += event.unicode
+                        
+                        
+
+        
+        # Render the current text.
+        txt_surface = font.render(text, True, color)
+        # Resize the box if the text is too long.
+        width = max(200, txt_surface.get_width()+10)
+        input_box.w = width
+        # Blit the text.
+        screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
+        # Blit the input_box rect.
+        pygame.draw.rect(screen, color, input_box, 2)
+
+        pygame.display.flip()
+
+        if aux2==1:
+            return aux
+        
+    
+
+negro = 0,0,0
 ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=135,206,235
@@ -385,6 +451,8 @@ floorect.move_ip(0,500)
 bala = pygame.image.load("imagen.png")
 speed = [1,1]
 #rectangulobala = bala.get_rect()
+
+
 
 
 pygame.init()
@@ -413,13 +481,20 @@ turno=0
 contador=0
 win=True
 
+base_front=pygame.font.Font(None,32)
+user_text=""
+
 while run:
     
     pygame.display.flip()
     
     pygame.time.delay(40)
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: run=False
+        if event.type == pygame.QUIT:
+            run=False
+            pygame.quit()
+            sys.exit()
+            
     keys=pygame.key.get_pressed()
 
 
@@ -428,6 +503,11 @@ while run:
     tank_gc=Tank(xtanki,ytanki,10,10,tank_g,1,10,10)
     tank_rc=Tank(xtankd,ytankd,10,10,tank_r,2,10,10)
     
+    texto7= pygame.font.SysFont("Comic Sans MS",16,5)
+    textvel= texto7.render("Velocidad:", 0, negro)
+    texto8= pygame.font.SysFont("Comic Sans MS",16,5)
+    textang= texto8.render("Angulo:", 0, negro)
+
     montana,montana2=mapa()
 
     if auxT == True: text()
@@ -447,13 +527,20 @@ while run:
         
 
         print("\nTurno DOS")
-        x=float(input("ingrese la velocidad:"))
-        tank_rc.setVel(-x)
-        y=float(input("ingrese el angulo:"))
-        tank_rc.setAng(-y)
+        #SE IMORIME TEXTO VELOCIDAD
+        screen.blit(textvel,(525, 540))
+
+        temporalx=int(textbox())
+        tank_rc.setVel(-temporalx)
+        #SE BORRA EL TEXTO ANTERIOR 
+        pygame.draw.rect(screen, gray, [520, 540, 200, 60])
+        #Se imprime el texto angulo
+        screen.blit(textang,(525, 540))
+
+        temporaly=int(textbox())
+        tank_rc.setAng(-temporaly)
         
         win=disparo(tank_rc,xtanki,ytanki,xtankd,ytankd,turno,win)
-        
         turno=10
         if win == False:
             #victoria()
@@ -461,17 +548,23 @@ while run:
     
     
     if turno == 1:
-        
-
         print("\nTurno UNO")
-        x=float(input("ingrese la velocidad:"))
-        tank_gc.setVel(x)
-        y=float(input("ingrese el angulo:"))
-        tank_gc.setAng(y)
+        #SE IMORIME TEXTO VELOCIDAD
+        screen.blit(textvel,(525, 540))
 
+        temporalx=int(textbox())
+        tank_gc.setVel(temporalx)
 
-        win=disparo(tank_gc,xtanki,ytanki,xtankd,ytankd,turno,win)
+        #SE BORRA EL TEXTO ANTERIOR 
+        pygame.draw.rect(screen, gray, [520, 540, 200, 60])
+
+        #Se imprime el texto angulo
+        screen.blit(textang,(525, 540))
         
+        temporaly=int(textbox())
+        tank_gc.setAng(temporaly)
+       
+        win=disparo(tank_gc,xtanki,ytanki,xtankd,ytankd,turno,win)
         turno=2
         if win == False:
             #victoria()
