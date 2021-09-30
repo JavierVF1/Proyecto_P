@@ -412,6 +412,7 @@ def textbox():
 
                     elif event.key == pygame.K_BACKSPACE:
                         text = text[:-1]
+                        pygame.draw.rect(screen, gray, [520, 560, 200, 60])
                     else:
                         text += event.unicode
                         
@@ -545,7 +546,6 @@ while run:
         if win == False:
             #victoria()
             run=False
-    
     
     if turno == 1:
         print("\nTurno UNO")
