@@ -259,8 +259,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
         
 def SpawnRandom(Sreen_width):
     #     SPAWN RANDOM
-    #xtanki = randint(10,Sreen_width/2)
-    xtanki = 168
+    xtanki = randint(10,Sreen_width/2)
     ytanki = 486
     constantesuelo = 0.7
 
