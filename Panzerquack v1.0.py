@@ -210,10 +210,11 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
             posicion_X=posicionX 
             
             
-            text2(int(posicion_Y),int(posicion_X),tanque)
+            #text2(int(posicion_Y),int(posicion_X),tanque)
            
 
             if turno == 2:
+                texttankD(int(posicion_Y),int(posicion_X),tanque)
 
                 if  (ytanki-10 <= posicion_Y <= ytanki+10) and (xtanki-10 <= posicion_X <= xtanki+10): 
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -232,6 +233,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
 
 
             if turno == 1:
+                texttankI(int(posicion_Y),int(posicion_X),tanque)
                 if  (ytankd-10 <= posicion_Y <= ytankd+10) and (xtankd-10 <= posicion_X <= xtankd+10): 
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°1\n")
@@ -257,9 +259,10 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
         
 def SpawnRandom(Sreen_width):
     #     SPAWN RANDOM
-    xtanki = randint(10,Sreen_width/2)
+    #xtanki = randint(10,Sreen_width/2)
+    xtanki = 168
     ytanki = 486
-    constantesuelo = 0.8
+    constantesuelo = 0.7
 
     if xtanki > 90 and xtanki < 167:
         ytanki = ytanki - constantesuelo*(xtanki-90)  
@@ -306,7 +309,7 @@ def text():
 
     return
 
-def text2(posicion_Y,posicion_X,tanque):
+def texttankI(posicion_Y,posicion_X,tanque):
 
     posicionY=600-posicion_Y
     posicionX=posicion_X - tanque.x
@@ -321,6 +324,34 @@ def text2(posicion_Y,posicion_X,tanque):
 
     texto5= pygame.font.SysFont("Comic Sans MS",20)
     distancia= texto5.render(str(posicionX), 0, ColorMagico)
+    pygame.draw.rect(screen, gray, [100, 550, 100, 30])
+
+    texto6= pygame.font.SysFont("Comic Sans MS",20)
+    distancia_d= texto4.render("Distancia:", 0, ColorMagico)
+
+
+    screen.blit(altura_a,(15,530))
+    screen.blit(altura,(15,550))
+    screen.blit(distancia_d,(100,530))
+    screen.blit(distancia,(100,550))
+    
+
+    return
+def texttankD(posicion_Y,posicion_X,tanque):
+
+    posicionY=600-posicion_Y
+    posicionX=posicion_X - tanque.x
+
+
+    texto3= pygame.font.SysFont("Comic Sans MS",20)
+    altura= texto3.render(str(posicionY), 0, ColorMagico)
+    pygame.draw.rect(screen, gray, [15, 550, 100, 30])
+
+    texto4= pygame.font.SysFont("Comic Sans MS",20)
+    altura_a= texto4.render("Altura:", 0, ColorMagico)
+
+    texto5= pygame.font.SysFont("Comic Sans MS",20)
+    distancia= texto5.render(str(-1*posicionX), 0, ColorMagico)
     pygame.draw.rect(screen, gray, [100, 550, 100, 30])
 
     texto6= pygame.font.SysFont("Comic Sans MS",20)
@@ -390,15 +421,17 @@ def textbox():
                 done=True
                 pygame.quit()
                 sys.exit()
+                
             if event.type == pygame.MOUSEBUTTONDOWN:
-                # If the user clicked on the input_box rect.
+                
                 if input_box.collidepoint(event.pos):
-                    # Toggle the active variable.
+
                     active = not active
                 else:
                     active = False
-                # Change the current color of the input box.
+
                 color = color_active if active else color_inactive
+                
             if event.type == pygame.KEYDOWN:
                 if active:
                     if event.key == pygame.K_RETURN:
@@ -406,9 +439,6 @@ def textbox():
                         aux=text
                         aux2=1
                         text = ''
-                        
-                        
-
 
                     elif event.key == pygame.K_BACKSPACE:
                         text = text[:-1]
@@ -416,17 +446,15 @@ def textbox():
                     else:
                         text += event.unicode
                         
-                        
-
         
-        # Render the current text.
+
         txt_surface = font.render(text, True, color)
-        # Resize the box if the text is too long.
+
         width = max(200, txt_surface.get_width()+10)
         input_box.w = width
-        # Blit the text.
+
         screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
-        # Blit the input_box rect.
+
         pygame.draw.rect(screen, color, input_box, 2)
 
         pygame.display.flip()
