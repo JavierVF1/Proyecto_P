@@ -1,36 +1,57 @@
+import sys
 import pygame
+from math import cos, sin, pi, tan, radians
+import time 
+from random import randint
 from pygame.locals import *
 
 pygame.init()
-
+#PANTALLA
 screen_width = 800
 screen_height = 600
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Platformer')
 
-#define game variables
+#Tamaño de los recuadros del mapa
 tile_size = 50
 
-#load images
+#cargar fondo
 
 fondo=pygame.image.load("assets/maps/world.png")
 
+#Función que dibuja las separaciónes del mapa
+#esto es para visualizarlo
 def draw_grid():
     for line in range(0,20):
         pygame.draw.line(screen, (255, 255, 255),
         (0, line * tile_size), (screen_width, line * tile_size))
         pygame.draw.line(screen, (255, 255, 255),
         (line * tile_size, 0), (line * tile_size, screen_height))
+#funcion de texto
+def text():
 
+    texto1= pygame.font.SysFont("Comic Sans MS",65)
+    Titulo= texto1.render("Panzerquack", 0, ColorMagico)
+
+    texto2= pygame.font.SysFont("Comic Sans MS",20)
+    SubTitulo= texto2.render("Presione espacio para comenzar", 0, ColorMagico)
+
+
+
+    screen.blit(Titulo,(200,220))
+    screen.blit(SubTitulo,(240,310))
+
+    return
 class World():
     def __init__(self, data):
         self.tile_list = []
 
-        #load images
+        #cargar imagenes para crear mapa
         dirt_img =pygame.image.load("assets/textures/grass.png")
         grass_img = pygame.image.load("assets/textures/grass.png")
         dirt_cliff=pygame.image.load("assets/textures/grassHillLeft.png")
+        dirt_cliff2 = pygame.transform.flip(dirt_cliff, True, False)
 
         row_count = 0
         for row in data:
@@ -52,6 +73,13 @@ class World():
                     self.tile_list.append(tile)
                 if tile == 3:
                     img = pygame.transform.scale(dirt_cliff, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 4:
+                    img = pygame.transform.scale(dirt_cliff2, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -102,38 +130,53 @@ class Player():
         if key[pygame.K_RIGHT]:
             dx += 5
 
-
-        #add gravity
-        self.vel_y += 1
-        if self.vel_y > 10:
-            self.vel_y = 10
-        dy += self.vel_y
-
-        #check for collision
-        for tile in world.tile_list:
-            #check for collision in x direction
-            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
-                dx = 0
-            #check for collision in y direction
-            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
-                #check if below the ground i.e. jumping
-                if self.vel_y < 0:
-                    dy = tile[1].bottom - self.rect.top
-                    self.vel_y = 0
-                #check if above the ground i.e. falling
-                elif self.vel_y >= 0:
-                    dy = tile[1].top - self.rect.bottom
-                    self.vel_y = 0
-        #update player coordinates
-        self.rect.x += dx
-        self.rect.y += dy
-
-        if self.rect.bottom > screen_height:
-            self.rect.bottom = screen_height
-            dy = 0
-            
         #draw player onto screen
         screen.blit(self.image, self.rect)
+class Bullet():
+    def __init__(self, ang, vel,imagen,x,y):
+        self.ang=ang
+        self.vel=vel
+        self.imagen=imagen
+        self.rect=self.imagen.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+    def update(self):
+        key = pygame.key.get_pressed()
+        if key[pygame.K_LEFT]:
+            self.vel -= 1
+            print(self.vel ,"\n")
+        if key[pygame.K_RIGHT]:
+            self.vel += 1
+            print(self.vel ,"\n")
+        if key[pygame.K_UP]:
+            self.ang+=  1
+            print(self.ang ,"\n")
+        if key[pygame.K_DOWN]:
+            self.an-=  1
+            print(self.ang ,"\n")
+        if key[pygame.K_SPACE]:
+                self.rect = self.rect.move(1,1) #velocidad del rect
+                #velocidad i modifica la intensidad del disparo
+                velocidadi = self.vel
+                angulo= self.ang
+                #velocidad iY e iX modifican el angulo de disparo
+                velocidadiY = velocidadi * sin(radians(angulo))
+                velocidadiX = velocidadi * cos(radians(angulo))
+                ti = 0
+                aux=0
+                
+                while self.rect.y < screen_height and self.rect.x<screen_width:
+                    time.sleep(0.001)
+                    self.rect.x = self.rect.x + velocidadiX * ti
+                    self.rect.y = self.rect.y - velocidadiY * ti +(1/2)*6*(ti**2)
+                    print(self.rect.y)
+                    print(self.rect.x)
+                    velocidadY = velocidadiY - (6 * ti)
+                    velocidadX = velocidadiX - (6 * ti)
+                    # ti modifica la velocidad del tiro
+                    ti += 0.001   
+                    screen.blit(self.imagen,(self.rect.x,self.rect.y))
+        screen.blit(self.imagen, self.rect)
 world_data = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -145,24 +188,26 @@ world_data = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+[0,0,0,0,0,0,3,4,0,0,0,3,4,0,0,0],
+[1,1,1,1,4,3,1,1,1,4,3,1,1,1,1,1]
 ]
 
 world = World(world_data)
-player = Player(100, screen_height - 130)
+bullet_default=pygame.image.load("assets/sprites/BULLETS/Bullet_default.png")
+x_player1=100
+y_player1=screen_height-130
+player = Player(x_player1, y_player1)
+bullet = Bullet(1,1,bullet_default,x_player1,y_player1)
 run = True
+screen.blit(fondo, (0, 0))
 while run:
-
-    screen.blit(fondo, (0, 0))
-
 
     world.draw()
 
     draw_grid()
     
     player.update()
-
+    bullet.update()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
