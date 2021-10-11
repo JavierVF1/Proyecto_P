@@ -255,8 +255,7 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
 
         screen.blit(bala,(posicionX,posicionY))
         pygame.display.flip()
-        
-        
+            
 def SpawnRandom(Sreen_width):
     #     SPAWN RANDOM
     xtanki = randint(10,Sreen_width/2)

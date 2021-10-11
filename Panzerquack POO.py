@@ -48,10 +48,13 @@ class World():
         self.tile_list = []
 
         #cargar imagenes para crear mapa
-        dirt_img =pygame.image.load("assets/textures/grass.png")
+        dirt_img =pygame.image.load("assets/textures/grassCenter.png")
         grass_img = pygame.image.load("assets/textures/grass.png")
         dirt_cliff=pygame.image.load("assets/textures/grassHillLeft.png")
         dirt_cliff2 = pygame.transform.flip(dirt_cliff, True, False)
+        grass_corner=pygame.image.load("assets/textures/grassHillLeft2.png")
+        grass_corner2 = pygame.transform.flip(grass_corner, True, False)
+
 
         row_count = 0
         for row in data:
@@ -80,6 +83,20 @@ class World():
                     self.tile_list.append(tile)
                 if tile == 4:
                     img = pygame.transform.scale(dirt_cliff2, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 5:
+                    img = pygame.transform.scale(grass_corner, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 6:
+                    img = pygame.transform.scale(grass_corner2, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -152,7 +169,7 @@ class Bullet():
             self.ang+=  1
             print(self.ang ,"\n")
         if key[pygame.K_DOWN]:
-            self.an-=  1
+            self.ang-=  1
             print(self.ang ,"\n")
         if key[pygame.K_SPACE]:
                 self.rect = self.rect.move(1,1) #velocidad del rect
@@ -177,6 +194,8 @@ class Bullet():
                     ti += 0.001   
                     screen.blit(self.imagen,(self.rect.x,self.rect.y))
         screen.blit(self.imagen, self.rect)
+
+        
 world_data = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -187,19 +206,20 @@ world_data = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,3,4,0,0,0,3,4,0,0,0],
-[1,1,1,1,4,3,1,1,1,4,3,1,1,1,1,1]
+[0,0,0,0,0,3,4,3,4,0,0,3,4,0,0,0],
+[2,2,2,4,3,5,6,5,6,4,3,5,6,2,2,2],
+[1,1,1,6,5,1,1,1,1,6,5,1,1,1,1,1]
 ]
 
 world = World(world_data)
 bullet_default=pygame.image.load("assets/sprites/BULLETS/Bullet_default.png")
 x_player1=100
-y_player1=screen_height-130
+y_player1=screen_height-140
 player = Player(x_player1, y_player1)
 bullet = Bullet(1,1,bullet_default,x_player1,y_player1)
 run = True
 screen.blit(fondo, (0, 0))
+
 while run:
 
     world.draw()
@@ -208,6 +228,7 @@ while run:
     
     player.update()
     bullet.update()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
