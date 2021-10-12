@@ -522,18 +522,22 @@ while run:
 
     montana,montana2=mapa()
 
-    if auxT == True: text()
+    if auxT == True: 
+        text()
         
     tank_gc.spawn()
     screen.blit(tank_gc.imagen,tank_gc.rect)
     tank_rc.spawn()
     screen.blit(tank_rc.imagen,tank_rc.rect)
     
-    if turno==10: turno=1
+    if turno==10:
+        turno=1
     
-    if keys[pygame.K_SPACE]: turno = 10
+    if keys[pygame.K_SPACE]: 
+        turno = 10
 
-    if turno!= 0: auxT=False
+    if turno!= 0: 
+        auxT=False
 
     if turno == 2:
         

@@ -87,6 +87,7 @@ class Player():
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
+        
     
 
     def update(self):
@@ -108,6 +109,12 @@ class Player():
         #draw player onto screen
         screen.blit(player1.imagen, player1.rect)
         screen.blit(player2.imagen, player2.rect)
+
+    def setVel(self,x):
+        self.vel=x
+    def setAng(self,y):
+        self.ang=y
+
         
 class Bullet():
     def __init__(self, ang, vel,imagen,x,y):
@@ -119,6 +126,7 @@ class Bullet():
         self.rect.y = y
     def update(self):
         key = pygame.key.get_pressed()
+        """
         if key[pygame.K_LEFT]:
             self.vel -= 1
             print(self.vel ,"\n")
@@ -131,30 +139,37 @@ class Bullet():
         if key[pygame.K_DOWN]:
             self.ang-=  1
             print(self.ang ,"\n")
+            
         if key[pygame.K_SPACE]:
-                self.rect = self.rect.move(1,1) #velocidad del rect
-                #velocidad i modifica la intensidad del disparo
-                velocidadi = self.vel
-                angulo= self.ang
-                #velocidad iY e iX modifican el angulo de disparo
-                velocidadiY = velocidadi * sin(radians(angulo))
-                velocidadiX = velocidadi * cos(radians(angulo))
-                ti = 0
-                aux=0
-                
-                while self.rect.y < screen_height and self.rect.x<screen_width:
-                    time.sleep(0.001)
-                    self.rect.x = self.rect.x + velocidadiX * ti
-                    self.rect.y = self.rect.y - velocidadiY * ti +(1/2)*6*(ti**2)
-                    print(self.rect.y)
-                    print(self.rect.x)
-                    velocidadY = velocidadiY - (6 * ti)
-                    velocidadX = velocidadiX - (6 * ti)
-                    # ti modifica la velocidad del tiro
-                    ti += 0.001   
-                    screen.blit(self.imagen,(self.rect.x,self.rect.y))
-                    pygame.display.flip()
+    """
+        rectangulobala = bullet_default.get_rect()
+        #posicionY = Player.y-10
+        #posicionX = Player.x+5
+        rectangulobala = rectangulobala.move(1,1)
+        #self.rect = self.rect.move(1,1) #velocidad del rect
+        #velocidad i modifica la intensidad del disparo
+        velocidadi = self.vel
+        angulo= self.ang
+        #velocidad iY e iX modifican el angulo de disparo
+        velocidadiY = velocidadi * sin(radians(angulo))
+        velocidadiX = velocidadi * cos(radians(angulo))
+        ti = 0
+        aux=0
+        
+        while self.rect.y < screen_height and self.rect.x<screen_width:
+            time.sleep(0.001)
+            self.rect.x = self.rect.x + velocidadiX * ti
+            self.rect.y = self.rect.y - velocidadiY * ti +(1/2)*6*(ti**2)
+            print(self.rect.y)
+            print(self.rect.x)
+            velocidadY = velocidadiY - (6 * ti)
+            velocidadX = velocidadiX - (6 * ti)
+            # ti modifica la velocidad del tiro
+            ti += 0.001   
+            screen.blit(self.imagen,(self.rect.x,self.rect.y))
+            pygame.display.flip()
         screen.blit(self.imagen, self.rect)
+        pygame.display.flip()
 
 #Función que dibuja las separaciónes del mapa
 #esto es para visualizarlo
@@ -181,11 +196,136 @@ def text():
 
     return
 
+def texttankI(posicion_Y,posicion_X,tanque):
+
+    posicionY=600-posicion_Y
+    posicionX=posicion_X - tanque.x
+
+
+    texto3= pygame.font.SysFont("Comic Sans MS",20)
+    altura= texto3.render(str(posicionY), 0, ColorMagico)
+    #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
+
+    texto4= pygame.font.SysFont("Comic Sans MS",20)
+    altura_a= texto4.render("Altura:", 0, ColorMagico)
+
+    texto5= pygame.font.SysFont("Comic Sans MS",20)
+    distancia= texto5.render(str(posicionX-5), 0, ColorMagico) # el -5 el por margen de error
+    #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
+
+    texto6= pygame.font.SysFont("Comic Sans MS",20)
+    distancia_d= texto4.render("Distancia:", 0, ColorMagico)
+
+
+    screen.blit(altura_a,(15,530))
+    screen.blit(altura,(15,550))
+    screen.blit(distancia_d,(100,530))
+    screen.blit(distancia,(100,550))
+    
+
+    return
+
+def texttankD(posicion_Y,posicion_X,tanque):
+
+    posicionY=600-posicion_Y
+    posicionX=posicion_X - tanque.x
+
+
+    texto3= pygame.font.SysFont("Comic Sans MS",20)
+    altura= texto3.render(str(posicionY), 0, ColorMagico)
+    #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
+
+    texto4= pygame.font.SysFont("Comic Sans MS",20)
+    altura_a= texto4.render("Altura:", 0, ColorMagico)
+
+    texto5= pygame.font.SysFont("Comic Sans MS",20)
+    distancia= texto5.render(str(-1*posicionX+5), 0, ColorMagico) #el +5 es por margen de error
+    #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
+
+    texto6= pygame.font.SysFont("Comic Sans MS",20)
+    distancia_d= texto4.render("Distancia:", 0, ColorMagico)
+
+
+    screen.blit(altura_a,(15,530))
+    screen.blit(altura,(15,550))
+    screen.blit(distancia_d,(100,530))
+    screen.blit(distancia,(100,550))
+    
+
+    return
+
+def textbox():
+    
+    font = pygame.font.Font(None, 32)
+    clock = pygame.time.Clock()
+    input_box = pygame.Rect(650, 40, 140, 32)
+    color_inactive = pygame.Color('lightskyblue3')
+    color_active = pygame.Color("black")
+    color = color_inactive
+    active = False
+    text = ''
+    done = False
+    aux2=0
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done=True
+                pygame.quit()
+                sys.exit()
+                
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                
+                if input_box.collidepoint(event.pos):
+
+                    active = not active
+                else:
+                    active = False
+
+                color = color_active if active else color_inactive
+                
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    if event.key == pygame.K_RETURN:
+                        
+                        aux=text
+                        aux2=1
+                        text = ''
+
+                    elif event.key == pygame.K_BACKSPACE:
+                        text = text[:-1]
+                        #pygame.draw.rect(screen, gray, [520, 560, 200, 60])
+                    else:
+                        text += event.unicode
+                        
+        
+
+        txt_surface = font.render(text, True, color)
+
+        width = max(100, txt_surface.get_width()+10)
+        input_box.w = width
+
+        screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
+
+        pygame.draw.rect(screen, color, input_box, 2)
+
+        pygame.display.flip()
+
+        if aux2==1:
+            return aux
+        
+    
 
 pygame.init()
 #PANTALLA
 screen_width = 800
 screen_height = 600
+
+negro = 0,0,0
+ColorMagico = 0,70,70
+gray = 127,127,127
+blue_sky=0,160,235
+
+
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Panzerquack')
@@ -194,11 +334,7 @@ pygame.display.set_caption('Panzerquack')
 tile_size = 50
 
 #cargar fondo
-
 fondo=pygame.image.load("assets/maps/world.png")
-
-
-
 
 world_data = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -218,41 +354,97 @@ world_data = [
 world = World(world_data)
 bullet_default=pygame.image.load("assets/sprites/BULLETS/Bullet_default.png")
 
+#For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (40, 40))
-img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
-img_left = pygame.transform.scale(img_left, (40, 40))
-
 x_player1=100
 y_player1=screen_height-140
 player1 = Player(x_player1, y_player1, img_right)
 bullet1 = Bullet(1,1,bullet_default,x_player1,y_player1)
-
+#For Player Tow
+img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
+img_left = pygame.transform.scale(img_left, (40, 40))
 x_player2=660
 y_player2=screen_height-140
 player2 = Player(x_player2, y_player2, img_left)
 bullet2 = Bullet(1,1,bullet_default,x_player2,y_player2)
+#For the text of Vel. and Ang.
+texto7= pygame.font.SysFont("Comic Sans MS",16,5)
+textvel= texto7.render("Velocidad:", 0, negro)
+texto8= pygame.font.SysFont("Comic Sans MS",16,5)
+textang= texto8.render("Angulo:", 0, negro)
+#Variables auxiliares
+run = True   #Variable while principal
+auxT=True   #Variable Pantalla de inicio (texto de inicio panzerquak)
+turno=0     #Variable control de turnos
+win=True    #Variable control de victoria
 
-run = True
-screen.blit(fondo, (0, 0))
+
 
 while run:
-
-    world.draw()
-
-    draw_grid()
-    
-    player1.update()
-    bullet1.update()
-    
-    bullet2.update()
-    
-
-
+    pygame.display.flip()
+    pygame.time.delay(40)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
+            run=False
+            pygame.quit()
+            sys.exit()
+    keys=pygame.key.get_pressed()
 
+    screen.blit(fondo, (0, 0))
+    world.draw()
+    draw_grid()
+
+    player1.update()
+
+    if auxT == True:  text()
+
+    if turno==10: turno=1
+    
+    if keys[pygame.K_SPACE]: turno = 10
+
+    if turno!= 0: auxT=False
+
+    if turno == 2:
+        print("\nTurno DOS")
+        #SE IMORIME TEXTO VELOCIDAD
+        screen.blit(textvel,(655, 20))
+        temporalx=int(textbox())
+        player2.setVel(-temporalx)
+        #SE BORRA EL TEXTO ANTERIOR 
+        pygame.draw.rect(screen, blue_sky, [650, 20, 200, 60])
+        #Se imprime el texto angulo
+        screen.blit(textang,(655, 20))
+        temporaly=int(textbox())
+        player2.setAng(-temporaly)
+
+
+        bullet2.update()
+        turno=10
+        
+        if win == False:
+            #victoria()
+            run=False
+
+    if turno == 1:
+        print("\nTurno UNO")
+        #SE IMORIME TEXTO VELOCIDAD
+        screen.blit(textvel,(655, 20))
+        temporalx=int(textbox())
+        player1.setVel(temporalx)
+        #SE BORRA EL TEXTO ANTERIOR 
+        pygame.draw.rect(screen, blue_sky, [650, 20, 200, 60])
+        #Se imprime el texto angulo
+        screen.blit(textang,(655, 20))
+        temporaly=int(textbox())
+        player1.setAng(temporaly)
+       
+        bullet1.update()
+        turno=2
+
+        if win == False:
+            #victoria()
+            run=False
     pygame.display.update()
 
 pygame.quit()
