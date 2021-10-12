@@ -17,7 +17,7 @@ class World():
         grass_corner=pygame.image.load("assets/textures/grassHillLeft2.png")
         grass_corner2 = pygame.transform.flip(grass_corner, True, False)
 
-
+        #definición de texturas 
         row_count = 0
         for row in data:
             col_count = 0
@@ -150,25 +150,23 @@ class Bullet():
         #velocidad i modifica la intensidad del disparo
         velocidadi = self.vel
         angulo= self.ang
+        posicionX=self.rect.x
+        posicionY=self.rect.y
         #velocidad iY e iX modifican el angulo de disparo
         velocidadiY = velocidadi * sin(radians(angulo))
         velocidadiX = velocidadi * cos(radians(angulo))
         ti = 0
         aux=0
         
-        while self.rect.y < screen_height and self.rect.x<screen_width:
+        while posicionY < 545 and posicionX<800:
             time.sleep(0.001)
-            self.rect.x = self.rect.x + velocidadiX * ti
-            self.rect.y = self.rect.y - velocidadiY * ti +(1/2)*6*(ti**2)
-            print(self.rect.y)
-            print(self.rect.x)
+            posicionX = posicionX + velocidadiX * ti
+            posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
             velocidadY = velocidadiY - (6 * ti)
             velocidadX = velocidadiX - (6 * ti)
             # ti modifica la velocidad del tiro
-            ti += 0.001   
-            screen.blit(self.imagen,(self.rect.x,self.rect.y))
-            pygame.display.flip()
-        screen.blit(self.imagen, self.rect)
+            ti += 0.01  
+            screen.blit(self.imagen,(posicionX,posicionY))
         pygame.display.flip()
 
 #Función que dibuja las separaciónes del mapa
@@ -330,7 +328,7 @@ blue_sky=0,160,235
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Panzerquack')
 
-#Tamaño de los recuadros del mapa
+#Tamaño de los recuadros del mapa 
 tile_size = 50
 
 #cargar fondo
@@ -438,7 +436,6 @@ while run:
         screen.blit(textang,(655, 20))
         temporaly=int(textbox())
         player1.setAng(temporaly)
-       
         bullet1.update()
         turno=2
 
