@@ -205,33 +205,22 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
         if flag == True:
             #condicion para asegurarnos de que saldra de la funcion cuando colisione
             flag=colision(posicionY,posicionX,flag)
-
             posicion_Y=posicionY
             posicion_X=posicionX 
-            
-            
             #text2(int(posicion_Y),int(posicion_X),tanque)
-           
-
             if turno == 2:
                 texttankD(int(posicion_Y),int(posicion_X),tanque)
-
                 if  (ytanki-10 <= posicion_Y <= ytanki+10) and (xtanki-10 <= posicion_X <= xtanki+10): 
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°2\n")
                     flag= False
                     win=False
-
                 if aux >= 40:
                     if  (ytankd-10 <= posicion_Y <= ytankd+10) and (xtankd-10 <= posicion_X <= xtankd+10):  
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                         print("Victoria para Jugador N°1\n")
                         flag= False
                         win=False
-
-
-
-
             if turno == 1:
                 texttankI(int(posicion_Y),int(posicion_X),tanque)
                 if  (ytankd-10 <= posicion_Y <= ytankd+10) and (xtankd-10 <= posicion_X <= xtankd+10): 
@@ -239,7 +228,6 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
                     print("Victoria para Jugador N°1\n")
                     flag= False
                     win=False
-
                 if aux >= 40:
                     if  (ytanki-10 <= posicion_Y <= ytanki+10) and (xtanki-10 <= posicion_X <= xtanki+10): 
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -247,11 +235,8 @@ def disparo(tanque,xtanki,ytanki,xtankd,ytankd,turno,win):
                         flag= False
                         win=False
             aux+=1
-                
-        
         if flag == False:
             return win  
-            
 
         screen.blit(bala,(posicionX,posicionY))
         pygame.display.flip()

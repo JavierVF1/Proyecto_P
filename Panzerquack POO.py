@@ -5,44 +5,6 @@ import time
 from random import randint
 from pygame.locals import *
 
-pygame.init()
-#PANTALLA
-screen_width = 800
-screen_height = 600
-
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Platformer')
-
-#Tamaño de los recuadros del mapa
-tile_size = 50
-
-#cargar fondo
-
-fondo=pygame.image.load("assets/maps/world.png")
-
-#Función que dibuja las separaciónes del mapa
-#esto es para visualizarlo
-def draw_grid():
-    for line in range(0,20):
-        pygame.draw.line(screen, (255, 255, 255),
-        (0, line * tile_size), (screen_width, line * tile_size))
-        pygame.draw.line(screen, (255, 255, 255),
-        (line * tile_size, 0), (line * tile_size, screen_height))
-#funcion de texto
-def text():
-
-    texto1= pygame.font.SysFont("Comic Sans MS",65)
-    Titulo= texto1.render("Panzerquack", 0, ColorMagico)
-
-    texto2= pygame.font.SysFont("Comic Sans MS",20)
-    SubTitulo= texto2.render("Presione espacio para comenzar", 0, ColorMagico)
-
-
-
-    screen.blit(Titulo,(200,220))
-    screen.blit(SubTitulo,(240,310))
-
-    return
 class World():
     def __init__(self, data):
         self.tile_list = []
@@ -110,26 +72,22 @@ class World():
             screen.blit(tile[0], tile[1])
 
 class Player():
-    def __init__(self, x, y):
-        self.images_right = []
-        self.images_left = []
-        self.index = 0
-        self.counter = 0
-        for num in range(1, 5):
-            img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-            img_right = pygame.transform.scale(img_right, (40, 40))
-            img_left = pygame.transform.flip(img_right, True, False)
-            self.images_right.append(img_right)
-            self.images_left.append(img_left)
-        self.image = self.images_right[self.index]
-        self.rect = self.image.get_rect()
+    def __init__(self, x, y, imagen):
+        
+        
+        self.x=x
+        self.y=y
+        self.imagen=imagen
+        self.rect=self.imagen.get_rect()
+        
         self.rect.x = x
         self.rect.y = y
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
+        self.width = self.imagen.get_width()
+        self.height = self.imagen.get_height()
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
+    
 
     def update(self):
         dx = 0
@@ -148,7 +106,9 @@ class Player():
             dx += 5
 
         #draw player onto screen
-        screen.blit(self.image, self.rect)
+        screen.blit(player1.imagen, player1.rect)
+        screen.blit(player2.imagen, player2.rect)
+        
 class Bullet():
     def __init__(self, ang, vel,imagen,x,y):
         self.ang=ang
@@ -193,9 +153,53 @@ class Bullet():
                     # ti modifica la velocidad del tiro
                     ti += 0.001   
                     screen.blit(self.imagen,(self.rect.x,self.rect.y))
+                    pygame.display.flip()
         screen.blit(self.imagen, self.rect)
 
-        
+#Función que dibuja las separaciónes del mapa
+#esto es para visualizarlo
+def draw_grid():
+    for line in range(0,20):
+        pygame.draw.line(screen, (255, 255, 255),
+        (0, line * tile_size), (screen_width, line * tile_size))
+        pygame.draw.line(screen, (255, 255, 255),
+        (line * tile_size, 0), (line * tile_size, screen_height))
+
+#funcion de texto
+def text():
+
+    texto1= pygame.font.SysFont("Comic Sans MS",65)
+    Titulo= texto1.render("Panzerquack", 0, ColorMagico)
+
+    texto2= pygame.font.SysFont("Comic Sans MS",20)
+    SubTitulo= texto2.render("Presione espacio para comenzar", 0, ColorMagico)
+
+
+
+    screen.blit(Titulo,(200,220))
+    screen.blit(SubTitulo,(240,310))
+
+    return
+
+
+pygame.init()
+#PANTALLA
+screen_width = 800
+screen_height = 600
+
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('Panzerquack')
+
+#Tamaño de los recuadros del mapa
+tile_size = 50
+
+#cargar fondo
+
+fondo=pygame.image.load("assets/maps/world.png")
+
+
+
+
 world_data = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -213,10 +217,22 @@ world_data = [
 
 world = World(world_data)
 bullet_default=pygame.image.load("assets/sprites/BULLETS/Bullet_default.png")
+
+img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+img_right = pygame.transform.scale(img_right, (40, 40))
+img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
+img_left = pygame.transform.scale(img_left, (40, 40))
+
 x_player1=100
 y_player1=screen_height-140
-player = Player(x_player1, y_player1)
-bullet = Bullet(1,1,bullet_default,x_player1,y_player1)
+player1 = Player(x_player1, y_player1, img_right)
+bullet1 = Bullet(1,1,bullet_default,x_player1,y_player1)
+
+x_player2=660
+y_player2=screen_height-140
+player2 = Player(x_player2, y_player2, img_left)
+bullet2 = Bullet(1,1,bullet_default,x_player2,y_player2)
+
 run = True
 screen.blit(fondo, (0, 0))
 
@@ -226,8 +242,12 @@ while run:
 
     draw_grid()
     
-    player.update()
-    bullet.update()
+    player1.update()
+    bullet1.update()
+    
+    bullet2.update()
+    
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
