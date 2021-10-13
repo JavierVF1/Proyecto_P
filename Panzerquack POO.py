@@ -159,7 +159,7 @@ class Bullet():
         aux=0
         
         while posicionY < 545 and posicionX<800:
-            time.sleep(0.001)
+            time.sleep(0.01)
             posicionX = posicionX + velocidadiX * ti
             posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
             velocidadY = velocidadiY - (6 * ti)
@@ -167,6 +167,7 @@ class Bullet():
             # ti modifica la velocidad del tiro
             ti += 0.01  
             screen.blit(self.imagen,(posicionX,posicionY))
+            pygame.display.flip()
         pygame.display.flip()
 
 #Función que dibuja las separaciónes del mapa
@@ -407,17 +408,18 @@ while run:
         print("\nTurno DOS")
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 20))
-        temporalx=int(textbox())
-        player2.setVel(-temporalx)
+        temporalvel=int(textbox())
+        player2.setVel(-temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
         pygame.draw.rect(screen, blue_sky, [650, 20, 200, 60])
         #Se imprime el texto angulo
         screen.blit(textang,(655, 20))
-        temporaly=int(textbox())
-        player2.setAng(-temporaly)
+        temporalang=int(textbox())
+        player2.setAng(-temporalang)
 
-
+        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default,x_player2,y_player2)
         bullet2.update()
+        #Siguente turno
         turno=10
         
         if win == False:
@@ -428,15 +430,18 @@ while run:
         print("\nTurno UNO")
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 20))
-        temporalx=int(textbox())
-        player1.setVel(temporalx)
+        temporalvel=int(textbox())
+        player1.setVel(temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
         pygame.draw.rect(screen, blue_sky, [650, 20, 200, 60])
         #Se imprime el texto angulo
         screen.blit(textang,(655, 20))
-        temporaly=int(textbox())
-        player1.setAng(temporaly)
+        temporalang=int(textbox())
+        player1.setAng(temporalang)
+        
+        bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1)
         bullet1.update()
+        #Siguente turno
         turno=2
 
         if win == False:
