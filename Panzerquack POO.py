@@ -250,7 +250,63 @@ def colision(posicionY,posicionX,flagLimite,world):
             return flagLimite
 
         #print(world[1][1])
-    
+
+def MapaSelect():
+
+    world_data = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,3,4,3,4,0,0,3,4,0,0,0],
+    [2,2,2,4,3,5,6,5,6,4,3,5,6,2,2,2],
+    [1,1,1,6,5,1,1,1,1,6,5,1,1,1,1,1]
+    ]
+    world_data2 = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,3,4,0,0,3,4,0,0,3,4,0,0,0],
+    [2,2,2,5,6,4,3,5,6,4,3,5,6,2,2,2],
+    [1,1,1,1,1,6,5,1,1,6,5,1,1,1,1,1]
+    ]
+    world_data3 = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,3,4,3,4,3,4,0,0,0,0,0],
+    [2,2,2,4,3,5,6,5,6,5,6,4,3,2,2,2],
+    [1,1,1,6,5,1,1,1,1,1,1,6,5,1,1,1]
+    ]
+
+    SelectMap=randint(1,3)
+
+    if SelectMap == 1:
+        return world_data
+
+    if SelectMap == 2:
+        return world_data2
+
+    if SelectMap == 3:
+        return world_data3
+
 #Función que dibuja las separaciónes del mapa
 #esto es para visualizarlo
 def draw_grid():
@@ -487,26 +543,17 @@ pygame.display.set_caption('Panzerquack')
 #Tamaño de los recuadros del mapa 
 tile_size = 50
 
-#cargar fondo
-fondo=pygame.image.load("assets/maps/world.png")
 
-world_data = [
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,3,4,3,4,0,0,3,4,0,0,0],
-[2,2,2,4,3,5,6,5,6,4,3,5,6,2,2,2],
-[1,1,1,6,5,1,1,1,1,6,5,1,1,1,1,1]
-]
+    
+    
+world_data=MapaSelect()
 
 world = World(world_data)
+
 bullet_default=pygame.image.load("assets/sprites/BULLETS/Bullet_default.png")
+
+#cargar fondo
+fondo=pygame.image.load("assets/maps/world.png")
 
 """
 aux=True
@@ -518,7 +565,6 @@ while aux==True:
     xtanki,ytanki,xtankd,ytankd=SpawnRandom(screen_width)
     aux=False
 """
-
 
 #For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
@@ -544,8 +590,6 @@ run = True   #Variable while principal
 auxT=True   #Variable Pantalla de inicio (texto de inicio panzerquak)
 turno=0     #Variable control de turnos
 win=True    #Variable control de victoria
-
-    
 
 
 
