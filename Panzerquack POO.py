@@ -74,13 +74,11 @@ class World():
 
 class Player():
     def __init__(self, x, y, imagen):
-        
-        
+    
         self.x=x
         self.y=y
         self.imagen=imagen
         self.rect=self.imagen.get_rect()
-        
         self.rect.x = x
         self.rect.y = y
         self.width = self.imagen.get_width()
@@ -89,8 +87,6 @@ class Player():
         self.jumped = False
         self.direction = 0
         
-    
-
     def update(self):
         dx = 0
         dy = 0
@@ -163,6 +159,8 @@ class Bullet():
         velocidadiX = velocidadi * cos(radians(angulo))
         ti = 0
         aux=0
+        sustituto=0
+        
         
         while posicionY < 600 and posicionX<800:
             time.sleep(0.01)
@@ -182,7 +180,8 @@ class Bullet():
                 posicion_X=posicionX 
 
                 if turno == 2:
-                    texttankD(int(posicion_Y),int(posicion_X),tanque)
+                    sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
+                    #sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                         print("Victoria para Jugador N°2\n")
@@ -197,7 +196,7 @@ class Bullet():
 
                 if turno == 1:
                     
-                    texttankI(int(posicion_Y),int(posicion_X),tanque)
+                    sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40): 
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                         print("Victoria para Jugador N°1\n")
@@ -215,9 +214,10 @@ class Bullet():
                 return 
 
             if flag == False:
-                return win, altura, distancia
+                return win
 
             screen.blit(self.imagen,(posicionX,posicionY))
+            time.sleep(0.001)
             pygame.display.flip()
         
 def colision(posicionY,posicionX,flagLimite,world):
@@ -251,8 +251,6 @@ def colision(posicionY,posicionX,flagLimite,world):
 
         #print(world[1][1])
     
-
-
 #Función que dibuja las separaciónes del mapa
 #esto es para visualizarlo
 def draw_grid():
@@ -276,49 +274,52 @@ def text():
 
     return
 
-def texttankI(posicion_Y,posicion_X,tanque):
-
-    posicionY=600-posicion_Y
+def texttankI(posicion_Y,posicion_X,tanque,sustituto):
+    
+    posicionY=600-posicion_Y-140   #Se le restan 140 de correccion para que la altura comiense en 0
     posicionX=posicion_X - tanque.x
 
-    aux=0
-    
+    if sustituto < posicionY :
+        sustituto=posicionY
+        
 
     texto3= pygame.font.SysFont("Comic Sans MS",20)
-    altura= texto3.render(str(posicionY), 0, ColorMagico)
+    altura= texto3.render(str(sustituto), 0, ColorMagico)
     #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
 
-    
-
     texto4= pygame.font.SysFont("Comic Sans MS",20)
-    altura_a= texto4.render("Altura:", 0, ColorMagico)
+    altura_a= texto4.render("Altura Max:", 0, ColorMagico)
 
     texto5= pygame.font.SysFont("Comic Sans MS",20)
-    distancia= texto5.render(str(posicionX-5), 0, ColorMagico) # el -5 el por margen de error
+    distancia= texto5.render(str(posicionX), 0, ColorMagico) # el -5 el por margen de error
     #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
 
     texto6= pygame.font.SysFont("Comic Sans MS",20)
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
 
 
-    pygame.draw.rect(screen, blue_sky, [15, 10, 130, 60])
+    pygame.draw.rect(screen, blue_sky, [15, 10, 170, 60])
     screen.blit(altura_a,(15,10))
     screen.blit(altura,(15,30))
-    screen.blit(distancia_d,(100,10))
-    screen.blit(distancia,(100,30))
+    screen.blit(distancia_d,(140,10))
+    screen.blit(distancia,(140,30))
     
-    
+    return sustituto
 
-    return 
-
-def texttankD(posicion_Y,posicion_X,tanque):
+def texttankD(posicion_Y,posicion_X,tanque,sustituto):
 
     posicionY=600-posicion_Y
     posicionX=posicion_X - tanque.x
 
 
+    if sustituto < posicionY :
+
+        sustituto=posicionY
+        
+    
+    
     texto3= pygame.font.SysFont("Comic Sans MS",20)
-    altura= texto3.render(str(posicionY), 0, ColorMagico)
+    altura= texto3.render(str(sustituto), 0, ColorMagico)
     #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
 
     texto4= pygame.font.SysFont("Comic Sans MS",20)
@@ -340,7 +341,7 @@ def texttankD(posicion_Y,posicion_X,tanque):
     
     
 
-    return
+    return  sustituto
 
 def textmax(posicion_Y,posicion_X,tanque):
 
@@ -431,7 +432,44 @@ def textbox():
 
         if aux2==1:
             return aux
-    
+
+"""
+def SpawnRandom(Sreen_width):
+    #     SPAWN RANDOM
+    xtanki = randint(10,Sreen_width/2)
+    ytanki = 486
+    constantesuelo = 0.8
+
+    if xtanki > 90 and xtanki < 167:
+        ytanki = ytanki - constantesuelo*(xtanki-90)  
+    if xtanki == 167:
+        ytanki = 428
+    if xtanki > 167 and xtanki < 250:
+        ytanki = 428 + constantesuelo*(xtanki-167)
+    if xtanki > 290 and xtanki < 340:
+        ytanki = ytanki + (xtanki-290)
+    if xtanki == 340:
+        ytanki = 530
+    if xtanki > 340 and xtanki < 400:
+        ytanki = 530 - (xtanki-340)
+
+    xtankd=randint(xtanki+Sreen_width/2,Sreen_width-10)
+    ytankd = 486
+
+    if xtankd < 748 and xtankd > 665:
+        ytankd = ytankd - constantesuelo*(748-xtankd)
+    if xtankd == 665:
+        ytankd = 428
+    if xtankd < 665 and xtankd > 595:
+        ytankd = 428 + constantesuelo*(665-xtankd)
+    if xtankd < 540 and xtankd > 495:
+        ytankd = ytankd + (540-xtankd)
+    if xtankd == 495:
+        ytankd = 530
+    if xtankd < 495 and xtankd > 438:
+        ytankd = 530 - (495-xtankd)
+    return xtanki,ytanki,xtankd,ytankd
+"""
  
 pygame.init()
 #PANTALLA
@@ -470,19 +508,31 @@ world_data = [
 world = World(world_data)
 bullet_default=pygame.image.load("assets/sprites/BULLETS/Bullet_default.png")
 
+"""
+aux=True
+while aux==True:
+    xtanki = 0
+    ytanki = 0
+    xtankd = 0
+    ytankd = 0
+    xtanki,ytanki,xtankd,ytankd=SpawnRandom(screen_width)
+    aux=False
+"""
+
+
 #For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (40, 40))
 x_player1=100
 y_player1=screen_height-140
-player1 = Player(x_player1, y_player1, img_right)
+player1 = Player(x_player1,y_player1, img_right)
 
 #For Player Tow
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
 img_left = pygame.transform.scale(img_left, (40, 40))
 x_player2=660
 y_player2=screen_height-140
-player2 = Player(x_player2, y_player2, img_left)
+player2 = Player(x_player2,y_player2, img_left)
 
 #For the text of Vel. and Ang.
 texto7= pygame.font.SysFont("Comic Sans MS",16,5)
@@ -494,8 +544,10 @@ run = True   #Variable while principal
 auxT=True   #Variable Pantalla de inicio (texto de inicio panzerquak)
 turno=0     #Variable control de turnos
 win=True    #Variable control de victoria
-distancia =0
-altura=0
+
+    
+
+
 
 while run:
     
