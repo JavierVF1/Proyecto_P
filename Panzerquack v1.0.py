@@ -322,6 +322,8 @@ def texttankI(posicion_Y,posicion_X,tanque):
     return
 def texttankD(posicion_Y,posicion_X,tanque):
 
+    print(tanque)
+    print(tanque.x)
     posicionY=600-posicion_Y
     posicionX=posicion_X - tanque.x
 
@@ -536,8 +538,7 @@ while run:
     if keys[pygame.K_SPACE]: 
         turno = 10
 
-    if turno!= 0: 
-        auxT=False
+    if turno!= 0: auxT=False
 
     if turno == 2:
         

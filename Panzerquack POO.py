@@ -5,6 +5,7 @@ import time
 from random import randint
 from pygame.locals import *
 
+
 class World():
     def __init__(self, data):
         self.tile_list = []
@@ -114,17 +115,22 @@ class Player():
         self.vel=x
     def setAng(self,y):
         self.ang=y
-
-        
+  
 class Bullet():
-    def __init__(self, ang, vel,imagen,x,y):
+    def __init__(self, ang, vel,imagen,x,y,XTanke2,YTanke2):
         self.ang=ang
         self.vel=vel
         self.imagen=imagen
         self.rect=self.imagen.get_rect()
         self.rect.x = x
         self.rect.y = y
-    def update(self):
+        self.XTanke2 = XTanke2
+        self.YTanke2 = YTanke2
+
+        #print(XTanke2)
+        #print(YTanke2)
+
+    def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world):
         key = pygame.key.get_pressed()
         """
         if key[pygame.K_LEFT]:
@@ -141,7 +147,7 @@ class Bullet():
             print(self.ang ,"\n")
             
         if key[pygame.K_SPACE]:
-    """
+        """
         rectangulobala = bullet_default.get_rect()
         #posicionY = Player.y-10
         #posicionX = Player.x+5
@@ -158,7 +164,7 @@ class Bullet():
         ti = 0
         aux=0
         
-        while posicionY < 545 and posicionX<800:
+        while posicionY < 600 and posicionX<800:
             time.sleep(0.01)
             posicionX = posicionX + velocidadiX * ti
             posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
@@ -166,9 +172,86 @@ class Bullet():
             velocidadX = velocidadiX - (6 * ti)
             # ti modifica la velocidad del tiro
             ti += 0.01  
+
+            flag=True
+            flagLimite=True
+
+            if flag == True:
+                flagLimite=colision(posicionY,posicionX,flagLimite,world)
+                posicion_Y=posicionY
+                posicion_X=posicionX 
+
+                if turno == 2:
+                    texttankD(int(posicion_Y),int(posicion_X),tanque)
+                    if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
+                        print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                        print("Victoria para Jugador N°2\n")
+                        flag= False
+                        win=False
+                    if aux >= 50:
+                        if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40):
+                            print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                            print("Victoria para Jugador N°1\n")
+                            flag= False
+                            win=False
+
+                if turno == 1:
+                    
+                    texttankI(int(posicion_Y),int(posicion_X),tanque)
+                    if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40): 
+                        print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                        print("Victoria para Jugador N°1\n")
+                        flag= False
+                        win=False
+                    if aux >= 50:
+                        if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40):
+                            print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                            print("Victoria para Jugador N°2\n")
+                            flag= False
+                            win=False
+                aux+=1
+
+            if flagLimite == False:
+                return 
+
+            if flag == False:
+                return win, altura, distancia
+
             screen.blit(self.imagen,(posicionX,posicionY))
             pygame.display.flip()
-        pygame.display.flip()
+        
+def colision(posicionY,posicionX,flagLimite,world):
+        
+        #print(posicionY)
+        #print(posicionX)
+        
+        a=int(posicionY)//50
+        b=int(posicionX)//50
+        
+        if world[a][b] != 0:
+            print("\nLIMITE ALCANZADO!!!!!\n")
+            flagLimite=False
+            return flagLimite
+
+
+        elif  posicionY <= 0  : 
+            print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
+            flagLimite=False
+            return flagLimite
+        
+        elif  posicionX <= 0  : 
+            print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
+            flagLimite=False
+            return flagLimite
+        
+        elif  posicionX >= 790  : 
+            print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
+            flagLimite=False
+            return flagLimite
+
+        #print(world[1][1])
+    
+
 
 #Función que dibuja las separaciónes del mapa
 #esto es para visualizarlo
@@ -188,8 +271,6 @@ def text():
     texto2= pygame.font.SysFont("Comic Sans MS",20)
     SubTitulo= texto2.render("Presione espacio para comenzar", 0, ColorMagico)
 
-
-
     screen.blit(Titulo,(200,220))
     screen.blit(SubTitulo,(240,310))
 
@@ -200,10 +281,14 @@ def texttankI(posicion_Y,posicion_X,tanque):
     posicionY=600-posicion_Y
     posicionX=posicion_X - tanque.x
 
+    aux=0
+    
 
     texto3= pygame.font.SysFont("Comic Sans MS",20)
     altura= texto3.render(str(posicionY), 0, ColorMagico)
     #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
+
+    
 
     texto4= pygame.font.SysFont("Comic Sans MS",20)
     altura_a= texto4.render("Altura:", 0, ColorMagico)
@@ -216,13 +301,15 @@ def texttankI(posicion_Y,posicion_X,tanque):
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
 
 
-    screen.blit(altura_a,(15,530))
-    screen.blit(altura,(15,550))
-    screen.blit(distancia_d,(100,530))
-    screen.blit(distancia,(100,550))
+    pygame.draw.rect(screen, blue_sky, [15, 10, 130, 60])
+    screen.blit(altura_a,(15,10))
+    screen.blit(altura,(15,30))
+    screen.blit(distancia_d,(100,10))
+    screen.blit(distancia,(100,30))
+    
     
 
-    return
+    return 
 
 def texttankD(posicion_Y,posicion_X,tanque):
 
@@ -245,10 +332,43 @@ def texttankD(posicion_Y,posicion_X,tanque):
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
 
 
-    screen.blit(altura_a,(15,530))
-    screen.blit(altura,(15,550))
-    screen.blit(distancia_d,(100,530))
-    screen.blit(distancia,(100,550))
+    pygame.draw.rect(screen, blue_sky, [15, 10, 130, 60])
+    screen.blit(altura_a,(15,10))
+    screen.blit(altura,(15,30))
+    screen.blit(distancia_d,(100,10))
+    screen.blit(distancia,(100,30))
+    
+    
+
+    return
+
+def textmax(posicion_Y,posicion_X,tanque):
+
+    posicionY=600-posicion_Y
+    posicionX=posicion_X - tanque.x
+
+
+    texto3= pygame.font.SysFont("Comic Sans MS",20)
+    altura= texto3.render(str(posicionY), 0, ColorMagico)
+    #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
+
+    texto4= pygame.font.SysFont("Comic Sans MS",20)
+    altura_a= texto4.render("Altura Maxima:", 0, ColorMagico)
+
+    texto5= pygame.font.SysFont("Comic Sans MS",20)
+    distancia= texto5.render(str(posicionX-5), 0, ColorMagico) # el -5 el por margen de error
+    #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
+
+    texto6= pygame.font.SysFont("Comic Sans MS",20)
+    distancia_d= texto4.render("Distancia Maxima:", 0, ColorMagico)
+
+
+    pygame.draw.rect(screen, blue_sky, [15, 10, 130, 60])
+    screen.blit(altura_a,(15,10))
+    screen.blit(altura,(15,30))
+    screen.blit(distancia_d,(100,10))
+    screen.blit(distancia,(100,30))
+    
     
 
     return
@@ -311,9 +431,8 @@ def textbox():
 
         if aux2==1:
             return aux
-        
     
-
+ 
 pygame.init()
 #PANTALLA
 screen_width = 800
@@ -323,8 +442,6 @@ negro = 0,0,0
 ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
-
-
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Panzerquack')
@@ -359,14 +476,14 @@ img_right = pygame.transform.scale(img_right, (40, 40))
 x_player1=100
 y_player1=screen_height-140
 player1 = Player(x_player1, y_player1, img_right)
-bullet1 = Bullet(1,1,bullet_default,x_player1,y_player1)
+
 #For Player Tow
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
 img_left = pygame.transform.scale(img_left, (40, 40))
 x_player2=660
 y_player2=screen_height-140
 player2 = Player(x_player2, y_player2, img_left)
-bullet2 = Bullet(1,1,bullet_default,x_player2,y_player2)
+
 #For the text of Vel. and Ang.
 texto7= pygame.font.SysFont("Comic Sans MS",16,5)
 textvel= texto7.render("Velocidad:", 0, negro)
@@ -377,12 +494,13 @@ run = True   #Variable while principal
 auxT=True   #Variable Pantalla de inicio (texto de inicio panzerquak)
 turno=0     #Variable control de turnos
 win=True    #Variable control de victoria
-
-
+distancia =0
+altura=0
 
 while run:
-    pygame.display.flip()
-    pygame.time.delay(40)
+    
+    #pygame.display.flip()
+    #pygame.time.delay(40)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run=False
@@ -392,7 +510,9 @@ while run:
 
     screen.blit(fondo, (0, 0))
     world.draw()
-    draw_grid()
+
+
+    #draw_grid()
 
     player1.update()
 
@@ -417,8 +537,8 @@ while run:
         temporalang=int(textbox())
         player2.setAng(-temporalang)
 
-        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default,x_player2,y_player2)
-        bullet2.update()
+        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default,x_player2,y_player2,x_player2,y_player2)
+        win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data)
         #Siguente turno
         turno=10
         
@@ -439,8 +559,9 @@ while run:
         temporalang=int(textbox())
         player1.setAng(temporalang)
         
-        bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1)
-        bullet1.update()
+        bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2)
+        win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data)
+        
         #Siguente turno
         turno=2
 
