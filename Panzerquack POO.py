@@ -220,6 +220,86 @@ class Bullet():
             time.sleep(0.001)
             pygame.display.flip()
         
+
+def SpawnRandom(posicionx,posiciony,world,aux):
+    if aux == 1:
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+        
+        if world[posicionx][posiciony] == 6:
+            world[posicionx][posiciony] = world[posicionx-1][posiciony]
+       
+        if world[posicionx][posiciony] == 5 :
+            world[posicionx][posiciony] = world[posicionx-1][posiciony]
+        
+        if world[posicionx][posiciony] == 2:
+            posicionx = (posiciony+1)*50
+            return posicionx
+        
+        if world[posicionx][posiciony] == 3:  
+            posicionx = (posiciony+1)*50+10
+            return posicionx
+
+        if world[posicionx][posiciony] == 4:
+            posicionx = (posiciony+1)*50+20             
+            return posicionx
+    
+    if aux == 2:
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+            return 0
+        
+        if world[posicionx][posiciony] == 2:
+            posiciony = 460
+            return posiciony
+        
+        if world[posicionx][posiciony] == 3: 
+            posiciony = 50*posicionx-25
+            return posiciony
+
+        if world[posicionx][posiciony] == 4:  
+            posiciony = 50*posicionx
+            return posiciony
+    
+    if aux == 3:
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+        
+        if world[posicionx][posiciony] == 6:
+            world[posicionx][posiciony] = world[posicionx-1][posiciony]
+       
+        if world[posicionx][posiciony] == 5 :
+            world[posicionx][posiciony] = world[posicionx-1][posiciony]
+        
+        if world[posicionx][posiciony] == 2:
+            posicionx = (posiciony+1)*50
+            return posicionx
+        
+        if world[posicionx][posiciony] == 3:  
+            posicionx = (posiciony+1)*50-10
+            return posicionx
+
+        if world[posicionx][posiciony] == 4:
+            posicionx = (posiciony+1)*50+20             
+            return posicionx
+    
+    if aux == 4:
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+            return 0
+        
+        if world[posicionx][posiciony] == 2:
+            posiciony = 460
+            return posiciony
+        
+        if world[posicionx][posiciony] == 3: 
+            posiciony = 50*posicionx
+            return posiciony
+
+        if world[posicionx][posiciony] == 4:  
+            posiciony = 50*posicionx
+            return posiciony
+
 def colision(posicionY,posicionX,flagLimite,world):
         
         #print(posicionY)
@@ -542,9 +622,6 @@ pygame.display.set_caption('Panzerquack')
 
 #Tamaño de los recuadros del mapa 
 tile_size = 50
-
-
-    
     
 world_data=MapaSelect()
 
@@ -569,16 +646,28 @@ while aux==True:
 #For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (40, 40))
-x_player1=100
-y_player1=screen_height-140
-player1 = Player(x_player1,y_player1, img_right)
+
+a =  randint(9,10)
+b =  randint(0,7)
+
+print("valor a: ", a)
+print("valor b :", b)
+x_player1= SpawnRandom(a,b,world_data,1)
+y_player1= SpawnRandom(a,b,world_data,2)
+player1 = Player(x_player1-50,y_player1, img_right)
 
 #For Player Tow
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
 img_left = pygame.transform.scale(img_left, (40, 40))
-x_player2=660
-y_player2=screen_height-140
-player2 = Player(x_player2,y_player2, img_left)
+
+c = randint(9,10)
+d = randint(b+8,15)
+
+print("valor c: ",c)
+print("valor d: ",d)
+x_player2=SpawnRandom(c,d,world_data,3)
+y_player2=SpawnRandom(c,d,world_data,4)
+player2 = Player(x_player2-50,y_player2, img_left)
 
 #For the text of Vel. and Ang.
 texto7= pygame.font.SysFont("Comic Sans MS",16,5)
@@ -606,7 +695,6 @@ while run:
 
     screen.blit(fondo, (0, 0))
     world.draw()
-
 
     #draw_grid()
 
