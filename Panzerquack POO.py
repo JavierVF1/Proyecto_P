@@ -221,17 +221,34 @@ class Bullet():
             pygame.display.flip()
         
 
-def SpawnRandom(posicionx,posiciony,world,aux):
-    if aux == 1:
+def SpawnRandom(posicionx,posiciony,world,aux,mapa):
+    
+    if aux == 1 and mapa ==1:
+        #CASOS DE ERROR
+        if posicionx == 10 and posiciony == 6:
+            posicionx = 9
+            posiciony = 6
+
+        if posicionx == 10 and posiciony == 5:
+            posicionx = 9
+            posiciony = 5
+        
+        if posicionx == 9 and posiciony ==3:
+            posicionx = 10
+            posiciony = 3
+        
+        if posicionx == 10 and posiciony ==7:
+            posicionx = 9
+            posiciony = 7
+
+        if posicionx == 9 and posiciony == 4:
+            posicionx = 10
+            posiciony = 4 
+        
+        #CASOS FUNCIONALES
         if world[posicionx][posiciony] == 0:
             world[posicionx][posiciony] = world[posicionx+1][posiciony]
-        
-        if world[posicionx][posiciony] == 6:
-            world[posicionx][posiciony] = world[posicionx-1][posiciony]
        
-        if world[posicionx][posiciony] == 5 :
-            world[posicionx][posiciony] = world[posicionx-1][posiciony]
-        
         if world[posicionx][posiciony] == 2:
             posicionx = (posiciony+1)*50
             return posicionx
@@ -241,10 +258,33 @@ def SpawnRandom(posicionx,posiciony,world,aux):
             return posicionx
 
         if world[posicionx][posiciony] == 4:
-            posicionx = (posiciony+1)*50+20             
+            posicionx = (posiciony+1)*50+20           
             return posicionx
+
     
-    if aux == 2:
+    if aux == 2 and mapa ==1:
+        #CASOS DE ERROR
+        if posicionx == 10 and posiciony == 6:
+            posicionx = 9
+            posiciony = 6
+        
+        if posicionx == 10 and posiciony == 5:
+            posicionx = 9
+            posiciony = 5
+        
+        if posicionx == 9 and posiciony ==3:
+            posicionx = 10
+            posiciony = 3
+        
+        if posicionx == 10 and posiciony ==7:
+            posicionx = 9
+            posiciony = 7
+
+        if posicionx == 9 and posiciony == 4:
+            posicionx = 10
+            posiciony = 4 
+        
+        #CASOS FUNCIONALES
         if world[posicionx][posiciony] == 0:
             world[posicionx][posiciony] = world[posicionx+1][posiciony]
             return 0
@@ -261,15 +301,23 @@ def SpawnRandom(posicionx,posiciony,world,aux):
             posiciony = 50*posicionx
             return posiciony
     
-    if aux == 3:
+    if aux == 3 and mapa == 1:
+        #CASOS DE ERROR
+        if posicionx == 9 and posiciony ==10:
+            posicionx = 10
+            posiciony = 10
+
+        if posicionx == 10 and posiciony ==12:
+            posicionx = 9
+            posiciony = 12
+
+        if posicionx == 9 and posiciony ==9:
+            posicionx = 10
+            posiciony = 9
+        
+        #CASOS FUNCIONALES
         if world[posicionx][posiciony] == 0:
             world[posicionx][posiciony] = world[posicionx+1][posiciony]
-        
-        if world[posicionx][posiciony] == 6:
-            world[posicionx][posiciony] = world[posicionx-1][posiciony]
-       
-        if world[posicionx][posiciony] == 5 :
-            world[posicionx][posiciony] = world[posicionx-1][posiciony]
         
         if world[posicionx][posiciony] == 2:
             posicionx = (posiciony+1)*50
@@ -283,7 +331,21 @@ def SpawnRandom(posicionx,posiciony,world,aux):
             posicionx = (posiciony+1)*50+20             
             return posicionx
     
-    if aux == 4:
+    if aux == 4 and mapa == 1:
+        #CASOS DE ERRROR
+        if posicionx == 9 and posiciony ==10:
+            posicionx = 10
+            posiciony = 10
+        
+        if posicionx == 10 and posiciony ==12:
+            posicionx = 9
+            posiciony = 12
+        
+        if posicionx == 9 and posiciony ==9:
+            posicionx = 10
+            posiciony = 9
+
+        #CASOS FUNCIONALES
         if world[posicionx][posiciony] == 0:
             world[posicionx][posiciony] = world[posicionx+1][posiciony]
             return 0
@@ -299,6 +361,307 @@ def SpawnRandom(posicionx,posiciony,world,aux):
         if world[posicionx][posiciony] == 4:  
             posiciony = 50*posicionx
             return posiciony
+       
+    if aux == 1 and mapa ==2:
+        #CASOS DE ERROR
+        if posicionx == 10 and posiciony ==3:
+            posicionx = 9
+            posiciony = 3
+
+        if posicionx == 10 and posiciony ==4:
+            posicionx = 9
+            posiciony = 4
+
+        if posicionx == 9 and posiciony ==5:
+            posicionx = 10
+            posiciony = 5
+
+        if posicionx == 9 and posiciony ==6:
+            posicionx = 10
+            posiciony = 6
+
+        if posicionx == 10 and posiciony ==7:
+            posicionx = 9
+            posiciony = 7
+
+        #CASOS FUNCIONALES
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+       
+        if world[posicionx][posiciony] == 2:
+            posicionx = (posiciony+1)*50
+            return posicionx
+        
+        if world[posicionx][posiciony] == 3:  
+            posicionx = (posiciony+1)*50+10
+            return posicionx
+
+        if world[posicionx][posiciony] == 4:
+            posicionx = (posiciony+1)*50+20           
+            return posicionx
+
+    if aux == 2 and mapa ==2:
+        if posicionx == 10 and posiciony ==3:
+            posicionx = 9
+            posiciony = 3
+        
+        if posicionx == 10 and posiciony ==4:
+            posicionx = 9
+            posiciony = 4
+
+        if posicionx == 9 and posiciony ==5:
+            posicionx = 10
+            posiciony = 5
+
+        if posicionx == 9 and posiciony ==6:
+            posicionx = 10
+            posiciony = 6
+        
+        if posicionx == 10 and posiciony ==7:
+            posicionx = 9
+            posiciony = 7
+        
+        #CASOS FUNCIONALES
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+            return 0
+        
+        if world[posicionx][posiciony] == 2:
+            posiciony = 460
+            return posiciony
+        
+        if world[posicionx][posiciony] == 3: 
+            posiciony = 50*posicionx-25
+            return posiciony
+
+        if world[posicionx][posiciony] == 4:  
+            posiciony = 50*posicionx
+            return posiciony
+    
+    if aux == 3 and mapa == 2:
+        #CASOS DE ERROR
+        if posicionx == 9 and posiciony ==10:
+            posicionx = 10
+            posiciony = 10
+        
+        if posicionx == 10 and posiciony ==11:
+            posicionx = 9
+            posiciony = 11
+
+        if posicionx == 9 and posiciony ==9:
+            posicionx = 10
+            posiciony = 9
+
+        if posicionx == 10 and posiciony ==12:
+            posicionx = 9
+            posiciony = 12
+
+        if posicionx == 10 and posiciony ==8:
+            posicionx = 9
+            posiciony = 8
+
+        #CASOS FUNCIONALES
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+        
+        if world[posicionx][posiciony] == 2:
+            posicionx = (posiciony+1)*50
+            return posicionx
+        
+        if world[posicionx][posiciony] == 3:  
+            posicionx = (posiciony+1)*50-10
+            return posicionx
+
+        if world[posicionx][posiciony] == 4:
+            posicionx = (posiciony+1)*50+20             
+            return posicionx
+    
+    if aux == 4 and mapa == 2:
+        #CASOS DE ERROR
+        if posicionx == 9 and posiciony ==10:
+            posicionx = 10
+            posiciony = 10
+
+        if posicionx == 10 and posiciony ==11:
+            posicionx = 9
+            posiciony = 11
+
+        if posicionx == 9 and posiciony ==9:
+            posicionx = 10
+            posiciony = 9
+
+        if posicionx == 10 and posiciony ==12:
+            posicionx = 9
+            posiciony = 12
+        
+        if posicionx == 10 and posiciony ==8:
+            posicionx = 9
+            posiciony = 8
+
+        #CASOS FUNCIONALES
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+            return 0
+        
+        if world[posicionx][posiciony] == 2:
+            posiciony = 460
+            return posiciony
+        
+        if world[posicionx][posiciony] == 3: 
+            posiciony = 50*posicionx
+            return posiciony
+
+        if world[posicionx][posiciony] == 4:  
+            posiciony = 50*posicionx
+            return posiciony
+    
+    if aux == 1 and mapa ==3:
+        #CASOS DE ERROR
+        if posicionx == 10 and posiciony ==6:
+            posicionx = 9
+            posiciony = 6
+        
+        if posicionx == 9 and posiciony ==4:
+            posicionx = 10
+            posiciony = 4
+
+        if posicionx == 10 and posiciony ==5:
+            posicionx = 9
+            posiciony = 5
+
+        if posicionx == 10 and posiciony ==7:
+            posicionx = 9
+            posiciony = 7
+    
+        if posicionx == 9 and posiciony ==3:
+            posicionx = 10
+            posiciony = 3
+
+        #CASOS FUNCIONALES
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+       
+        if world[posicionx][posiciony] == 2:
+            posicionx = (posiciony+1)*50
+            return posicionx
+        
+        if world[posicionx][posiciony] == 3:  
+            posicionx = (posiciony+1)*50+10
+            return posicionx
+
+        if world[posicionx][posiciony] == 4:
+            posicionx = (posiciony+1)*50+20           
+            return posicionx
+
+    
+    if aux == 2 and mapa ==3: 
+        #CASOS DE ERROR
+        if posicionx == 10 and posiciony ==6:
+            posicionx = 9
+            posiciony = 6
+        
+        if posicionx == 9 and posiciony ==4:
+            posicionx = 10
+            posiciony = 4
+
+        if posicionx == 10 and posiciony ==5:
+            posicionx = 9
+            posiciony = 5
+
+        if posicionx == 10 and posiciony ==7:
+            posicionx = 9
+            posiciony = 7
+        
+        if posicionx == 9 and posiciony ==3:
+            posicionx = 10
+            posiciony = 3
+
+        #CASOS FUNCIONALES
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+            return 0
+        
+        if world[posicionx][posiciony] == 2:
+            posiciony = 460
+            return posiciony
+        
+        if world[posicionx][posiciony] == 3: 
+            posiciony = 50*posicionx-25
+            return posiciony
+
+        if world[posicionx][posiciony] == 4:  
+            posiciony = 50*posicionx
+            return posiciony
+    
+    if aux == 3 and mapa == 3:
+        #CASOS DE ERROR
+        if posicionx == 10 and posiciony ==8:
+            posicionx = 9
+            posiciony = 8
+        
+        if posicionx == 9 and posiciony ==12:
+            posicionx = 10
+            posiciony = 12
+
+        if posicionx == 9 and posiciony ==11:
+            posicionx = 10
+            posiciony = 11
+
+        if posicionx == 10 and posiciony ==10:
+            posicionx = 9
+            posiciony = 10
+
+        #CASOS FUNCIONALES
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+        
+        if world[posicionx][posiciony] == 2:
+            posicionx = (posiciony+1)*50
+            return posicionx
+        
+        if world[posicionx][posiciony] == 3:  
+            posicionx = (posiciony+1)*50-10
+            return posicionx
+
+        if world[posicionx][posiciony] == 4:
+            posicionx = (posiciony+1)*50+20             
+            return posicionx
+    
+    if aux == 4 and mapa == 3:
+        #CASOS DE ERROR
+        if posicionx == 10 and posiciony ==8:
+            posicionx = 9
+            posiciony = 8
+        
+        if posicionx == 9 and posiciony ==12:
+            posicionx = 10
+            posiciony = 12
+
+        if posicionx == 9 and posiciony ==11:
+            posicionx = 10
+            posiciony = 11
+
+        if posicionx == 10 and posiciony ==10:
+            posicionx = 9
+            posiciony = 10
+
+        #CASOS FUNCIONALES
+        if world[posicionx][posiciony] == 0:
+            world[posicionx][posiciony] = world[posicionx+1][posiciony]
+            return 0
+        
+        if world[posicionx][posiciony] == 2:
+            posiciony = 460
+            return posiciony
+        
+        if world[posicionx][posiciony] == 3: 
+            posiciony = 50*posicionx
+            return posiciony
+
+        if world[posicionx][posiciony] == 4:  
+            posiciony = 50*posicionx
+            return posiciony
+    
 
 def colision(posicionY,posicionX,flagLimite,world):
         
@@ -331,7 +694,7 @@ def colision(posicionY,posicionX,flagLimite,world):
 
         #print(world[1][1])
 
-def MapaSelect():
+def MapaSelect(seleccion):
 
     world_data = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -376,15 +739,13 @@ def MapaSelect():
     [1,1,1,6,5,1,1,1,1,1,1,6,5,1,1,1]
     ]
 
-    SelectMap=randint(1,3)
-
-    if SelectMap == 1:
+    if seleccion == 1:
         return world_data
 
-    if SelectMap == 2:
+    if seleccion == 2:
         return world_data2
 
-    if SelectMap == 3:
+    if seleccion == 3:
         return world_data3
 
 #Función que dibuja las separaciónes del mapa
@@ -622,8 +983,10 @@ pygame.display.set_caption('Panzerquack')
 
 #Tamaño de los recuadros del mapa 
 tile_size = 50
-    
-world_data=MapaSelect()
+
+mapa = randint(1,3)
+print("el mapa es: ", mapa)   
+world_data=MapaSelect(mapa)
 
 world = World(world_data)
 
@@ -652,8 +1015,8 @@ b =  randint(0,7)
 
 print("valor a: ", a)
 print("valor b :", b)
-x_player1= SpawnRandom(a,b,world_data,1)
-y_player1= SpawnRandom(a,b,world_data,2)
+x_player1= SpawnRandom(a,b,world_data,1,mapa)
+y_player1= SpawnRandom(a,b,world_data,2,mapa)
 player1 = Player(x_player1-50,y_player1, img_right)
 
 #For Player Tow
@@ -665,8 +1028,8 @@ d = randint(b+8,15)
 
 print("valor c: ",c)
 print("valor d: ",d)
-x_player2=SpawnRandom(c,d,world_data,3)
-y_player2=SpawnRandom(c,d,world_data,4)
+x_player2=SpawnRandom(c,d,world_data,3,mapa)
+y_player2=SpawnRandom(c,d,world_data,4,mapa)
 player2 = Player(x_player2-50,y_player2, img_left)
 
 #For the text of Vel. and Ang.
@@ -679,8 +1042,6 @@ run = True   #Variable while principal
 auxT=True   #Variable Pantalla de inicio (texto de inicio panzerquak)
 turno=0     #Variable control de turnos
 win=True    #Variable control de victoria
-
-
 
 while run:
     
