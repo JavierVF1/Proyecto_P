@@ -74,7 +74,7 @@ class World():
 
 class Player():
     def __init__(self, x, y, imagen):
-    
+        self.vida=100
         self.x=x
         self.y=y
         self.imagen=imagen
@@ -111,6 +111,8 @@ class Player():
         self.vel=x
     def setAng(self,y):
         self.ang=y
+    def dmge(self,dmge):
+        self.vida=self.vida-dmge
   
 class Bullet():
     def __init__(self, ang, vel,imagen,x,y,XTanke2,YTanke2):
@@ -183,16 +185,20 @@ class Bullet():
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     #sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
-                        print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                        print("Victoria para Jugador N°2\n")
-                        flag= False
-                        win=False
-                    if aux >= 50:
-                        if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40):
+                        player1.dmge(30)
+                        if player1.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                            print("Victoria para Jugador N°1\n")
+                            print("Victoria para Jugador N°2\n")
                             flag= False
                             win=False
+                    if aux >= 50:
+                        if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40):
+                            player2.dmge(30)
+                            if player2.vida<=0:
+                                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                                print("Victoria para Jugador N°1\n")
+                                flag= False
+                                win=False
 
                 if turno == 1:
                     
