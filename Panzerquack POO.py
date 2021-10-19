@@ -210,7 +210,78 @@ class Bullet():
             screen.blit(self.imagen,(posicionX,posicionY))
             time.sleep(0.001)
             pygame.display.flip()
+
+class SelectBala():
+    
+
+    def text(bala105,balaPerforante,bala90):
+
+        texto1= pygame.font.SysFont("Comic Sans MS",20)
+        Titulo= texto1.render("Selecion de proyectil:", 0, negro)
+
+        texto2= pygame.font.SysFont("Comic Sans MS",20)
+        texto105mm= texto2.render("1.- 105mm:       "+str (bala105), 0, ColorMagico)
+
+        texto3= pygame.font.SysFont("Comic Sans MS",20)
+        textoPerforante= texto3.render("2.- Perforante: "+str (balaPerforante), 0, ColorMagico)
+
+        texto4= pygame.font.SysFont("Comic Sans MS",20)
+        texto90mm= texto4.render("3.- 90mm:         "+str (bala90), 0, ColorMagico)
+
+
+
+        screen.blit(Titulo,(570, 100))
+        screen.blit(texto105mm,(560, 135))
+        screen.blit(textoPerforante,(560, 155))
+        screen.blit(texto90mm,(560, 175))
+
+        return
+
+
+    def textBala():
         
+        font = pygame.font.Font(None, 32)
+        input_box = pygame.Rect(750, 150, 140, 32)
+        color_inactive = pygame.Color('lightskyblue3')
+        color_active = pygame.Color("black")
+        color = color_inactive
+        active = False
+        text = ''
+        done = False
+        aux2=0
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    done=True
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if input_box.collidepoint(event.pos):
+                        active = not active
+                    else:
+                        active = False
+                    color = color_active if active else color_inactive
+                if event.type == pygame.KEYDOWN:
+                    if active:
+                        if event.key == pygame.K_RETURN:
+                            auxbala=text
+                            aux2=1
+                            text = ''
+                        elif event.key == pygame.K_BACKSPACE:
+                            text = text[:-1]
+                            pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
+                        else:
+                            if event.unicode == "1" or event.unicode == "2" or event.unicode == "3":
+                                text += event.unicode
+                            
+            txt_surface = font.render(text, True, color)
+            width = max(30, txt_surface.get_width()+10)
+            input_box.w = width
+            screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
+            pygame.draw.rect(screen, color, input_box, 2)
+            pygame.display.flip()
+            if aux2==1:
+                return auxbala     
 
 def SpawnRandom(posicionx,posiciony,world,aux,mapa):
     
@@ -865,8 +936,7 @@ def textmax(posicion_Y,posicion_X,tanque):
 def textbox():
     
     font = pygame.font.Font(None, 32)
-    clock = pygame.time.Clock()
-    input_box = pygame.Rect(650, 40, 140, 32)
+    input_box = pygame.Rect(650, 27, 140, 32)
     color_inactive = pygame.Color('lightskyblue3')
     color_active = pygame.Color("black")
     color = color_inactive
@@ -880,44 +950,31 @@ def textbox():
                 done=True
                 pygame.quit()
                 sys.exit()
-                
             if event.type == pygame.MOUSEBUTTONDOWN:
-                
                 if input_box.collidepoint(event.pos):
-
                     active = not active
                 else:
                     active = False
-
                 color = color_active if active else color_inactive
-                
             if event.type == pygame.KEYDOWN:
                 if active:
                     if event.key == pygame.K_RETURN:
-                        
                         aux=text
                         aux2=1
                         text = ''
-
                     elif event.key == pygame.K_BACKSPACE:
                         text = text[:-1]
-                        #pygame.draw.rect(screen, gray, [520, 560, 200, 60])
+                        pygame.draw.rect(screen, blue_sky, [650, 27, 140, 32])
                     else:
-                        text += event.unicode
+                        if event.unicode=="1"or event.unicode=="2"or event.unicode=="3"or event.unicode=="4"or event.unicode=="5"or event.unicode=="6"or event.unicode=="7"or event.unicode=="8"or event.unicode=="9"or event.unicode=="0":
+                                text += event.unicode
                         
-        
-
         txt_surface = font.render(text, True, color)
-
         width = max(100, txt_surface.get_width()+10)
         input_box.w = width
-
         screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
-
         pygame.draw.rect(screen, color, input_box, 2)
-
         pygame.display.flip()
-
         if aux2==1:
             return aux
 
@@ -981,7 +1038,7 @@ world_data=MapaSelect(mapa)
 
 world = World(world_data)
 
-bullet_default=pygame.image.load("assets/sprites/BULLETS/Bullet_default.png")
+
 
 #cargar fondo
 fondo=pygame.image.load("assets/maps/world.png")
@@ -1028,6 +1085,18 @@ texto7= pygame.font.SysFont("Comic Sans MS",16,5)
 textvel= texto7.render("Velocidad:", 0, negro)
 texto8= pygame.font.SysFont("Comic Sans MS",16,5)
 textang= texto8.render("Angulo:", 0, negro)
+
+
+#Variables Bala player One
+bala105_1=3
+balaPerforante_1=10
+bala90_1=3
+#Variables Bala player Tow
+bala105_2=3
+balaPerforante_2=10
+bala90_2=3
+
+
 #Variables auxiliares
 run = True   #Variable while principal
 auxT=True   #Variable Pantalla de inicio (texto de inicio panzerquak)
@@ -1035,7 +1104,7 @@ turno=0     #Variable control de turnos
 win=True    #Variable control de victoria
 
 while run:
-    
+    bala=""
     #pygame.display.flip()
     #pygame.time.delay(40)
     for event in pygame.event.get():
@@ -1062,6 +1131,34 @@ while run:
 
     if turno == 2:
         print("\nTurno DOS")
+        while True:
+            SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
+            bala=SelectBala.textBala()
+            if 0 < bala105_2 :
+
+                if int (bala) == 1:
+                    bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+                    bullet_default2=bullet_105mm
+                    bala105_2-=1
+                    break
+
+            if  0 < balaPerforante_2 :
+                if int (bala) == 2:
+                    bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+                    bullet_default2=bullet_perforante
+                    balaPerforante_2-=1
+                    break
+
+            if  0 < bala90_2:
+                if int (bala) == 3:
+                    bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+                    bullet_default2=bullet_90mm
+                    bala90_2-=1
+                    break
+            
+            pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
+            
+
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 20))
         temporalvel=int(textbox())
@@ -1073,7 +1170,7 @@ while run:
         temporalang=int(textbox())
         player2.setAng(-temporalang)
 
-        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default,x_player2,y_player2,x_player2,y_player2)
+        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2,y_player2,x_player2,y_player2)
         win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data)
         #Siguente turno
         turno=10
@@ -1084,6 +1181,35 @@ while run:
 
     if turno == 1:
         print("\nTurno UNO")
+        
+        while True:
+            SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
+            bala=SelectBala.textBala()
+            if 0 < bala105_1 :
+
+                if int (bala) == 1:
+                    bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+                    bullet_default=bullet_105mm
+                    bala105_1-=1
+                    break
+
+            if  0 < balaPerforante_1 :
+                if int (bala) == 2:
+                    bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+                    bullet_default=bullet_perforante
+                    balaPerforante_1-=1
+                    break
+
+            if  0 < bala90_1:
+                if int (bala) == 3:
+                    bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+                    bullet_default=bullet_90mm
+                    bala90_1-=1
+                    break
+            
+            pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
+            
+
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 20))
         temporalvel=int(textbox())
