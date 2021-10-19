@@ -5,7 +5,6 @@ import time
 from random import randint
 from pygame.locals import *
 
-
 class World():
     def __init__(self, data):
         self.tile_list = []
@@ -978,43 +977,6 @@ def textbox():
         if aux2==1:
             return aux
 
-"""
-def SpawnRandom(Sreen_width):
-    #     SPAWN RANDOM
-    xtanki = randint(10,Sreen_width/2)
-    ytanki = 486
-    constantesuelo = 0.8
-
-    if xtanki > 90 and xtanki < 167:
-        ytanki = ytanki - constantesuelo*(xtanki-90)  
-    if xtanki == 167:
-        ytanki = 428
-    if xtanki > 167 and xtanki < 250:
-        ytanki = 428 + constantesuelo*(xtanki-167)
-    if xtanki > 290 and xtanki < 340:
-        ytanki = ytanki + (xtanki-290)
-    if xtanki == 340:
-        ytanki = 530
-    if xtanki > 340 and xtanki < 400:
-        ytanki = 530 - (xtanki-340)
-
-    xtankd=randint(xtanki+Sreen_width/2,Sreen_width-10)
-    ytankd = 486
-
-    if xtankd < 748 and xtankd > 665:
-        ytankd = ytankd - constantesuelo*(748-xtankd)
-    if xtankd == 665:
-        ytankd = 428
-    if xtankd < 665 and xtankd > 595:
-        ytankd = 428 + constantesuelo*(665-xtankd)
-    if xtankd < 540 and xtankd > 495:
-        ytankd = ytankd + (540-xtankd)
-    if xtankd == 495:
-        ytankd = 530
-    if xtankd < 495 and xtankd > 438:
-        ytankd = 530 - (495-xtankd)
-    return xtanki,ytanki,xtankd,ytankd
-"""
  
 pygame.init()
 #PANTALLA
@@ -1038,21 +1000,8 @@ world_data=MapaSelect(mapa)
 
 world = World(world_data)
 
-
-
 #cargar fondo
 fondo=pygame.image.load("assets/maps/world.png")
-
-"""
-aux=True
-while aux==True:
-    xtanki = 0
-    ytanki = 0
-    xtankd = 0
-    ytankd = 0
-    xtanki,ytanki,xtankd,ytankd=SpawnRandom(screen_width)
-    aux=False
-"""
 
 #For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
@@ -1086,7 +1035,6 @@ textvel= texto7.render("Velocidad:", 0, negro)
 texto8= pygame.font.SysFont("Comic Sans MS",16,5)
 textang= texto8.render("Angulo:", 0, negro)
 
-
 #Variables Bala player One
 bala105_1=3
 balaPerforante_1=10
@@ -1095,7 +1043,6 @@ bala90_1=3
 bala105_2=3
 balaPerforante_2=10
 bala90_2=3
-
 
 #Variables auxiliares
 run = True   #Variable while principal
