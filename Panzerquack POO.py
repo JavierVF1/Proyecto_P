@@ -29,6 +29,14 @@ class World():
                     img_rect.y = row_count * tile_size
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
+                if tile == 2:
+                    img = pygame.transform.scale(grass_img, (tile_size, tile_size))
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (img, img_rect)
+                    self.tile_list.append(tile)
+                
                 col_count += 1
             row_count += 1
 
@@ -304,12 +312,12 @@ def MapaSelect(seleccion):
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0],
-    [1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1],
-    [1,1,1,0,0,0,0,1,1,0,0,0,0,1,1,1],
-    [1,1,1,1,0,0,0,1,1,0,0,0,1,1,1,1],
-    [1,1,1,1,1,1,0,1,1,0,0,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    [0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],
+    [2,2,0,0,0,0,0,1,1,0,0,0,0,0,2,2],
+    [1,1,2,0,0,0,0,1,1,0,0,0,0,2,1,1],
+    [1,1,1,2,0,0,0,1,1,0,0,0,2,1,1,1],
+    [1,1,1,1,2,2,0,1,1,0,0,2,1,1,1,1],
+    [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1]
     ]
     world_data2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -317,13 +325,13 @@ def MapaSelect(seleccion):
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0],
+    [0,0,0,2,2,0,0,1,1,0,0,2,2,0,0,0],
     [0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0],
     [0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0],
-    [0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0],
-    [1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1],
-    [1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1]
+    [2,2,2,1,1,0,0,1,1,0,0,1,1,2,2,2],
+    [1,1,1,1,1,0,2,1,1,2,0,1,1,1,1,1]
     ]
     world_data3 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -331,13 +339,13 @@ def MapaSelect(seleccion):
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-    [0,0,0,1,1,0,0,0,0,0,0,1,0,0,1,1],
-    [0,0,1,1,1,1,0,0,0,0,1,1,0,0,1,1],
-    [0,0,1,1,1,1,0,0,0,1,1,1,0,0,1,1],
-    [1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    [0,0,0,2,2,0,0,0,0,0,0,2,0,0,1,1],
+    [0,0,2,1,1,2,0,0,0,0,2,1,0,0,1,1],
+    [0,0,1,1,1,1,0,0,0,2,1,1,0,0,1,1],
+    [2,2,1,1,1,1,2,0,2,1,1,1,2,2,1,1],
+    [1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1]
     ]
 
     if seleccion == 1:
@@ -677,20 +685,20 @@ while run:
             
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
             
-
+        pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
         #SE IMORIME TEXTO VELOCIDAD
-        screen.blit(textvel,(655, 20))
+        screen.blit(textvel,(655, 5))
         temporalvel=int(textbox())
         player2.setVel(-temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
-        pygame.draw.rect(screen, blue_sky, [650, 20, 200, 60])
+        pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
         #Se imprime el texto angulo
-        screen.blit(textang,(655, 20))
+        screen.blit(textang,(655, 5))
         temporalang=int(textbox())
         player2.setAng(-temporalang)
 
-        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2,y_player2,x_player2,y_player2)
-        win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data)
+        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-50,y_player2-40,x_player2-50,y_player2-40)
+        win=bullet2.update(x_player2-50,y_player2-40,x_player2-50,y_player2-40,player2,world_data)
         #Siguente turno
         turno=10
         
@@ -728,20 +736,20 @@ while run:
             
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
             
-
+        pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
         #SE IMORIME TEXTO VELOCIDAD
-        screen.blit(textvel,(655, 20))
+        screen.blit(textvel,(655, 5))
         temporalvel=int(textbox())
         player1.setVel(temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
-        pygame.draw.rect(screen, blue_sky, [650, 20, 200, 60])
+        pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
         #Se imprime el texto angulo
-        screen.blit(textang,(655, 20))
+        screen.blit(textang,(655, 5))
         temporalang=int(textbox())
         player1.setAng(temporalang)
         
-        bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2)
-        win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data)
+        bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
+        win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data)
         
         #Siguente turno
         turno=2
