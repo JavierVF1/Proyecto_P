@@ -294,8 +294,6 @@ def colision(posicionY,posicionX,flagLimite,world):
             flagLimite=False
             return flagLimite
 
-        #print(world[1][1])
-
 def MapaSelect(seleccion):
 
     world_data = [
@@ -535,7 +533,6 @@ tile_size = 50
 mapa = randint(1,3)
 print("el mapa es: ", mapa)   
 world_data=MapaSelect(mapa)
-
 world = World(world_data)
 #IMAGES
 
@@ -547,7 +544,7 @@ img_right = pygame.transform.scale(img_right, (40, 40))
 #For Player Tow
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
 img_left = pygame.transform.scale(img_left, (40, 40))
-#FOR Turns
+#For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
 turn_text=pygame.transform.scale(turn_text, (120, 50))
 
@@ -628,6 +625,7 @@ texto7= pygame.font.SysFont("Comic Sans MS",16,5)
 textvel= texto7.render("Velocidad:", 0, negro)
 texto8= pygame.font.SysFont("Comic Sans MS",16,5)
 textang= texto8.render("Angulo:", 0, negro)
+
 #BALAS
 #Variables Bala player One
 bala105_1=3
@@ -646,8 +644,6 @@ win=True    #Variable control de victoria
 
 while run:
     bala=""
-    #pygame.display.flip()
-    #pygame.time.delay(40)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run=False
