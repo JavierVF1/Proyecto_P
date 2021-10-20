@@ -102,10 +102,7 @@ class Bullet():
 
     def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world):
         key = pygame.key.get_pressed()
-
         rectangulobala = bullet_default.get_rect()
-        #posicionY = Player.y-10
-        #posicionX = Player.x+5
         rectangulobala = rectangulobala.move(1,1)
         #self.rect = self.rect.move(1,1) #velocidad del rect
         #velocidad i modifica la intensidad del disparo
@@ -119,8 +116,6 @@ class Bullet():
         ti = 0
         aux=0
         sustituto=0
-        
-        
         while posicionY < 600 and posicionX<800:
             time.sleep(0.01)
             posicionX = posicionX + velocidadiX * ti
@@ -129,10 +124,8 @@ class Bullet():
             velocidadX = velocidadiX - (6 * ti)
             # ti modifica la velocidad del tiro
             ti += 0.01  
-
             flag=True
             flagLimite=True
-
             if flag == True:
                 flagLimite=colision(posicionY,posicionX,flagLimite,world)
                 posicion_Y=posicionY
@@ -530,30 +523,33 @@ pygame.init()
 #PANTALLA
 screen_width = 800
 screen_height = 600
-
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('Panzerquack')
+#Colores
 negro = 0,0,0
 ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
-
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Panzerquack')
-
 #Tamaño de los recuadros del mapa 
 tile_size = 50
-
 mapa = randint(1,3)
 print("el mapa es: ", mapa)   
 world_data=MapaSelect(mapa)
 
 world = World(world_data)
+#IMAGES
 
-#cargar fondo
+#Load Background
 fondo=pygame.image.load("assets/maps/world.png")
-
 #For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (40, 40))
+#For Player Tow
+img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
+img_left = pygame.transform.scale(img_left, (40, 40))
+#FOR Turns
+turn_text=pygame.image.load("assets/Textures/turn_text.png")
+turn_text=pygame.transform.scale(turn_text, (120, 50))
 
 if mapa ==1:
     valorestank1 = [[7,0],[7,1],[8,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
@@ -579,10 +575,6 @@ print("valor b :", b)
 x_player1= SpawnRandom(a,b,1)
 y_player1= SpawnRandom(a,b,2)
 player1 = Player(x_player1-50,y_player1-40, img_right)
-
-#For Player Tow
-img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
-img_left = pygame.transform.scale(img_left, (40, 40))
 
 if mapa == 1:
     i=b
@@ -636,7 +628,7 @@ texto7= pygame.font.SysFont("Comic Sans MS",16,5)
 textvel= texto7.render("Velocidad:", 0, negro)
 texto8= pygame.font.SysFont("Comic Sans MS",16,5)
 textang= texto8.render("Angulo:", 0, negro)
-
+#BALAS
 #Variables Bala player One
 bala105_1=3
 balaPerforante_1=10
@@ -681,6 +673,8 @@ while run:
     if turno == 2:
         print("\nTurno DOS")
         while True:
+            screen.blit(img_left,(screen_width-40,screen_height-50))
+            screen.blit(turn_text,(screen_width-120,screen_height-55))
             SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
             bala=SelectBala.textBala()
             if 0 < bala105_2 :
@@ -730,7 +724,8 @@ while run:
 
     if turno == 1:
         print("\nTurno UNO")
-        
+        screen.blit(img_right,(screen_width-40,screen_height-50))
+        screen.blit(turn_text,(screen_width-120,screen_height-55))
         while True:
             SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
             bala=SelectBala.textBala()
