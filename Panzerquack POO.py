@@ -548,7 +548,7 @@ img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (40, 40))
 
 if mapa ==1:
-    valorestank1 = [[7,0],[7,1],[7,2],[7,3],[10,4],[10,5],[11,6]]
+    valorestank1 = [[7,0],[7,1],[8,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
     z = choice(valorestank1)
     a = z[0]
     b = z[1]
@@ -560,7 +560,7 @@ if mapa == 2:
     b = z[1]
 
 if mapa == 3:
-    valorestank1 = [[10,0],[10,1],[8,2],[7,3],[7,4],[8,5]]
+    valorestank1 = [[10,0],[10,1],[8,2],[7,3],[7,4],[8,5],[10,6],[11,7]]
     z = choice(valorestank1)
     a = z[0]
     b = z[1]
@@ -577,7 +577,7 @@ img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
 img_left = pygame.transform.scale(img_left, (40, 40))
 
 if mapa == 1:
-    valorestank2 = [[11,9],[11,10],[10,11],[7,12],[7,13],[7,14],[7,15]]
+    valorestank2 = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
     z1 = choice(valorestank2)
     c = z1[0]
     d = z1[1]
@@ -589,7 +589,7 @@ if mapa == 2:
     d = z1[1]
 
 if mapa == 3:
-    valorestank2 = [[10,8],[9,9],[8,10],[7,11],[10,12],[10,13],[10,14],[10,15]]
+    valorestank2 = [[10,8],[9,9],[8,10],[7,11],[10,12],[10,13],[5,14],[5,15]]
     z1 = choice(valorestank2)
     c = z1[0]
     d = z1[1]
