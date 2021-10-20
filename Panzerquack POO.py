@@ -29,41 +29,6 @@ class World():
                     img_rect.y = row_count * tile_size
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
-                if tile == 2:
-                    img = pygame.transform.scale(grass_img, (tile_size, tile_size))
-                    img_rect = img.get_rect()
-                    img_rect.x = col_count * tile_size
-                    img_rect.y = row_count * tile_size
-                    tile = (img, img_rect)
-                    self.tile_list.append(tile)
-                if tile == 3:
-                    img = pygame.transform.scale(dirt_cliff, (tile_size, tile_size))
-                    img_rect = img.get_rect()
-                    img_rect.x = col_count * tile_size
-                    img_rect.y = row_count * tile_size
-                    tile = (img, img_rect)
-                    self.tile_list.append(tile)
-                if tile == 4:
-                    img = pygame.transform.scale(dirt_cliff2, (tile_size, tile_size))
-                    img_rect = img.get_rect()
-                    img_rect.x = col_count * tile_size
-                    img_rect.y = row_count * tile_size
-                    tile = (img, img_rect)
-                    self.tile_list.append(tile)
-                if tile == 5:
-                    img = pygame.transform.scale(grass_corner, (tile_size, tile_size))
-                    img_rect = img.get_rect()
-                    img_rect.x = col_count * tile_size
-                    img_rect.y = row_count * tile_size
-                    tile = (img, img_rect)
-                    self.tile_list.append(tile)
-                if tile == 6:
-                    img = pygame.transform.scale(grass_corner2, (tile_size, tile_size))
-                    img_rect = img.get_rect()
-                    img_rect.x = col_count * tile_size
-                    img_rect.y = row_count * tile_size
-                    tile = (img, img_rect)
-                    self.tile_list.append(tile)
                 col_count += 1
             row_count += 1
 
@@ -339,12 +304,12 @@ def MapaSelect(seleccion):
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1],
-    [1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1],
-    [1,1,1,1,0,0,0,3,4,0,0,0,1,1,1,1],
-    [1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1],
-    [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1]
+    [0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0],
+    [1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1],
+    [1,1,1,0,0,0,0,1,1,0,0,0,0,1,1,1],
+    [1,1,1,1,0,0,0,1,1,0,0,0,1,1,1,1],
+    [1,1,1,1,1,1,0,1,1,0,0,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
     world_data2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -366,13 +331,13 @@ def MapaSelect(seleccion):
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0],
-    [0,0,1,1,1,1,0,0,0,0,1,1,0,0,0,0],
-    [0,0,1,1,1,1,0,0,0,1,1,1,0,0,0,0],
-    [1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1]
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+    [0,0,0,1,1,0,0,0,0,0,0,1,0,0,1,1],
+    [0,0,1,1,1,1,0,0,0,0,1,1,0,0,1,1],
+    [0,0,1,1,1,1,0,0,0,1,1,1,0,0,1,1],
+    [1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
 
     if seleccion == 1:
