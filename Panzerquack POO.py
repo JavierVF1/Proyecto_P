@@ -585,19 +585,41 @@ img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
 img_left = pygame.transform.scale(img_left, (40, 40))
 
 if mapa == 1:
-    valorestank2 = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
+    i=b
+    valorestank2aux = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
+    valorestank2 = []
+    while i<len(valorestank2aux):
+        valorestank2.append(valorestank2aux[i])
+        i+=1
+
     z1 = choice(valorestank2)
     c = z1[0]
     d = z1[1]
 
 if mapa == 2:
-    valorestank2 = [[10,15],[10,14],[10,13],[7,12],[7,11],[11,9],[5,8]]
+    i=b
+    valorestank2aux = [[5,8],[11,9],[7,11],[7,12],[10,13],[10,14],[10,15]]
+    valorestank2 = []
+    if b == 7:
+        valorestank2.insert(0,[10,15])
+        print("lista: ", valorestank2)
+    else:
+        while i<len(valorestank2aux):
+            valorestank2.append(valorestank2aux[i])
+            print("lista: ", valorestank2)
+            i+=1
     z1 = choice(valorestank2)
     c = z1[0]
     d = z1[1]
 
 if mapa == 3:
-    valorestank2 = [[10,8],[9,9],[8,10],[7,11],[10,12],[10,13],[5,14],[5,15]]
+    i=b
+    valorestank2aux = [[10,8],[9,9],[8,10],[7,11],[10,12],[10,13],[5,14],[5,15]]
+    valorestank2 = []
+    while i<len(valorestank2aux):
+        valorestank2.append(valorestank2aux[i])
+        i+=1
+    
     z1 = choice(valorestank2)
     c = z1[0]
     d = z1[1]
