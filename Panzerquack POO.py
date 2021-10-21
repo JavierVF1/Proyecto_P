@@ -101,7 +101,7 @@ class Bullet():
         #print(XTanke2)
         #print(YTanke2)
 
-    def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world):
+    def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world,damage):
         key = pygame.key.get_pressed()
         rectangulobala = bullet_default.get_rect()
         rectangulobala = rectangulobala.move(1,1)
@@ -138,7 +138,7 @@ class Bullet():
                     #sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
                         if contdmg==1:
-                            player1.dmge(30)
+                            player1.dmge(damage)
                             contdmg-=1
                         if player1.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -148,7 +148,7 @@ class Bullet():
                     if aux >= 50:
                         if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40):
                             if contdmg==1:
-                                player2.dmge(30)
+                                player2.dmge(damage)
                                 contdmg-=1
                             if player2.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -161,7 +161,7 @@ class Bullet():
                     sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40): 
                         if contdmg==1:
-                            player2.dmge(30)
+                            player2.dmge(damage)
                             contdmg-=1
                         if player2.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -171,7 +171,7 @@ class Bullet():
                     if aux >= 50:
                         if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
                             if contdmg==1:
-                                player1.dmge(30)
+                                player1.dmge(damage)
                                 contdmg-=1
                             if player1.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -693,6 +693,7 @@ while run:
                     bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
                     bullet_default2=bullet_105mm
                     bala105_2-=1
+                    damage=50
                     break
 
             if  0 < balaPerforante_2 :
@@ -700,6 +701,7 @@ while run:
                     bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
                     bullet_default2=bullet_perforante
                     balaPerforante_2-=1
+                    damage=40
                     break
 
             if  0 < bala90_2:
@@ -707,6 +709,7 @@ while run:
                     bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
                     bullet_default2=bullet_90mm
                     bala90_2-=1
+                    damage=30
                     break
             
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
@@ -724,7 +727,7 @@ while run:
         player2.setAng(-temporalang)
 
         bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-50,y_player2-40,x_player2-50,y_player2-40)
-        win=bullet2.update(x_player2-50,y_player2-40,x_player2-50,y_player2-40,player2,world_data)
+        win=bullet2.update(x_player2-50,y_player2-40,x_player2-50,y_player2-40,player2,world_data,damage)
         #Siguente turno
         turno=10
         
@@ -745,6 +748,7 @@ while run:
                     bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
                     bullet_default=bullet_105mm
                     bala105_1-=1
+                    damage=50
                     break
 
             if  0 < balaPerforante_1 :
@@ -752,6 +756,7 @@ while run:
                     bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
                     bullet_default=bullet_perforante
                     balaPerforante_1-=1
+                    damage=40
                     break
 
             if  0 < bala90_1:
@@ -759,6 +764,7 @@ while run:
                     bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
                     bullet_default=bullet_90mm
                     bala90_1-=1
+                    damage=30
                     break
             
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
@@ -776,7 +782,7 @@ while run:
         player1.setAng(temporalang)
         
         bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
-        win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data)
+        win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
         
         #Siguente turno
         turno=2
