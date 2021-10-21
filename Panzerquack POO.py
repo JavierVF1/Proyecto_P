@@ -138,7 +138,7 @@ class Bullet():
                     #sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
                         if contdmg==1:
-                            player1.dmge(damage)
+                            player2.dmge(damage)
                             contdmg-=1
                         if player1.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -148,7 +148,7 @@ class Bullet():
                     if aux >= 50:
                         if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40):
                             if contdmg==1:
-                                player2.dmge(damage)
+                                player1.dmge(damage)
                                 contdmg-=1
                             if player2.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
