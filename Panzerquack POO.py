@@ -84,7 +84,8 @@ class Player():
     def setAng(self,y):
         self.ang=y
     def dmge(self,dmge):
-        self.vida=self.vida-dmge
+        self.vida-=dmge
+        print(self.vida)
   
 class Bullet():
     def __init__(self, ang, vel,imagen,x,y,XTanke2,YTanke2):
@@ -116,6 +117,7 @@ class Bullet():
         ti = 0
         aux=0
         sustituto=0
+        contdmg=1#contador para evitar que la bala golpee mas de una vez
         while posicionY < 600 and posicionX<800:
             time.sleep(0.01)
             posicionX = posicionX + velocidadiX * ti
@@ -135,7 +137,9 @@ class Bullet():
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     #sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
-                        player1.dmge(30)
+                        if contdmg==1:
+                            player1.dmge(30)
+                            contdmg-=1
                         if player1.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                             print("Victoria para Jugador N°2\n")
@@ -143,7 +147,9 @@ class Bullet():
                             win=False
                     if aux >= 50:
                         if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40):
-                            player2.dmge(30)
+                            if contdmg==1:
+                                player2.dmge(30)
+                                contdmg-=1
                             if player2.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                                 print("Victoria para Jugador N°1\n")
@@ -154,16 +160,24 @@ class Bullet():
                     
                     sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40): 
-                        print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                        print("Victoria para Jugador N°1\n")
-                        flag= False
-                        win=False
-                    if aux >= 50:
-                        if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40):
+                        if contdmg==1:
+                            player2.dmge(30)
+                            contdmg-=1
+                        if player2.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                            print("Victoria para Jugador N°2\n")
+                            print("Victoria para Jugador N°1\n")
                             flag= False
                             win=False
+                    if aux >= 50:
+                        if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
+                            if contdmg==1:
+                                player1.dmge(30)
+                                contdmg-=1
+                            if player1.vida<=0:
+                                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                                print("Victoria para Jugador N°2\n")
+                                flag= False
+                                win=False
                 aux+=1
 
             if flagLimite == False:
