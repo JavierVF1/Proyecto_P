@@ -261,7 +261,7 @@ class SelectBala():
             pygame.display.flip()
             if aux2==1:
                 return auxbala     
-
+#FUNCTIONS
 def SpawnRandom(posicionx,posiciony,aux):
     if aux == 1 :
         posicionx = 50*(posiciony+1)+5
@@ -371,7 +371,7 @@ def draw_grid():
         pygame.draw.line(screen, (255, 255, 255),
         (line * tile_size, 0), (line * tile_size, screen_height))
 
-#funcion de texto
+#funciones de texto
 def text():
 
     texto1= pygame.font.SysFont("Comic Sans MS",65)
@@ -529,7 +529,6 @@ def textbox():
         pygame.display.flip()
         if aux2==1:
             return aux
-
  
 pygame.init()
 #PANTALLA
@@ -639,7 +638,10 @@ texto7= pygame.font.SysFont("Comic Sans MS",16,5)
 textvel= texto7.render("Velocidad:", 0, negro)
 texto8= pygame.font.SysFont("Comic Sans MS",16,5)
 textang= texto8.render("Angulo:", 0, negro)
-
+texto9= pygame.font.SysFont("Comic Sans MS",16,5)
+#For the text of health
+textvidap1= texto9.render("Vida: "+str (player1.vida),0,negro)
+textvidap2= texto9.render("Vida: "+str (player1.vida),0,negro)
 #BALAS
 #Variables Bala player One
 bala105_1=3
@@ -683,12 +685,12 @@ while run:
     if turno == 2:
         print("\nTurno DOS")
         while True:
+            screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
             screen.blit(img_left,(screen_width-40,screen_height-50))
             screen.blit(turn_text,(screen_width-120,screen_height-55))
             SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
             bala=SelectBala.textBala()
             if 0 < bala105_2 :
-
                 if int (bala) == 1:
                     bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
                     bullet_default2=bullet_105mm
@@ -713,7 +715,7 @@ while run:
                     break
             
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
-            
+
         pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 5))
@@ -739,6 +741,7 @@ while run:
         print("\nTurno UNO")
         screen.blit(img_right,(screen_width-40,screen_height-50))
         screen.blit(turn_text,(screen_width-120,screen_height-55))
+        screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
         while True:
             SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
             bala=SelectBala.textBala()
