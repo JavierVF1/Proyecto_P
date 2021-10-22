@@ -742,6 +742,10 @@ while run:
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 5))
         temporalvel=int(textbox())
+        if temporalvel>10:
+            temporalvel=10
+        if temporalvel<-10:
+            temporalvel=-10
         player2.setVel(-temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
         pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
@@ -749,7 +753,6 @@ while run:
         screen.blit(textang,(655, 5))
         temporalang=int(textbox())
         player2.setAng(-temporalang)
-
         bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-20,y_player2-40,x_player1-50,y_player1-40)
         win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
         textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
@@ -813,6 +816,10 @@ while run:
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 5))
         temporalvel=int(textbox())
+        if temporalvel>10:
+            temporalvel=10
+        if temporalvel<-10:
+            temporalvel=-10
         player1.setVel(temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
         pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
