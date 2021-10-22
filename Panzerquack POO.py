@@ -452,7 +452,7 @@ def texttankD(posicion_Y,posicion_X,tanque,sustituto):
     altura_a= texto4.render("Altura:", 0, ColorMagico)
 
     texto5= pygame.font.SysFont("Comic Sans MS",20)
-    distancia= texto5.render(str(-1*posicionX), 0, ColorMagico) #el +5 es por margen de error
+    distancia= texto5.render(str(-1*posicionX+30), 0, ColorMagico) #el +5 es por margen de error
     #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
 
     texto6= pygame.font.SysFont("Comic Sans MS",20)
