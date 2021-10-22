@@ -303,7 +303,7 @@ def colision(posicionY,posicionX,flagLimite,world):
         b=int(posicionX)//50
         
         if world[a][b] != 0:
-            print("\nLIMITE ALCANZADO!!!!!\n")
+            print("\nCOLISION CON TERRENO!!!!!\n")
             flagLimite=False
             return flagLimite
 
@@ -618,11 +618,11 @@ if mapa == 2:
     valorestank2 = []
     if b == 7:
         valorestank2.insert(0,[10,15])
-        print("lista: ", valorestank2)
+        #print("lista: ", valorestank2)
     else:
         while i<len(valorestank2aux):
             valorestank2.append(valorestank2aux[i])
-            print("lista: ", valorestank2)
+            #print("lista: ", valorestank2)
             i+=1
     z1 = choice(valorestank2)
     c = z1[0]
@@ -729,14 +729,14 @@ while run:
                     damage=30
                     break
             
+           
+            
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
 
         pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 5))
         temporalvel=int(textbox())
-        if temporalvel>10:
-            temporalvel=10
         player2.setVel(-temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
         pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
@@ -745,13 +745,19 @@ while run:
         temporalang=int(textbox())
         player2.setAng(-temporalang)
 
-        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-50,y_player2-40,x_player1-50,y_player1-40)
+        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-20,y_player2-40,x_player1-50,y_player1-40)
         win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
         textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
         screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
         #Siguente turno
         turno=10
         
+        if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                print("Victoria para Jugador N°1\n")
+                win=False
+                break
+
         if win == False:
             #victoria()
             run=False
@@ -789,6 +795,8 @@ while run:
                     bala90_1-=1
                     damage=30
                     break
+
+            
             
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
             
@@ -796,8 +804,6 @@ while run:
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 5))
         temporalvel=int(textbox())
-        if temporalvel>10:
-            temporalvel=10
         player1.setVel(temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
         pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
@@ -813,6 +819,11 @@ while run:
         #Siguente turno
         turno=2
 
+        if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+            print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+            print("Victoria para Jugador N°2\n")
+            win=False
+            
         if win == False:
             #victoria()
             run=False
