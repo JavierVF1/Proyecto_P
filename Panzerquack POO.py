@@ -85,7 +85,7 @@ class Player():
         self.ang=y
     def dmge(self,dmge):
         self.vida-=dmge
-        print(self.vida)
+        #print(self.vida)
   
 class Bullet():
     def __init__(self, ang, vel,imagen,x,y,XTanke2,YTanke2):
@@ -117,7 +117,7 @@ class Bullet():
         ti = 0
         aux=0
         sustituto=0
-        contdmg=1#contador para evitar que la bala golpee mas de una vez
+        contdmg=1 #contador para evitar que la bala golpee mas de una vez
         while posicionY < 600 and posicionX<800:
             time.sleep(0.01)
             posicionX = posicionX + velocidadiX * ti
@@ -128,7 +128,10 @@ class Bullet():
             ti += 0.01  
             flag=True
             flagLimite=True
+            win=True
+            
             if flag == True:
+                
                 flagLimite=colision(posicionY,posicionX,flagLimite,world)
                 posicion_Y=posicionY
                 posicion_X=posicionX 
@@ -136,20 +139,26 @@ class Bullet():
                 if turno == 2:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     #sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-                    if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
+                    if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1 <= posicion_X <= x_player1+40): 
                         if contdmg==1:
-                            player2.dmge(damage)
+                            player1.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
+                            flag= False
+                            
                         if player1.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                             print("Victoria para Jugador N°2\n")
                             flag= False
                             win=False
                     if aux >= 50:
-                        if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40):
+                        if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2 <= posicion_X <= x_player2+40):
                             if contdmg==1:
-                                player1.dmge(damage)
+                                player2.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
+                                flag= False
+                                
                             if player2.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                                 print("Victoria para Jugador N°1\n")
@@ -159,20 +168,26 @@ class Bullet():
                 if turno == 1:
                     
                     sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
-                    if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2-5 <= posicion_X <= x_player2+40): 
+                    if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2 <= posicion_X <= x_player2+40): 
                         if contdmg==1:
                             player2.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
+                            flag= False
+                            
                         if player2.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                             print("Victoria para Jugador N°1\n")
                             flag= False
                             win=False
                     if aux >= 50:
-                        if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1-5 <= posicion_X <= x_player1+40): 
+                        if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1 <= posicion_X <= x_player1+40): 
                             if contdmg==1:
                                 player1.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
+                                flag= False
+                                
                             if player1.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                                 print("Victoria para Jugador N°2\n")
@@ -437,7 +452,7 @@ def texttankD(posicion_Y,posicion_X,tanque,sustituto):
     altura_a= texto4.render("Altura:", 0, ColorMagico)
 
     texto5= pygame.font.SysFont("Comic Sans MS",20)
-    distancia= texto5.render(str(-1*posicionX+5), 0, ColorMagico) #el +5 es por margen de error
+    distancia= texto5.render(str(-1*posicionX), 0, ColorMagico) #el +5 es por margen de error
     #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
 
     texto6= pygame.font.SysFont("Comic Sans MS",20)
@@ -544,7 +559,7 @@ blue_sky=0,160,235
 #Tamaño de los recuadros del mapa 
 tile_size = 50
 mapa = randint(1,3)
-print("el mapa es: ", mapa)   
+#print("el mapa es: ", mapa)   
 world_data=MapaSelect(mapa)
 world = World(world_data)
 #IMAGES
@@ -579,9 +594,9 @@ if mapa == 3:
     a = z[0]
     b = z[1]
 
-print("valor elegido: ", z)
-print("valor a: ",a)
-print("valor b :", b)
+#print("valor elegido: ", z)
+#print("valor a: ",a)
+#print("valor b :", b)
 x_player1= SpawnRandom(a,b,1)
 y_player1= SpawnRandom(a,b,2)
 player1 = Player(x_player1-50,y_player1-40, img_right)
@@ -593,7 +608,6 @@ if mapa == 1:
     while i<len(valorestank2aux):
         valorestank2.append(valorestank2aux[i])
         i+=1
-
     z1 = choice(valorestank2)
     c = z1[0]
     d = z1[1]
@@ -621,14 +635,13 @@ if mapa == 3:
     while i<len(valorestank2aux):
         valorestank2.append(valorestank2aux[i])
         i+=1
-    
     z1 = choice(valorestank2)
     c = z1[0]
     d = z1[1]
 
-print("valor elegido: ", z1)
-print("valor c: ",c)
-print("valor d: ",d)
+#print("valor elegido: ", z1)
+#print("valor c: ",c)
+#print("valor d: ",d)
 x_player2=SpawnRandom(c,d,3)
 y_player2=SpawnRandom(c,d,4)
 player2 = Player(x_player2-50,y_player2-40, img_left)
@@ -640,6 +653,8 @@ texto8= pygame.font.SysFont("Comic Sans MS",16,5)
 textang= texto8.render("Angulo:", 0, negro)
 texto9= pygame.font.SysFont("Comic Sans MS",16,5)
 #For the text of health
+texto10= pygame.font.SysFont("Comic Sans MS",16,5)
+texto11= pygame.font.SysFont("Comic Sans MS",16,5)
 
 #BALAS
 #Variables Bala player One
@@ -682,9 +697,9 @@ while run:
     if turno!= 0: auxT=False
 
     if turno == 2:
-        print("\nTurno DOS")
+        print("Turno DOS")
         while True:
-            textvidap2 = texto9.render("Vida: "+str(player2.vida), 0, negro)
+            textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
             screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
             screen.blit(img_left,(screen_width-40,screen_height-50))
             screen.blit(turn_text,(screen_width-120,screen_height-55))
@@ -728,9 +743,9 @@ while run:
         temporalang=int(textbox())
         player2.setAng(-temporalang)
 
-        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-50,y_player2-40,x_player2-50,y_player2-40)
-        win=bullet2.update(x_player2-50,y_player2-40,x_player2-50,y_player2-40,player2,world_data,damage)
-        textvidap2 = texto9.render("Vida: "+str(player2.vida), 0, negro)
+        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-50,y_player2-40,x_player1-50,y_player1-40)
+        win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
+        textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
         screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
         #Siguente turno
         turno=10
@@ -740,10 +755,10 @@ while run:
             run=False
 
     if turno == 1:
-        print("\nTurno UNO")
+        print("Turno UNO")
         screen.blit(img_right,(screen_width-40,screen_height-50))
         screen.blit(turn_text,(screen_width-120,screen_height-55))
-        textvidap1 = texto9.render("Vida: "+str(player1.vida), 0, negro)
+        textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
         screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
         while True:
             SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
@@ -789,7 +804,7 @@ while run:
         
         bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
         win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
-        textvidap1 = texto9.render("Vida: "+str(player1.vida), 0, negro)
+        textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
         screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
         #Siguente turno
         turno=2
