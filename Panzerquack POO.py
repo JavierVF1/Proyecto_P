@@ -640,8 +640,7 @@ texto8= pygame.font.SysFont("Comic Sans MS",16,5)
 textang= texto8.render("Angulo:", 0, negro)
 texto9= pygame.font.SysFont("Comic Sans MS",16,5)
 #For the text of health
-textvidap1= texto9.render("Vida: "+str (player1.vida),0,negro)
-textvidap2= texto9.render("Vida: "+str (player1.vida),0,negro)
+
 #BALAS
 #Variables Bala player One
 bala105_1=3
@@ -685,6 +684,7 @@ while run:
     if turno == 2:
         print("\nTurno DOS")
         while True:
+            textvidap2 = texto9.render("Vida: "+str(player2.vida), 0, negro)
             screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
             screen.blit(img_left,(screen_width-40,screen_height-50))
             screen.blit(turn_text,(screen_width-120,screen_height-55))
@@ -730,6 +730,8 @@ while run:
 
         bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-50,y_player2-40,x_player2-50,y_player2-40)
         win=bullet2.update(x_player2-50,y_player2-40,x_player2-50,y_player2-40,player2,world_data,damage)
+        textvidap2 = texto9.render("Vida: "+str(player2.vida), 0, negro)
+        screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
         #Siguente turno
         turno=10
         
@@ -741,6 +743,7 @@ while run:
         print("\nTurno UNO")
         screen.blit(img_right,(screen_width-40,screen_height-50))
         screen.blit(turn_text,(screen_width-120,screen_height-55))
+        textvidap1 = texto9.render("Vida: "+str(player1.vida), 0, negro)
         screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
         while True:
             SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
@@ -786,7 +789,8 @@ while run:
         
         bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
         win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
-        
+        textvidap1 = texto9.render("Vida: "+str(player1.vida), 0, negro)
+        screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
         #Siguente turno
         turno=2
 
