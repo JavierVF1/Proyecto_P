@@ -728,7 +728,12 @@ while run:
                     bala90_2-=1
                     damage=30
                     break
-            
+
+            if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                print("Victoria para Jugador N°1\n")
+                win=False
+                break
            
             
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
@@ -796,7 +801,11 @@ while run:
                     damage=30
                     break
 
-            
+            if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                print("Victoria para Jugador N°2\n")
+                win=False
+                break
             
             pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
             
