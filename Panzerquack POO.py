@@ -735,6 +735,8 @@ while run:
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 5))
         temporalvel=int(textbox())
+        if temporalvel>10:
+            temporalvel=10
         player2.setVel(-temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
         pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
@@ -794,6 +796,8 @@ while run:
         #SE IMORIME TEXTO VELOCIDAD
         screen.blit(textvel,(655, 5))
         temporalvel=int(textbox())
+        if temporalvel>10:
+            temporalvel=10
         player1.setVel(temporalvel)
         #SE BORRA EL TEXTO ANTERIOR 
         pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
