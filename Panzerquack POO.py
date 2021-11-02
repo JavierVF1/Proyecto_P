@@ -196,7 +196,7 @@ class Bullet():
                 aux+=1
 
             if flagLimite == False:
-                return 
+                return win
 
             if flag == False:
                 return win
@@ -304,6 +304,16 @@ def colision(posicionY,posicionX,flagLimite,world):
         
         if world[a][b] != 0:
             print("\nCOLISION CON TERRENO!!!!!\n")
+            
+            
+            world_data[a][b] = 0
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+
+    
+            world.draw()
+            
+
             flagLimite=False
             return flagLimite
 
@@ -551,6 +561,8 @@ screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Panzerquack')
+#Load Background
+fondo=pygame.image.load("assets/maps/world.png")
 #Colores
 negro = 0,0,0
 ColorMagico = 0,70,70
@@ -562,7 +574,10 @@ mapa = randint(1,3)
 #print("el mapa es: ", mapa)   
 world_data=MapaSelect(mapa)
 world = World(world_data)
+screen.blit(fondo, (0, 0))
+world.draw()
 #IMAGES
+
 
 #Load Background
 fondo=pygame.image.load("assets/maps/world.png")
@@ -681,8 +696,9 @@ while run:
             sys.exit()
     keys=pygame.key.get_pressed()
 
-    screen.blit(fondo, (0, 0))
-    world.draw()
+    
+
+    
 
     #draw_grid()
 
