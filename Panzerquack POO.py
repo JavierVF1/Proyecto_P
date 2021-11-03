@@ -22,6 +22,9 @@ class Game():
         self.exit = ExitMenu(self)
         self.curr_menu = self.main_menu
 
+
+        
+
     def game_loop(self):
         while self.playing:
             self.check_events()
@@ -64,16 +67,19 @@ class Game():
         text_rect.center = (x,y)
         self.display.blit(text_surface,text_rect)
 
+
+
+
 class Menu():
     def __init__(self, game):
         self.game = game
         self.mid_w, self.mid_h = self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2
         self.run_display = True
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)
-        self.offset = - 100
+        self.offset = - 150
 
     def draw_cursor(self):
-        self.game.draw_text('*', 15, self.cursor_rect.x, self.cursor_rect.y)
+        self.game.draw_text('o', 10, self.cursor_rect.x, self.cursor_rect.y)
 
     def blit_screen(self):
         self.game.window.blit(self.game.display, (0, 0))
@@ -89,6 +95,7 @@ class MainMenu(Menu):
         self.Exitx, self.Exity = self.mid_w, self.mid_h + 50
         self.Panzerx, self.Panzery = self.mid_w, self.mid_h -150
         self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+        
 
     def display_menu(self):
         self.run_display = True 
@@ -97,9 +104,12 @@ class MainMenu(Menu):
             self.check_input()
             self.game.display.fill(self.game.BLACK)
             #self.game.draw_text('Main Menu', 20, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 20)
-            self.game.draw_text("Start Game", 20, self.startx, self.starty)
+            self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
             self.game.draw_text("Panzerquack", 50, self.Panzerx, self.Panzery)
-            self.game.draw_text("Exit", 20, self.Exitx, self.Exity)
+            self.game.draw_text("Salir", 20, self.Exitx, self.Exity)
+            
+            
+
             self.draw_cursor()
             self.blit_screen()
 
@@ -130,8 +140,6 @@ class MainMenu(Menu):
                 self.game.curr_menu = self.game.Exit
             self.run_display = False
 
-
-
 class ExitMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
@@ -150,11 +158,6 @@ class ExitMenu(Menu):
             time.sleep(0.01)
             break
         exit()
-
-        
-
-
-
 
 class World():
     def __init__(self, data):
@@ -284,6 +287,7 @@ class Bullet():
             if flag == True:
                 
                 flagLimite=colision(posicionY,posicionX,flagLimite,world)
+                
                 posicion_Y=posicionY
                 posicion_X=posicionX 
 
@@ -296,6 +300,9 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
+                            world = World(world_data)
+                            screen.blit(fondo, (0, 0))
+                            world.draw()
                             
                         if player1.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -309,6 +316,9 @@ class Bullet():
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
+                                world = World(world_data)
+                                screen.blit(fondo, (0, 0))
+                                world.draw()
                                 
                             if player2.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -325,6 +335,9 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
+                            world = World(world_data)
+                            screen.blit(fondo, (0, 0))
+                            world.draw()
                             
                         if player2.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -338,6 +351,9 @@ class Bullet():
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
+                                world = World(world_data)
+                                screen.blit(fondo, (0, 0))
+                                world.draw()
                                 
                             if player1.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -460,8 +476,6 @@ def colision(posicionY,posicionX,flagLimite,world):
             world_data[a][b] = 0
             world = World(world_data)
             screen.blit(fondo, (0, 0))
-
-    
             world.draw()
             
 
@@ -471,16 +485,25 @@ def colision(posicionY,posicionX,flagLimite,world):
 
         elif  posicionY <= 0  : 
             print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
             flagLimite=False
             return flagLimite
         
         elif  posicionX <= 0  : 
             print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
             flagLimite=False
             return flagLimite
         
         elif  posicionX >= 790  : 
             print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
             flagLimite=False
             return flagLimite
 
@@ -585,7 +608,7 @@ def texttankI(posicion_Y,posicion_X,tanque,sustituto):
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
 
 
-    pygame.draw.rect(screen, blue_sky, [15, 10, 170, 60])
+    pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
     screen.blit(altura_a,(15,10))
     screen.blit(altura,(15,30))
     screen.blit(distancia_d,(140,10))
@@ -856,17 +879,7 @@ while run:
             sys.exit()
     keys=pygame.key.get_pressed()
 
-    
-
-    #screen.blit(fondo, (0, 0))
-    #world.draw()
-    player1.update()
-  
-  
-    
-    
-    
-        
+  #===========================================================================================================================
     if turno == 2:
         
         print("Turno DOS")
@@ -925,10 +938,15 @@ while run:
         screen.blit(textang,(655, 5))
         temporalang=int(textbox())
         player2.setAng(-temporalang)
-        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-20,y_player2-40,x_player1-50,y_player1-40)
-        win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
+
         textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
         screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
+
+        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-20,y_player2-40,x_player1-50,y_player1-40)
+        win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
+        
+        #borra texto max atura, vel
+        pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
         #Siguente turno
         turno=10
         
@@ -941,6 +959,7 @@ while run:
         if win == False:
             #victoria()
             run=False
+ #===========================================================================================================================
 
     if turno == 1:
         
@@ -1001,11 +1020,16 @@ while run:
         temporalang=int(textbox())
         player1.setAng(temporalang)
         
-        bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
-        win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
         textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
         screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
+
+        bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
+        win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
+        
+        #borra texto max atura, vel
+        pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
         #Siguente turno
+        
         turno=2
 
         if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
@@ -1016,10 +1040,16 @@ while run:
         if win == False:
             #victoria()
             run=False
-    pygame.display.update()
 
+
+    
+    player1.update()        
+    pygame.display.update()
+    
     if turno==10:
         turno=1
+    
+    
     
 
 pygame.quit()
