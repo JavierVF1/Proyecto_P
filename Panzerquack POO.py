@@ -4,6 +4,7 @@ from math import cos, sin, pi, tan, radians
 import time 
 from random import randint,choice
 from pygame.locals import *
+import button
 
 
 class Game():
@@ -27,15 +28,17 @@ class Game():
 
     def game_loop(self):
         while self.playing:
+            time.sleep(0.01)
             self.check_events()
             if self.START_KEY:
                 self.playing= False
             self.display.fill(self.BLACK)
-            self.draw_text('Thanks for Playing', 20, self.DISPLAY_W/2, self.DISPLAY_H/2)
+            self.draw_text('Cargando...', 20, self.DISPLAY_W/2, self.DISPLAY_H/2)
             self.window.blit(self.display, (0,0))
             pygame.display.update()
             self.reset_keys()
             g.running=False
+            time.sleep(0.01)
             break
         return
             
@@ -158,6 +161,7 @@ class ExitMenu(Menu):
             time.sleep(0.01)
             break
         exit()
+
 
 class World():
     def __init__(self, data):
@@ -411,6 +415,14 @@ class SelectBala():
         done = False
         aux2=0
         while not done:
+
+            if restart_button.draw(screen):
+                print('\nReStart')
+                restar=100
+                return restar
+            #event handler
+            
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done=True
@@ -696,6 +708,14 @@ def textbox():
     done = False
     aux2=0
     while not done:
+
+        if restart_button.draw(screen):
+            print('\nReStart')
+            restar=100
+            return restar
+            
+
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done=True
@@ -729,327 +749,361 @@ def textbox():
         if aux2==1:
             return aux
  
+
+
 g = Game()
 
 while g.running:
     g.curr_menu.display_menu()
     g.game_loop()
     
+Master_flag=True
+
+while Master_flag==True:
+
+    pygame.init()
+    #PANTALLA
+    screen_width = 800
+    screen_height = 600
+    screen = pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption('Panzerquack')
+    #Load Background
+    fondo=pygame.image.load("assets/maps/world.png")
+    #Colores
+    negro = 0,0,0
+    ColorMagico = 0,70,70
+    gray = 127,127,127
+    blue_sky=0,160,235
+    #Tamaño de los recuadros del mapa 
+    tile_size = 50
+    mapa = randint(1,3)
+    #print("el mapa es: ", mapa)   
+    world_data=MapaSelect(mapa)
+    world = World(world_data)
+    screen.blit(fondo, (0, 0))
+    world.draw()
+    #draw_grid()
+    #IMAGES
 
 
-pygame.init()
-#PANTALLA
-screen_width = 800
-screen_height = 600
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Panzerquack')
-#Load Background
-fondo=pygame.image.load("assets/maps/world.png")
-#Colores
-negro = 0,0,0
-ColorMagico = 0,70,70
-gray = 127,127,127
-blue_sky=0,160,235
-#Tamaño de los recuadros del mapa 
-tile_size = 50
-mapa = randint(1,3)
-#print("el mapa es: ", mapa)   
-world_data=MapaSelect(mapa)
-world = World(world_data)
-screen.blit(fondo, (0, 0))
-world.draw()
-#draw_grid()
-#IMAGES
 
+    pygame.display.update()
+    restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
+    #create button instances
+    restart_button = button.Button(350, 10, restart_img, 0.3)
+        
+    #Load Background
+    fondo=pygame.image.load("assets/maps/world.png")
+    #For Player One
+    img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+    img_right = pygame.transform.scale(img_right, (40, 40))
+    #For Player Tow
+    img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
+    img_left = pygame.transform.scale(img_left, (40, 40))
+    #For Turns
+    turn_text=pygame.image.load("assets/Textures/turn_text.png")
+    turn_text=pygame.transform.scale(turn_text, (120, 50))
 
-#Load Background
-fondo=pygame.image.load("assets/maps/world.png")
-#For Player One
-img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-img_right = pygame.transform.scale(img_right, (40, 40))
-#For Player Tow
-img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
-img_left = pygame.transform.scale(img_left, (40, 40))
-#For Turns
-turn_text=pygame.image.load("assets/Textures/turn_text.png")
-turn_text=pygame.transform.scale(turn_text, (120, 50))
+    if mapa ==1:
+        valorestank1 = [[7,0],[7,1],[8,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
+        z = choice(valorestank1)
+        a = z[0]
+        b = z[1]
 
-if mapa ==1:
-    valorestank1 = [[7,0],[7,1],[8,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
-    z = choice(valorestank1)
-    a = z[0]
-    b = z[1]
+    if mapa == 2:
+        valorestank1 = [[10,0],[10,1],[10,2],[7,3],[7,4],[11,6],[5,7]]
+        z = choice(valorestank1)
+        a = z[0]
+        b = z[1]
 
-if mapa == 2:
-    valorestank1 = [[10,0],[10,1],[10,2],[7,3],[7,4],[11,6],[5,7]]
-    z = choice(valorestank1)
-    a = z[0]
-    b = z[1]
+    if mapa == 3:
+        valorestank1 = [[10,0],[10,1],[8,2],[7,3],[7,4],[8,5],[10,6],[11,7]]
+        z = choice(valorestank1)
+        a = z[0]
+        b = z[1]
 
-if mapa == 3:
-    valorestank1 = [[10,0],[10,1],[8,2],[7,3],[7,4],[8,5],[10,6],[11,7]]
-    z = choice(valorestank1)
-    a = z[0]
-    b = z[1]
+    #print("valor elegido: ", z)
+    #print("valor a: ",a)
+    #print("valor b :", b)
+    x_player1= SpawnRandom(a,b,1)
+    y_player1= SpawnRandom(a,b,2)
+    player1 = Player(x_player1-50,y_player1-40, img_right)
 
-#print("valor elegido: ", z)
-#print("valor a: ",a)
-#print("valor b :", b)
-x_player1= SpawnRandom(a,b,1)
-y_player1= SpawnRandom(a,b,2)
-player1 = Player(x_player1-50,y_player1-40, img_right)
-
-if mapa == 1:
-    i=b
-    valorestank2aux = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
-    valorestank2 = []
-    while i<len(valorestank2aux):
-        valorestank2.append(valorestank2aux[i])
-        i+=1
-    z1 = choice(valorestank2)
-    c = z1[0]
-    d = z1[1]
-
-if mapa == 2:
-    i=b
-    valorestank2aux = [[5,8],[11,9],[7,11],[7,12],[10,13],[10,14],[10,15]]
-    valorestank2 = []
-    if b == 7:
-        valorestank2.insert(0,[10,15])
-        #print("lista: ", valorestank2)
-    else:
+    if mapa == 1:
+        i=b
+        valorestank2aux = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
+        valorestank2 = []
         while i<len(valorestank2aux):
             valorestank2.append(valorestank2aux[i])
-            #print("lista: ", valorestank2)
             i+=1
-    z1 = choice(valorestank2)
-    c = z1[0]
-    d = z1[1]
+        z1 = choice(valorestank2)
+        c = z1[0]
+        d = z1[1]
 
-if mapa == 3:
-    i=b
-    valorestank2aux = [[10,8],[9,9],[8,10],[7,11],[10,12],[10,13],[5,14],[5,15]]
-    valorestank2 = []
-    while i<len(valorestank2aux):
-        valorestank2.append(valorestank2aux[i])
-        i+=1
-    z1 = choice(valorestank2)
-    c = z1[0]
-    d = z1[1]
+    if mapa == 2:
+        i=b
+        valorestank2aux = [[5,8],[11,9],[7,11],[7,12],[10,13],[10,14],[10,15]]
+        valorestank2 = []
+        if b == 7:
+            valorestank2.insert(0,[10,15])
+            #print("lista: ", valorestank2)
+        else:
+            while i<len(valorestank2aux):
+                valorestank2.append(valorestank2aux[i])
+                #print("lista: ", valorestank2)
+                i+=1
+        z1 = choice(valorestank2)
+        c = z1[0]
+        d = z1[1]
 
-#print("valor elegido: ", z1)
-#print("valor c: ",c)
-#print("valor d: ",d)
-x_player2=SpawnRandom(c,d,3)
-y_player2=SpawnRandom(c,d,4)
-player2 = Player(x_player2-50,y_player2-40, img_left)
+    if mapa == 3:
+        i=b
+        valorestank2aux = [[10,8],[9,9],[8,10],[7,11],[10,12],[10,13],[5,14],[5,15]]
+        valorestank2 = []
+        while i<len(valorestank2aux):
+            valorestank2.append(valorestank2aux[i])
+            i+=1
+        z1 = choice(valorestank2)
+        c = z1[0]
+        d = z1[1]
 
-#For the text of Vel. and Ang.
-texto7= pygame.font.SysFont("Comic Sans MS",16,5)
-textvel= texto7.render("Velocidad:", 0, negro)
-texto8= pygame.font.SysFont("Comic Sans MS",16,5)
-textang= texto8.render("Angulo:", 0, negro)
-texto9= pygame.font.SysFont("Comic Sans MS",16,5)
-#For the text of health
-texto10= pygame.font.SysFont("Comic Sans MS",16,5)
-texto11= pygame.font.SysFont("Comic Sans MS",16,5)
+    #print("valor elegido: ", z1)
+    #print("valor c: ",c)
+    #print("valor d: ",d)
+    x_player2=SpawnRandom(c,d,3)
+    y_player2=SpawnRandom(c,d,4)
+    player2 = Player(x_player2-50,y_player2-40, img_left)
 
-#BALAS
-#Variables Bala player One
-bala105_1=3
-balaPerforante_1=10
-bala90_1=3
-#Variables Bala player Tow
-bala105_2=3
-balaPerforante_2=10
-bala90_2=3
+    #For the text of Vel. and Ang.
+    texto7= pygame.font.SysFont("Comic Sans MS",16,5)
+    textvel= texto7.render("Velocidad:", 0, negro)
+    texto8= pygame.font.SysFont("Comic Sans MS",16,5)
+    textang= texto8.render("Angulo:", 0, negro)
+    texto9= pygame.font.SysFont("Comic Sans MS",16,5)
+    #For the text of health
+    texto10= pygame.font.SysFont("Comic Sans MS",16,5)
+    texto11= pygame.font.SysFont("Comic Sans MS",16,5)
 
-#Variables auxiliares
-run = True   #Variable while principal
-auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
-turno=10     #Variable control de turnos
-win=True    #Variable control de victoria
+    #BALAS
+    #Variables Bala player One
+    bala105_1=3
+    balaPerforante_1=10
+    bala90_1=3
+    #Variables Bala player Tow
+    bala105_2=3
+    balaPerforante_2=10
+    bala90_2=3
 
-while run:
-    bala=""
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run=False
-            pygame.quit()
-            sys.exit()
-    keys=pygame.key.get_pressed()
+    #Variables auxiliares
+    run = True   #Variable while principal
+    auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
+    turno=10     #Variable control de turnos
+    win=True    #Variable control de victoria
 
-  #===========================================================================================================================
-    if turno == 2:
-        
-        print("Turno DOS")
-        while True:
+    while run:
+        bala=""
+       
+    #===========================================================================================================================
+        if turno == 2:
+            
+            print("Turno DOS")
+            while True:
+                textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
+                screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
+                screen.blit(img_left,(screen_width-40,screen_height-50))
+                screen.blit(turn_text,(screen_width-120,screen_height-55))
+                SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
+                bala=SelectBala.textBala()
+                #para hacer funcionar el boton reset
+                if bala==100:
+                    break
+
+
+                if 0 < bala105_2 :
+                    if int (bala) == 1:
+                        bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+                        bullet_default2=bullet_105mm
+                        bala105_2-=1
+                        damage=50
+                        break
+
+                if  0 < balaPerforante_2 :
+                    if int (bala) == 2:
+                        bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+                        bullet_default2=bullet_perforante
+                        balaPerforante_2-=1
+                        damage=40
+                        break
+
+                if  0 < bala90_2:
+                    if int (bala) == 3:
+                        bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+                        bullet_default2=bullet_90mm
+                        bala90_2-=1
+                        damage=30
+                        break
+
+                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Victoria para Jugador N°1\n")
+                    win=False
+                    break
+            
+                
+                pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
+
+            #para hacer funcionar el boton reset
+            if bala==100:
+                break 
+
+            pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
+            #SE IMORIME TEXTO VELOCIDAD
+            screen.blit(textvel,(655, 5))
+            temporalvel=int(textbox())
+                #para hacer funcionar el boton reset
+            if temporalvel==100:
+                break    
+
+            if temporalvel>10:
+                temporalvel=10
+            if temporalvel<-10:
+                temporalvel=-10
+            player2.setVel(-temporalvel)
+            #SE BORRA EL TEXTO ANTERIOR 
+            pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
+            #Se imprime el texto angulo
+            screen.blit(textang,(655, 5))
+            temporalang=int(textbox())
+                #para hacer funcionar el boton reset
+            if temporalang==100:
+                break    
+
+            player2.setAng(-temporalang)
+
             textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
             screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
-            screen.blit(img_left,(screen_width-40,screen_height-50))
-            screen.blit(turn_text,(screen_width-120,screen_height-55))
-            SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
-            bala=SelectBala.textBala()
-            if 0 < bala105_2 :
-                if int (bala) == 1:
-                    bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
-                    bullet_default2=bullet_105mm
-                    bala105_2-=1
-                    damage=50
-                    break
 
-            if  0 < balaPerforante_2 :
-                if int (bala) == 2:
-                    bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
-                    bullet_default2=bullet_perforante
-                    balaPerforante_2-=1
-                    damage=40
-                    break
-
-            if  0 < bala90_2:
-                if int (bala) == 3:
-                    bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
-                    bullet_default2=bullet_90mm
-                    bala90_2-=1
-                    damage=30
-                    break
-
-            if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
-                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                print("Victoria para Jugador N°1\n")
-                win=False
-                break
-           
+            bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-20,y_player2-40,x_player1-50,y_player1-40)
+            win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
             
-            pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
-
-        pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
-        #SE IMORIME TEXTO VELOCIDAD
-        screen.blit(textvel,(655, 5))
-        temporalvel=int(textbox())
-        if temporalvel>10:
-            temporalvel=10
-        if temporalvel<-10:
-            temporalvel=-10
-        player2.setVel(-temporalvel)
-        #SE BORRA EL TEXTO ANTERIOR 
-        pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
-        #Se imprime el texto angulo
-        screen.blit(textang,(655, 5))
-        temporalang=int(textbox())
-        player2.setAng(-temporalang)
-
-        textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
-        screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
-
-        bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-20,y_player2-40,x_player1-50,y_player1-40)
-        win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
-        
-        #borra texto max atura, vel
-        pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
-        #Siguente turno
-        turno=10
-        
-        if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
-                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                print("Victoria para Jugador N°1\n")
-                win=False
-                break
-
-        if win == False:
-            #victoria()
-            run=False
- #===========================================================================================================================
-
-    if turno == 1:
-        
-        print("Turno UNO")
-        screen.blit(img_right,(screen_width-40,screen_height-50))
-        screen.blit(turn_text,(screen_width-120,screen_height-55))
-        textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
-        screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
-        while True:
-            SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
-            bala=SelectBala.textBala()
-            if 0 < bala105_1 :
-
-                if int (bala) == 1:
-                    bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
-                    bullet_default=bullet_105mm
-                    bala105_1-=1
-                    damage=50
+            #borra texto max atura, vel
+            pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
+            #Siguente turno
+            turno=10
+            
+            if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Victoria para Jugador N°1\n")
+                    win=False
                     break
 
-            if  0 < balaPerforante_1 :
-                if int (bala) == 2:
-                    bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
-                    bullet_default=bullet_perforante
-                    balaPerforante_1-=1
-                    damage=40
+            if win == False:
+                #victoria()
+                run=False
+    #===========================================================================================================================
+
+        if turno == 1:
+            
+            print("Turno UNO")
+            screen.blit(img_right,(screen_width-40,screen_height-50))
+            screen.blit(turn_text,(screen_width-120,screen_height-55))
+            textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
+            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
+            while True:
+                SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
+                bala=SelectBala.textBala()
+                #para hacer funcionar el boton reset
+                if bala==100:
                     break
 
-            if  0 < bala90_1:
-                if int (bala) == 3:
-                    bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
-                    bullet_default=bullet_90mm
-                    bala90_1-=1
-                    damage=30
+
+
+                if 0 < bala105_1 :
+
+                    if int (bala) == 1:
+                        bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+                        bullet_default=bullet_105mm
+                        bala105_1-=1
+                        damage=50
+                        break
+
+                if  0 < balaPerforante_1 :
+                    if int (bala) == 2:
+                        bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+                        bullet_default=bullet_perforante
+                        balaPerforante_1-=1
+                        damage=40
+                        break
+
+                if  0 < bala90_1:
+                    if int (bala) == 3:
+                        bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+                        bullet_default=bullet_90mm
+                        bala90_1-=1
+                        damage=30
+                        break
+
+                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Victoria para Jugador N°2\n")
+                    win=False
                     break
+                
+                pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
+            #para hacer funcionar el boton reset
+            if bala==100:
+                break    
+
+            pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
+            #SE IMORIME TEXTO VELOCIDAD
+            screen.blit(textvel,(655, 5))
+            temporalvel=int(textbox())
+                #para hacer funcionar el boton reset
+            if temporalvel==100:
+                break    
+
+            if temporalvel>10:
+                temporalvel=10
+            if temporalvel<-10:
+                temporalvel=-10
+            player1.setVel(temporalvel)
+            #SE BORRA EL TEXTO ANTERIOR 
+            pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
+            #Se imprime el texto angulo
+            screen.blit(textang,(655, 5))
+            temporalang=int(textbox())
+                #para hacer funcionar el boton reset
+            if temporalang==100:
+                break    
+
+            player1.setAng(temporalang)
+            
+            textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
+            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
+
+            bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
+            win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
+            
+            #borra texto max atura, vel
+            pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
+            #Siguente turno
+            
+            turno=2
 
             if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                 print("Victoria para Jugador N°2\n")
                 win=False
-                break
-            
-            pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
-            
-        pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
-        #SE IMORIME TEXTO VELOCIDAD
-        screen.blit(textvel,(655, 5))
-        temporalvel=int(textbox())
-        if temporalvel>10:
-            temporalvel=10
-        if temporalvel<-10:
-            temporalvel=-10
-        player1.setVel(temporalvel)
-        #SE BORRA EL TEXTO ANTERIOR 
-        pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
-        #Se imprime el texto angulo
-        screen.blit(textang,(655, 5))
-        temporalang=int(textbox())
-        player1.setAng(temporalang)
+                
+            if win == False:
+                #victoria()
+                run=False
+
+    #===========================================================================================
+        player1.update()        
+        pygame.display.update()
         
-        textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
-        screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
-
-        bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
-        win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
+        if turno==10:
+            turno=1
         
-        #borra texto max atura, vel
-        pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
-        #Siguente turno
-        
-        turno=2
-
-        if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
-            print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-            print("Victoria para Jugador N°2\n")
-            win=False
-            
-        if win == False:
-            #victoria()
-            run=False
-
-
-    
-    player1.update()        
-    pygame.display.update()
-    
-    if turno==10:
-        turno=1
-    
-    
-    
-
 pygame.quit()
