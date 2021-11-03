@@ -420,6 +420,10 @@ class SelectBala():
                 print('\nReStart')
                 restar=100
                 return restar
+
+            if exit_button.draw(screen):
+                print('\nExit')
+                pygame.quit()
             #event handler
             
 
@@ -713,6 +717,10 @@ def textbox():
             print('\nReStart')
             restar=100
             return restar
+
+        if exit_button.draw(screen):
+            print('\nExit')
+            pygame.quit()
             
 
 
@@ -789,8 +797,10 @@ while Master_flag==True:
 
     pygame.display.update()
     restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
+    exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
     #create button instances
-    restart_button = button.Button(350, 10, restart_img, 0.3)
+    restart_button = button.Button(320, 5, restart_img, 0.3)
+    exit_button = button.Button(430, 5, exit_img, 0.3)
         
     #Load Background
     fondo=pygame.image.load("assets/maps/world.png")
@@ -1015,6 +1025,7 @@ while Master_flag==True:
                 #para hacer funcionar el boton reset
                 if bala==100:
                     break
+
 
 
 
