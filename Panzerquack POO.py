@@ -6,7 +6,7 @@ from random import randint,choice
 from pygame.locals import *
 import button
 
-
+globala=0
 class Game():
     def __init__(self):
         pygame.init()
@@ -488,12 +488,27 @@ def colision(posicionY,posicionX,flagLimite,world):
         if world[a][b] != 0:
             print("\nCOLISION CON TERRENO!!!!!\n")
             
-            
-            world_data[a][b] = 0
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            
+            if globala == 1:            
+                world_data[a][b] = 0
+                world_data[a][b+1] = 0
+                world_data[a][b-1] = 0
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
+            if globala == 2:
+                world_data[a][b] = 0
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
+            if globala == 3:
+                world_data[a][b] = 0
+                world_data[a+1][b+1] = 0
+                world_data[a-1][b-1] = 0
+                world_data[a+1][b-1] = 0
+                world_data[a-1][b+1] = 0
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
 
             flagLimite=False
             return flagLimite
@@ -792,9 +807,11 @@ while Master_flag==True:
     world.draw()
     #draw_grid()
     #IMAGES
-
-
-
+    #imagenes de balas
+    bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+    bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+    bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+     
     pygame.display.update()
     restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
     exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
@@ -931,7 +948,7 @@ while Master_flag==True:
 
                 if 0 < bala105_2 :
                     if int (bala) == 1:
-                        bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+                        globala=1
                         bullet_default2=bullet_105mm
                         bala105_2-=1
                         damage=50
@@ -939,7 +956,7 @@ while Master_flag==True:
 
                 if  0 < balaPerforante_2 :
                     if int (bala) == 2:
-                        bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+                        globala=2
                         bullet_default2=bullet_perforante
                         balaPerforante_2-=1
                         damage=40
@@ -947,7 +964,7 @@ while Master_flag==True:
 
                 if  0 < bala90_2:
                     if int (bala) == 3:
-                        bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+                        globala=3
                         bullet_default2=bullet_90mm
                         bala90_2-=1
                         damage=30
@@ -1032,7 +1049,7 @@ while Master_flag==True:
                 if 0 < bala105_1 :
 
                     if int (bala) == 1:
-                        bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+                        globala=1
                         bullet_default=bullet_105mm
                         bala105_1-=1
                         damage=50
@@ -1040,7 +1057,7 @@ while Master_flag==True:
 
                 if  0 < balaPerforante_1 :
                     if int (bala) == 2:
-                        bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+                        globala=2
                         bullet_default=bullet_perforante
                         balaPerforante_1-=1
                         damage=40
@@ -1048,7 +1065,7 @@ while Master_flag==True:
 
                 if  0 < bala90_1:
                     if int (bala) == 3:
-                        bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+                        globala=3
                         bullet_default=bullet_90mm
                         bala90_1-=1
                         damage=30
