@@ -70,9 +70,6 @@ class Game():
         text_rect.center = (x,y)
         self.display.blit(text_surface,text_rect)
 
-
-
-
 class Menu():
     def __init__(self, game):
         self.game = game
@@ -161,7 +158,6 @@ class ExitMenu(Menu):
             time.sleep(0.01)
             break
         exit()
-
 
 class World():
     def __init__(self, data):
@@ -502,10 +498,8 @@ def colision(posicionY,posicionX,flagLimite,world):
                 world.draw()
             if globala == 3:
                 world_data[a][b] = 0
-                world_data[a+1][b+1] = 0
-                world_data[a-1][b-1] = 0
-                world_data[a+1][b-1] = 0
-                world_data[a-1][b+1] = 0
+                world_data[a-1][b] = 0
+    
                 world = World(world_data)
                 screen.blit(fondo, (0, 0))
                 world.draw()
