@@ -1026,7 +1026,7 @@ while Master_flag==True:
             
             print("Turno UNO")
             screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
-            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9916))
+            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
             while True:
@@ -1035,9 +1035,6 @@ while Master_flag==True:
                 #para hacer funcionar el boton reset
                 if bala==100:
                     break
-
-
-
 
                 if 0 < bala105_1 :
 
@@ -1106,7 +1103,7 @@ while Master_flag==True:
             win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
             
             #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
             #Siguente turno
             
             turno=2
