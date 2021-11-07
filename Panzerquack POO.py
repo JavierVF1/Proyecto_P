@@ -272,7 +272,7 @@ class Bullet():
         aux=0
         sustituto=0
         contdmg=1 #contador para evitar que la bala golpee mas de una vez
-        while posicionY < 600 and posicionX<800:
+        while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
             posicionX = posicionX + velocidadiX * ti
             posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
@@ -391,10 +391,10 @@ class SelectBala():
 
 
 
-        screen.blit(Titulo,(570, 100))
-        screen.blit(texto105mm,(560, 135))
-        screen.blit(textoPerforante,(560, 155))
-        screen.blit(texto90mm,(560, 175))
+        screen.blit(Titulo,(screen_width*0.7125, screen_height*0.1666))
+        screen.blit(texto105mm,(screen_width*0.7, screen_height*0.225))
+        screen.blit(textoPerforante,(screen_width*0.7, screen_height*0.2583))
+        screen.blit(texto90mm,(screen_width*0.7, screen_height*0.2916))
 
         return
 
@@ -402,7 +402,7 @@ class SelectBala():
     def textBala():
         
         font = pygame.font.Font(None, 32)
-        input_box = pygame.Rect(750, 150, 140, 32)
+        input_box = pygame.Rect(screen_width*0.9375, screen_height*0.25, 140, 32)
         color_inactive = pygame.Color('lightskyblue3')
         color_active = pygame.Color("black")
         color = color_inactive
@@ -442,7 +442,7 @@ class SelectBala():
                             text = ''
                         elif event.key == pygame.K_BACKSPACE:
                             text = text[:-1]
-                            pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
+                            pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.25, 140, 32])
                         else:
                             if event.unicode == "1" or event.unicode == "2" or event.unicode == "3":
                                 text += event.unicode
@@ -499,7 +499,6 @@ def colision(posicionY,posicionX,flagLimite,world):
             if globala == 3:
                 world_data[a][b] = 0
                 world_data[a-1][b] = 0
-    
                 world = World(world_data)
                 screen.blit(fondo, (0, 0))
                 world.draw()
@@ -604,14 +603,14 @@ def text():
     texto2= pygame.font.SysFont("Comic Sans MS",20)
     SubTitulo= texto2.render("Presione espacio para comenzar", 0, ColorMagico)
 
-    screen.blit(Titulo,(200,220))
-    screen.blit(SubTitulo,(240,310))
+    screen.blit(Titulo,(screen_width*0.25,screen_height*0.366))
+    screen.blit(SubTitulo,(screen_width*0.3,screen_height*0.5166))
 
     return
 
 def texttankI(posicion_Y,posicion_X,tanque,sustituto):
     
-    posicionY=600-posicion_Y-140   #Se le restan 140 de correccion para que la altura comiense en 0
+    posicionY=screen_height-posicion_Y   #Se le restan 140 de correccion para que la altura comiense en 0
     posicionX=posicion_X - tanque.x
 
     if sustituto < posicionY :
@@ -633,11 +632,11 @@ def texttankI(posicion_Y,posicion_X,tanque,sustituto):
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
 
 
-    pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
-    screen.blit(altura_a,(15,10))
-    screen.blit(altura,(15,30))
-    screen.blit(distancia_d,(140,10))
-    screen.blit(distancia,(140,30))
+    pygame.draw.rect(screen, blue_sky, [screen_width*0.01875,screen_height*0.0166, 220, 60])
+    screen.blit(altura_a,(screen_width*0.01875,screen_height*0.0166))
+    screen.blit(altura,(screen_width*0.01875,screen_height*0.05))
+    screen.blit(distancia_d,(screen_width*0.175,screen_height*0.0166))
+    screen.blit(distancia,(screen_width*0.175,screen_height*0.05))
     
     return sustituto
 
@@ -668,11 +667,11 @@ def texttankD(posicion_Y,posicion_X,tanque,sustituto):
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
 
 
-    pygame.draw.rect(screen, blue_sky, [15, 10, 130, 60])
-    screen.blit(altura_a,(15,10))
-    screen.blit(altura,(15,30))
-    screen.blit(distancia_d,(100,10))
-    screen.blit(distancia,(100,30))
+    pygame.draw.rect(screen, blue_sky, [screen_width*0.01875,screen_height*0.0166, 220, 60])
+    screen.blit(altura_a,(screen_width*0.01875,screen_height*0.0166))
+    screen.blit(altura,(screen_width*0.01875,screen_height*0.05))
+    screen.blit(distancia_d,(screen_width*0.175,screen_height*0.0166))
+    screen.blit(distancia,(screen_width*0.175,screen_height*0.05))
     
     
 
@@ -680,7 +679,7 @@ def texttankD(posicion_Y,posicion_X,tanque,sustituto):
 
 def textmax(posicion_Y,posicion_X,tanque):
 
-    posicionY=600-posicion_Y
+    posicionY=screen_height-posicion_Y
     posicionX=posicion_X - tanque.x
 
 
@@ -699,11 +698,11 @@ def textmax(posicion_Y,posicion_X,tanque):
     distancia_d= texto4.render("Distancia Maxima:", 0, ColorMagico)
 
 
-    pygame.draw.rect(screen, blue_sky, [15, 10, 130, 60])
-    screen.blit(altura_a,(15,10))
-    screen.blit(altura,(15,30))
-    screen.blit(distancia_d,(100,10))
-    screen.blit(distancia,(100,30))
+    pygame.draw.rect(screen, blue_sky, [screen_width*0.01875,screen_height*0.0166, 220, 60])
+    screen.blit(altura_a,(screen_width*0.01875,screen_height*0.0166))
+    screen.blit(altura,(screen_width*0.01875,screen_height*0.05))
+    screen.blit(distancia_d,(screen_width*0.175,screen_height*0.0166))
+    screen.blit(distancia,(screen_width*0.175,screen_height*0.05))
     
     
 
@@ -712,7 +711,7 @@ def textmax(posicion_Y,posicion_X,tanque):
 def textbox():
     
     font = pygame.font.Font(None, 32)
-    input_box = pygame.Rect(650, 27, 140, 32)
+    input_box = pygame.Rect(screen_width*0.8125,screen_height*0.045, 140, 32)
     color_inactive = pygame.Color('lightskyblue3')
     color_active = pygame.Color("black")
     color = color_inactive
@@ -752,7 +751,7 @@ def textbox():
                         text = ''
                     elif event.key == pygame.K_BACKSPACE:
                         text = text[:-1]
-                        pygame.draw.rect(screen, blue_sky, [650, 27, 140, 32])
+                        pygame.draw.rect(screen, blue_sky, [screen_width*0.8125,screen_height*0.045, 140, 32])
                     else:
                         if event.unicode=="1"or event.unicode=="2"or event.unicode=="3"or event.unicode=="4"or event.unicode=="5"or event.unicode=="6"or event.unicode=="7"or event.unicode=="8"or event.unicode=="9"or event.unicode=="0":
                                 text += event.unicode
@@ -810,8 +809,8 @@ while Master_flag==True:
     restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
     exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
     #create button instances
-    restart_button = button.Button(320, 5, restart_img, 0.3)
-    exit_button = button.Button(430, 5, exit_img, 0.3)
+    restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
+    exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
         
     #Load Background
     fondo=pygame.image.load("assets/maps/world.png")
@@ -931,8 +930,8 @@ while Master_flag==True:
             while True:
                 textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
                 screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
-                screen.blit(img_left,(screen_width-40,screen_height-50))
-                screen.blit(turn_text,(screen_width-120,screen_height-55))
+                screen.blit(img_left,(screen_width*0.95,screen_height*0.9166))
+                screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
                 bala=SelectBala.textBala()
                 #para hacer funcionar el boton reset
@@ -971,15 +970,15 @@ while Master_flag==True:
                     break
             
                 
-                pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.75, 140, 32])
 
             #para hacer funcionar el boton reset
             if bala==100:
                 break 
 
-            pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7,screen_height*0.9166, 240, 152])
             #SE IMORIME TEXTO VELOCIDAD
-            screen.blit(textvel,(655, 5))
+            screen.blit(textvel,(screen_width*0.81875, screen_height*0.0083))
             temporalvel=int(textbox())
                 #para hacer funcionar el boton reset
             if temporalvel==100:
@@ -991,9 +990,9 @@ while Master_flag==True:
                 temporalvel=-10
             player2.setVel(-temporalvel)
             #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
             #Se imprime el texto angulo
-            screen.blit(textang,(655, 5))
+            screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))
             temporalang=int(textbox())
                 #para hacer funcionar el boton reset
             if temporalang==100:
@@ -1008,7 +1007,7 @@ while Master_flag==True:
             win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
             
             #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [15, 10, 220, 60])
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.01875, screen_height*0.0166, 220, 60])
             #Siguente turno
             turno=10
             
@@ -1026,8 +1025,8 @@ while Master_flag==True:
         if turno == 1:
             
             print("Turno UNO")
-            screen.blit(img_right,(screen_width-40,screen_height-50))
-            screen.blit(turn_text,(screen_width-120,screen_height-55))
+            screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
+            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9916))
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
             while True:
@@ -1071,14 +1070,14 @@ while Master_flag==True:
                     win=False
                     break
                 
-                pygame.draw.rect(screen, blue_sky, [750, 150, 140, 32])
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.25, 140, 32])
             #para hacer funcionar el boton reset
             if bala==100:
                 break    
 
-            pygame.draw.rect(screen, blue_sky, [560, 50, 240, 152])
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0.083, 240, 152])
             #SE IMORIME TEXTO VELOCIDAD
-            screen.blit(textvel,(655, 5))
+            screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
                 #para hacer funcionar el boton reset
             if temporalvel==100:
@@ -1090,9 +1089,9 @@ while Master_flag==True:
                 temporalvel=-10
             player1.setVel(temporalvel)
             #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [650, 5, 200, 60])
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
             #Se imprime el texto angulo
-            screen.blit(textang,(655, 5))
+            screen.blit(textang,(screen_width*0.818, screen_height*0.0083))
             temporalang=int(textbox())
                 #para hacer funcionar el boton reset
             if temporalang==100:
