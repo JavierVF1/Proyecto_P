@@ -7,7 +7,7 @@ from pygame.locals import *
 import button
 screen_width = 800
 screen_height = 600
-globala=0
+globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 #IMAGES
    #imagenes de balas
 bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
@@ -17,13 +17,13 @@ fondo=pygame.image.load("assets/maps/world.png")
 fondo=pygame.image.load("assets/maps/world.png")
     #For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-img_right = pygame.transform.scale(img_right, (40, 40))
+img_right = pygame.transform.scale(img_right, (screen_width*0.05, screen_width*0.05))
     #For Player Tow
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
-img_left = pygame.transform.scale(img_left, (40, 40))
+img_left = pygame.transform.scale(img_left, (screen_width*0.05, screen_width*0.05))
     #For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
-turn_text=pygame.transform.scale(turn_text, (120, 50))
+turn_text=pygame.transform.scale(turn_text, (screen_width*0.15,screen_height*0.0833))
 
 #Colores
 negro = 0,0,0
@@ -102,7 +102,7 @@ class Menu():
         self.game = game
         self.mid_w, self.mid_h = self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2
         self.run_display = True
-        self.cursor_rect = pygame.Rect(0, 0, 20, 20)
+        self.cursor_rect = pygame.Rect(0, 0, self.game.DISPLAY_W*0.025,self.game.DISPLAY_W*0.025 )
         self.offset = - 150
 
     def draw_cursor(self):
@@ -535,7 +535,7 @@ def colision(posicionY,posicionX,flagLimite,world):
             flagLimite=False
             return flagLimite
         
-        elif  posicionX >= 790  : 
+        elif  posicionX >= screen_width-10  : 
             print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
             world = World(world_data)
             screen.blit(fondo, (0, 0))
@@ -654,7 +654,7 @@ def texttankI(posicion_Y,posicion_X,tanque,sustituto):
 
 def texttankD(posicion_Y,posicion_X,tanque,sustituto):
 
-    posicionY=600-posicion_Y
+    posicionY=screen_height-posicion_Y
     posicionX=posicion_X - tanque.x
 
 
