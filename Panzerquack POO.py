@@ -5,14 +5,41 @@ import time
 from random import randint,choice
 from pygame.locals import *
 import button
-
+screen_width = 800
+screen_height = 600
 globala=0
+#IMAGES
+   #imagenes de balas
+bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+fondo=pygame.image.load("assets/maps/world.png")
+fondo=pygame.image.load("assets/maps/world.png")
+    #For Player One
+img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+img_right = pygame.transform.scale(img_right, (40, 40))
+    #For Player Tow
+img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
+img_left = pygame.transform.scale(img_left, (40, 40))
+    #For Turns
+turn_text=pygame.image.load("assets/Textures/turn_text.png")
+turn_text=pygame.transform.scale(turn_text, (120, 50))
+
+#Colores
+negro = 0,0,0
+ColorMagico = 0,70,70
+gray = 127,127,127
+blue_sky=0,160,235
+#Tamaño de los recuadros del mapa 
+tile_size = 50
+#selección del mapa
+mapa = randint(1,3)
 class Game():
     def __init__(self):
         pygame.init()
         self.running, self.playing = True, False
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False
-        self.DISPLAY_W, self.DISPLAY_H = 800, 600
+        self.DISPLAY_W, self.DISPLAY_H = screen_width, screen_height
         self.display = pygame.Surface((self.DISPLAY_W,self.DISPLAY_H))
         self.window = pygame.display.set_mode(((self.DISPLAY_W,self.DISPLAY_H)))
         self.font_name = '8-BIT WONDER.TTF'
@@ -214,21 +241,6 @@ class Player():
         self.direction = 0
         
     def update(self):
-        dx = 0
-        dy = 0
-
-        #get keypresses
-        key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE] and self.jumped == False:
-            self.vel_y = -15
-            self.jumped = True
-        if key[pygame.K_SPACE] == False:
-            self.jumped = False
-        if key[pygame.K_LEFT]:
-            dx -= 5
-        if key[pygame.K_RIGHT]:
-            dx += 5
-
         #draw player onto screen
         screen.blit(player1.imagen, player1.rect)
         screen.blit(player2.imagen, player2.rect)
@@ -534,18 +546,18 @@ def colision(posicionY,posicionX,flagLimite,world):
 def MapaSelect(seleccion):
 
     world_data = [
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],
-    [2,2,0,0,0,0,0,1,1,0,0,0,0,0,2,2],
-    [1,1,2,0,0,0,0,1,1,0,0,0,0,2,1,1],
-    [1,1,1,2,0,0,0,1,1,0,0,0,2,1,1,1],
-    [1,1,1,1,2,2,0,1,1,0,0,2,1,1,1,1],
-    [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1]
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0],
+    [2,2,0,0,0,0,0,1,1,0,0,0,0,0,2,2,0],
+    [1,1,2,0,0,0,0,1,1,0,0,0,0,2,1,1,0],
+    [1,1,1,2,0,0,0,1,1,0,0,0,2,1,1,1,0],
+    [1,1,1,1,2,2,0,1,1,0,0,2,1,1,1,1,0],
+    [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,0]
     ]
     world_data2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -779,50 +791,26 @@ while Master_flag==True:
 
     pygame.init()
     #PANTALLA
-    screen_width = 800
-    screen_height = 600
     screen = pygame.display.set_mode((screen_width, screen_height))
+    screen.fill(blue_sky)
     pygame.display.set_caption('Panzerquack')
-    #Load Background
-    fondo=pygame.image.load("assets/maps/world.png")
-    #Colores
-    negro = 0,0,0
-    ColorMagico = 0,70,70
-    gray = 127,127,127
-    blue_sky=0,160,235
-    #Tamaño de los recuadros del mapa 
-    tile_size = 50
-    mapa = randint(1,3)
+    restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
+    exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
+    pygame.display.update()
+    
     #print("el mapa es: ", mapa)   
     world_data=MapaSelect(mapa)
     world = World(world_data)
     screen.blit(fondo, (0, 0))
     world.draw()
     #draw_grid()
-    #IMAGES
-    #imagenes de balas
-    bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
-    bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
-    bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
-     
-    pygame.display.update()
-    restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
-    exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
+    
     #create button instances
     restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
-        
+    
     #Load Background
-    fondo=pygame.image.load("assets/maps/world.png")
-    #For Player One
-    img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-    img_right = pygame.transform.scale(img_right, (40, 40))
-    #For Player Tow
-    img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
-    img_left = pygame.transform.scale(img_left, (40, 40))
-    #For Turns
-    turn_text=pygame.image.load("assets/Textures/turn_text.png")
-    turn_text=pygame.transform.scale(turn_text, (120, 50))
+    
 
     if mapa ==1:
         valorestank1 = [[7,0],[7,1],[8,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
@@ -842,9 +830,6 @@ while Master_flag==True:
         a = z[0]
         b = z[1]
 
-    #print("valor elegido: ", z)
-    #print("valor a: ",a)
-    #print("valor b :", b)
     x_player1= SpawnRandom(a,b,1)
     y_player1= SpawnRandom(a,b,2)
     player1 = Player(x_player1-50,y_player1-40, img_right)
@@ -1116,11 +1101,10 @@ while Master_flag==True:
             if win == False:
                 #victoria()
                 run=False
-
+                
     #===========================================================================================
         player1.update()        
         pygame.display.update()
-        
         if turno==10:
             turno=1
         
