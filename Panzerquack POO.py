@@ -1,12 +1,12 @@
 import sys
 import pygame
-from math import cos, sin, pi, tan, radians
+from math import cos, sin, pi, tan, radians,floor
 import time 
 from random import randint,choice
 from pygame.locals import *
 import button
-screen_width = 1280
-screen_height = 720
+screen_width = 800
+screen_height = 600
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 #IMAGES
    #imagenes de balas
@@ -207,14 +207,14 @@ class World():
                     img = pygame.transform.scale(dirt_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = (col_count * tile_size)
-                    img_rect.y = (row_count * tile_size)
+                    img_rect.y = (row_count * tile_size)+(screen_height**1/3)
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 if tile == 2:
                     img = pygame.transform.scale(grass_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = (col_count * tile_size)
-                    img_rect.y = (row_count * tile_size)
+                    img_rect.y = (row_count * tile_size)+(screen_height**1/3)
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 
@@ -569,6 +569,11 @@ def MapaSelect(seleccion,tile_size):
     [1,1,1,2,0,0,0,1,1,0,0,0,2,1,1,1,1,0,0,1,1,1,2,2,2,1,1,1,1,2,2,0,0,1,1,1,1,1,1,1],
     [1,1,1,1,2,2,0,1,1,0,0,2,1,1,1,1,1,2,0,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
     world_data2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
