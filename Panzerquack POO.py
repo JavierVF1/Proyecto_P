@@ -6,7 +6,10 @@ from random import randint,choice
 from pygame.locals import *
 import button
 screen_width = 1280
-screen_height = 600
+screen_height = 800
+#Tamaño de los recuadros del mapa 
+tile_width = screen_width/40
+tile_height=screen_height/20
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 #IMAGES
    #imagenes de balas
@@ -17,10 +20,10 @@ fondo=pygame.image.load("assets/maps/world.png")
 fondo=pygame.image.load("assets/maps/world.png")
     #For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-img_right = pygame.transform.scale(img_right, (screen_width/40,screen_width/40))
+img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
     #For Player Tow
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
-img_left = pygame.transform.scale(img_left, (screen_width/40, screen_width/40))
+img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
     #For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
 turn_text=pygame.transform.scale(turn_text, (screen_width*0.15,screen_height*0.0833))
@@ -30,9 +33,7 @@ negro = 0,0,0
 ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
-#Tamaño de los recuadros del mapa 
-tile_width = screen_width/40
-tile_height=screen_height/20
+
 #selección del mapa
 mapa = 1
 class Game():
