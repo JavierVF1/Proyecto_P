@@ -5,11 +5,11 @@ import time
 from random import randint,choice
 from pygame.locals import *
 import button
-screen_width = 1280
+screen_width = 800
 screen_height = 800
 #Tamaño de los recuadros del mapa 
-tile_width = screen_width/40
-tile_height=screen_height/20
+tile_width =int(screen_width/40)
+tile_height=int(screen_height/20)
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 #IMAGES
    #imagenes de balas
@@ -18,15 +18,35 @@ bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png
 bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
 fondo=pygame.image.load("assets/maps/world.png")
 fondo=pygame.image.load("assets/maps/world.png")
-    #For Player One
+    #For Player One / Green
+
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
-    #For Player Tow
+img_right_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s_L.png") #Efecto espejo
+    #For Player Tow  / Red
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
 img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
+img_left_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")#Efecto espejo
+    #For Player Blue
+img_Pblue = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s.png")
+img_Pblue = pygame.transform.scale(img_Pblue, (tile_width,tile_height))
+img_Pblue_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s_L.png")#Efecto espejo
+ #For Player Purple
+img_Ppurple = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s.png")
+img_Ppurple = pygame.transform.scale(img_Ppurple, (tile_width,tile_height))
+img_Ppurple_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s_L.png")#Efecto espejo
+ #For Player White
+img_Pwhite = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s.png")
+img_Pwhite = pygame.transform.scale(img_Pwhite, (tile_width,tile_height))
+img_Pwhite_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s_L.png")#Efecto espejo
+#For Player Yellow
+img_Pyellow = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s.png")
+img_Pyellow = pygame.transform.scale(img_Pyellow, (tile_width,tile_height))
+img_Pyellow_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s_L.png")#Efecto espejo
+
     #For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
-turn_text=pygame.transform.scale(turn_text, (screen_width*0.15,screen_height*0.0833))
+turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
 
 #Colores
 negro = 0,0,0
@@ -35,7 +55,7 @@ gray = 127,127,127
 blue_sky=0,160,235
 
 #selección del mapa
-mapa = 1
+#mapa = 1
 class Game():
     def __init__(self):
         pygame.init()
@@ -821,8 +841,8 @@ while Master_flag==True:
     restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
     exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
     pygame.display.update()
-    
-    #print("el mapa es: ", mapa)   
+    #Seleccionador randomico de mapa 
+    mapa = randint(1,3)
     world_data=MapaSelect(mapa)
     world = World(world_data)
     screen.blit(fondo, (0, 0))
@@ -833,21 +853,20 @@ while Master_flag==True:
     restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
     
-    #Load Background
+   
     
-
+    #------------------------------------------------------------------------------------
+    #spawn player 1
     if mapa ==1:
         valorestank1 = [[7,0],[7,1],[8,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
         z = choice(valorestank1)
         a = z[0]
         b = z[1]
-
     if mapa == 2:
         valorestank1 = [[10,0],[10,1],[10,2],[7,3],[7,4],[11,6],[5,7]]
         z = choice(valorestank1)
         a = z[0]
         b = z[1]
-
     if mapa == 3:
         valorestank1 = [[10,0],[10,1],[8,2],[7,3],[7,4],[8,5],[10,6],[11,7]]
         z = choice(valorestank1)
@@ -857,7 +876,8 @@ while Master_flag==True:
     x_player1= SpawnRandom(a,b,1)
     y_player1= SpawnRandom(a,b,2)
     player1 = Player(x_player1,y_player1, img_right)
-
+    #------------------------------------------------------------------------------------
+    #spawn player 2
     if mapa == 1:
         i=b
         valorestank2aux = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
@@ -868,7 +888,6 @@ while Master_flag==True:
         z1 = choice(valorestank2)
         c = z1[0]
         d = z1[1]
-
     if mapa == 2:
         i=b
         valorestank2aux = [[5,8],[11,9],[7,11],[7,12],[10,13],[10,14],[10,15]]
@@ -884,7 +903,6 @@ while Master_flag==True:
         z1 = choice(valorestank2)
         c = z1[0]
         d = z1[1]
-
     if mapa == 3:
         i=b
         valorestank2aux = [[11,8],[10,9],[9,10],[8,11],[11,12],[12,13],[6,14],[6,15]]
@@ -896,12 +914,15 @@ while Master_flag==True:
         c = z1[0]
         d = z1[1]
 
-    #print("valor elegido: ", z1)
-    #print("valor c: ",c)
-    #print("valor d: ",d)
     x_player2=SpawnRandom(c,d,3)
     y_player2=SpawnRandom(c,d,4)
     player2 = Player(x_player2,y_player2, img_left)
+    #------------------------------------------------------------------------------------
+    
+    player3 = Player(0,0, img_Pblue)
+    player4 = Player(0,0, img_Ppurple)
+    player5 = Player(0,0, img_Pwhite)
+    player6 = Player(0,0, img_Pyellow)
 
     #For the text of Vel. and Ang.
     texto7= pygame.font.SysFont("Comic Sans MS",16,5)
@@ -947,7 +968,6 @@ while Master_flag==True:
                 if bala==100:
                     break
 
-
                 if 0 < bala105_2 :
                     if int (bala) == 1:
                         globala=1
@@ -955,7 +975,6 @@ while Master_flag==True:
                         bala105_2-=1
                         damage=50
                         break
-
                 if  0 < balaPerforante_2 :
                     if int (bala) == 2:
                         globala=2
@@ -963,7 +982,6 @@ while Master_flag==True:
                         balaPerforante_2-=1
                         damage=40
                         break
-
                 if  0 < bala90_2:
                     if int (bala) == 3:
                         globala=3
@@ -971,16 +989,12 @@ while Master_flag==True:
                         bala90_2-=1
                         damage=30
                         break
-
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°1\n")
                     win=False
                     break
-            
-                
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.75, 140, 32])
-
             #para hacer funcionar el boton reset
             if bala==100:
                 break 
@@ -1046,14 +1060,12 @@ while Master_flag==True:
                     break
 
                 if 0 < bala105_1 :
-
                     if int (bala) == 1:
                         globala=1
                         bullet_default=bullet_105mm
                         bala105_1-=1
                         damage=50
                         break
-
                 if  0 < balaPerforante_1 :
                     if int (bala) == 2:
                         globala=2
@@ -1061,7 +1073,6 @@ while Master_flag==True:
                         balaPerforante_1-=1
                         damage=40
                         break
-
                 if  0 < bala90_1:
                     if int (bala) == 3:
                         globala=3
@@ -1069,7 +1080,6 @@ while Master_flag==True:
                         bala90_1-=1
                         damage=30
                         break
-
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°2\n")
