@@ -5,7 +5,7 @@ import time
 from random import randint,choice
 from pygame.locals import *
 import button
-screen_width = 1280
+screen_width = 800
 screen_height = 600
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 #IMAGES
@@ -17,10 +17,10 @@ fondo=pygame.image.load("assets/maps/world.png")
 fondo=pygame.image.load("assets/maps/world.png")
     #For Player One
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-img_right = pygame.transform.scale(img_right, (screen_width/40,screen_width/40))
+img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
     #For Player Tow
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
-img_left = pygame.transform.scale(img_left, (screen_width/40, screen_width/40))
+img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
     #For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
 turn_text=pygame.transform.scale(turn_text, (screen_width*0.15,screen_height*0.0833))
@@ -31,8 +31,7 @@ ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
 #Tamaño de los recuadros del mapa 
-tile_width = screen_width/40
-tile_height=screen_height/20
+tile_size = screen_width/40
 #selección del mapa
 mapa = 1
 class Game():
@@ -205,17 +204,17 @@ class World():
             col_count = 0
             for tile in row:
                 if tile == 1:
-                    img = pygame.transform.scale(dirt_img, (tile_width, tile_height))
+                    img = pygame.transform.scale(dirt_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
-                    img_rect.x = (col_count * tile_width)
-                    img_rect.y = (row_count * tile_height)
+                    img_rect.x = (col_count * tile_size)
+                    img_rect.y = (row_count * tile_size)+(screen_height**1/3)
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 if tile == 2:
-                    img = pygame.transform.scale(grass_img, (tile_width, tile_height))
+                    img = pygame.transform.scale(grass_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
-                    img_rect.x = (col_count * tile_width)
-                    img_rect.y = (row_count * tile_height)
+                    img_rect.x = (col_count * tile_size)
+                    img_rect.y = (row_count * tile_size)+(screen_height**1/3)
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 
@@ -551,7 +550,7 @@ def colision(posicionY,posicionX,flagLimite,world):
             flagLimite=False
             return flagLimite
 
-def MapaSelect(seleccion):
+def MapaSelect(seleccion,tile_size):
 
     world_data = [
     
@@ -622,12 +621,12 @@ def MapaSelect(seleccion):
 
 #Función que dibuja las separaciónes del mapa
 #esto es para visualizarlo
-# def draw_grid():
-#     for line in range(0,100):
-#         pygame.draw.line(screen, (255, 255, 255),
-#         (0, line * tile_size), (screen_width, line * tile_size))
-#         pygame.draw.line(screen, (255, 255, 255),
-#         (line * tile_size, 0), (line * tile_size, screen_height))
+def draw_grid():
+    for line in range(0,100):
+        pygame.draw.line(screen, (255, 255, 255),
+        (0, line * tile_size), (screen_width, line * tile_size))
+        pygame.draw.line(screen, (255, 255, 255),
+        (line * tile_size, 0), (line * tile_size, screen_height))
 
 #funciones de texto
 def text():
@@ -822,11 +821,11 @@ while Master_flag==True:
     pygame.display.update()
     
     #print("el mapa es: ", mapa)   
-    world_data=MapaSelect(mapa)
+    world_data=MapaSelect(mapa,tile_size)
     world = World(world_data)
     screen.blit(fondo, (0, 0))
     world.draw()
-    # draw_grid()
+    draw_grid()
     
     #create button instances
     restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
