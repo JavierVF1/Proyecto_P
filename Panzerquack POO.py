@@ -141,9 +141,9 @@ class MainMenu(Menu):
         self.state = "Start"
         self.startx, self.starty = self.mid_w, self.mid_h + 30
         self.optionsx, self.optionsy = self.mid_w, self.mid_h + 50
+        self.Configx,self.Configy=self.mid_w,self.mid_h+70
         self.Exitx, self.Exity = self.mid_w, self.mid_h + 50
         self.Panzerx, self.Panzery = self.mid_w, self.mid_h -150
-        self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
         
 
     def display_menu(self):
@@ -155,6 +155,8 @@ class MainMenu(Menu):
             #self.game.draw_text('Main Menu', 20, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 20)
             self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
             self.game.draw_text("Panzerquack", 50, self.Panzerx, self.Panzery)
+            self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
+            self.game.draw_text("Configuraciones", 20, self.Configx, self.Configy)
             self.game.draw_text("Salir", 20, self.Exitx, self.Exity)
             
             
@@ -168,12 +170,22 @@ class MainMenu(Menu):
                 self.cursor_rect.midtop = (self.optionsx + self.offset, self.optionsy)
                 self.state = 'Exit'
             elif self.state == 'Exit':
+                self.cursor_rect.midtop=(self.Configx+self.offset,self.Configy)
+                self.state = 'Configuraciones'
+            elif self.state=='Configuraciones':
                 self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
                 self.state = 'Start'
-        elif self.game.UP_KEY:
+        if self.game.UP_KEY:
             if self.state == 'Start':
                 self.cursor_rect.midtop = (self.Exitx + self.offset, self.Exity)
                 self.state = 'Exit'
+                self.cursor_rect.midtop=(self.Configx+self.offset,self.Configy)
+                self.state = 'Configuraciones'
+                
+            elif self.state=='Configuraciones':
+                self.cursor_rect.midtop = (self.optionsx + self.offset, self.optionsy)
+                self.state='Exit'
+                
             elif self.state == 'Exit':
                 self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
                 self.state = 'Start'
@@ -186,7 +198,7 @@ class MainMenu(Menu):
             if self.state == 'Start':
                 self.game.playing = True
             elif self.state == 'Exit':
-                self.game.curr_menu = self.game.Exit
+                pygame.quit()
             self.run_display = False
 
 class ExitMenu(Menu):
@@ -634,6 +646,11 @@ def MapaSelect(seleccion):
     [1,1,1,2,0,0,0,1,1,0,0,0,2,1,1,1,1,0,0,1,1,1,2,2,2,1,1,1,1,2,2,0,0,1,1,1,1,1,1,1],
     [1,1,1,1,2,2,0,1,1,0,0,2,1,1,1,1,1,2,0,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
     world_data3 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -651,6 +668,11 @@ def MapaSelect(seleccion):
     [1,1,1,2,0,0,0,1,1,0,0,0,2,1,1,1,1,0,0,1,1,1,2,2,2,1,1,1,1,2,2,0,0,1,1,1,1,1,1,1],
     [1,1,1,1,2,2,0,1,1,0,0,2,1,1,1,1,1,2,0,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
 
     if seleccion == 1:
