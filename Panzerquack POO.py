@@ -144,7 +144,7 @@ class MainMenu(Menu):
         self.Configx,self.Configy=self.mid_w,self.mid_h+70
         self.Exitx, self.Exity = self.mid_w, self.mid_h + 50
         self.Panzerx, self.Panzery = self.mid_w, self.mid_h -150
-        
+        self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
 
     def display_menu(self):
         self.run_display = True 
@@ -158,7 +158,7 @@ class MainMenu(Menu):
             self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
             self.game.draw_text("Configuraciones", 20, self.Configx, self.Configy)
             self.game.draw_text("Salir", 20, self.Exitx, self.Exity)
-            self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+            
             
 
             self.draw_cursor()
