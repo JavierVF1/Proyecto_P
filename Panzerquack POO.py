@@ -289,7 +289,7 @@ class Bullet():
         #print(XTanke2)
         #print(YTanke2)
 
-    def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world,damage):
+    def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world,damage,wind,gravity,intensidad_v,intensidad_g):
         key = pygame.key.get_pressed()
         rectangulobala = bullet_default.get_rect()
         rectangulobala = rectangulobala.move(1,1)
@@ -308,10 +308,31 @@ class Bullet():
         contdmg=1 #contador para evitar que la bala golpee mas de una vez
         while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
-            posicionX = posicionX + velocidadiX * ti
-            posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
-            velocidadY = velocidadiY - (6 * ti)
-            velocidadX = velocidadiX - (6 * ti)
+            
+            if wind == False and gravity == False:
+                posicionX = posicionX + velocidadiX * ti
+                posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
+                velocidadY = velocidadiY - (6 * ti)
+                velocidadX = velocidadiX - (6 * ti)
+            
+            if wind == True and gravity == False:
+                posicionX = (posicionX + velocidadiX * ti)+(intensidad_v/10)
+                posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
+                velocidadY = velocidadiY - (6 * ti)
+                velocidadX = velocidadiX - (6 * ti)
+            
+            if wind == False and gravity == True:
+                posicionX = posicionX + velocidadiX * ti
+                posicionY = posicionY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2)
+                velocidadY = velocidadiY - (intensidad_g * ti)
+                velocidadX = velocidadiX - (intensidad_g * ti)
+            
+            if wind == True and gravity == True:
+                posicionX = (posicionX + velocidadiX * ti)+(intensidad_v/10)
+                posicionY = posicionY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2)
+                velocidadY = velocidadiY - (intensidad_g * ti)
+                velocidadX = velocidadiX - (intensidad_g * ti)
+
             # ti modifica la velocidad del tiro
             ti += 0.01  
             flag=True
@@ -949,10 +970,16 @@ while Master_flag==True:
     auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
     turno=10     #Variable control de turnos
     win=True    #Variable control de victoria
+    
+    valores_random=[True,False]
+    gravedad = choice(valores_random)
+    viento = choice(valores_random)
+    intensidad_gravedad = randint(0,15)
+    print("la gravedad esta activada: ",gravedad) #si no esta activada la gravedad por defecto es 6
+    print("la intensidad de la gravedad es de: ",intensidad_gravedad)
 
     while run:
         bala=""
-       
     #===========================================================================================================================
         if turno == 2:
             
@@ -1027,7 +1054,7 @@ while Master_flag==True:
             screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
 
             bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-20,y_player2-40,x_player1-50,y_player1-40)
-            win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage)
+            win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage,viento,gravedad,intensidad_viento,intensidad_gravedad)
             
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.01875, screen_height*0.0166, 220, 60])
@@ -1044,14 +1071,17 @@ while Master_flag==True:
                 #victoria()
                 run=False
     #===========================================================================================================================
+        intensidad_viento = randint(-10,10)
 
         if turno == 1:
-            
+            print("el viento esta activado: ", viento)
+            print("la intensidad del viento es de: ", intensidad_viento)
             print("Turno UNO")
             screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
+
             while True:
                 SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
                 bala=SelectBala.textBala()
@@ -1119,7 +1149,7 @@ while Master_flag==True:
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
 
             bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
-            win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage)
+            win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage,viento,gravedad,intensidad_viento,intensidad_gravedad)
             
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
