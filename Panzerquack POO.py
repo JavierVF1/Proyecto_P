@@ -158,7 +158,7 @@ class MainMenu(Menu):
             self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
             self.game.draw_text("Configuraciones", 20, self.Configx, self.Configy)
             self.game.draw_text("Salir", 20, self.Exitx, self.Exity)
-            
+            self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
             
 
             self.draw_cursor()
