@@ -17,7 +17,6 @@ bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
 bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
 bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
 fondo=pygame.image.load("assets/maps/world.png")
-fondo=pygame.image.load("assets/maps/world.png")
     #For Player One / Green
 
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
@@ -47,6 +46,8 @@ img_Pyellow_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s_L.png")
     #For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
 turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
+
+
 
 #Colores
 negro = 0,0,0
@@ -148,6 +149,7 @@ class MainMenu(Menu):
 
     def display_menu(self):
         self.run_display = True 
+        
         while self.run_display:
             self.game.check_events()
             self.check_input()
@@ -158,11 +160,17 @@ class MainMenu(Menu):
             self.game.draw_text("Comenzar Juego", 30, self.startx, self.starty)
             self.game.draw_text("Configuraciones", 30, self.Configx, self.Configy)
             self.game.draw_text("Salir", 30, self.Exitx, self.Exity)
-            
+            flor_img = pygame.image.load('assets/sprites/grass.png')
+            #flor_img =pygame.transform.scale(flor_img , (int(screen_width*0.50),int(screen_height*0.50)))
+            self.game.display.blit(flor_img, (screen_width*0, screen_height*0.940))
+            panzer_img = pygame.image.load('assets/sprites/panzer.png')
+            panzer_img =pygame.transform.scale(panzer_img , (int(screen_width*0.50),int(screen_height*0.50)))
+            self.game.display.blit(panzer_img, (screen_width*0.200, screen_height*0.550))
             
 
             self.draw_cursor()
             self.blit_screen()
+            
 
     def move_cursor(self):
         if self.game.DOWN_KEY:
@@ -994,17 +1002,17 @@ while Master_flag==True:
 
     #BALAS
     #Variables Bala player One
-    bala105_1=3
+    bala105_1=10
     balaPerforante_1=10
-    bala90_1=3
+    bala90_1=10
     #Variables Bala player Tow
-    bala105_2=3
+    bala105_2=10
     balaPerforante_2=10
-    bala90_2=3
+    bala90_2=10
 
     #Variables auxiliares
-    numero10=10
-    numero100=100
+    numero10=10    #valor estatico
+    numero100=100  #valor estatico
     run = True   #Variable while principal
     auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
     turno=numero10     #Variable control de turnos
