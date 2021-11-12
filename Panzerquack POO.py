@@ -1004,6 +1004,7 @@ while Master_flag==True:
 
     #Variables auxiliares
     numero10=10
+    numero100=100
     run = True   #Variable while principal
     auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
     turno=numero10     #Variable control de turnos
@@ -1032,7 +1033,7 @@ while Master_flag==True:
                 SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
                 bala=SelectBala.textBala()
                 #para hacer funcionar el boton reset
-                if bala==100:
+                if bala==numero100:
                     break
 
                 if 0 < bala105_2 :
@@ -1063,7 +1064,7 @@ while Master_flag==True:
                     break
 
             #para hacer funcionar el boton reset
-            if bala==100:
+            if bala==numero100:
                 break 
             
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
@@ -1071,7 +1072,7 @@ while Master_flag==True:
             screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
                 #para hacer funcionar el boton reset
-            if temporalvel==100:
+            if temporalvel==numero100:
                 break    
 
             if temporalvel>numero10:
@@ -1085,7 +1086,7 @@ while Master_flag==True:
             screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))
             temporalang=int(textbox())
                 #para hacer funcionar el boton reset
-            if temporalang==100:
+            if temporalang==numero100:
                 break    
 
             player2.setAng(-temporalang)
@@ -1125,7 +1126,7 @@ while Master_flag==True:
                 SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
                 bala=SelectBala.textBala()
                 #para hacer funcionar el boton reset
-                if bala==100:
+                if bala==numero100:
                     break
 
                 if 0 < bala105_1 :
@@ -1157,7 +1158,7 @@ while Master_flag==True:
                 
                 
             #para hacer funcionar el boton reset
-            if bala==100:
+            if bala==numero100:
                 break    
 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
@@ -1165,7 +1166,7 @@ while Master_flag==True:
             screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
                 #para hacer funcionar el boton reset
-            if temporalvel==100:
+            if temporalvel==numero100:
                 break    
 
             if temporalvel>numero10:
@@ -1179,7 +1180,7 @@ while Master_flag==True:
             screen.blit(textang,(screen_width*0.818, screen_height*0.0083))
             temporalang=int(textbox())
                 #para hacer funcionar el boton reset
-            if temporalang==100:
+            if temporalang==numero100:
                 break    
 
             player1.setAng(temporalang)
