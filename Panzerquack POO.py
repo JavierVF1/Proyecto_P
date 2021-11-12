@@ -1003,9 +1003,10 @@ while Master_flag==True:
     bala90_2=3
 
     #Variables auxiliares
+    numero10=10
     run = True   #Variable while principal
     auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
-    turno=10     #Variable control de turnos
+    turno=numero10     #Variable control de turnos
     win=True    #Variable control de victoria
     
     valores_random=[True,False]
@@ -1073,10 +1074,10 @@ while Master_flag==True:
             if temporalvel==100:
                 break    
 
-            if temporalvel>10:
-                temporalvel=10
-            if temporalvel<-10:
-                temporalvel=-10
+            if temporalvel>numero10:
+                temporalvel=numero10
+            if temporalvel<-numero10:
+                temporalvel=-numero10
             player2.setVel(-temporalvel)
             #SE BORRA EL TEXTO ANTERIOR 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
@@ -1098,7 +1099,7 @@ while Master_flag==True:
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
             #Siguente turno
-            turno=10
+            turno=numero10
             
             if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -1167,10 +1168,10 @@ while Master_flag==True:
             if temporalvel==100:
                 break    
 
-            if temporalvel>10:
-                temporalvel=10
-            if temporalvel<-10:
-                temporalvel=-10
+            if temporalvel>numero10:
+                temporalvel=numero10
+            if temporalvel<-numero10:
+                temporalvel=-numero10
             player1.setVel(temporalvel)
             #SE BORRA EL TEXTO ANTERIOR 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
@@ -1210,7 +1211,7 @@ while Master_flag==True:
         player5.update(player5) 
         player6.update(player6)     
         pygame.display.update()
-        if turno==10:
+        if turno==numero10:
             turno=1
         
 pygame.quit()
