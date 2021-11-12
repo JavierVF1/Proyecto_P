@@ -64,7 +64,7 @@ class Game():
         self.DISPLAY_W, self.DISPLAY_H = screen_width, screen_height
         self.display = pygame.Surface((self.DISPLAY_W,self.DISPLAY_H))
         self.window = pygame.display.set_mode(((self.DISPLAY_W,self.DISPLAY_H)))
-        self.font_name = '8-BIT WONDER.TTF'
+        self.font_name = 'TIEWING.TTF'
         #self.font_name = pygame.font.get_default_font()
         self.BLACK, self.WHITE = (0,160,235), (0,70,70)
         self.main_menu = MainMenu(self)
@@ -128,7 +128,7 @@ class Menu():
         self.offset = - 150
 
     def draw_cursor(self):
-        self.game.draw_text('o', 10, self.cursor_rect.x, self.cursor_rect.y)
+        self.game.draw_text('x', 20, self.cursor_rect.x, self.cursor_rect.y)
 
     def blit_screen(self):
         self.game.window.blit(self.game.display, (0, 0))
@@ -140,9 +140,9 @@ class MainMenu(Menu):
         Menu.__init__(self, game)
         self.state = "Start"
         self.startx, self.starty = self.mid_w, self.mid_h + 30
-        self.optionsx, self.optionsy = self.mid_w, self.mid_h + 50
-        self.Configx,self.Configy=self.mid_w,self.mid_h+70
-        self.Exitx, self.Exity = self.mid_w, self.mid_h + 50
+        #self.optionsx, self.optionsy = self.mid_w, self.mid_h + 50
+        self.Configx,self.Configy=self.mid_w,self.mid_h+60
+        self.Exitx, self.Exity = self.mid_w, self.mid_h + 90
         self.Panzerx, self.Panzery = self.mid_w, self.mid_h -150
         self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
 
@@ -153,11 +153,11 @@ class MainMenu(Menu):
             self.check_input()
             self.game.display.fill(self.game.BLACK)
             #self.game.draw_text('Main Menu', 20, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 20)
-            self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
-            self.game.draw_text("Panzerquack", 50, self.Panzerx, self.Panzery)
-            self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
-            self.game.draw_text("Configuraciones", 20, self.Configx, self.Configy)
-            self.game.draw_text("Salir", 20, self.Exitx, self.Exity)
+            #self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
+            self.game.draw_text("Panzerquack", 90, self.Panzerx, self.Panzery)
+            self.game.draw_text("Comenzar Juego", 30, self.startx, self.starty)
+            self.game.draw_text("Configuraciones", 30, self.Configx, self.Configy)
+            self.game.draw_text("Salir", 30, self.Exitx, self.Exity)
             
             
 
@@ -167,28 +167,28 @@ class MainMenu(Menu):
     def move_cursor(self):
         if self.game.DOWN_KEY:
             if self.state == 'Start':
-                self.cursor_rect.midtop = (self.optionsx + self.offset, self.optionsy)
-                self.state = 'Exit'
-            elif self.state == 'Exit':
-                self.cursor_rect.midtop=(self.Configx+self.offset,self.Configy)
+                self.cursor_rect.midtop = (self.Configx + self.offset, self.Configy)
                 self.state = 'Configuraciones'
-            elif self.state=='Configuraciones':
+            elif self.state == 'Configuraciones':
+                self.cursor_rect.midtop=(self.Exitx+self.offset,self.Exity)
+                self.state = 'Exit'
+            elif self.state=='Exit':
                 self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
                 self.state = 'Start'
         if self.game.UP_KEY:
             if self.state == 'Start':
                 self.cursor_rect.midtop = (self.Exitx + self.offset, self.Exity)
                 self.state = 'Exit'
-                self.cursor_rect.midtop=(self.Configx+self.offset,self.Configy)
-                self.state = 'Configuraciones'
+                #self.cursor_rect.midtop=(self.Configx+self.offset,self.Configy)
+                #self.state = 'Configuraciones'
                 
             elif self.state=='Configuraciones':
-                self.cursor_rect.midtop = (self.optionsx + self.offset, self.optionsy)
-                self.state='Exit'
+                self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+                self.state='Start'
                 
             elif self.state == 'Exit':
-                self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
-                self.state = 'Start'
+                self.cursor_rect.midtop = (self.Configx + self.offset, self.Configy)
+                self.state = 'Configuraciones'
             
 
    
@@ -197,6 +197,8 @@ class MainMenu(Menu):
         if self.game.START_KEY:
             if self.state == 'Start':
                 self.game.playing = True
+            elif self.state == 'Configuraciones':
+                self.game.playing = False
             elif self.state == 'Exit':
                 pygame.quit()
             self.run_display = False
@@ -274,10 +276,10 @@ class Player():
         self.jumped = False
         self.direction = 0
         
-    def update(self):
+    def update(self,player):
         #(draw) player onto screen
-        screen.blit(player1.imagen, player1.rect)
-        screen.blit(player2.imagen, player2.rect)
+        screen.blit(player.imagen, player.rect)
+        
 
     def setVel(self,x):
         self.vel=x
@@ -458,10 +460,10 @@ class SelectBala():
 
 
 
-        screen.blit(Titulo,(screen_width*0.7125, screen_height*0.1666))
-        screen.blit(texto105mm,(screen_width*0.7, screen_height*0.225))
-        screen.blit(textoPerforante,(screen_width*0.7, screen_height*0.2583))
-        screen.blit(texto90mm,(screen_width*0.7, screen_height*0.2916))
+        screen.blit(Titulo,(screen_width*0.7125, screen_height*0.0066))
+        screen.blit(texto105mm,(screen_width*0.7, screen_height*0.035))
+        screen.blit(textoPerforante,(screen_width*0.7, screen_height*0.0583))
+        screen.blit(texto90mm,(screen_width*0.7, screen_height*0.0816))
 
         return
 
@@ -469,7 +471,7 @@ class SelectBala():
     def textBala():
         
         font = pygame.font.Font(None, 32)
-        input_box = pygame.Rect(screen_width*0.9375, screen_height*0.25, 140, 32)
+        input_box = pygame.Rect(screen_width*0.9375, screen_height*0.05, 140, 32)
         color_inactive = pygame.Color('lightskyblue3')
         color_active = pygame.Color("black")
         color = color_inactive
@@ -509,7 +511,7 @@ class SelectBala():
                             text = ''
                         elif event.key == pygame.K_BACKSPACE:
                             text = text[:-1]
-                            pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.25, 140, 32])
+                            pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.05, 140, 32])
                         else:
                             if event.unicode == "1" or event.unicode == "2" or event.unicode == "3":
                                 text += event.unicode
@@ -545,8 +547,8 @@ def colision(posicionY,posicionX,flagLimite,world):
         #print(posicionY)
         #print(posicionX)
         
-        a=int(posicionY)//50
-        b=int(posicionX)//50
+        a=int(posicionY)//40
+        b=int(posicionX)//20
         
         if world[a][b] != 0:
             print("\nCOLISION CON TERRENO!!!!!\n")
@@ -614,6 +616,10 @@ def MapaSelect(seleccion):
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,0,0,0,0,0,2,2],
@@ -626,6 +632,7 @@ def MapaSelect(seleccion):
     [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
@@ -636,18 +643,22 @@ def MapaSelect(seleccion):
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,0,0,0,0,0,2,2],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,2,1,1],
-    [0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,0,0,0,0,0,0,2,2,1,1,1],
-    [2,2,0,0,0,0,0,1,1,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,0,1,1,1,1,0,0,0,0,0,2,1,1,1,1,1],
-    [1,1,2,0,0,0,0,1,1,0,0,0,0,2,1,1,2,0,0,2,1,1,0,0,0,1,1,1,1,0,0,0,0,2,1,1,1,1,1,1],
-    [1,1,1,2,0,0,0,1,1,0,0,0,2,1,1,1,1,0,0,1,1,1,2,2,2,1,1,1,1,2,2,0,0,1,1,1,1,1,1,1],
-    [1,1,1,1,2,2,0,1,1,0,0,2,1,1,1,1,1,2,0,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,0,0,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,2,2,0,0,0,0],
+    [0,0,0,0,0,0,0,0,2,0,0,0,0,2,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,2,1,1,2,0,0,0],
+    [0,0,0,0,0,0,0,2,1,0,0,0,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,0,0,1,1,1,1,2,2,2],
+    [2,2,2,2,2,0,0,1,1,0,0,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1],
+    [1,1,1,1,1,2,2,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
@@ -658,18 +669,22 @@ def MapaSelect(seleccion):
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,0,0,0,0,0,2,2],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,2,1,1],
-    [0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,0,0,0,0,0,0,2,2,1,1,1],
-    [2,2,0,0,0,0,0,1,1,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,0,1,1,1,1,0,0,0,0,0,2,1,1,1,1,1],
-    [1,1,2,0,0,0,0,1,1,0,0,0,0,2,1,1,2,0,0,2,1,1,0,0,0,1,1,1,1,0,0,0,0,2,1,1,1,1,1,1],
-    [1,1,1,2,0,0,0,1,1,0,0,0,2,1,1,1,1,0,0,1,1,1,2,2,2,1,1,1,1,2,2,0,0,1,1,1,1,1,1,1],
-    [1,1,1,1,2,2,0,1,1,0,0,2,1,1,1,1,1,2,0,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,1,1,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
+    [1,1,1,1,1,1,1,1,1,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,2,1,2,0,0,0],
+    [1,1,1,1,1,1,1,1,1,0,0,0,0,2,1,1,2,0,0,2,1,1,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,2,0,0],
+    [1,1,1,1,1,1,1,1,1,0,0,0,2,1,1,1,1,0,0,1,1,1,2,0,0,0,0,0,0,2,2,0,0,1,1,1,1,1,2,2],
+    [1,1,1,1,1,1,1,1,1,0,0,2,1,1,1,1,1,2,0,1,1,1,1,0,0,0,0,0,0,1,1,2,2,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,2,0,0,0,0,2,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
@@ -962,10 +977,10 @@ while Master_flag==True:
     player2 = Player(x_player2,y_player2, img_left)
     #------------------------------------------------------------------------------------
     
-    player3 = Player(0,0, img_Pblue)
-    player4 = Player(0,0, img_Ppurple)
-    player5 = Player(0,0, img_Pwhite)
-    player6 = Player(0,0, img_Pyellow)
+    player3 = Player(x_player1*0.3,y_player1, img_Pblue)
+    player4 = Player(x_player1*0.6,y_player1, img_Ppurple)
+    player5 = Player(x_player1*0.9,y_player1, img_Pwhite)
+    player6 = Player(x_player1*0.12,y_player1, img_Pyellow)
 
     #For the text of Vel. and Ang.
     texto7= pygame.font.SysFont("Comic Sans MS",16,5)
@@ -1004,13 +1019,15 @@ while Master_flag==True:
         bala=""
     #===========================================================================================================================
         if turno == 2:
-            
+            print("el viento esta activado: ", viento)
+            print("la intensidad del viento es de: ", intensidad_viento)
             print("Turno DOS")
+            screen.blit(img_left,(screen_width*0.95,screen_height*0.9166))
+            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+            textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
+            screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
+
             while True:
-                textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
-                screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
-                screen.blit(img_left,(screen_width*0.95,screen_height*0.9166))
-                screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
                 bala=SelectBala.textBala()
                 #para hacer funcionar el boton reset
@@ -1043,14 +1060,14 @@ while Master_flag==True:
                     print("Victoria para Jugador N°1\n")
                     win=False
                     break
-                pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.75, 140, 32])
+
             #para hacer funcionar el boton reset
             if bala==100:
                 break 
-
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7,screen_height*0.9166, 240, 152])
+            
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
-            screen.blit(textvel,(screen_width*0.81875, screen_height*0.0083))
+            screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
                 #para hacer funcionar el boton reset
             if temporalvel==100:
@@ -1073,13 +1090,13 @@ while Master_flag==True:
             player2.setAng(-temporalang)
 
             textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
-            screen.blit(textvidap2,(screen_width*0.9, screen_height*0.85))
+            screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
 
-            bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2-20,y_player2-40,x_player1-50,y_player1-40)
-            win=bullet2.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player2,world_data,damage,viento,gravedad,intensidad_viento,intensidad_gravedad)
+            bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2,y_player2,x_player1,y_player1)
+            win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data,damage,viento,gravedad,intensidad_viento,intensidad_gravedad)
             
             #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.01875, screen_height*0.0166, 220, 60])
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
             #Siguente turno
             turno=10
             
@@ -1087,7 +1104,6 @@ while Master_flag==True:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°1\n")
                     win=False
-                    break
 
             if win == False:
                 #victoria()
@@ -1102,7 +1118,7 @@ while Master_flag==True:
             screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
-            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
+            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
 
             while True:
                 SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
@@ -1138,12 +1154,12 @@ while Master_flag==True:
                     win=False
                     break
                 
-                pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.25, 140, 32])
+                
             #para hacer funcionar el boton reset
             if bala==100:
                 break    
 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0.083, 240, 152])
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
             screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
@@ -1168,15 +1184,14 @@ while Master_flag==True:
             player1.setAng(temporalang)
             
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
-            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.85))
+            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
 
-            bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1-50,y_player1-40,x_player2-50,y_player2-40)
-            win=bullet1.update(x_player1-50,y_player1-40,x_player2-50,y_player2-40,player1,world_data,damage,viento,gravedad,intensidad_viento,intensidad_gravedad)
+            bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2)
+            win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data,damage,viento,gravedad,intensidad_viento,intensidad_gravedad)
             
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
             #Siguente turno
-            
             turno=2
 
             if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
@@ -1186,10 +1201,14 @@ while Master_flag==True:
                 
             if win == False:
                 #victoria()
-                run=False
-                
+                run=False   
     #===========================================================================================
-        player1.update()        
+        player1.update(player1)    
+        player2.update(player2) 
+        player3.update(player3) 
+        player4.update(player4) 
+        player5.update(player5) 
+        player6.update(player6)     
         pygame.display.update()
         if turno==10:
             turno=1
