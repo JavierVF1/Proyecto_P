@@ -12,44 +12,11 @@ tile_width =int(screen_width//40)
 tile_height=int(screen_height//40)
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 #IMAGES
-   #imagenes de balas
-bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
-bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
-bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
-fondo=pygame.image.load("assets/maps/world.png")
-    #For Player One / Green
-
-img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
-img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
-img_right_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s_L.png") #Efecto espejo
-    #For Player Tow  / Red
-img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
-img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
-img_left_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")#Efecto espejo
-    #For Player Blue
-img_Pblue = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s.png")
-img_Pblue = pygame.transform.scale(img_Pblue, (tile_width,tile_height))
-img_Pblue_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s_L.png")#Efecto espejo
- #For Player Purple
-img_Ppurple = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s.png")
-img_Ppurple = pygame.transform.scale(img_Ppurple, (tile_width,tile_height))
-img_Ppurple_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s_L.png")#Efecto espejo
- #For Player White
-img_Pwhite = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s.png")
-img_Pwhite = pygame.transform.scale(img_Pwhite, (tile_width,tile_height))
-img_Pwhite_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s_L.png")#Efecto espejo
-#For Player Yellow
-img_Pyellow = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s.png")
-img_Pyellow = pygame.transform.scale(img_Pyellow, (tile_width,tile_height))
-img_Pyellow_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s_L.png")#Efecto espejo
-
-    #For Turns
-turn_text=pygame.image.load("assets/Textures/turn_text.png")
-turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
 
 #sonidos
 pygame.mixer.init()
 soundObj = pygame.mixer.Sound('assets/sound/sfx/quack_sfx.mp3')
+
 
 
 #Colores
@@ -464,7 +431,6 @@ class Bullet():
 
 class SelectBala():
     
-
     def text(bala105,balaPerforante,bala90):
 
         texto1= pygame.font.SysFont("Comic Sans MS",20)
@@ -478,8 +444,6 @@ class SelectBala():
 
         texto4= pygame.font.SysFont("Comic Sans MS",20)
         texto90mm= texto4.render("3.- 90mm:         "+str (bala90), 0, ColorMagico)
-
-
 
         screen.blit(Titulo,(screen_width*0.7125, screen_height*0.0066))
         screen.blit(texto105mm,(screen_width*0.7, screen_height*0.035))
@@ -512,7 +476,6 @@ class SelectBala():
                 pygame.quit()
             #event handler
             
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done=True
@@ -544,7 +507,11 @@ class SelectBala():
             pygame.draw.rect(screen, color, input_box, 2)
             pygame.display.flip()
             if aux2==1:
-                return auxbala     
+                return auxbala   
+
+
+
+
 #FUNCTIONS
 def SpawnRandom(posicionx,posiciony,aux):
     if aux == 1 :
@@ -921,8 +888,6 @@ def textbox():
         if exit_button.draw(screen):
             print('\nExit')
             pygame.quit()
-            
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -965,6 +930,45 @@ while g.running:
     g.curr_menu.display_menu()
     g.game_loop()
     
+   #imagenes de balas
+bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
+bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
+bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+fondo=pygame.image.load("assets/maps/world.png")
+    #For Player One / Green
+
+img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
+img_right_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s_L.png") #Efecto espejo
+    #For Player Tow  / Red
+img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
+img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
+img_left_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")#Efecto espejo
+    #For Player Blue
+img_Pblue = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s.png")
+img_Pblue = pygame.transform.scale(img_Pblue, (tile_width,tile_height))
+img_Pblue_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s_L.png")#Efecto espejo
+ #For Player Purple
+img_Ppurple = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s.png")
+img_Ppurple = pygame.transform.scale(img_Ppurple, (tile_width,tile_height))
+img_Ppurple_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s_L.png")#Efecto espejo
+ #For Player White
+img_Pwhite = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s.png")
+img_Pwhite = pygame.transform.scale(img_Pwhite, (tile_width,tile_height))
+img_Pwhite_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s_L.png")#Efecto espejo
+#For Player Yellow
+img_Pyellow = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s.png")
+img_Pyellow = pygame.transform.scale(img_Pyellow, (tile_width,tile_height))
+img_Pyellow_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s_L.png")#Efecto espejo
+
+    #For Turns
+turn_text=pygame.image.load("assets/Textures/turn_text.png")
+turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
+
+
+restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
+exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
+
 Master_flag=True
 
 while Master_flag==True:
@@ -974,8 +978,7 @@ while Master_flag==True:
     screen = pygame.display.set_mode((screen_width, screen_height))
     screen.fill(blue_sky)
     pygame.display.set_caption('Panzerquack')
-    restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
-    exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
+
     pygame.display.update()
     #Seleccionador randomico de mapa 
     mapa = randint(1,3)
