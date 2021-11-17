@@ -6,10 +6,10 @@ from random import randint,choice
 from pygame.locals import *
 import button
 screen_width = 800
-screen_height = 600
+screen_height = 800
 #Tamaño de los recuadros del mapa 
-tile_width =int(screen_width/40)
-tile_height=int(screen_height/40)
+tile_width =int(screen_width//40)
+tile_height=int(screen_height//40)
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 #IMAGES
    #imagenes de balas
@@ -333,6 +333,9 @@ class Bullet():
         angulo= self.ang
         posicionX=self.rect.x
         posicionY=self.rect.y
+
+        posicionXbala=posicionX
+        posicionYbala=posicionY
         #velocidad iY e iX modifican el angulo de disparo
         velocidadiY = velocidadi * sin(radians(angulo))
         velocidadiX = velocidadi * cos(radians(angulo))
@@ -389,6 +392,7 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
+                            screen.fill(blue_sky)
                             world = World(world_data)
                             screen.blit(fondo, (0, 0))
                             world.draw()
@@ -405,6 +409,7 @@ class Bullet():
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
+                                screen.fill(blue_sky)
                                 world = World(world_data)
                                 screen.blit(fondo, (0, 0))
                                 world.draw()
@@ -424,6 +429,7 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
+                            screen.fill(blue_sky)
                             world = World(world_data)
                             screen.blit(fondo, (0, 0))
                             world.draw()
@@ -440,6 +446,7 @@ class Bullet():
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
+                                screen.fill(blue_sky)
                                 world = World(world_data)
                                 screen.blit(fondo, (0, 0))
                                 world.draw()
@@ -564,12 +571,9 @@ def SpawnRandom(posicionx,posiciony,aux):
 
 def colision(posicionY,posicionX,flagLimite,world):
         
-        #print(posicionY)
-        #print(posicionX)
-        
-        a=int(posicionY)//40
+        a=int(posicionY)//20
         b=int(posicionX)//20
-        
+        #print("\n-y-",a,"__X_",b)
         if world[a][b] != 0:
             print("\nCOLISION CON TERRENO!!!!!\n")
             
@@ -577,20 +581,18 @@ def colision(posicionY,posicionX,flagLimite,world):
                 world_data[a][b] = 0
                 world_data[a][b+1] = 0
                 world_data[a][b-1] = 0
-                world = World(world_data)
-                screen.blit(fondo, (0, 0))
-                world.draw()
+        
             if globala == 2:
                 world_data[a][b] = 0
-                world = World(world_data)
-                screen.blit(fondo, (0, 0))
-                world.draw()
+                
             if globala == 3:
                 world_data[a][b] = 0
                 world_data[a-1][b] = 0
-                world = World(world_data)
-                screen.blit(fondo, (0, 0))
-                world.draw()
+
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
 
             flagLimite=False
             return flagLimite
@@ -598,6 +600,7 @@ def colision(posicionY,posicionX,flagLimite,world):
 
         elif  posicionY <= 0  : 
             print("\nLIMITE INFERIOR ALCANZADO!!!!!\n")
+            screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
@@ -606,6 +609,7 @@ def colision(posicionY,posicionX,flagLimite,world):
         
         elif  posicionX <= 0  : 
             print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
+            screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
@@ -614,11 +618,14 @@ def colision(posicionY,posicionX,flagLimite,world):
         
         elif  posicionX >= screen_width-10  : 
             print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
+            screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
             flagLimite=False
             return flagLimite
+            """
+
         elif  posicionY >= screen_height-10  : 
             print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
             world = World(world_data)
@@ -626,6 +633,8 @@ def colision(posicionY,posicionX,flagLimite,world):
             world.draw()
             flagLimite=False
             return flagLimite
+            """
+        
 
 def MapaSelect(seleccion):
 
@@ -1136,7 +1145,7 @@ while Master_flag==True:
                         bala90_2-=1
                         damage=30
                         break
-                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Victoria para Jugador N°1\n")
                     win=False
@@ -1169,6 +1178,7 @@ while Master_flag==True:
                 break    
 
             player2.setAng(-temporalang)
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
             textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
             screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
@@ -1178,6 +1188,12 @@ while Master_flag==True:
             
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+            
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+
             #Siguente turno
             turno=numero10
             
@@ -1263,7 +1279,7 @@ while Master_flag==True:
                 break    
 
             player1.setAng(temporalang)
-            
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
 
@@ -1272,6 +1288,12 @@ while Master_flag==True:
             
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+            
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            
             #Siguente turno
             turno=2
 
@@ -1290,7 +1312,7 @@ while Master_flag==True:
         player4.update(player4) 
         player5.update(player5) 
         player6.update(player6)     
-        pygame.display.update()
+        #pygame.display.update()
         if turno==numero10:
             turno=1
         
