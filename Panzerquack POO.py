@@ -320,9 +320,6 @@ class Bullet():
         self.XTanke2 = XTanke2
         self.YTanke2 = YTanke2
 
-        #print(XTanke2)
-        #print(YTanke2)
-
     def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world,damage,wind,gravity,intensidad_v,intensidad_g):
         key = pygame.key.get_pressed()
         rectangulobala = bullet_default.get_rect()
@@ -333,9 +330,6 @@ class Bullet():
         angulo= self.ang
         posicionX=self.rect.x
         posicionY=self.rect.y
-
-        posicionXbala=posicionX
-        posicionYbala=posicionY
         #velocidad iY e iX modifican el angulo de disparo
         velocidadiY = velocidadi * sin(radians(angulo))
         velocidadiX = velocidadi * cos(radians(angulo))
@@ -574,7 +568,45 @@ def colision(posicionY,posicionX,flagLimite,world):
         a=int(posicionY)//20
         b=int(posicionX)//20
         #print("\n-y-",a,"__X_",b)
-        if world[a][b] != 0:
+        
+        
+        if  posicionY < 0  : 
+            print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            flagLimite=False
+            return flagLimite
+        
+        elif  posicionY <= 0  : 
+            print("\nLIMITE INFERIOR ALCANZADO!!!!!\n")
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            flagLimite=False
+            return flagLimite
+        
+        elif  posicionX <= 0  : 
+            print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            flagLimite=False
+            return flagLimite
+        
+        elif  posicionX > screen_width-10  : 
+            print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            flagLimite=False
+            return flagLimite
+            
+
+        elif world[a][b] != 0:
             print("\nCOLISION CON TERRENO!!!!!\n")
             
             if globala == 1:            
@@ -597,50 +629,13 @@ def colision(posicionY,posicionX,flagLimite,world):
             flagLimite=False
             return flagLimite
 
-
-        elif  posicionY <= 0  : 
-            print("\nLIMITE INFERIOR ALCANZADO!!!!!\n")
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            flagLimite=False
-            return flagLimite
-        
-        elif  posicionX <= 0  : 
-            print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            flagLimite=False
-            return flagLimite
-        
-        elif  posicionX >= screen_width-10  : 
-            print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            flagLimite=False
-            return flagLimite
-            """
-
-        elif  posicionY >= screen_height-10  : 
-            print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            flagLimite=False
-            return flagLimite
-            """
+            
         
 
 def MapaSelect(seleccion):
 
     world_data = [
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -680,14 +675,12 @@ def MapaSelect(seleccion):
     [1,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
     world_data2 = [
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -726,14 +719,12 @@ def MapaSelect(seleccion):
     [2,2,2,2,2,0,0,1,1,0,0,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1],
     [1,1,1,1,1,2,2,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
     world_data3 = [
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -772,7 +763,6 @@ def MapaSelect(seleccion):
     [1,1,1,1,1,1,1,1,1,0,0,2,1,1,1,1,1,2,0,1,1,1,1,0,0,0,0,0,0,1,1,2,2,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,2,0,0,0,0,2,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
