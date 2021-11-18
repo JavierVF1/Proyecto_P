@@ -923,7 +923,14 @@ def textbox():
             return aux
  
 
-
+def turn_aleat():
+    x=randint(1,3)
+    if x==1:
+        return[1,2,3,4,5,6]
+    if x==2:
+        return[4,3,2,1,5,6]
+    if x==3:
+        return[5,1,6,2,4,3]
 g = Game()
 
 while g.running:
@@ -991,7 +998,7 @@ while Master_flag==True:
     #create button instances
     restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
-    
+    num_jugadores=2;
    
     
     #------------------------------------------------------------------------------------
@@ -1088,7 +1095,9 @@ while Master_flag==True:
     numero100=100  #valor estatico
     run = True   #Variable while principal
     auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
-    turno=numero10     #Variable control de turnos
+    arregloTurnos=turn_aleat()
+    i=0;#valor i usado para turnos (es para evitar que se resetee que esta fuera del while)
+    turno=arregloTurnos[i]     #Variable control de turnos
     win=True    #Variable control de victoria
     
     valores_random=[True,False]
@@ -1188,7 +1197,11 @@ while Master_flag==True:
             world.draw()
 
             #Siguente turno
-            turno=numero10
+            if i>6:
+                i=0;
+            else:
+                i=i+1
+            turno=arregloTurnos[i]
             
             if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -1288,7 +1301,11 @@ while Master_flag==True:
             world.draw()
             
             #Siguente turno
-            turno=2
+            if i>6:
+                i=0;
+            else:
+                i=i+1
+            turno=arregloTurnos[i]
 
             if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -1299,14 +1316,55 @@ while Master_flag==True:
                 #victoria()
                 run=False   
     #===========================================================================================
+        if turno==3:
+            print("turno 3")
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            if i>6:
+                i=0;
+            else:
+                i=i+1
+            turno=arregloTurnos[i]
+        if turno==4:
+            print("turno 4")
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            if i>6:
+                i=0;
+            else:
+                i=i+1
+            turno=arregloTurnos[i]
+        if turno==5:
+            print("turno 5")
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            if i>6:
+                i=0;
+            else:
+                i=i+1
+            turno=arregloTurnos[i]
+        if turno==6:
+            print("Turno 6")
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            if i>6:
+                i=0;
+            else:
+                i=i+1
+            turno=arregloTurnos[i]
         player1.update(player1)    
         player2.update(player2) 
         player3.update(player3) 
         player4.update(player4) 
         player5.update(player5) 
         player6.update(player6)     
-        #pygame.display.update()
-        if turno==numero10:
-            turno=1
         
 pygame.quit()
