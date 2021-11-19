@@ -334,6 +334,7 @@ class Bullet():
         aux=0
         sustituto=0
         contdmg=1 #contador para evitar que la bala golpee mas de una vez
+        var_viento=(intensidad_v/10) #variable para aplicar el viento
         while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
             
@@ -344,8 +345,8 @@ class Bullet():
                 velocidadX = velocidadiX - (6 * ti)
             
             if wind == True and gravity == False:
-                posicionX = (posicionX + velocidadiX * ti)+(intensidad_v/10)
-                posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
+                posicionX = (posicionX + velocidadiX * ti)+var_viento
+                posicionY = (posicionY - velocidadiY * ti +(1/2)*6*(ti**2))+var_viento
                 velocidadY = velocidadiY - (6 * ti)
                 velocidadX = velocidadiX - (6 * ti)
             
@@ -356,8 +357,8 @@ class Bullet():
                 velocidadX = velocidadiX - (intensidad_g * ti)
             
             if wind == True and gravity == True:
-                posicionX = (posicionX + velocidadiX * ti)+(intensidad_v/10)
-                posicionY = posicionY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2)
+                posicionX = (posicionX + velocidadiX * ti)+var_viento
+                posicionY = (posicionY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2))+var_viento
                 velocidadY = velocidadiY - (intensidad_g * ti)
                 velocidadX = velocidadiX - (intensidad_g * ti)
 
