@@ -11,13 +11,10 @@ screen_height = 800
 tile_width =int(screen_width//40)
 tile_height=int(screen_height//40)
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
-#IMAGES
 
 #sonidos
 pygame.mixer.init()
 soundObj = pygame.mixer.Sound('assets/sound/sfx/quack_sfx.mp3')
-
-
 
 #Colores
 negro = 0,0,0
@@ -25,8 +22,6 @@ ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
 
-#selección del mapa
-#mapa = 1
 class Game():
     def __init__(self):
         pygame.init()
@@ -40,31 +35,22 @@ class Game():
         self.BLACK, self.WHITE = (0,160,235), (0,70,70)
         self.main_menu = MainMenu(self)
         #self.options = OptionsMenu(self)
-        self.exit = ExitMenu(self)
-        self.curr_menu = self.main_menu
-
-
         
+        self.curr_menu = self.main_menu
 
     def game_loop(self):
         while self.playing:
-            time.sleep(0.01)
             self.check_events()
             if self.START_KEY:
                 self.playing= False
             self.display.fill(self.BLACK)
             self.draw_text('Cargando...', 20, self.DISPLAY_W/2, self.DISPLAY_H/2)
             self.window.blit(self.display, (0,0))
-            pygame.display.update()
             self.reset_keys()
             g.running=False
-            time.sleep(0.01)
             break
         return
             
-
-
-
     def check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -90,6 +76,62 @@ class Game():
         text_rect.center = (x,y)
         self.display.blit(text_surface,text_rect)
 
+def textboxConfig(self):
+        #create button instances
+        exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
+        exit_button = button.Button(screen_width*0.0075, screen_height*0.0083, exit_img, 0.3)
+    
+        font = pygame.font.Font(None, 32)
+        input_box = pygame.Rect(screen_width*0.5,screen_height*0.2, 140, 32)
+        color_inactive = pygame.Color('lightskyblue3')
+        color_active = pygame.Color("black")
+        color = color_inactive
+        active = False
+        text = ''
+        done = False
+        aux2=0
+        while not done:
+
+            if exit_button.draw(self.game.display):
+                print('\nExit')
+                sys.exit()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    done=True
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if input_box.collidepoint(event.pos):
+                        active = not active
+                    else:
+                        active = False
+                    color = color_active if active else color_inactive
+                if event.type == pygame.KEYDOWN:
+                    if active:
+                        if event.key == pygame.K_RETURN:
+                            aux=text
+                            aux2=1
+                            text = ''
+                        elif event.key == pygame.K_BACKSPACE:
+                            text = text[:-1]
+                            pygame.draw.rect(self.game.display, blue_sky, [screen_width*0.8125,screen_height*0.045, 140, 32])
+                        else:
+                            if event.unicode=="1"or event.unicode=="2"or event.unicode=="3"or event.unicode=="4"or event.unicode=="5"or event.unicode=="6"or event.unicode=="7"or event.unicode=="8"or event.unicode=="9"or event.unicode=="0":
+                                    text += event.unicode
+                            
+            txt_surface = font.render(text, True, color)
+            width = max(100, txt_surface.get_width()+10)
+            input_box.w = width
+            self.game.display.blit(txt_surface, (input_box.x+5, input_box.y+5))
+            pygame.draw.rect(self.game.display, color, input_box, 2)
+            pygame.display.flip()
+            
+            self.game.window.blit(self.game.display, (0, 0))
+            pygame.display.update()
+
+            if aux2==1:
+                return aux
+                
 class Menu():
     def __init__(self, game):
         self.game = game
@@ -134,13 +176,14 @@ class MainMenu(Menu):
             panzer_img = pygame.image.load('assets/sprites/panzer.png')
             panzer_img =pygame.transform.scale(panzer_img , (int(screen_width*0.50),int(screen_height*0.50)))
             self.game.display.blit(panzer_img, (screen_width*0.200, screen_height*0.550))
-            
 
             self.draw_cursor()
             self.blit_screen()
+        
     def display_config(self):
         self.run_config=True
         while self.run_config:
+  
             self.game.display.fill(self.game.BLACK)
             self.game.draw_text("configuraciones", 50, self.game.DISPLAY_W/2.5, self.game.DISPLAY_H/10)
             flor_img = pygame.image.load('assets/sprites/grass.png')
@@ -148,9 +191,18 @@ class MainMenu(Menu):
             duck_g = pygame.image.load('assets/Textures/duck_1.png')
             duck_g =pygame.transform.scale(duck_g , (int(screen_width),int(screen_height)))
             self.game.display.blit(duck_g, (0, 0))
-            self.blit_screen()
-        
 
+            a=textboxConfig(self)
+            print(a)
+
+            self.blit_screen()
+            self.game.reset_keys()
+            return
+            
+            
+
+            
+        
     def move_cursor(self):
         if self.game.DOWN_KEY:
             if self.state == 'Start':
@@ -168,17 +220,13 @@ class MainMenu(Menu):
                 self.state = 'Exit'
                 #self.cursor_rect.midtop=(self.Configx+self.offset,self.Configy)
                 #self.state = 'Configuraciones'
-                
             elif self.state=='Configuraciones':
                 self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
-                self.state='Start'
-                
+                self.state='Start'   
             elif self.state == 'Exit':
                 self.cursor_rect.midtop = (self.Configx + self.offset, self.Configy)
                 self.state = 'Configuraciones'
             
-
-   
     def check_input(self):
         self.move_cursor()
         if self.game.START_KEY:
@@ -186,28 +234,10 @@ class MainMenu(Menu):
                 self.game.playing = True
             elif self.state == 'Configuraciones':
                 self.display_config()
+                
             elif self.state == 'Exit':
-                pygame.quit()
+                sys.exit()
             self.run_display = False
-
-class ExitMenu(Menu):
-    def __init__(self, game):
-        Menu.__init__(self, game)
-
-    def display_menu(self):
-        self.run_display = True
-        while self.run_display:
-            self.game.check_events()
-            if self.game.START_KEY or self.game.BACK_KEY:
-                self.game.curr_menu = self.game.main_menu
-                self.run_display = False
-            self.game.display.fill(self.game.BLACK)
-            self.game.draw_text('Thanks for Playing', 20, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 20)
-            #self.game.draw_text('Made by me', 15, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 10)
-            self.blit_screen()
-            time.sleep(0.01)
-            break
-        exit()
 
 class World():
     def __init__(self, data):
@@ -473,13 +503,12 @@ class SelectBala():
 
             if exit_button.draw(screen):
                 print('\nExit')
-                pygame.quit()
+                sys.exit()
             #event handler
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done=True
-                    pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if input_box.collidepoint(event.pos):
@@ -508,9 +537,6 @@ class SelectBala():
             pygame.display.flip()
             if aux2==1:
                 return auxbala   
-
-
-
 
 #FUNCTIONS
 def SpawnRandom(posicionx,posiciony,aux):
@@ -595,9 +621,6 @@ def colision(posicionY,posicionX,flagLimite,world):
 
             flagLimite=False
             return flagLimite
-
-            
-        
 
 def MapaSelect(seleccion):
 
@@ -868,7 +891,7 @@ def textmax(posicion_Y,posicion_X,tanque):
     return
 
 def textbox():
-    
+        
     font = pygame.font.Font(None, 32)
     input_box = pygame.Rect(screen_width*0.8125,screen_height*0.045, 140, 32)
     color_inactive = pygame.Color('lightskyblue3')
@@ -887,12 +910,11 @@ def textbox():
 
         if exit_button.draw(screen):
             print('\nExit')
-            pygame.quit()
+            sys.exit()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done=True
-                pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if input_box.collidepoint(event.pos):
@@ -921,7 +943,6 @@ def textbox():
         pygame.display.flip()
         if aux2==1:
             return aux
- 
 
 def turn_aleat():
     x=randint(1,3)
@@ -931,6 +952,7 @@ def turn_aleat():
         return[4,3,2,1,5,6]
     if x==3:
         return[5,1,6,2,4,3]
+
 g = Game()
 
 while g.running:
@@ -943,7 +965,6 @@ bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png
 bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
 fondo=pygame.image.load("assets/maps/world.png")
     #For Player One / Green
-
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
 img_right_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s_L.png") #Efecto espejo
@@ -967,14 +988,20 @@ img_Pwhite_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s_L.png")#
 img_Pyellow = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s.png")
 img_Pyellow = pygame.transform.scale(img_Pyellow, (tile_width,tile_height))
 img_Pyellow_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s_L.png")#Efecto espejo
-
     #For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
 turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
 
+#For the text of Vel. and Ang.
+texto7= pygame.font.SysFont("Comic Sans MS",16,5)
+textvel= texto7.render("Velocidad:", 0, negro)
+texto8= pygame.font.SysFont("Comic Sans MS",16,5)
+textang= texto8.render("Angulo:", 0, negro)
+texto9= pygame.font.SysFont("Comic Sans MS",16,5)
+#For the text of health
+texto10= pygame.font.SysFont("Comic Sans MS",16,5)
+texto11= pygame.font.SysFont("Comic Sans MS",16,5)
 
-restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
-exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
 
 Master_flag=True
 
@@ -985,7 +1012,7 @@ while Master_flag==True:
     screen = pygame.display.set_mode((screen_width, screen_height))
     screen.fill(blue_sky)
     pygame.display.set_caption('Panzerquack')
-
+    
     pygame.display.update()
     #Seleccionador randomico de mapa 
     mapa = randint(1,3)
@@ -994,11 +1021,12 @@ while Master_flag==True:
     screen.blit(fondo, (0, 0))
     world.draw()
     # draw_grid()
-    
+    restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
+    exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
     #create button instances
     restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
-    num_jugadores=2;
+    
    
     
     #------------------------------------------------------------------------------------
@@ -1069,16 +1097,6 @@ while Master_flag==True:
     player4 = Player(x_player1*0.6,y_player1, img_Ppurple)
     player5 = Player(x_player1*0.9,y_player1, img_Pwhite)
     player6 = Player(x_player1*0.12,y_player1, img_Pyellow)
-
-    #For the text of Vel. and Ang.
-    texto7= pygame.font.SysFont("Comic Sans MS",16,5)
-    textvel= texto7.render("Velocidad:", 0, negro)
-    texto8= pygame.font.SysFont("Comic Sans MS",16,5)
-    textang= texto8.render("Angulo:", 0, negro)
-    texto9= pygame.font.SysFont("Comic Sans MS",16,5)
-    #For the text of health
-    texto10= pygame.font.SysFont("Comic Sans MS",16,5)
-    texto11= pygame.font.SysFont("Comic Sans MS",16,5)
 
     #BALAS
     #Variables Bala player One
@@ -1366,5 +1384,7 @@ while Master_flag==True:
         player4.update(player4) 
         player5.update(player5) 
         player6.update(player6)     
+
+        num_jugadores=2;
         
-pygame.quit()
+sys.exit()
