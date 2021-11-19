@@ -319,8 +319,8 @@ class Bullet():
 
     def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world,damage,wind,gravity,intensidad_v,intensidad_g):
         key = pygame.key.get_pressed()
-        rectangulobala = bullet_default.get_rect()
-        rectangulobala = rectangulobala.move(1,1)
+        #rectangulobala = bullet_default.get_rect()
+        #rectangulobala = rectangulobala.move(1,1)
         #self.rect = self.rect.move(1,1) #velocidad del rect
         #velocidad i modifica la intensidad del disparo
         velocidadi = self.vel
@@ -1130,6 +1130,7 @@ while Master_flag==True:
         bala=""
     #===========================================================================================================================
         if turno == 2:
+            player2.update(player2) 
             print("el viento esta activado: ", viento)
             print("la intensidad del viento es de: ", intensidad_viento)
             print("Turno DOS")
@@ -1217,7 +1218,7 @@ while Master_flag==True:
 
             #Siguente turno
             if i>6:
-                i=0;
+                i=0
             else:
                 i=i+1
             turno=arregloTurnos[i]
@@ -1234,6 +1235,7 @@ while Master_flag==True:
         intensidad_viento = randint(-10,10)
 
         if turno == 1:
+            player1.update(player1)   
             print("el viento esta activado: ", viento)
             print("la intensidad del viento es de: ", intensidad_viento)
             print("Turno UNO")
@@ -1321,7 +1323,7 @@ while Master_flag==True:
             
             #Siguente turno
             if i>6:
-                i=0;
+                i=0
             else:
                 i=i+1
             turno=arregloTurnos[i]
@@ -1337,54 +1339,56 @@ while Master_flag==True:
     #===========================================================================================
         if turno==3:
             print("turno 3")
+            player3.update(player3) 
             screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
             if i>6:
-                i=0;
+                i=0
             else:
                 i=i+1
             turno=arregloTurnos[i]
         if turno==4:
             print("turno 4")
+            player4.update(player4) 
             screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
             if i>6:
-                i=0;
+                i=0
             else:
                 i=i+1
             turno=arregloTurnos[i]
         if turno==5:
             print("turno 5")
+            player5.update(player5) 
             screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
             if i>6:
-                i=0;
+                i=0
             else:
                 i=i+1
             turno=arregloTurnos[i]
         if turno==6:
             print("Turno 6")
+            player6.update(player6)   
             screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
-            if i>6:
-                i=0;
-            else:
-                i=i+1
+            i=0
+            
             turno=arregloTurnos[i]
-        player1.update(player1)    
-        player2.update(player2) 
-        player3.update(player3) 
-        player4.update(player4) 
-        player5.update(player5) 
-        player6.update(player6)     
+          
+        
+        
+        
+        
+          
 
         num_jugadores=2;
         
