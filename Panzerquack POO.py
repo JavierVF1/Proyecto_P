@@ -21,7 +21,8 @@ negro = 0,0,0
 ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
-
+#numero players
+num_jugadores=2;
 class Game():
     def __init__(self):
         pygame.init()
@@ -929,16 +930,6 @@ def textbox():
         pygame.display.flip()
         if aux2==1:
             return aux
-
-def turn_aleat():
-    x=randint(1,3)
-    if x==1:
-        return[1,2,3,4,5,6]
-    if x==2:
-        return[4,3,2,1,5,6]
-    if x==3:
-        return[5,1,6,2,4,3]
-
 g = Game()
 
 while g.running:
@@ -1107,7 +1098,7 @@ while Master_flag==True:
     auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
     arregloTurnos=turn_aleat()
     i=0;#valor i usado para turnos (es para evitar que se resetee que esta fuera del while)
-    turno=arregloTurnos[i]     #Variable control de turnos
+    turno=1    #Variable control de turnos
     win=True    #Variable control de victoria
     
     valores_random=[True,False]
@@ -1120,9 +1111,10 @@ while Master_flag==True:
     while run:
         bala=""
         clock.tick(30)
+        player1.update(player1)
+        player2.update(player2) 
     #===========================================================================================================================
         if turno == 2:
-            player2.update(player2) 
             print("el viento esta activado: ", viento)
             print("la intensidad del viento es de: ", intensidad_viento)
             print("Turno DOS")
@@ -1130,7 +1122,8 @@ while Master_flag==True:
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
             screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
-
+            player1.update(player1)
+            player2.update(player2)
             while True:
                 SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
                 bala=SelectBala.textBala()
@@ -1203,17 +1196,13 @@ while Master_flag==True:
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
             
-            screen.fill(blue_sky)
+            # screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
 
             #Siguente turno
-            if i>6:
-                i=0
-            else:
-                i=i+1
-            turno=arregloTurnos[i]
+            turno=1
             
             if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -1227,7 +1216,8 @@ while Master_flag==True:
         intensidad_viento = randint(-10,10)
 
         if turno == 1:
-            player1.update(player1)   
+            player1.update(player1)
+            player2.update(player2)  
             print("el viento esta activado: ", viento)
             print("la intensidad del viento es de: ", intensidad_viento)
             print("Turno UNO")
@@ -1308,17 +1298,13 @@ while Master_flag==True:
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
             
-            screen.fill(blue_sky)
+            # screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
             
             #Siguente turno
-            if i>6:
-                i=0
-            else:
-                i=i+1
-            turno=arregloTurnos[i]
+            turno=2
 
             if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -1329,59 +1315,51 @@ while Master_flag==True:
                 #victoria()
                 run=False   
     #===========================================================================================
-        if turno==3:
-            print("turno 3")
-            player3.update(player3) 
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            if i>6:
-                i=0
-            else:
-                i=i+1
-            turno=arregloTurnos[i]
-        if turno==4:
-            print("turno 4")
-            player4.update(player4) 
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            if i>6:
-                i=0
-            else:
-                i=i+1
-            turno=arregloTurnos[i]
-        if turno==5:
-            print("turno 5")
-            player5.update(player5) 
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            if i>6:
-                i=0
-            else:
-                i=i+1
-            turno=arregloTurnos[i]
-        if turno==6:
-            print("Turno 6")
-            player6.update(player6)   
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            i=0
+        # if turno==3:
+        #     print("turno 3")
+        #     player3.update(player3) 
+        #     screen.fill(blue_sky)
+        #     world = World(world_data)
+        #     screen.blit(fondo, (0, 0))
+        #     world.draw()
+        #     if i>6:
+        #         i=0
+        #     else:
+        #         i=i+1
+        #     turno=arregloTurnos[i]
+        # if turno==4:
+        #     print("turno 4")
+        #     player4.update(player4) 
+        #     screen.fill(blue_sky)
+        #     world = World(world_data)
+        #     screen.blit(fondo, (0, 0))
+        #     world.draw()
+        #     if i>6:
+        #         i=0
+        #     else:
+        #         i=i+1
+        #     turno=arregloTurnos[i]
+        # if turno==5:
+        #     print("turno 5")
+        #     player5.update(player5) 
+        #     screen.fill(blue_sky)
+        #     world = World(world_data)
+        #     screen.blit(fondo, (0, 0))
+        #     world.draw()
+        #     if i>6:
+        #         i=0
+        #     else:
+        #         i=i+1
+        #     turno=arregloTurnos[i]
+        # if turno==6:
+        #     print("Turno 6")
+        #     player6.update(player6)   
+        #     screen.fill(blue_sky)
+        #     world = World(world_data)
+        #     screen.blit(fondo, (0, 0))
+        #     world.draw()
+        #     i=0
             
-            turno=arregloTurnos[i]
-          
-        
-        
-        
-        
-          
-
-        num_jugadores=2;
-        
+        #     turno=arregloTurnos[i]
+    
 sys.exit()
