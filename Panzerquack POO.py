@@ -931,21 +931,18 @@ def textbox():
 
 def gravedad(X_Player,Y_Player,world):
 
-    y_player=int(Y_Player)//20
-    x_player=int(X_Player)//20
-
-    while world[y_player][x_player] == 2 or world[y_player][x_player] == 1:
-        
-        Y_Player-=40
-
-        #screen.fill(blue_sky)
-        #world = World(world_data)
-        #screen.blit(fondo, (0, 0))
-        #world.draw()
-
-        #flagLimite=False
-    return Y_Player
-
+    while True:
+        #print("sin al division",X_Player,Y_Player)
+        y_player=int(Y_Player)//20
+        x_player=int(X_Player)//20
+        #print("cob w",x_player,y_player)
+        while True:
+            if world[y_player][x_player] == 0 :
+                Y_Player+=10
+                break
+            elif world[y_player][x_player] != 0 :
+                return Y_Player-20
+    
 g = Game()
 
 while g.running:
@@ -1033,6 +1030,7 @@ while Master_flag==True:
     """
     x_player1= 100
     y_player1= 400
+    
     y_player1=gravedad(x_player1,y_player1,world_data)
 
     player1 = Player(x_player1,y_player1, img_right)
@@ -1042,6 +1040,9 @@ while Master_flag==True:
     """
     x_player2=700
     y_player2=400
+
+    y_player2=gravedad(x_player2,y_player2,world_data)
+
     player2 = Player(x_player2,y_player2, img_left)
     #------------------------------------------------------------------------------------
     
