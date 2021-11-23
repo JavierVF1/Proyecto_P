@@ -551,10 +551,9 @@ def SpawnRandom(posicionx,posiciony,aux):
 
 def colision(posicionY,posicionX,flagLimite,world):
         
-        a=int(posicionY)//20
-        b=int(posicionX)//20
+        posiciony=int(posicionY)//20   # "posicionY"  representa el valor de eje Y para bala
+        posicionx=int(posicionX)//20    # "posicionX"  representa el valor de eje X para bala
         #print("\n-y-",a,"__X_",b)
-        
         
         if  posicionY < 0  : 
             print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
@@ -564,7 +563,7 @@ def colision(posicionY,posicionX,flagLimite,world):
             flagLimite=False
             return flagLimite
         
-        elif  posicionY <= 0  : 
+        if  posicionY <= 0  : 
             print("\nLIMITE INFERIOR ALCANZADO!!!!!\n")
             screen.fill(blue_sky)
             world = World(world_data)
@@ -573,7 +572,7 @@ def colision(posicionY,posicionX,flagLimite,world):
             flagLimite=False
             return flagLimite
         
-        elif  posicionX <= 0  : 
+        if  posicionX <= 0  : 
             print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
             screen.fill(blue_sky)
             world = World(world_data)
@@ -582,7 +581,7 @@ def colision(posicionY,posicionX,flagLimite,world):
             flagLimite=False
             return flagLimite
         
-        elif  posicionX > screen_width-10  : 
+        if  posicionX >= screen_width  : 
             print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
             screen.fill(blue_sky)
             world = World(world_data)
@@ -590,22 +589,21 @@ def colision(posicionY,posicionX,flagLimite,world):
             world.draw()
             flagLimite=False
             return flagLimite
-            
 
-        elif world[a][b] != 0:
+        if world[posiciony][posicionx] != 0:
             print("\nCOLISION CON TERRENO!!!!!\n")
             
             if globala == 1:            
-                world_data[a][b] = 0
-                world_data[a][b+1] = 0
-                world_data[a][b-1] = 0
+                world_data[posiciony][posicionx] = 0
+                world_data[posiciony][posicionx+1] = 0
+                world_data[posiciony][posicionx-1] = 0
         
             if globala == 2:
-                world_data[a][b] = 0
+                world_data[posiciony][posicionx] = 0
                 
             if globala == 3:
-                world_data[a][b] = 0
-                world_data[a-1][b] = 0
+                world_data[posiciony][posicionx] = 0
+                world_data[posiciony-1][posicionx] = 0
 
             screen.fill(blue_sky)
             world = World(world_data)
@@ -930,6 +928,24 @@ def textbox():
         pygame.display.flip()
         if aux2==1:
             return aux
+
+def gravedad(X_Player,Y_Player,world):
+
+    y_player=int(Y_Player)//20
+    x_player=int(X_Player)//20
+
+    while world[y_player][x_player] == 2 or world[y_player][x_player] == 1:
+        
+        Y_Player-=40
+
+        #screen.fill(blue_sky)
+        #world = World(world_data)
+        #screen.blit(fondo, (0, 0))
+        #world.draw()
+
+        #flagLimite=False
+    return Y_Player
+
 g = Game()
 
 while g.running:
@@ -1011,68 +1027,21 @@ while Master_flag==True:
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
     
    
-    
+    """
     #------------------------------------------------------------------------------------
     #spawn player 1
-    if mapa ==1:
-        valorestank1 = [[27,0],[27,1],[27,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
-        z = choice(valorestank1)
-        a = z[0]
-        b = z[1]
-    if mapa == 2:
-        valorestank1 = [[10,0],[10,1],[10,2],[7,3],[7,4],[11,6],[5,7]]
-        z = choice(valorestank1)
-        a = z[0]
-        b = z[1]
-    if mapa == 3:
-        valorestank1 = [[26,0],[26,1],[26,2],[27,3],[27,4],[27,5],[27,6],[28,7],[29,8],[35,9],[35,10]]
-        z = choice(valorestank1)
-        a = z[0]
-        b = z[1]
+    """
+    x_player1= 100
+    y_player1= 400
+    y_player1=gravedad(x_player1,y_player1,world_data)
 
-    x_player1= SpawnRandom(a,b,1)
-    y_player1= SpawnRandom(a,b,2)
     player1 = Player(x_player1,y_player1, img_right)
+    """
     #------------------------------------------------------------------------------------
     #spawn player 2
-    if mapa == 1:
-        i=b
-        valorestank2aux = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
-        valorestank2 = []
-        while i<len(valorestank2aux):
-            valorestank2.append(valorestank2aux[i])
-            i+=1
-        z1 = choice(valorestank2)
-        c = z1[0]
-        d = z1[1]
-    if mapa == 2:
-        i=b
-        valorestank2aux = [[5,8],[11,9],[7,11],[7,12],[10,13],[10,14],[10,15]]
-        valorestank2 = []
-        if b == 7:
-            valorestank2.insert(0,[10,15])
-            #print("lista: ", valorestank2)
-        else:
-            while i<len(valorestank2aux):
-                valorestank2.append(valorestank2aux[i])
-                #print("lista: ", valorestank2)
-                i+=1
-        z1 = choice(valorestank2)
-        c = z1[0]
-        d = z1[1]
-    if mapa == 3:
-        i=b
-        valorestank2aux = [[11,8],[10,9],[9,10],[8,11],[11,12],[12,13],[6,14],[6,15]]
-        valorestank2 = []
-        while i<len(valorestank2aux):
-            valorestank2.append(valorestank2aux[i])
-            i+=1
-        z1 = choice(valorestank2)
-        c = z1[0]
-        d = z1[1]
-
-    x_player2=SpawnRandom(c,d,3)
-    y_player2=SpawnRandom(c,d,4)
+    """
+    x_player2=700
+    y_player2=400
     player2 = Player(x_player2,y_player2, img_left)
     #------------------------------------------------------------------------------------
     
@@ -1096,16 +1065,16 @@ while Master_flag==True:
     numero100=100  #valor estatico
     run = True   #Variable while principal
     auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
-    arregloTurnos=turn_aleat()
+    #arregloTurnos=turn_aleat()
     i=0;#valor i usado para turnos (es para evitar que se resetee que esta fuera del while)
     turno=1    #Variable control de turnos
     win=True    #Variable control de victoria
     
     valores_random=[True,False]
-    gravedad = choice(valores_random)
+    graveDAD = choice(valores_random)
     viento = choice(valores_random)
     intensidad_gravedad = randint(0,15)
-    print("la gravedad esta activada: ",gravedad) #si no esta activada la gravedad por defecto es 6
+    print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
 
     while run:
@@ -1191,7 +1160,7 @@ while Master_flag==True:
             screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
 
             bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2,y_player2,x_player1,y_player1)
-            win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data,damage,viento,gravedad,intensidad_viento,intensidad_gravedad)
+            win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
@@ -1293,7 +1262,7 @@ while Master_flag==True:
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
 
             bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2)
-            win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data,damage,viento,gravedad,intensidad_viento,intensidad_gravedad)
+            win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
@@ -1363,3 +1332,67 @@ while Master_flag==True:
         #     turno=arregloTurnos[i]
     
 sys.exit()
+
+"""
+#------------------------------------------------------------------------------------
+#spawn player 1
+if mapa ==1:
+    valorestank1 = [[27,0],[27,1],[27,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
+    z = choice(valorestank1)
+    a = z[0]
+    b = z[1]
+if mapa == 2:
+    valorestank1 = [[10,0],[10,1],[10,2],[7,3],[7,4],[11,6],[5,7]]
+    z = choice(valorestank1)
+    a = z[0]
+    b = z[1]
+if mapa == 3:
+    valorestank1 = [[26,0],[26,1],[26,2],[27,3],[27,4],[27,5],[27,6],[28,7],[29,8],[35,9],[35,10]]
+    z = choice(valorestank1)
+    a = z[0]
+    b = z[1]
+
+x_player1= SpawnRandom(a,b,1)
+y_player1= SpawnRandom(a,b,2)
+"""
+"""
+    #------------------------------------------------------------------------------------
+    #spawn player 2
+    if mapa == 1:
+        i=b
+        valorestank2aux = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
+        valorestank2 = []
+        while i<len(valorestank2aux):
+            valorestank2.append(valorestank2aux[i])
+            i+=1
+        z1 = choice(valorestank2)
+        c = z1[0]
+        d = z1[1]
+    if mapa == 2:
+        i=b
+        valorestank2aux = [[5,8],[11,9],[7,11],[7,12],[10,13],[10,14],[10,15]]
+        valorestank2 = []
+        if b == 7:
+            valorestank2.insert(0,[10,15])
+            #print("lista: ", valorestank2)
+        else:
+            while i<len(valorestank2aux):
+                valorestank2.append(valorestank2aux[i])
+                #print("lista: ", valorestank2)
+                i+=1
+        z1 = choice(valorestank2)
+        c = z1[0]
+        d = z1[1]
+    if mapa == 3:
+        i=b
+        valorestank2aux = [[11,8],[10,9],[9,10],[8,11],[11,12],[12,13],[6,14],[6,15]]
+        valorestank2 = []
+        while i<len(valorestank2aux):
+            valorestank2.append(valorestank2aux[i])
+            i+=1
+        z1 = choice(valorestank2)
+        c = z1[0]
+        d = z1[1]
+    x_player2=SpawnRandom(c,d,3)
+    y_player2=SpawnRandom(c,d,4)
+    """
