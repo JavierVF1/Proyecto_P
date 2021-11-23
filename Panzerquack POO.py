@@ -531,23 +531,8 @@ class SelectBala():
             if aux2==1:
                 return auxbala   
 
+
 #FUNCTIONS
-def SpawnRandom(posicionx,posiciony,aux):
-    if aux == 1 :
-        posicionx = 50*(posiciony+1)+5
-        return posicionx
-            
-    if aux == 2 :
-        posiciony = 50*posicionx
-        return posiciony      
-    
-    if aux == 3 :
-        posicionx = 50*(posiciony+1)+5
-        return posicionx
-            
-    if aux == 4 :
-        posiciony = 50*posicionx
-        return posiciony
 
 def colision(posicionY,posicionX,flagLimite,world):
         
@@ -998,6 +983,31 @@ texto9= pygame.font.SysFont("Comic Sans MS",16,5)
 texto10= pygame.font.SysFont("Comic Sans MS",16,5)
 texto11= pygame.font.SysFont("Comic Sans MS",16,5)
 
+#Seleccionador randomico de mapa 
+mapa = randint(1,3)
+print("mapa: ",mapa)
+world_data=MapaSelect(mapa)
+world = World(world_data)
+arreglo_aux =[]
+
+#SPAWNRANDOM
+def recorrer_mapa(world_data):
+    for columna in range(len(world_data[0])):
+        for fila in range(len(world_data)):
+            if world_data[fila][columna] != 0:
+                arreglo_aux.append((fila,columna))
+                break
+
+recorrer_mapa(world_data)
+print("")
+print("posiciones posibles: ",arreglo_aux)
+print("")
+posPlayer1 = choice(arreglo_aux)
+posPlayer2 = choice(arreglo_aux)
+posPlayer3 = choice(arreglo_aux)
+posPlayer4 = choice(arreglo_aux)
+posPlayer5 = choice(arreglo_aux)
+posPlayer6 = choice(arreglo_aux)
 
 Master_flag=True
 
@@ -1010,10 +1020,6 @@ while Master_flag==True:
     pygame.display.set_caption('Panzerquack')
     
     pygame.display.update()
-    #Seleccionador randomico de mapa 
-    mapa = randint(1,3)
-    world_data=MapaSelect(mapa)
-    world = World(world_data)
     screen.blit(fondo, (0, 0))
     world.draw()
     # draw_grid()
@@ -1027,8 +1033,8 @@ while Master_flag==True:
     #------------------------------------------------------------------------------------
     #spawn player 1
     """
-    x_player1= 100
-    y_player1= 400
+    x_player1= (posPlayer1[1]*tile_width)
+    y_player1= (posPlayer1[0]*tile_height)-tile_height
     
     y_player1=gravedad(x_player1,y_player1,world_data)
 
@@ -1037,18 +1043,54 @@ while Master_flag==True:
     #------------------------------------------------------------------------------------
     #spawn player 2
     """
-    x_player2=700
-    y_player2=400
+    x_player2= (posPlayer2[1]*tile_width)
+    y_player2= (posPlayer2[0]*tile_height)-tile_height
 
     y_player2=gravedad(x_player2,y_player2,world_data)
 
     player2 = Player(x_player2,y_player2, img_left)
-    #------------------------------------------------------------------------------------
     
-    player3 = Player(x_player1*0.3,y_player1, img_Pblue)
-    player4 = Player(x_player1*0.6,y_player1, img_Ppurple)
-    player5 = Player(x_player1*0.9,y_player1, img_Pwhite)
-    player6 = Player(x_player1*0.12,y_player1, img_Pyellow)
+    """------------------------------------------------------------------------------------
+    #spawn player 3
+    """
+    x_player3= (posPlayer3[1]*tile_width)
+    y_player3= (posPlayer3[0]*tile_height)-tile_height
+
+    y_player3=gravedad(x_player3,y_player3,world_data)
+
+    player3 = Player(x_player3,y_player3, img_Pblue)
+    """------------------------------------------------------------------------------------
+        #spawn player 4
+    """
+    x_player4= (posPlayer4[1]*tile_width)
+    y_player4= (posPlayer4[0]*tile_height)-tile_height
+
+    y_player4=gravedad(x_player4,y_player4,world_data)
+
+    player4 = Player(x_player4,y_player4, img_Ppurple)
+    """------------------------------------------------------------------------------------
+        #spawn player 5
+    """
+    x_player5= (posPlayer5[1]*tile_width)
+    y_player5= (posPlayer5[0]*tile_height)-tile_height
+
+    y_player5=gravedad(x_player5,y_player5,world_data)
+
+    player5 = Player(x_player5,y_player5, img_Pwhite)
+    """------------------------------------------------------------------------------------
+        #spawn player 6
+    """
+    x_player6= (posPlayer6[1]*tile_width)
+    y_player6= (posPlayer6[0]*tile_height)-tile_height
+
+    y_player6=gravedad(x_player6,y_player6,world_data)
+
+    player6 = Player(x_player6,y_player6, img_Pyellow)
+    #------------------------------------------------------------------------------------
+    #player3 = Player(x_player1*0.3,y_player1, img_Pblue)
+    #player4 = Player(x_player1*0.6,y_player1, img_Ppurple)
+    #player5 = Player(x_player1*0.9,y_player1, img_Pwhite)
+    #player6 = Player(x_player1*0.12,y_player1, img_Pyellow)
 
     #BALAS
     #Variables Bala player One
@@ -1082,6 +1124,10 @@ while Master_flag==True:
         clock.tick(30)
         player1.update(player1)
         player2.update(player2) 
+        player3.update(player3)
+        player4.update(player4)
+        player5.update(player5)
+        player6.update(player6)
     #===========================================================================================================================
         if turno == 2:
             print("el viento esta activado: ", viento)
