@@ -531,7 +531,6 @@ class SelectBala():
             if aux2==1:
                 return auxbala   
 
-
 #FUNCTIONS
 
 def colision(posicionY,posicionX,flagLimite,world):
@@ -601,7 +600,6 @@ def colision(posicionY,posicionX,flagLimite,world):
 def MapaSelect(seleccion):
 
     world_data = [
-    
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -646,7 +644,6 @@ def MapaSelect(seleccion):
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
     world_data2 = [
-    
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -690,7 +687,6 @@ def MapaSelect(seleccion):
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
     world_data3 = [
-    
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],#0
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],#1
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],#2
@@ -928,6 +924,15 @@ def gravedad(X_Player,Y_Player,world):
             elif world[y_player][x_player] != 0 :
                 return Y_Player-20
     
+#SPAWNRANDOM
+def recorrer_mapa(world_data):
+    for columna in range(len(world_data[0])):
+        for fila in range(len(world_data)):
+            if world_data[fila][columna] != 0:
+                arreglo_aux.append((fila,columna))
+                break
+
+
 g = Game()
 
 while g.running:
@@ -990,24 +995,7 @@ world_data=MapaSelect(mapa)
 world = World(world_data)
 arreglo_aux =[]
 
-#SPAWNRANDOM
-def recorrer_mapa(world_data):
-    for columna in range(len(world_data[0])):
-        for fila in range(len(world_data)):
-            if world_data[fila][columna] != 0:
-                arreglo_aux.append((fila,columna))
-                break
-
 recorrer_mapa(world_data)
-print("")
-print("posiciones posibles: ",arreglo_aux)
-print("")
-posPlayer1 = choice(arreglo_aux)
-posPlayer2 = choice(arreglo_aux)
-posPlayer3 = choice(arreglo_aux)
-posPlayer4 = choice(arreglo_aux)
-posPlayer5 = choice(arreglo_aux)
-posPlayer6 = choice(arreglo_aux)
 
 Master_flag=True
 
@@ -1028,70 +1016,52 @@ while Master_flag==True:
     #create button instances
     restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
-   
-    """
+    
+    #print("posiciones posibles: ",arreglo_aux)
+    posPlayer1 = choice(arreglo_aux)
+    posPlayer2 = choice(arreglo_aux)
+    posPlayer3 = choice(arreglo_aux)
+    posPlayer4 = choice(arreglo_aux)
+    posPlayer5 = choice(arreglo_aux)
+    posPlayer6 = choice(arreglo_aux)
+
     #------------------------------------------------------------------------------------
     #spawn player 1
-    """
     x_player1= (posPlayer1[1]*tile_width)
     y_player1= (posPlayer1[0]*tile_height)-tile_height
-    
     y_player1=gravedad(x_player1,y_player1,world_data)
-
     player1 = Player(x_player1,y_player1, img_right)
-    """
     #------------------------------------------------------------------------------------
     #spawn player 2
-    """
     x_player2= (posPlayer2[1]*tile_width)
     y_player2= (posPlayer2[0]*tile_height)-tile_height
-
     y_player2=gravedad(x_player2,y_player2,world_data)
-
     player2 = Player(x_player2,y_player2, img_left)
-    
-    """------------------------------------------------------------------------------------
+    #------------------------------------------------------------------------------------
     #spawn player 3
-    """
     x_player3= (posPlayer3[1]*tile_width)
     y_player3= (posPlayer3[0]*tile_height)-tile_height
-
     y_player3=gravedad(x_player3,y_player3,world_data)
-
     player3 = Player(x_player3,y_player3, img_Pblue)
-    """------------------------------------------------------------------------------------
-        #spawn player 4
-    """
+    #------------------------------------------------------------------------------------
+    #spawn player 4
     x_player4= (posPlayer4[1]*tile_width)
     y_player4= (posPlayer4[0]*tile_height)-tile_height
-
     y_player4=gravedad(x_player4,y_player4,world_data)
-
     player4 = Player(x_player4,y_player4, img_Ppurple)
-    """------------------------------------------------------------------------------------
-        #spawn player 5
-    """
+    #------------------------------------------------------------------------------------
+    #spawn player 5
     x_player5= (posPlayer5[1]*tile_width)
     y_player5= (posPlayer5[0]*tile_height)-tile_height
-
     y_player5=gravedad(x_player5,y_player5,world_data)
-
     player5 = Player(x_player5,y_player5, img_Pwhite)
-    """------------------------------------------------------------------------------------
-        #spawn player 6
-    """
+    #------------------------------------------------------------------------------------
+    #spawn player 6
     x_player6= (posPlayer6[1]*tile_width)
     y_player6= (posPlayer6[0]*tile_height)-tile_height
-
     y_player6=gravedad(x_player6,y_player6,world_data)
-
     player6 = Player(x_player6,y_player6, img_Pyellow)
     #------------------------------------------------------------------------------------
-    #player3 = Player(x_player1*0.3,y_player1, img_Pblue)
-    #player4 = Player(x_player1*0.6,y_player1, img_Ppurple)
-    #player5 = Player(x_player1*0.9,y_player1, img_Pwhite)
-    #player6 = Player(x_player1*0.12,y_player1, img_Pyellow)
-
     #BALAS
     #Variables Bala player One
     bala105_1=10
@@ -1101,7 +1071,6 @@ while Master_flag==True:
     bala105_2=10
     balaPerforante_2=10
     bala90_2=10
-
     #Variables auxiliares
     numero10=10    #valor estatico
     numero100=100  #valor estatico
@@ -1208,15 +1177,12 @@ while Master_flag==True:
 
             bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2,y_player2,x_player1,y_player1)
             win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
-            
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            
             # screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
-
             #Siguente turno
             turno=1
             
@@ -1307,23 +1273,19 @@ while Master_flag==True:
 
             bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2)
             win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
-            
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            
             # screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
-            
             #Siguente turno
             turno=2
 
             if win == False:
                 Master_flag=False
                 run=False  
-                
-                
+                    
     #===========================================================================================
         # if turno==3:
         #     print("turno 3")
@@ -1374,67 +1336,3 @@ while Master_flag==True:
 pygame.quit()
 sys.exit()
 
-
-"""
-#------------------------------------------------------------------------------------
-#spawn player 1
-if mapa ==1:
-    valorestank1 = [[27,0],[27,1],[27,2],[9,3],[10,4],[10,5],[11,6],[6,7]]
-    z = choice(valorestank1)
-    a = z[0]
-    b = z[1]
-if mapa == 2:
-    valorestank1 = [[10,0],[10,1],[10,2],[7,3],[7,4],[11,6],[5,7]]
-    z = choice(valorestank1)
-    a = z[0]
-    b = z[1]
-if mapa == 3:
-    valorestank1 = [[26,0],[26,1],[26,2],[27,3],[27,4],[27,5],[27,6],[28,7],[29,8],[35,9],[35,10]]
-    z = choice(valorestank1)
-    a = z[0]
-    b = z[1]
-
-x_player1= SpawnRandom(a,b,1)
-y_player1= SpawnRandom(a,b,2)
-"""
-"""
-    #------------------------------------------------------------------------------------
-    #spawn player 2
-    if mapa == 1:
-        i=b
-        valorestank2aux = [[6,8],[11,9],[11,10],[10,11],[9,12],[8,13],[7,14],[7,15]]
-        valorestank2 = []
-        while i<len(valorestank2aux):
-            valorestank2.append(valorestank2aux[i])
-            i+=1
-        z1 = choice(valorestank2)
-        c = z1[0]
-        d = z1[1]
-    if mapa == 2:
-        i=b
-        valorestank2aux = [[5,8],[11,9],[7,11],[7,12],[10,13],[10,14],[10,15]]
-        valorestank2 = []
-        if b == 7:
-            valorestank2.insert(0,[10,15])
-            #print("lista: ", valorestank2)
-        else:
-            while i<len(valorestank2aux):
-                valorestank2.append(valorestank2aux[i])
-                #print("lista: ", valorestank2)
-                i+=1
-        z1 = choice(valorestank2)
-        c = z1[0]
-        d = z1[1]
-    if mapa == 3:
-        i=b
-        valorestank2aux = [[11,8],[10,9],[9,10],[8,11],[11,12],[12,13],[6,14],[6,15]]
-        valorestank2 = []
-        while i<len(valorestank2aux):
-            valorestank2.append(valorestank2aux[i])
-            i+=1
-        z1 = choice(valorestank2)
-        c = z1[0]
-        d = z1[1]
-    x_player2=SpawnRandom(c,d,3)
-    y_player2=SpawnRandom(c,d,4)
-    """
