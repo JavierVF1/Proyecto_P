@@ -1022,7 +1022,6 @@ while Master_flag==True:
     #create button instances
     restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
-    
    
     """
     #------------------------------------------------------------------------------------
@@ -1095,6 +1094,12 @@ while Master_flag==True:
             player1.update(player1)
             player2.update(player2)
             while True:
+                if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
+                    if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                        print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                        print("Empate\n")
+                        
+
                 SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
                 bala=SelectBala.textBala()
                 #para hacer funcionar el boton reset
@@ -1122,12 +1127,7 @@ while Master_flag==True:
                         bala90_2-=1
                         damage=30
                         break
-                if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
-                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                    print("Victoria para Jugador N°1\n")
-                    win=False
-                    break
-
+                
             #para hacer funcionar el boton reset
             if bala==numero100:
                 break 
@@ -1174,13 +1174,9 @@ while Master_flag==True:
             #Siguente turno
             turno=1
             
-            if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
-                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                    print("Victoria para Jugador N°1\n")
-                    win=False
-
+            
             if win == False:
-                #victoria()
+                Master_flag=False
                 run=False
     #===========================================================================================================================
         intensidad_viento = randint(-10,10)
@@ -1197,6 +1193,13 @@ while Master_flag==True:
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
 
             while True:
+                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                    if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
+                        print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                        print("Empate\n")
+                        win = False
+                        break
+            
                 SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
                 bala=SelectBala.textBala()
                 #para hacer funcionar el boton reset
@@ -1224,12 +1227,6 @@ while Master_flag==True:
                         bala90_1-=1
                         damage=30
                         break
-                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
-                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                    print("Victoria para Jugador N°2\n")
-                    win=False
-                    break
-                
                 
             #para hacer funcionar el boton reset
             if bala==numero100:
@@ -1276,14 +1273,11 @@ while Master_flag==True:
             #Siguente turno
             turno=2
 
-            if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
-                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                print("Victoria para Jugador N°2\n")
-                win=False
-                
             if win == False:
-                #victoria()
-                run=False   
+                Master_flag=False
+                run=False  
+                
+                
     #===========================================================================================
         # if turno==3:
         #     print("turno 3")
@@ -1331,8 +1325,9 @@ while Master_flag==True:
         #     i=0
             
         #     turno=arregloTurnos[i]
-    
+pygame.quit()
 sys.exit()
+
 
 """
 #------------------------------------------------------------------------------------
