@@ -77,13 +77,13 @@ class Game():
         text_rect.center = (x,y)
         self.display.blit(text_surface,text_rect)
 
-def textboxConfig(self):
+def textboxConfig(self, xtext, ytext):
         #create button instances
         exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
         exit_button = button.Button(screen_width*0.0075, screen_height*0.0083, exit_img, 0.3)
     
         font = pygame.font.Font(None, 32)
-        input_box = pygame.Rect(screen_width*0.5,screen_height*0.2, 140, 32)
+        input_box = pygame.Rect(xtext,ytext, 140, 32)
         color_inactive = pygame.Color('lightskyblue3')
         color_active = pygame.Color("black")
         color = color_inactive
@@ -115,7 +115,7 @@ def textboxConfig(self):
                             text = ''
                         elif event.key == pygame.K_BACKSPACE:
                             text = text[:-1]
-                            pygame.draw.rect(self.game.display, blue_sky, [screen_width*0.8125,screen_height*0.045, 140, 32])
+                            pygame.draw.rect(self.game.display, blue_sky, [xtext,ytext, 160, 34])
                         else:
                             if event.unicode=="1"or event.unicode=="2"or event.unicode=="3"or event.unicode=="4"or event.unicode=="5"or event.unicode=="6"or event.unicode=="7"or event.unicode=="8"or event.unicode=="9"or event.unicode=="0":
                                     text += event.unicode
@@ -131,7 +131,9 @@ def textboxConfig(self):
             pygame.display.update()
 
             if aux2==1:
-                return aux
+                xtext=self.game.DISPLAY_W
+                ytext=self.game.DISPLAY_H
+                return aux , xtext, ytext
                 
 class Menu():
     def __init__(self, game):
@@ -193,17 +195,56 @@ class MainMenu(Menu):
             duck_g =pygame.transform.scale(duck_g , (int(screen_width),int(screen_height)))
             self.game.display.blit(duck_g, (0, 0))
 
-            a=textboxConfig(self)
-            print(a)
+            xtext=self.game.DISPLAY_W
+            ytext=self.game.DISPLAY_H
+
+            self.game.draw_text("Tamaño de pantalla", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.17)
+
+            self.game.draw_text("Ancho:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.22)
+            ancho, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.2)
+            #print("ancho:",ancho)
+            self.game.draw_text("Largo:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.27)
+            largo, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.253)
+            #print("largo:",largo)
+
+            self.game.draw_text("Jugadores", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.32)
+
+            self.game.draw_text("Numero de jugadores:", 25, self.game.DISPLAY_W*0.18, self.game.DISPLAY_H*0.37)
+            while True:
+                num_players, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.35)
+                #print("Numero de Players:",num_players)
+                if num_players!=1 or num_players==2 or num_players==3 or num_players==4 or num_players==5 or num_players==6:
+                    break
+            self.game.draw_text("Numero de bots:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.42)
+            num_bots, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.40)
+            #print("Numero de Players:",num_bots)
+
+            self.game.draw_text("Cantidad de Proyectiles", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.47)
+
+            self.game.draw_text("105mm:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.52)
+            num_105mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.50)
+            #print("Numero balas 105mm:",num_105mm)
+            self.game.draw_text("Perforante:", 25, self.game.DISPLAY_W*0.185, self.game.DISPLAY_H*0.57)
+            num_perforante, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.55)
+            #print("Numero balas perforante:",num_perforante)
+            self.game.draw_text("60mm:", 25, self.game.DISPLAY_W*0.225, self.game.DISPLAY_H*0.62)
+            num_60mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.60)
+            #print("Numero balas 60mm:",num_60mm)
+
+            self.game.draw_text("Afectos del Entorno", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.67)
+
+            self.game.draw_text("Gravedad:", 25, self.game.DISPLAY_W*0.20, self.game.DISPLAY_H*0.72)
+            num_gravedad, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.70)
+            #print("Gravedad:",num_gravedad)
+            self.game.draw_text("Viento:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.77)
+            num_viento, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.75)
+            #print("Viento:",num_viento)
 
             self.blit_screen()
             self.game.reset_keys()
             return
             
-            
-
-            
-        
+     
     def move_cursor(self):
         if self.game.DOWN_KEY:
             if self.state == 'Start':
