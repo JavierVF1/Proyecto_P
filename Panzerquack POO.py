@@ -368,30 +368,30 @@ class Bullet():
         sustituto=0
         contdmg=1 #contador para evitar que la bala golpee mas de una vez
         var_viento=(intensidad_v/10) #variable para aplicar el viento
+        
         while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
-            
             if wind == False and gravity == False:
-                posicionX = posicionX + velocidadiX * ti
-                posicionY = posicionY - velocidadiY * ti +(1/2)*6*(ti**2)
+                posicionX = posicionX + velocidadiX/10 * ti
+                posicionY = posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2)
                 velocidadY = velocidadiY - (6 * ti)
                 velocidadX = velocidadiX - (6 * ti)
             
             if wind == True and gravity == False:
-                posicionX = (posicionX + velocidadiX * ti)+var_viento
-                posicionY = (posicionY - velocidadiY * ti +(1/2)*6*(ti**2))+var_viento
+                posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
+                posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2))+var_viento
                 velocidadY = velocidadiY - (6 * ti)
                 velocidadX = velocidadiX - (6 * ti)
             
             if wind == False and gravity == True:
-                posicionX = posicionX + velocidadiX * ti
-                posicionY = posicionY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2)
+                posicionX = posicionX + velocidadiX/10 * ti
+                posicionY = posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2)
                 velocidadY = velocidadiY - (intensidad_g * ti)
                 velocidadX = velocidadiX - (intensidad_g * ti)
             
             if wind == True and gravity == True:
-                posicionX = (posicionX + velocidadiX * ti)+var_viento
-                posicionY = (posicionY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2))+var_viento
+                posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
+                posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2))+var_viento
                 velocidadY = velocidadiY - (intensidad_g * ti)
                 velocidadX = velocidadiX - (intensidad_g * ti)
 
@@ -1192,15 +1192,19 @@ while Master_flag==True:
             #SE IMORIME TEXTO VELOCIDAD
             screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
+                
                 #para hacer funcionar el boton reset
-            if temporalvel==numero100:
+            if temporalvel==101: #puse 101 porque si colocaba 100 como estaba antes el programa se cortaba al momento de querer colocar una velocidad al 100
                 break    
 
-            if temporalvel>numero10:
-                temporalvel=numero10
-            if temporalvel<-numero10:
-                temporalvel=-numero10
+            if temporalvel>numero100:
+                temporalvel=numero100
+
+            if temporalvel<-numero100:
+                temporalvel=-numero100
+
             player2.setVel(-temporalvel)
+
             #SE BORRA EL TEXTO ANTERIOR 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
             #Se imprime el texto angulo
@@ -1289,15 +1293,19 @@ while Master_flag==True:
             #SE IMORIME TEXTO VELOCIDAD
             screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
+                
                 #para hacer funcionar el boton reset
-            if temporalvel==numero100:
+            if temporalvel==101: #puse 101 porque si colocaba 100 como estaba antes el programa se cortaba al momento de querer colocar una velocidad al 100
                 break    
 
-            if temporalvel>numero10:
-                temporalvel=numero10
-            if temporalvel<-numero10:
-                temporalvel=-numero10
+            if temporalvel>numero100:
+                temporalvel=numero100
+
+            if temporalvel<-numero100:
+                temporalvel=-numero100
+
             player1.setVel(temporalvel)
+
             #SE BORRA EL TEXTO ANTERIOR 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
             #Se imprime el texto angulo
