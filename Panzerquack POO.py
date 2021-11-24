@@ -2,7 +2,7 @@ import sys
 import pygame
 from math import cos, sin, pi, tan, radians,floor
 import time 
-from random import randint,choice
+from random import randint,choice,shuffle
 from pygame.locals import *
 import button
 #variables importantes
@@ -973,6 +973,13 @@ def recorrer_mapa(world_data):
                 arreglo_aux.append((fila,columna))
                 break
 
+def reductorLista(lista,num_players):
+    i=num_players
+    listaAux=[None]*i
+    while i>0:
+        listaAux[i-1]=lista[i-1]
+        i=i-1
+    return listaAux
 
 g = Game()
 
@@ -1118,9 +1125,15 @@ while Master_flag==True:
     run = True   #Variable while principal
     auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
     #arregloTurnos=turn_aleat()
-    i=0;#valor i usado para turnos (es para evitar que se resetee que esta fuera del while)
-    turno=1    #Variable control de turnos
     win=True    #Variable control de victoria
+    #Turnos aleatorios
+    auxTurno=0
+    l=[1,2,3,4,5,6]
+    listaTurnos=reductorLista(l,num_jugadores)#reducir lista
+    shuffle(listaTurnos)#aleatorizar lista
+    print(listaTurnos)#imprimir lista
+    turno=listaTurnos[auxTurno]#ingresar turno 1
+    
     
     valores_random=[True,False]
     graveDAD = choice(valores_random)
@@ -1128,7 +1141,7 @@ while Master_flag==True:
     intensidad_gravedad = randint(0,15)
     print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
-
+    
     while run:
         bala=""
         clock.tick(30)
@@ -1229,7 +1242,12 @@ while Master_flag==True:
             screen.blit(fondo, (0, 0))
             world.draw()
             #Siguente turno
-            turno=1
+            auxTurno=auxTurno+1
+            if auxTurno<num_jugadores:
+                turno=listaTurnos[auxTurno]
+            else:
+                auxTurno=0
+                turno=listaTurnos[auxTurno]
             
             
             if win == False:
@@ -1329,7 +1347,12 @@ while Master_flag==True:
             screen.blit(fondo, (0, 0))
             world.draw()
             #Siguente turno
-            turno=2
+            auxTurno=auxTurno+1
+            if auxTurno<num_jugadores:
+                turno=listaTurnos[auxTurno]
+            else:
+                auxTurno=0
+                turno=listaTurnos[auxTurno]
 
             if win == False:
                 Master_flag=False
