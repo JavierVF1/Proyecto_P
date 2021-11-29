@@ -23,6 +23,7 @@ gray = 127,127,127
 blue_sky=0,160,235
 #numero players
 num_jugadores=2;
+num_bots=1;
 class Game():
     def __init__(self):
         pygame.init()
@@ -1147,10 +1148,10 @@ while Master_flag==True:
         clock.tick(30)
         player1.update(player1)
         player2.update(player2) 
-        player3.update(player3)
-        player4.update(player4)
-        player5.update(player5)
-        player6.update(player6)
+        # player3.update(player3)
+        # player4.update(player4)
+        # player5.update(player5)
+        # player6.update(player6)
     #===========================================================================================================================
         if turno == 2:
             print("el viento esta activado: ", viento)
@@ -1168,13 +1169,24 @@ while Master_flag==True:
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                         print("Empate\n")
                         
-
-                SelectBala.text(bala105_2,balaPerforante_2,bala90_2)
-                bala=SelectBala.textBala()
                 #para hacer funcionar el boton reset
                 if bala==numero100:
                     break
-
+                
+                #player bot
+                if num_bots>=turno-1:
+                    player2_bot=True
+                else:
+                    player2_bot=False
+                    
+                #############BOT de tipo bala#############################
+                                                                         #
+                if player2_bot==True:#player es un bot                   #
+                    bala=randint(1,3)                                    #
+                if player2_bot==False:#player no es un bot               #
+                    SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                    bala=SelectBala.textBala()                           #
+                ##########################################################
                 if 0 < bala105_2 :
                     if int (bala) == 1:
                         globala=1
@@ -1203,9 +1215,15 @@ while Master_flag==True:
             
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
-            screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
-            temporalvel=int(textbox())
-                
+            
+           ##############BOT de tipo velocidad###########################################
+            if player2_bot==True:#player es un bot                                      #
+                temporalvel=randint(1,100)                                              #
+            if player2_bot==False:#player no es un bot                                  #
+                screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
+                temporalvel=int(textbox())                                              #
+           ##############################################################################
+            
                 #para hacer funcionar el boton reset
             if temporalvel==101: #puse 101 porque si colocaba 100 como estaba antes el programa se cortaba al momento de querer colocar una velocidad al 100
                 break    
@@ -1221,9 +1239,16 @@ while Master_flag==True:
             #SE BORRA EL TEXTO ANTERIOR 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
             #Se imprime el texto angulo
-            screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))
-            temporalang=int(textbox())
-                #para hacer funcionar el boton reset
+            
+            #############BOT de tipo angulo#########################################
+            if player2_bot==True:#player es un bot                                 #
+                temporalang=randint(1,180)                                         #     
+            if player2_bot==False:#player no es un bot                             #
+                screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
+                temporalang=int(textbox())                                         #
+                #para hacer funcionar el boton reset                               #
+            ########################################################################
+            
             if temporalang==numero100:
                 break    
 
