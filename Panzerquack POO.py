@@ -5,25 +5,34 @@ import time
 from random import randint,choice,shuffle
 from pygame.locals import *
 import button
-#variables importantes
-screen_width = 800
+#variables importantes-------------------------------------
+screen_width = 800          #Numero 800 por la definicion por defecto
 screen_height = 800
-#Tamaño de los recuadros del mapa 
+#Tamaño de los recuadros del mapa ------------------------
 tile_width =int(screen_width//40)
 tile_height=int(screen_height//40)
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 clock = pygame.time.Clock()
-#sonidos
+#sonidos--------------------------------------------------
 pygame.mixer.init()
 soundObj = pygame.mixer.Sound('assets/sound/sfx/quack_sfx.mp3')
-#Colores
+#Colores--------------------------------------------------
 negro = 0,0,0
 ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
-#numero players
+#numero players--------------------------------------------
 num_jugadores=2;
 num_bots=1;
+#Globales Numero De Balas---------------------------------
+num_105mm=10                   #Numero 10 por la definicion por defecto
+num_perforante=10
+num_60mm=10
+#Globales Efectos de Entorno---------------------------------
+Ggravedad=True
+Gviento=True
+val_gravedad=0
+
 class Game():
     def __init__(self):
         pygame.init()
@@ -51,6 +60,7 @@ class Game():
             self.reset_keys()
             g.running=False
             break
+            
         return
             
     def check_events(self):
@@ -79,6 +89,7 @@ class Game():
         self.display.blit(text_surface,text_rect)
 
 def textboxConfig(self, xtext, ytext):
+        pygame.draw.rect(self.game.display, blue_sky, [xtext,ytext, 110, 34])
         #create button instances
         exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
         exit_button = button.Button(screen_width*0.0075, screen_height*0.0083, exit_img, 0.3)
@@ -116,7 +127,7 @@ def textboxConfig(self, xtext, ytext):
                             text = ''
                         elif event.key == pygame.K_BACKSPACE:
                             text = text[:-1]
-                            pygame.draw.rect(self.game.display, blue_sky, [xtext,ytext, 160, 34])
+                            pygame.draw.rect(self.game.display, blue_sky, [xtext,ytext, 110, 34])
                         else:
                             if event.unicode=="1"or event.unicode=="2"or event.unicode=="3"or event.unicode=="4"or event.unicode=="5"or event.unicode=="6"or event.unicode=="7"or event.unicode=="8"or event.unicode=="9"or event.unicode=="0":
                                     text += event.unicode
@@ -162,20 +173,18 @@ class MainMenu(Menu):
         self.Exitx, self.Exity = self.mid_w, self.mid_h + 90
         self.Panzerx, self.Panzery = self.mid_w, self.mid_h -150
         self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+    
     def display_menu(self):
         self.run_display = True 
         while self.run_display:
             self.game.check_events()
             self.check_input()
             self.game.display.fill(self.game.BLACK)
-            #self.game.draw_text('Main Menu', 20, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 20)
-            #self.game.draw_text("Comenzar Juego", 20, self.startx, self.starty)
             self.game.draw_text("Panzerquack", 90, self.Panzerx, self.Panzery)
             self.game.draw_text("Comenzar Juego", 30, self.startx, self.starty)
             self.game.draw_text("Configuraciones", 30, self.Configx, self.Configy)
             self.game.draw_text("Salir", 30, self.Exitx, self.Exity)
             flor_img = pygame.image.load('assets/sprites/grass.png')
-            #flor_img =pygame.transform.scale(flor_img , (int(screen_width*0.50),int(screen_height*0.50)))
             self.game.display.blit(flor_img, (screen_width*0, screen_height*0.940))
             panzer_img = pygame.image.load('assets/sprites/panzer.png')
             panzer_img =pygame.transform.scale(panzer_img , (int(screen_width*0.50),int(screen_height*0.50)))
@@ -185,9 +194,18 @@ class MainMenu(Menu):
             self.blit_screen()
         
     def display_config(self):
+        global screen_width   #ancho
+        global screen_height   #largo
+        global num_jugadores   #nuemro players
+        global num_bots        #nuemro bots
+        global num_105mm         #nuemro balas
+        global num_perforante    #   ""
+        global num_60mm          #   ""
+        global Ggravedad      #Estado efectos de entorno
+        global Gviento        #   "" 
+        global val_gravedad
         self.run_config=True
         while self.run_config:
-  
             self.game.display.fill(self.game.BLACK)
             self.game.draw_text("configuraciones", 50, self.game.DISPLAY_W/2.5, self.game.DISPLAY_H/10)
             flor_img = pygame.image.load('assets/sprites/grass.png')
@@ -198,52 +216,89 @@ class MainMenu(Menu):
 
             xtext=self.game.DISPLAY_W
             ytext=self.game.DISPLAY_H
-
             self.game.draw_text("Tamaño de pantalla", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.17)
-
+            self.game.draw_text("Min:800    Max:1600  ", 15, self.game.DISPLAY_W*0.50, self.game.DISPLAY_H*0.25)
             self.game.draw_text("Ancho:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.22)
-            ancho, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.2)
-            #print("ancho:",ancho)
+            while True:
+                ancho, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.2)
+                if int(ancho)>=800 and int(ancho)<=1600:
+                    screen_width=int(ancho)
+                    break
             self.game.draw_text("Largo:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.27)
-            largo, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.253)
-            #print("largo:",largo)
-
+            while True:
+                largo, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.253)
+                if int(largo)>=800 and int(largo)<=1600:
+                    screen_height=int(largo)
+                    break
             self.game.draw_text("Jugadores", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.32)
-
             self.game.draw_text("Numero de jugadores:", 25, self.game.DISPLAY_W*0.18, self.game.DISPLAY_H*0.37)
+            self.game.draw_text("Min:2    Max:6  ", 15, self.game.DISPLAY_W*0.54, self.game.DISPLAY_H*0.37)
             while True:
                 num_players, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.35)
-                #print("Numero de Players:",num_players)
-                if num_players!=1 or num_players==2 or num_players==3 or num_players==4 or num_players==5 or num_players==6:
+                if int(num_players)>=2 and int(num_players)<=6:
+                    num_jugadores=int(num_players)
                     break
             self.game.draw_text("Numero de bots:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.42)
-            num_bots, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.40)
-            #print("Numero de Players:",num_bots)
-
+            self.game.draw_text("Min:1    Max:6  ", 15, self.game.DISPLAY_W*0.54, self.game.DISPLAY_H*0.42)
+            while True:
+                bots, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.40)
+                if int(bots)>=1 and int(bots)<=6:
+                    num_bots=int(bots)
+                    break
             self.game.draw_text("Cantidad de Proyectiles", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.47)
-
             self.game.draw_text("105mm:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.52)
-            num_105mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.50)
-            #print("Numero balas 105mm:",num_105mm)
+            self.game.draw_text("Min:10    Max:30  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.52)
+            while True:
+                B105mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.50)
+                if int(B105mm)>=10 and int(B105mm)<=30:
+                    num_105mm=int(B105mm)
+                    break
             self.game.draw_text("Perforante:", 25, self.game.DISPLAY_W*0.185, self.game.DISPLAY_H*0.57)
-            num_perforante, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.55)
-            #print("Numero balas perforante:",num_perforante)
+            self.game.draw_text("Min:10    Max:100  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.57)
+            while True:
+                perforante, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.55)
+                if int(perforante)>=10 and int(perforante)<=100:
+                    num_perforante=int(perforante)
+                    break
             self.game.draw_text("60mm:", 25, self.game.DISPLAY_W*0.225, self.game.DISPLAY_H*0.62)
-            num_60mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.60)
-            #print("Numero balas 60mm:",num_60mm)
-
+            self.game.draw_text("Min:10    Max:30  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.62)
+            while True:
+                B60mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.60)
+                if int(B60mm)>=10 and int(B60mm)<=30:
+                    num_60mm=int(B60mm)
+                    break
             self.game.draw_text("Afectos del Entorno", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.67)
-
             self.game.draw_text("Gravedad:", 25, self.game.DISPLAY_W*0.20, self.game.DISPLAY_H*0.72)
-            num_gravedad, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.70)
-            #print("Gravedad:",num_gravedad)
-            self.game.draw_text("Viento:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.77)
-            num_viento, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.75)
-            #print("Viento:",num_viento)
-
+            self.game.draw_text("1 = Activada   0 = Desactivada", 15, self.game.DISPLAY_W*0.55, self.game.DISPLAY_H*0.72)
+            while True:
+                gravedad, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.70)
+                if int(gravedad)==1 or int(gravedad)==0:
+                    if int(gravedad) == 1:
+                        Ggravedad=True
+                        while True:
+                            self.game.draw_text("Valor G:", 25, self.game.DISPLAY_W*0.20, self.game.DISPLAY_H*0.77)
+                            self.game.draw_text("Min:0    Max:10", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.77)
+                            gravedadG, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.75)
+                            if int(gravedadG)>=0 and int(gravedadG)<=10:
+                                val_gravedad=int(gravedadG)
+                                break
+                    else:
+                        Ggravedad=False
+                    break
+            self.game.draw_text("Viento:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.82)
+            self.game.draw_text("1 = Activada   0 = Desactivada", 15, self.game.DISPLAY_W*0.55, self.game.DISPLAY_H*0.82)
+            while True:
+                viento, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.80)
+                if int(viento)==1 or int(viento)==0:
+                    if int(viento) == 1:
+                        Gviento=True
+                    else:
+                        Gviento=False
+                    break
+            
             self.blit_screen()
             self.game.reset_keys()
-            return
+            return 
             
      
     def move_cursor(self):
@@ -1113,13 +1168,13 @@ while Master_flag==True:
     #------------------------------------------------------------------------------------
     #BALAS
     #Variables Bala player One
-    bala105_1=10
-    balaPerforante_1=10
-    bala90_1=10
+    bala105_1=num_105mm
+    balaPerforante_1=num_perforante
+    bala90_1=num_60mm
     #Variables Bala player Tow
-    bala105_2=10
-    balaPerforante_2=10
-    bala90_2=10
+    bala105_2=num_105mm
+    balaPerforante_2=num_perforante
+    bala90_2=num_60mm
     #Variables auxiliares
     numero10=10    #valor estatico
     numero100=100  #valor estatico
@@ -1132,7 +1187,7 @@ while Master_flag==True:
     l=[1,2,3,4,5,6]
     listaTurnos=reductorLista(l,num_jugadores)#reducir lista
     shuffle(listaTurnos)#aleatorizar lista
-    print(listaTurnos)#imprimir lista
+    #print(listaTurnos)#imprimir lista
     turno=listaTurnos[auxTurno]#ingresar turno 1
     
     
@@ -1140,6 +1195,7 @@ while Master_flag==True:
     graveDAD = choice(valores_random)
     viento = choice(valores_random)
     intensidad_gravedad = randint(0,15)
+    intensidad_viento = randint(-10,10)
     print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
     
