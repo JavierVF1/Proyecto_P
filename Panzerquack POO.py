@@ -99,7 +99,7 @@ def textboxConfig(self, xtext, ytext):
         color_inactive = pygame.Color('lightskyblue3')
         color_active = pygame.Color("black")
         color = color_inactive
-        active = False
+        active = True
         text = ''
         done = False
         aux2=0
@@ -113,12 +113,9 @@ def textboxConfig(self, xtext, ytext):
                 if event.type == pygame.QUIT:
                     done=True
                     sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if input_box.collidepoint(event.pos):
-                        active = not active
-                    else:
-                        active = False
-                    color = color_active if active else color_inactive
+                color = color_active if active else color_inactive
+                
+                    
                 if event.type == pygame.KEYDOWN:
                     if active:
                         if event.key == pygame.K_RETURN:
@@ -242,7 +239,7 @@ class MainMenu(Menu):
             self.game.draw_text("Min:1    Max:6  ", 15, self.game.DISPLAY_W*0.54, self.game.DISPLAY_H*0.42)
             while True:
                 bots, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.40)
-                if int(bots)>=1 and int(bots)<=6:
+                if int(bots)>=1 and int(bots)<=6 and int(bots)<=int(num_players):
                     num_bots=int(bots)
                     break
             self.game.draw_text("Cantidad de Proyectiles", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.47)
@@ -552,60 +549,43 @@ class Bullet():
 class SelectBala():
     
     def text(bala105,balaPerforante,bala90):
-
         texto1= pygame.font.SysFont("Comic Sans MS",20)
         Titulo= texto1.render("Selecion de proyectil:", 0, negro)
-
         texto2= pygame.font.SysFont("Comic Sans MS",20)
         texto105mm= texto2.render("1.- 105mm:       "+str (bala105), 0, ColorMagico)
-
         texto3= pygame.font.SysFont("Comic Sans MS",20)
         textoPerforante= texto3.render("2.- Perforante: "+str (balaPerforante), 0, ColorMagico)
-
         texto4= pygame.font.SysFont("Comic Sans MS",20)
         texto90mm= texto4.render("3.- 90mm:         "+str (bala90), 0, ColorMagico)
-
         screen.blit(Titulo,(screen_width*0.7125, screen_height*0.0066))
         screen.blit(texto105mm,(screen_width*0.7, screen_height*0.035))
         screen.blit(textoPerforante,(screen_width*0.7, screen_height*0.0583))
         screen.blit(texto90mm,(screen_width*0.7, screen_height*0.0816))
-
         return
 
-
     def textBala():
-        
         font = pygame.font.Font(None, 32)
         input_box = pygame.Rect(screen_width*0.9375, screen_height*0.05, 140, 32)
         color_inactive = pygame.Color('lightskyblue3')
         color_active = pygame.Color("black")
         color = color_inactive
-        active = False
+        active = True
         text = ''
         done = False
         aux2=0
         while not done:
-
             if restart_button.draw(screen):
                 print('\nReStart')
                 restar=100
                 return restar
-
             if exit_button.draw(screen):
                 print('\nExit')
                 sys.exit()
-            #event handler
-            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done=True
                     sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if input_box.collidepoint(event.pos):
-                        active = not active
-                    else:
-                        active = False
-                    color = color_active if active else color_inactive
+                color = color_active if active else color_inactive
                 if event.type == pygame.KEYDOWN:
                     if active:
                         if event.key == pygame.K_RETURN:
@@ -618,7 +598,6 @@ class SelectBala():
                         else:
                             if event.unicode == "1" or event.unicode == "2" or event.unicode == "3":
                                 text += event.unicode
-                            
             txt_surface = font.render(text, True, color)
             width = max(30, txt_surface.get_width()+10)
             input_box.w = width
@@ -954,37 +933,28 @@ def textmax(posicion_Y,posicion_X,tanque):
     return
 
 def textbox():
-        
     font = pygame.font.Font(None, 32)
     input_box = pygame.Rect(screen_width*0.8125,screen_height*0.045, 140, 32)
     color_inactive = pygame.Color('lightskyblue3')
     color_active = pygame.Color("black")
     color = color_inactive
-    active = False
+    active = True
     text = ''
     done = False
     aux2=0
     while not done:
-
         if restart_button.draw(screen):
             print('\nReStart')
             restar=100
             return restar
-
         if exit_button.draw(screen):
             print('\nExit')
             sys.exit()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done=True
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if input_box.collidepoint(event.pos):
-                    active = not active
-                else:
-                    active = False
-                color = color_active if active else color_inactive
+            color = color_active if active else color_inactive
             if event.type == pygame.KEYDOWN:
                 if active:
                     if event.key == pygame.K_RETURN:
@@ -997,7 +967,6 @@ def textbox():
                     else:
                         if event.unicode=="1"or event.unicode=="2"or event.unicode=="3"or event.unicode=="4"or event.unicode=="5"or event.unicode=="6"or event.unicode=="7"or event.unicode=="8"or event.unicode=="9"or event.unicode=="0":
                                 text += event.unicode
-                        
         txt_surface = font.render(text, True, color)
         width = max(100, txt_surface.get_width()+10)
         input_box.w = width
