@@ -42,11 +42,8 @@ class Game():
         self.display = pygame.Surface((self.DISPLAY_W,self.DISPLAY_H))
         self.window = pygame.display.set_mode(((self.DISPLAY_W,self.DISPLAY_H)))
         self.font_name = 'TIEWING.TTF'
-        #self.font_name = pygame.font.get_default_font()
         self.BLACK, self.WHITE = (0,160,235), (0,70,70)
         self.main_menu = MainMenu(self)
-        #self.options = OptionsMenu(self)
-        
         self.curr_menu = self.main_menu
 
     def game_loop(self):
@@ -60,7 +57,6 @@ class Game():
             self.reset_keys()
             g.running=False
             break
-            
         return
             
     def check_events(self):
@@ -93,7 +89,6 @@ def textboxConfig(self, xtext, ytext):
         #create button instances
         exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
         exit_button = button.Button(screen_width*0.0075, screen_height*0.0083, exit_img, 0.3)
-    
         font = pygame.font.Font(None, 32)
         input_box = pygame.Rect(xtext,ytext, 140, 32)
         color_inactive = pygame.Color('lightskyblue3')
@@ -104,18 +99,14 @@ def textboxConfig(self, xtext, ytext):
         done = False
         aux2=0
         while not done:
-
             if exit_button.draw(self.game.display):
                 print('\nExit')
                 sys.exit()
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done=True
                     sys.exit()
                 color = color_active if active else color_inactive
-                
-                    
                 if event.type == pygame.KEYDOWN:
                     if active:
                         if event.key == pygame.K_RETURN:
@@ -127,18 +118,15 @@ def textboxConfig(self, xtext, ytext):
                             pygame.draw.rect(self.game.display, blue_sky, [xtext,ytext, 110, 34])
                         else:
                             if event.unicode=="1"or event.unicode=="2"or event.unicode=="3"or event.unicode=="4"or event.unicode=="5"or event.unicode=="6"or event.unicode=="7"or event.unicode=="8"or event.unicode=="9"or event.unicode=="0":
-                                    text += event.unicode
-                            
+                                    text += event.unicode    
             txt_surface = font.render(text, True, color)
             width = max(100, txt_surface.get_width()+10)
             input_box.w = width
             self.game.display.blit(txt_surface, (input_box.x+5, input_box.y+5))
             pygame.draw.rect(self.game.display, color, input_box, 2)
             pygame.display.flip()
-            
             self.game.window.blit(self.game.display, (0, 0))
             pygame.display.update()
-
             if aux2==1:
                 xtext=self.game.DISPLAY_W
                 ytext=self.game.DISPLAY_H
@@ -356,7 +344,6 @@ class World():
                     img_rect.y = (row_count * tile_height)
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
-                
                 col_count += 1
             row_count += 1
 
@@ -378,12 +365,9 @@ class Player():
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
-        
     def update(self,player):
         #(draw) player onto screen
         screen.blit(player.imagen, player.rect)
-        
-
     def setVel(self,x):
         self.vel=x
     def setAng(self,y):
@@ -613,8 +597,6 @@ def colision(posicionY,posicionX,flagLimite,world):
         
         posiciony=int(posicionY)//20   # "posicionY"  representa el valor de eje Y para bala
         posicionx=int(posicionX)//20    # "posicionX"  representa el valor de eje X para bala
-        #print("\n-y-",a,"__X_",b)
-        
         if  posicionY < 0  : 
             print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
             world = World(world_data)
@@ -622,7 +604,6 @@ def colision(posicionY,posicionX,flagLimite,world):
             world.draw()
             flagLimite=False
             return flagLimite
-        
         if  posicionY <= 0  : 
             print("\nLIMITE INFERIOR ALCANZADO!!!!!\n")
             screen.fill(blue_sky)
@@ -631,7 +612,6 @@ def colision(posicionY,posicionX,flagLimite,world):
             world.draw()
             flagLimite=False
             return flagLimite
-        
         if  posicionX <= 0  : 
             print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
             screen.fill(blue_sky)
@@ -640,7 +620,6 @@ def colision(posicionY,posicionX,flagLimite,world):
             world.draw()
             flagLimite=False
             return flagLimite
-        
         if  posicionX >= screen_width  : 
             print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
             screen.fill(blue_sky)
@@ -826,104 +805,61 @@ def MapaSelect(seleccion):
 
 #funciones de texto
 def text():
-
     texto1= pygame.font.SysFont("Comic Sans MS",65)
     Titulo= texto1.render("Panzerquack", 0, ColorMagico)
-
     texto2= pygame.font.SysFont("Comic Sans MS",20)
     SubTitulo= texto2.render("Presione espacio para comenzar", 0, ColorMagico)
-
     screen.blit(Titulo,(screen_width*0.25,screen_height*0.366))
     screen.blit(SubTitulo,(screen_width*0.3,screen_height*0.5166))
-
     return
 
 def texttankI(posicion_Y,posicion_X,tanque,sustituto):
-    
     posicionY=screen_height-posicion_Y   #Se le restan 140 de correccion para que la altura comiense en 0
     posicionX=posicion_X - tanque.x
-
     if sustituto < posicionY :
         sustituto=posicionY
-        
-
     texto3= pygame.font.SysFont("Comic Sans MS",20)
     altura= texto3.render(str(sustituto), 0, ColorMagico)
-    #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
-
     texto4= pygame.font.SysFont("Comic Sans MS",20)
     altura_a= texto4.render("Altura Max:", 0, ColorMagico)
-
     texto5= pygame.font.SysFont("Comic Sans MS",20)
     distancia= texto5.render(str(posicionX), 0, ColorMagico) # el -5 el por margen de error
-    #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
-
-    texto6= pygame.font.SysFont("Comic Sans MS",20)
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
-
-
     pygame.draw.rect(screen, blue_sky, [screen_width*0.01875,screen_height*0.0166, 220, 60])
     screen.blit(altura_a,(screen_width*0.01875,screen_height*0.0166))
     screen.blit(altura,(screen_width*0.01875,screen_height*0.05))
     screen.blit(distancia_d,(screen_width*0.175,screen_height*0.0166))
     screen.blit(distancia,(screen_width*0.175,screen_height*0.05))
-    
     return sustituto
 
 def texttankD(posicion_Y,posicion_X,tanque,sustituto):
-
     posicionY=screen_height-posicion_Y
     posicionX=posicion_X - tanque.x
-
-
     if sustituto < posicionY :
-
         sustituto=posicionY
-        
-    
-    
     texto3= pygame.font.SysFont("Comic Sans MS",20)
     altura= texto3.render(str(sustituto), 0, ColorMagico)
-    #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
-
     texto4= pygame.font.SysFont("Comic Sans MS",20)
     altura_a= texto4.render("Altura:", 0, ColorMagico)
-
     texto5= pygame.font.SysFont("Comic Sans MS",20)
     distancia= texto5.render(str(-1*posicionX+30), 0, ColorMagico) #el +5 es por margen de error
-    #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
-
-    texto6= pygame.font.SysFont("Comic Sans MS",20)
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
-
-
     pygame.draw.rect(screen, blue_sky, [screen_width*0.01875,screen_height*0.0166, 220, 60])
     screen.blit(altura_a,(screen_width*0.01875,screen_height*0.0166))
     screen.blit(altura,(screen_width*0.01875,screen_height*0.05))
     screen.blit(distancia_d,(screen_width*0.175,screen_height*0.0166))
     screen.blit(distancia,(screen_width*0.175,screen_height*0.05))
-    
-    
-
     return  sustituto
 
 def textmax(posicion_Y,posicion_X,tanque):
-
     posicionY=screen_height-posicion_Y
     posicionX=posicion_X - tanque.x
-
-
     texto3= pygame.font.SysFont("Comic Sans MS",20)
     altura= texto3.render(str(posicionY), 0, ColorMagico)
-    #pygame.draw.rect(screen, gray, [15, 550, 100, 30])
-
     texto4= pygame.font.SysFont("Comic Sans MS",20)
     altura_a= texto4.render("Altura Maxima:", 0, ColorMagico)
-
     texto5= pygame.font.SysFont("Comic Sans MS",20)
     distancia= texto5.render(str(posicionX-5), 0, ColorMagico) # el -5 el por margen de error
-    #pygame.draw.rect(screen, gray, [100, 550, 100, 30])
-    # texto6= pygame.font.SysFont("Comic Sans MS",20)
     distancia_d= texto4.render("Distancia Maxima:", 0, ColorMagico)
     pygame.draw.rect(screen, blue_sky, [screen_width*0.01875,screen_height*0.0166, 220, 60])
     screen.blit(altura_a,(screen_width*0.01875,screen_height*0.0166))
@@ -977,12 +913,9 @@ def textbox():
             return aux
 
 def gravedad(X_Player,Y_Player,world):
-
     while True:
-        #print("sin al division",X_Player,Y_Player)
         y_player=int(Y_Player)//20
         x_player=int(X_Player)//20
-        #print("cob w",x_player,y_player)
         while True:
             if world[y_player][x_player] == 0 :
                 Y_Player+=10
@@ -1060,18 +993,15 @@ texto9= pygame.font.SysFont("Comic Sans MS",16,5)
 #For the text of health
 texto10= pygame.font.SysFont("Comic Sans MS",16,5)
 texto11= pygame.font.SysFont("Comic Sans MS",16,5)
-
 #Seleccionador randomico de mapa 
 mapa = randint(1,3)
-print("mapa: ",mapa)
+#print("mapa: ",mapa)
 world_data=MapaSelect(mapa)
 world = World(world_data)
 arreglo_aux =[]
-
 recorrer_mapa(world_data)
 
 Master_flag=True
-
 while Master_flag==True:
 
     pygame.init()
