@@ -22,8 +22,8 @@ ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
 #numero players--------------------------------------------
-num_jugadores=2;
-num_bots=1;
+num_jugadores=2
+num_bots=1
 #Globales Numero De Balas---------------------------------
 num_105mm=10                   #Numero 10 por la definicion por defecto
 num_perforante=10
@@ -939,6 +939,10 @@ def reductorLista(lista,num_players):
         i=i-1
     return listaAux
 
+def split_list(arreglo,num_players):
+    for i in range(0,len(arreglo),num_players):
+        yield arreglo[i:i+num_players]
+
 g = Game()
 
 while g.running:
@@ -999,7 +1003,11 @@ mapa = randint(1,3)
 world_data=MapaSelect(mapa)
 world = World(world_data)
 arreglo_aux =[]
+promedio = int(40/num_jugadores)
 recorrer_mapa(world_data)
+split_list(arreglo_aux,num_jugadores)
+posiciones_jugadores= list(split_list(arreglo_aux,promedio))
+print("posiciones para cada jugador: ",posiciones_jugadores)
 
 Master_flag=True
 while Master_flag==True:
@@ -1021,12 +1029,12 @@ while Master_flag==True:
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
     
     #print("posiciones posibles: ",arreglo_aux)
-    posPlayer1 = choice(arreglo_aux)
-    posPlayer2 = choice(arreglo_aux)
-    posPlayer3 = choice(arreglo_aux)
-    posPlayer4 = choice(arreglo_aux)
-    posPlayer5 = choice(arreglo_aux)
-    posPlayer6 = choice(arreglo_aux)
+    posPlayer1 = choice(posiciones_jugadores[0])
+    posPlayer2 = choice(posiciones_jugadores[1])
+    #posPlayer3 = choice(posiciones_jugadores[2])
+    #posPlayer4 = choice(posiciones_jugadores[3])
+    #posPlayer5 = choice(posiciones_jugadores[4])
+    #posPlayer6 = choice(posiciones_jugadores[6])
 
     #------------------------------------------------------------------------------------
     #spawn player 1
@@ -1041,7 +1049,7 @@ while Master_flag==True:
     y_player2=gravedad(x_player2,y_player2,world_data)
     player2 = Player(x_player2,y_player2, img_left)
     #------------------------------------------------------------------------------------
-    #spawn player 3
+    """#spawn player 3
     x_player3= (posPlayer3[1]*tile_width)
     y_player3= (posPlayer3[0]*tile_height)-tile_height
     y_player3=gravedad(x_player3,y_player3,world_data)
@@ -1059,12 +1067,12 @@ while Master_flag==True:
     y_player5=gravedad(x_player5,y_player5,world_data)
     player5 = Player(x_player5,y_player5, img_Pwhite)
     #------------------------------------------------------------------------------------
-    #spawn player 6
+     #spawn player 6
     x_player6= (posPlayer6[1]*tile_width)
     y_player6= (posPlayer6[0]*tile_height)-tile_height
     y_player6=gravedad(x_player6,y_player6,world_data)
-    player6 = Player(x_player6,y_player6, img_Pyellow)
-    #------------------------------------------------------------------------------------
+    player6 = Player(x_player6,y_player6, img_Pyellow)"""
+    #------------------------------------------------------------------------------------"""
     #BALAS
     #Variables Bala player One
     bala105_1=num_105mm
@@ -1103,10 +1111,10 @@ while Master_flag==True:
         clock.tick(30)
         player1.update(player1)
         player2.update(player2) 
-        # player3.update(player3)
-        # player4.update(player4)
-        # player5.update(player5)
-        # player6.update(player6)
+        #player3.update(player3)
+        #player4.update(player4)
+        #player5.update(player5)
+        #player6.update(player6)
     #===========================================================================================================================
         if turno == 2:
             print("el viento esta activado: ", viento)
