@@ -560,7 +560,7 @@ class SelectBala():
         while not done:
             if restart_button.draw(screen):
                 print('\nReStart')
-                restar=100
+                restar=666
                 return restar
             if exit_button.draw(screen):
                 print('\nExit')
@@ -881,7 +881,7 @@ def textbox():
     while not done:
         if restart_button.draw(screen):
             print('\nReStart')
-            restar=100
+            restar=666
             return restar
         if exit_button.draw(screen):
             print('\nExit')
@@ -1107,6 +1107,7 @@ while Master_flag==True:
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
     
     while run:
+        
         bala=""
         clock.tick(30)
         player1.update(player1)
@@ -1133,7 +1134,7 @@ while Master_flag==True:
                         print("Empate\n")
                         
                 #para hacer funcionar el boton reset
-                if bala==numero100:
+                if bala==666:
                     break
                 
                 #player bot
@@ -1173,8 +1174,8 @@ while Master_flag==True:
                         break
                 
             #para hacer funcionar el boton reset
-            if bala==numero100:
-                break 
+            if bala==666:
+                break
             
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
@@ -1186,14 +1187,11 @@ while Master_flag==True:
                 screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
                 temporalvel=int(textbox())                                              #
            ##############################################################################
-            
-                #para hacer funcionar el boton reset
-            if temporalvel==101: #puse 101 porque si colocaba 100 como estaba antes el programa se cortaba al momento de querer colocar una velocidad al 100
+  
+            if temporalvel==666:       #para hacer funcionar el boton reset
                 break    
-
             if temporalvel>numero100:
                 temporalvel=numero100
-
             if temporalvel<-numero100:
                 temporalvel=-numero100
 
@@ -1208,11 +1206,9 @@ while Master_flag==True:
                 temporalang=randint(1,180)                                         #     
             if player2_bot==False:#player no es un bot                             #
                 screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
-                temporalang=int(textbox())                                         #
-                #para hacer funcionar el boton reset                               #
+                temporalang=int(textbox())                                         #                              #
             ########################################################################
-            
-            if temporalang==numero100:
+            if temporalang==666:   #para hacer funcionar el boton reset
                 break    
 
             player2.setAng(-temporalang)
@@ -1225,7 +1221,7 @@ while Master_flag==True:
             win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            # screen.fill(blue_sky)
+            screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
@@ -1241,6 +1237,7 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False
+                
     #===========================================================================================================================
         intensidad_viento = randint(-10,10)
 
@@ -1265,8 +1262,7 @@ while Master_flag==True:
             
                 SelectBala.text(bala105_1,balaPerforante_1,bala90_1)
                 bala=SelectBala.textBala()
-                #para hacer funcionar el boton reset
-                if bala==numero100:
+                if bala==666:         #para hacer funcionar el boton reset
                     break
 
                 if 0 < bala105_1 :
@@ -1291,17 +1287,15 @@ while Master_flag==True:
                         damage=30
                         break
                 
-            #para hacer funcionar el boton reset
-            if bala==numero100:
-                break    
+            if bala==666:         #para hacer funcionar el boton reset
+                break     
 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
             screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
                 
-                #para hacer funcionar el boton reset
-            if temporalvel==101: #puse 101 porque si colocaba 100 como estaba antes el programa se cortaba al momento de querer colocar una velocidad al 100
+            if temporalvel==666:          #para hacer funcionar el boton reset
                 break    
 
             if temporalvel>numero100:
@@ -1317,8 +1311,7 @@ while Master_flag==True:
             #Se imprime el texto angulo
             screen.blit(textang,(screen_width*0.818, screen_height*0.0083))
             temporalang=int(textbox())
-                #para hacer funcionar el boton reset
-            if temporalang==numero100:
+            if temporalang==666:          #para hacer funcionar el boton reset
                 break    
 
             player1.setAng(temporalang)
@@ -1330,7 +1323,7 @@ while Master_flag==True:
             win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            # screen.fill(blue_sky)
+            screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
@@ -1345,6 +1338,7 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
+            
                     
     #===========================================================================================
         # if turno==3:
@@ -1393,6 +1387,8 @@ while Master_flag==True:
         #     i=0
             
         #     turno=arregloTurnos[i]
+
+    
 pygame.quit()
 sys.exit()
 
