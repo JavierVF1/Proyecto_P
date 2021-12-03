@@ -409,20 +409,20 @@ class Bullet():
         while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
             if wind == False and gravity == False:
-                posicionX = posicionX + velocidadiX/10 * ti
-                posicionY = posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2)
+                posicionX = posicionX + velocidadiX/8 * ti
+                posicionY = posicionY - velocidadiY/8 * ti +(1/2)*6*(ti**2)
             
             if wind == True and gravity == False:
-                posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
-                posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2))+var_viento
+                posicionX = (posicionX + velocidadiX/8 * ti)+var_viento
+                posicionY = (posicionY - velocidadiY/8 * ti +(1/2)*6*(ti**2))+var_viento
             
             if wind == False and gravity == True:
-                posicionX = posicionX + velocidadiX/10 * ti
-                posicionY = posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2)
+                posicionX = posicionX + velocidadiX/8 * ti
+                posicionY = posicionY - velocidadiY/8 * ti +(1/2)*intensidad_g*(ti**2)
             
             if wind == True and gravity == True:
-                posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
-                posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2))+var_viento
+                posicionX = (posicionX + velocidadiX/8 * ti)+var_viento
+                posicionY = (posicionY - velocidadiY/8 * ti +(1/2)*intensidad_g*(ti**2))+var_viento
 
             # ti modifica la velocidad del tiro
             ti += 0.01  
