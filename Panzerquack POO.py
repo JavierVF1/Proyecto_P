@@ -189,101 +189,101 @@ class MainMenu(Menu):
         global Ggravedad      #Estado efectos de entorno
         global Gviento        #   "" 
         global val_gravedad
-        self.run_config=True
-        while self.run_config:
-            self.game.display.fill(self.game.BLACK)
-            self.game.draw_text("configuraciones", 50, self.game.DISPLAY_W/2.5, self.game.DISPLAY_H/10)
-            flor_img = pygame.image.load('assets/sprites/grass.png')
-            self.game.display.blit(flor_img, (screen_width*0, screen_height*0.940))
-            duck_g = pygame.image.load('assets/Textures/duck_1.png')
-            duck_g =pygame.transform.scale(duck_g , (int(screen_width),int(screen_height)))
-            self.game.display.blit(duck_g, (0, 0))
 
-            xtext=self.game.DISPLAY_W
-            ytext=self.game.DISPLAY_H
-            self.game.draw_text("Tamaño de pantalla", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.17)
-            self.game.draw_text("Min:800    Max:1600  ", 15, self.game.DISPLAY_W*0.50, self.game.DISPLAY_H*0.25)
-            self.game.draw_text("Ancho:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.22)
-            while True:
-                ancho, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.2)
-                if int(ancho)>=800 and int(ancho)<=1600:
-                    screen_width=int(ancho)
-                    break
-            self.game.draw_text("Largo:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.27)
-            while True:
-                largo, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.253)
-                if int(largo)>=800 and int(largo)<=1600:
-                    screen_height=int(largo)
-                    break
-            self.game.draw_text("Jugadores", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.32)
-            self.game.draw_text("Numero de jugadores:", 25, self.game.DISPLAY_W*0.18, self.game.DISPLAY_H*0.37)
-            self.game.draw_text("Min:2    Max:6  ", 15, self.game.DISPLAY_W*0.54, self.game.DISPLAY_H*0.37)
-            while True:
-                num_players, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.35)
-                if int(num_players)>=2 and int(num_players)<=6:
-                    num_jugadores=int(num_players)
-                    break
-            self.game.draw_text("Numero de bots:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.42)
-            self.game.draw_text("Min:1    Max:6  ", 15, self.game.DISPLAY_W*0.54, self.game.DISPLAY_H*0.42)
-            while True:
-                bots, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.40)
-                if int(bots)>=1 and int(bots)<=6 and int(bots)<=int(num_players):
-                    num_bots=int(bots)
-                    break
-            self.game.draw_text("Cantidad de Proyectiles", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.47)
-            self.game.draw_text("105mm:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.52)
-            self.game.draw_text("Min:10    Max:30  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.52)
-            while True:
-                B105mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.50)
-                if int(B105mm)>=10 and int(B105mm)<=30:
-                    num_105mm=int(B105mm)
-                    break
-            self.game.draw_text("Perforante:", 25, self.game.DISPLAY_W*0.185, self.game.DISPLAY_H*0.57)
-            self.game.draw_text("Min:10    Max:100  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.57)
-            while True:
-                perforante, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.55)
-                if int(perforante)>=10 and int(perforante)<=100:
-                    num_perforante=int(perforante)
-                    break
-            self.game.draw_text("60mm:", 25, self.game.DISPLAY_W*0.225, self.game.DISPLAY_H*0.62)
-            self.game.draw_text("Min:10    Max:30  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.62)
-            while True:
-                B60mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.60)
-                if int(B60mm)>=10 and int(B60mm)<=30:
-                    num_60mm=int(B60mm)
-                    break
-            self.game.draw_text("Afectos del Entorno", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.67)
-            self.game.draw_text("Gravedad:", 25, self.game.DISPLAY_W*0.20, self.game.DISPLAY_H*0.72)
-            self.game.draw_text("1 = Activada   0 = Desactivada", 15, self.game.DISPLAY_W*0.55, self.game.DISPLAY_H*0.72)
-            while True:
-                gravedad, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.70)
-                if int(gravedad)==1 or int(gravedad)==0:
-                    if int(gravedad) == 1:
-                        Ggravedad=True
-                        while True:
-                            self.game.draw_text("Valor G:", 25, self.game.DISPLAY_W*0.20, self.game.DISPLAY_H*0.77)
-                            self.game.draw_text("Min:0    Max:10", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.77)
-                            gravedadG, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.75)
-                            if int(gravedadG)>=0 and int(gravedadG)<=10:
-                                val_gravedad=int(gravedadG)
-                                break
-                    else:
-                        Ggravedad=False
-                    break
-            self.game.draw_text("Viento:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.82)
-            self.game.draw_text("1 = Activada   0 = Desactivada", 15, self.game.DISPLAY_W*0.55, self.game.DISPLAY_H*0.82)
-            while True:
-                viento, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.80)
-                if int(viento)==1 or int(viento)==0:
-                    if int(viento) == 1:
-                        Gviento=True
-                    else:
-                        Gviento=False
-                    break
-            
-            self.blit_screen()
-            self.game.reset_keys()
-            return 
+    
+        self.game.display.fill(self.game.BLACK)
+        self.game.draw_text("configuraciones", 50, self.game.DISPLAY_W/2.5, self.game.DISPLAY_H/10)
+        flor_img = pygame.image.load('assets/sprites/grass.png')
+        self.game.display.blit(flor_img, (screen_width*0, screen_height*0.940))
+        duck_g = pygame.image.load('assets/Textures/duck_1.png')
+        duck_g =pygame.transform.scale(duck_g , (int(screen_width),int(screen_height)))
+        self.game.display.blit(duck_g, (0, 0))
+
+        xtext=self.game.DISPLAY_W
+        ytext=self.game.DISPLAY_H
+        self.game.draw_text("Tamaño de pantalla", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.17)
+        self.game.draw_text("Min:800    Max:1600  ", 15, self.game.DISPLAY_W*0.50, self.game.DISPLAY_H*0.25)
+        self.game.draw_text("Ancho:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.22)
+        while True:
+            ancho, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.2)
+            if int(ancho)>=800 and int(ancho)<=1600:
+                screen_width=int(ancho)
+                break
+        self.game.draw_text("Largo:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.27)
+        while True:
+            largo, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.253)
+            if int(largo)>=800 and int(largo)<=1600:
+                screen_height=int(largo)
+                break
+        self.game.draw_text("Jugadores", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.32)
+        self.game.draw_text("Numero de jugadores:", 25, self.game.DISPLAY_W*0.18, self.game.DISPLAY_H*0.37)
+        self.game.draw_text("Min:2    Max:6  ", 15, self.game.DISPLAY_W*0.54, self.game.DISPLAY_H*0.37)
+        while True:
+            num_players, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.35)
+            if int(num_players)>=2 and int(num_players)<=6:
+                num_jugadores=int(num_players)
+                break
+        self.game.draw_text("Numero de bots:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.42)
+        self.game.draw_text("Min:1    Max:6  ", 15, self.game.DISPLAY_W*0.54, self.game.DISPLAY_H*0.42)
+        while True:
+            bots, xtext, ytext=textboxConfig(self, xtext*0.34, ytext*0.40)
+            if int(bots)>=1 and int(bots)<=6 and int(bots)<=int(num_players):
+                num_bots=int(bots)
+                break
+        self.game.draw_text("Cantidad de Proyectiles", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.47)
+        self.game.draw_text("105mm:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.52)
+        self.game.draw_text("Min:10    Max:30  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.52)
+        while True:
+            B105mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.50)
+            if int(B105mm)>=10 and int(B105mm)<=30:
+                num_105mm=int(B105mm)
+                break
+        self.game.draw_text("Perforante:", 25, self.game.DISPLAY_W*0.185, self.game.DISPLAY_H*0.57)
+        self.game.draw_text("Min:10    Max:100  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.57)
+        while True:
+            perforante, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.55)
+            if int(perforante)>=10 and int(perforante)<=100:
+                num_perforante=int(perforante)
+                break
+        self.game.draw_text("60mm:", 25, self.game.DISPLAY_W*0.225, self.game.DISPLAY_H*0.62)
+        self.game.draw_text("Min:10    Max:30  ", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.62)
+        while True:
+            B60mm, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.60)
+            if int(B60mm)>=10 and int(B60mm)<=30:
+                num_60mm=int(B60mm)
+                break
+        self.game.draw_text("Afectos del Entorno", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.67)
+        self.game.draw_text("Gravedad:", 25, self.game.DISPLAY_W*0.20, self.game.DISPLAY_H*0.72)
+        self.game.draw_text("1 = Activada   0 = Desactivada", 15, self.game.DISPLAY_W*0.55, self.game.DISPLAY_H*0.72)
+        while True:
+            gravedad, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.70)
+            if int(gravedad)==1 or int(gravedad)==0:
+                if int(gravedad) == 1:
+                    Ggravedad=True
+                    while True:
+                        self.game.draw_text("Valor G:", 25, self.game.DISPLAY_W*0.20, self.game.DISPLAY_H*0.77)
+                        self.game.draw_text("Min:0    Max:10", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.77)
+                        gravedadG, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.75)
+                        if int(gravedadG)>=0 and int(gravedadG)<=10:
+                            val_gravedad=int(gravedadG)
+                            break
+                else:
+                    Ggravedad=False
+                break
+        self.game.draw_text("Viento:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.82)
+        self.game.draw_text("1 = Activada   0 = Desactivada", 15, self.game.DISPLAY_W*0.55, self.game.DISPLAY_H*0.82)
+        while True:
+            viento, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.80)
+            if int(viento)==1 or int(viento)==0:
+                if int(viento) == 1:
+                    Gviento=True
+                else:
+                    Gviento=False
+                break
+         
+        self.blit_screen()
+        self.game.reset_keys()
+        return 
             
      
     def move_cursor(self):
@@ -411,26 +411,18 @@ class Bullet():
             if wind == False and gravity == False:
                 posicionX = posicionX + velocidadiX/10 * ti
                 posicionY = posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2)
-                velocidadY = velocidadiY - (6 * ti)
-                velocidadX = velocidadiX - (6 * ti)
             
             if wind == True and gravity == False:
                 posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
                 posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2))+var_viento
-                velocidadY = velocidadiY - (6 * ti)
-                velocidadX = velocidadiX - (6 * ti)
             
             if wind == False and gravity == True:
                 posicionX = posicionX + velocidadiX/10 * ti
                 posicionY = posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2)
-                velocidadY = velocidadiY - (intensidad_g * ti)
-                velocidadX = velocidadiX - (intensidad_g * ti)
             
             if wind == True and gravity == True:
                 posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
                 posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2))+var_viento
-                velocidadY = velocidadiY - (intensidad_g * ti)
-                velocidadX = velocidadiX - (intensidad_g * ti)
 
             # ti modifica la velocidad del tiro
             ti += 0.01  
@@ -439,25 +431,18 @@ class Bullet():
             win=True
             
             if flag == True:
-                
                 flagLimite=colision(posicionY,posicionX,flagLimite,world)
-                
                 posicion_Y=posicionY
                 posicion_X=posicionX 
 
                 if turno == 2:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-                    #sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-                    if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1 <= posicion_X <= x_player1+40): 
+                    if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
                         if contdmg==1:
                             player1.dmge(damage)
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                            screen.fill(blue_sky)
-                            world = World(world_data)
-                            screen.blit(fondo, (0, 0))
-                            world.draw()
                             
                         if player1.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -465,16 +450,12 @@ class Bullet():
                             flag= False
                             win=False
                     if aux >= 50:
-                        if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2 <= posicion_X <= x_player2+40):
+                        if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):
                             if contdmg==1:
                                 player2.dmge(damage)
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
-                                screen.fill(blue_sky)
-                                world = World(world_data)
-                                screen.blit(fondo, (0, 0))
-                                world.draw()
                                 
                             if player2.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -485,16 +466,12 @@ class Bullet():
                 if turno == 1:
                     
                     sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
-                    if  (y_player2 <= posicion_Y <= y_player2+40) and (x_player2 <= posicion_X <= x_player2+40): 
+                    if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20): 
                         if contdmg==1:
                             player2.dmge(damage)
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                            screen.fill(blue_sky)
-                            world = World(world_data)
-                            screen.blit(fondo, (0, 0))
-                            world.draw()
                             
                         if player2.vida<=0:
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -502,16 +479,12 @@ class Bullet():
                             flag= False
                             win=False
                     if aux >= 50:
-                        if  (y_player1 <= posicion_Y <= y_player1+40) and (x_player1 <= posicion_X <= x_player1+40): 
+                        if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
                             if contdmg==1:
                                 player1.dmge(damage)
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
-                                screen.fill(blue_sky)
-                                world = World(world_data)
-                                screen.blit(fondo, (0, 0))
-                                world.draw()
                                 
                             if player1.vida<=0:
                                 print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -599,56 +572,32 @@ def colision(posicionY,posicionX,flagLimite,world):
         posicionx=int(posicionX)//20    # "posicionX"  representa el valor de eje X para bala
         if  posicionY < 0  : 
             print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
             flagLimite=False
             return flagLimite
         if  posicionY <= 0  : 
             print("\nLIMITE INFERIOR ALCANZADO!!!!!\n")
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
             flagLimite=False
             return flagLimite
         if  posicionX <= 0  : 
             print("\nLIMITE IZQUIERDO ALCANZADO!!!!!\n")
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
             flagLimite=False
             return flagLimite
         if  posicionX >= screen_width  : 
             print("\nLIMITE DERECHO ALCANZADO!!!!!\n")
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
             flagLimite=False
             return flagLimite
 
         if world[posiciony][posicionx] != 0:
             print("\nCOLISION CON TERRENO!!!!!\n")
-            
             if globala == 1:            
                 world_data[posiciony][posicionx] = 0
                 world_data[posiciony][posicionx+1] = 0
                 world_data[posiciony][posicionx-1] = 0
-        
             if globala == 2:
                 world_data[posiciony][posicionx] = 0
-                
             if globala == 3:
                 world_data[posiciony][posicionx] = 0
                 world_data[posiciony-1][posicionx] = 0
-
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-
             flagLimite=False
             return flagLimite
 
@@ -880,6 +829,8 @@ def textbox():
     aux2=0
     while not done:
         if restart_button.draw(screen):
+            time.sleep(0.05)
+            
             print('\nReStart')
             restar=666
             return restar
@@ -997,17 +948,7 @@ texto9= pygame.font.SysFont("Comic Sans MS",16,5)
 #For the text of health
 texto10= pygame.font.SysFont("Comic Sans MS",16,5)
 texto11= pygame.font.SysFont("Comic Sans MS",16,5)
-#Seleccionador randomico de mapa 
-mapa = randint(1,3)
-#print("mapa: ",mapa)
-world_data=MapaSelect(mapa)
-world = World(world_data)
-arreglo_aux =[]
-promedio = int(40/num_jugadores)
-recorrer_mapa(world_data)
-split_list(arreglo_aux,num_jugadores)
-posiciones_jugadores= list(split_list(arreglo_aux,promedio))
-print("posiciones para cada jugador: ",posiciones_jugadores)
+
 
 Master_flag=True
 while Master_flag==True:
@@ -1017,6 +958,17 @@ while Master_flag==True:
     screen = pygame.display.set_mode((screen_width, screen_height))
     screen.fill(blue_sky)
     pygame.display.set_caption('Panzerquack')
+        #Seleccionador randomico de mapa 
+    mapa = randint(1,3)
+    #print("mapa: ",mapa)
+    world_data=MapaSelect(mapa)
+    world = World(world_data)
+    arreglo_aux =[]
+    promedio = int(40/num_jugadores)
+    recorrer_mapa(world_data)
+    split_list(arreglo_aux,num_jugadores)
+    posiciones_jugadores= list(split_list(arreglo_aux,promedio))
+    #print("posiciones para cada jugador: ",posiciones_jugadores)
     
     pygame.display.update()
     screen.blit(fondo, (0, 0))
@@ -1036,43 +988,6 @@ while Master_flag==True:
     #posPlayer5 = choice(posiciones_jugadores[4])
     #posPlayer6 = choice(posiciones_jugadores[6])
 
-    #------------------------------------------------------------------------------------
-    #spawn player 1
-    x_player1= (posPlayer1[1]*tile_width)
-    y_player1= (posPlayer1[0]*tile_height)-tile_height
-    y_player1=gravedad(x_player1,y_player1,world_data)
-    player1 = Player(x_player1,y_player1, img_right)
-    #------------------------------------------------------------------------------------
-    #spawn player 2
-    x_player2= (posPlayer2[1]*tile_width)
-    y_player2= (posPlayer2[0]*tile_height)-tile_height
-    y_player2=gravedad(x_player2,y_player2,world_data)
-    player2 = Player(x_player2,y_player2, img_left)
-    #------------------------------------------------------------------------------------
-    """#spawn player 3
-    x_player3= (posPlayer3[1]*tile_width)
-    y_player3= (posPlayer3[0]*tile_height)-tile_height
-    y_player3=gravedad(x_player3,y_player3,world_data)
-    player3 = Player(x_player3,y_player3, img_Pblue)
-    #------------------------------------------------------------------------------------
-    #spawn player 4
-    x_player4= (posPlayer4[1]*tile_width)
-    y_player4= (posPlayer4[0]*tile_height)-tile_height
-    y_player4=gravedad(x_player4,y_player4,world_data)
-    player4 = Player(x_player4,y_player4, img_Ppurple)
-    #------------------------------------------------------------------------------------
-    #spawn player 5
-    x_player5= (posPlayer5[1]*tile_width)
-    y_player5= (posPlayer5[0]*tile_height)-tile_height
-    y_player5=gravedad(x_player5,y_player5,world_data)
-    player5 = Player(x_player5,y_player5, img_Pwhite)
-    #------------------------------------------------------------------------------------
-     #spawn player 6
-    x_player6= (posPlayer6[1]*tile_width)
-    y_player6= (posPlayer6[0]*tile_height)-tile_height
-    y_player6=gravedad(x_player6,y_player6,world_data)
-    player6 = Player(x_player6,y_player6, img_Pyellow)"""
-    #------------------------------------------------------------------------------------"""
     #BALAS
     #Variables Bala player One
     bala105_1=num_105mm
@@ -1107,7 +1022,44 @@ while Master_flag==True:
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
     
     while run:
-        
+            
+        #------------------------------------------------------------------------------------
+        #spawn player 1
+        x_player1= (posPlayer1[1]*tile_width)
+        y_player1= (posPlayer1[0]*tile_height)-tile_height
+        y_player1=gravedad(x_player1,y_player1,world_data)
+        player1 = Player(x_player1,y_player1, img_right)
+        #------------------------------------------------------------------------------------
+        #spawn player 2
+        x_player2= (posPlayer2[1]*tile_width)
+        y_player2= (posPlayer2[0]*tile_height)-tile_height
+        y_player2=gravedad(x_player2,y_player2,world_data)
+        player2 = Player(x_player2,y_player2, img_left)
+        #------------------------------------------------------------------------------------
+        """#spawn player 3
+        x_player3= (posPlayer3[1]*tile_width)
+        y_player3= (posPlayer3[0]*tile_height)-tile_height
+        y_player3=gravedad(x_player3,y_player3,world_data)
+        player3 = Player(x_player3,y_player3, img_Pblue)
+        #------------------------------------------------------------------------------------
+        #spawn player 4
+        x_player4= (posPlayer4[1]*tile_width)
+        y_player4= (posPlayer4[0]*tile_height)-tile_height
+        y_player4=gravedad(x_player4,y_player4,world_data)
+        player4 = Player(x_player4,y_player4, img_Ppurple)
+        #------------------------------------------------------------------------------------
+        #spawn player 5
+        x_player5= (posPlayer5[1]*tile_width)
+        y_player5= (posPlayer5[0]*tile_height)-tile_height
+        y_player5=gravedad(x_player5,y_player5,world_data)
+        player5 = Player(x_player5,y_player5, img_Pwhite)
+        #------------------------------------------------------------------------------------
+        #spawn player 6
+        x_player6= (posPlayer6[1]*tile_width)
+        y_player6= (posPlayer6[0]*tile_height)-tile_height
+        y_player6=gravedad(x_player6,y_player6,world_data)
+        player6 = Player(x_player6,y_player6, img_Pyellow)"""
+        #------------------------------------------------------------------------------------"""
         bala=""
         clock.tick(30)
         player1.update(player1)
@@ -1221,10 +1173,12 @@ while Master_flag==True:
             win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+
             screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
+            
             #Siguente turno
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
@@ -1323,10 +1277,12 @@ while Master_flag==True:
             win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+
             screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
             world.draw()
+
             #Siguente turno
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
@@ -1387,7 +1343,11 @@ while Master_flag==True:
         #     i=0
             
         #     turno=arregloTurnos[i]
-
+    screen.fill(blue_sky)
+    world = World(world_data)
+    screen.blit(fondo, (0, 0))
+    world.draw()
+    #Siguente turno
     
 pygame.quit()
 sys.exit()
