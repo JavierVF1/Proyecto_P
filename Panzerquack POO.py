@@ -436,15 +436,12 @@ class Bullet():
             if wind == False and gravity == False:
                 posicionX = posicionX + velocidadiX/10 * ti
                 posicionY = posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2)
-            
             if wind == True and gravity == False:
                 posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
                 posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2))+var_viento
-            
             if wind == False and gravity == True:
                 posicionX = posicionX + velocidadiX/10 * ti
                 posicionY = posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2)
-            
             if wind == True and gravity == True:
                 posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
                 posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2))+var_viento
@@ -463,7 +460,8 @@ class Bullet():
                             print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                             print("Victoria para Jugador N°2\n")
                             flag= False
-                            win=False"""
+                            win=False
+                            """
                 if turno == 1:
                     sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20): 
@@ -472,35 +470,39 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
-                        if contdmg==1:
-                            player3.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
-                        if contdmg==1:
-                            player4.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
-                        if contdmg==1:
-                            player5.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
-                        if contdmg==1:
-                            player6.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                    if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
+                            if contdmg==1:
+                                player3.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                            if contdmg==1:
+                                player4.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                            if contdmg==1:
+                                player5.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                            if contdmg==1:
+                                player6.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
                     if aux >= 40:
                         if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
                             if contdmg==1:
                                 player1.dmge(damage)
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado A \n")
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
 
@@ -512,30 +514,34 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
-                        if contdmg==1:
-                            player3.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
-                        if contdmg==1:
-                            player4.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
-                        if contdmg==1:
-                            player5.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
-                        if contdmg==1:
-                            player6.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                    if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
+                            if contdmg==1:
+                                player3.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                            if contdmg==1:
+                                player4.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                            if contdmg==1:
+                                player5.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                            if contdmg==1:
+                                player6.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
                     if aux >= 40:
                         if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):
                             if contdmg==1:
@@ -557,31 +563,35 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
-                        if contdmg==1:
-                            player4.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
-                        if contdmg==1:
-                            player5.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
-                        if contdmg==1:
-                            player6.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if aux >= 40:
-                        if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):
+                    if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
                             if contdmg==1:
-                                player3.dmge(damage)
+                                player4.dmge(damage)
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
+                    if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                            if contdmg==1:
+                                player5.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                            if contdmg==1:
+                                player6.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
+                        if aux >= 40:
+                            if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):
+                                if contdmg==1:
+                                    player3.dmge(damage)
+                                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                    contdmg-=1
+                                    flag= False
                 if turno == 4:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
@@ -596,31 +606,35 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
-                        if contdmg==1:
-                            player3.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
-                        if contdmg==1:
-                            player5.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
-                        if contdmg==1:
-                            player6.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if aux >= 40:
-                        if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):
+                    if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
                             if contdmg==1:
-                                player4.dmge(damage)
+                                player3.dmge(damage)
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
+                    if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                            if contdmg==1:
+                                player5.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                            if contdmg==1:
+                                player6.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
+                        if aux >= 40:
+                            if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):
+                                if contdmg==1:
+                                    player4.dmge(damage)
+                                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                    contdmg-=1
+                                    flag= False
                 if turno == 5:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
@@ -635,31 +649,35 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
-                        if contdmg==1:
-                            player3.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
-                        if contdmg==1:
-                            player4.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
-                        if contdmg==1:
-                            player6.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if aux >= 40:
-                        if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):
+                    if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
                             if contdmg==1:
-                                player5.dmge(damage)
+                                player3.dmge(damage)
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
+                    if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                            if contdmg==1:
+                                player4.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                            if contdmg==1:
+                                player6.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
+                        if aux >= 40:
+                            if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):
+                                if contdmg==1:
+                                    player5.dmge(damage)
+                                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                    contdmg-=1
+                                    flag= False
                 if turno == 6:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
@@ -674,32 +692,35 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
-                        if contdmg==1:
-                            player3.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
-                        if contdmg==1:
-                            player4.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
-                        if contdmg==1:
-                            player5.dmge(damage)
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
-                    if aux >= 40:
-                        if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):
+                    if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
                             if contdmg==1:
-                                player6.dmge(damage)
+                                player3.dmge(damage)
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
-    
+                    if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                            if contdmg==1:
+                                player4.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
+                        if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                            if contdmg==1:
+                                player5.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                    if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
+                        if aux >= 40:
+                            if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):
+                                if contdmg==1:
+                                    player6.dmge(damage)
+                                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                    contdmg-=1
+                                    flag= False
                 aux+=1
 
             if flagLimite == False:
@@ -1029,7 +1050,7 @@ def textmax(posicion_Y,posicion_X,tanque):
 def textbox():
     font = pygame.font.Font(None, 32)
     input_box = pygame.Rect(screen_width*0.8125,screen_height*0.045, 140, 32)
-    color_inactive = pygame.Color('lightskyblue3')
+    color_inactive = pygame.Color("lightskyblue3")
     color_active = pygame.Color("black")
     color = color_inactive
     active = True
@@ -1038,11 +1059,11 @@ def textbox():
     aux2=0
     while not done:
         if restart_button.draw(screen):
-            print('\nReStartA')
+            print("\nReStart")
             restar=666
             return restar
         if exit_button.draw(screen):
-            print('\nExit')
+            print("\nExit")
             sys.exit()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -1221,28 +1242,24 @@ while Master_flag==True:
     player2 = Player(x_player2,y_player2, img_left)
     #------------------------------------------------------------------------------------
     #spawn player 3
-    #if num_jugadores >=3 :
     x_player3= (posPlayer3[1]*tile_width)
     y_player3= (posPlayer3[0]*tile_height)-tile_height
     y_player3=gravedad(x_player3,y_player3,world_data)
     player3 = Player(x_player3,y_player3, img_Pblue)
     #------------------------------------------------------------------------------------
     #spawn player 4
-        #if num_jugadores >=4 :
     x_player4= (posPlayer4[1]*tile_width)
     y_player4= (posPlayer4[0]*tile_height)-tile_height
     y_player4=gravedad(x_player4,y_player4,world_data)
     player4 = Player(x_player4,y_player4, img_Ppurple)
     #------------------------------------------------------------------------------------
     #spawn player 5
-            #if num_jugadores >=5 :
     x_player5= (posPlayer5[1]*tile_width)
     y_player5= (posPlayer5[0]*tile_height)-tile_height
     y_player5=gravedad(x_player5,y_player5,world_data)
     player5 = Player(x_player5,y_player5, img_Pwhite)
     #------------------------------------------------------------------------------------
     #spawn player 6
-                #if num_jugadores >=6 :
     x_player6= (posPlayer6[1]*tile_width)
     y_player6= (posPlayer6[0]*tile_height)-tile_height
     y_player6=gravedad(x_player6,y_player6,world_data)
@@ -1363,6 +1380,8 @@ while Master_flag==True:
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
 
+            if temporalang==666 : temporalang=0; break 
+
             screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
@@ -1458,7 +1477,7 @@ while Master_flag==True:
             if temporalvel<-numero100:
                 temporalvel=-numero100
 
-            player2.setVel(-temporalvel)
+            player2.setVel(temporalvel)
 
             #SE BORRA EL TEXTO ANTERIOR 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
@@ -1473,7 +1492,7 @@ while Master_flag==True:
             ########################################################################
             if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
 
-            player2.setAng(-temporalang)
+            player2.setAng(temporalang)
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
             textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
@@ -1483,7 +1502,7 @@ while Master_flag==True:
             win=bullet2.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-
+            if temporalang==666 : temporalang=0; break 
             screen.fill(blue_sky)
             world = World(world_data)
             screen.blit(fondo, (0, 0))
