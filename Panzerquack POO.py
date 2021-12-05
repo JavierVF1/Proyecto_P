@@ -22,7 +22,7 @@ ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
 #numero players--------------------------------------------
-num_jugadores=2
+num_jugadores=6
 num_bots=1
 #Globales Numero De Balas---------------------------------
 num_105mm=10                   #Numero 10 por la definicion por defecto
@@ -377,7 +377,7 @@ class Player():
         #print(self.vida)
   
 class Bullet():
-    def __init__(self, ang, vel,imagen,x,y,XTanke2,YTanke2):
+    def __init__(self, ang, vel,imagen,x,y,XTanke2,YTanke2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6):
         self.ang=ang
         self.vel=vel
         self.imagen=imagen
@@ -386,17 +386,42 @@ class Bullet():
         self.rect.y = y
         self.XTanke2 = XTanke2
         self.YTanke2 = YTanke2
+        self.x_player3 = x_player3
+        self.y_player3 = y_player3
+        self.x_player4 = x_player4
+        self.y_player4 = y_player4
+        self.x_player5 = x_player5
+        self.y_player5 = y_player5
+        self.x_player6 = x_player6
+        self.y_player6 = y_player6
 
-    def update(self,x_player1,y_player1,x_player2,y_player2,tanque,world,damage,wind,gravity,intensidad_v,intensidad_g):
-        key = pygame.key.get_pressed()
+    def update(self,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,tanque,world,damage,wind,gravity,intensidad_v,intensidad_g):
+        #key = pygame.key.get_pressed()
         #rectangulobala = bullet_default.get_rect()
         #rectangulobala = rectangulobala.move(1,1)
         #self.rect = self.rect.move(1,1) #velocidad del rect
         #velocidad i modifica la intensidad del disparo
         velocidadi = self.vel
         angulo= self.ang
-        posicionX=self.rect.x
-        posicionY=self.rect.y
+        #Definicion Punto de partida Bala 
+        if turno==1:
+            posicionX=x_player1
+            posicionY=y_player1
+        if turno==2:
+            posicionX=x_player2
+            posicionY=y_player2
+        if turno==3:
+            posicionX=x_player3
+            posicionY=y_player3
+        if turno==4:
+            posicionX=x_player4
+            posicionY=y_player4
+        if turno==5:
+            posicionX=x_player5
+            posicionY=y_player5
+        if turno==6:
+            posicionX=x_player6
+            posicionY=y_player6
         #velocidad iY e iX modifican el angulo de disparo
         velocidadiY = velocidadi * sin(radians(angulo))
         velocidadiX = velocidadi * cos(radians(angulo))
@@ -409,20 +434,20 @@ class Bullet():
         while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
             if wind == False and gravity == False:
-                posicionX = posicionX + velocidadiX/8 * ti
-                posicionY = posicionY - velocidadiY/8 * ti +(1/2)*6*(ti**2)
+                posicionX = posicionX + velocidadiX/10 * ti
+                posicionY = posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2)
             
             if wind == True and gravity == False:
-                posicionX = (posicionX + velocidadiX/8 * ti)+var_viento
-                posicionY = (posicionY - velocidadiY/8 * ti +(1/2)*6*(ti**2))+var_viento
+                posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
+                posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2))+var_viento
             
             if wind == False and gravity == True:
-                posicionX = posicionX + velocidadiX/8 * ti
-                posicionY = posicionY - velocidadiY/8 * ti +(1/2)*intensidad_g*(ti**2)
+                posicionX = posicionX + velocidadiX/10 * ti
+                posicionY = posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2)
             
             if wind == True and gravity == True:
-                posicionX = (posicionX + velocidadiX/8 * ti)+var_viento
-                posicionY = (posicionY - velocidadiY/8 * ti +(1/2)*intensidad_g*(ti**2))+var_viento
+                posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
+                posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2))+var_viento
 
             # ti modifica la velocidad del tiro
             ti += 0.01  
@@ -434,6 +459,50 @@ class Bullet():
                 flagLimite=colision(posicionY,posicionX,flagLimite,world)
                 posicion_Y=posicionY
                 posicion_X=posicionX 
+                """if player1.vida<=0:
+                            print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                            print("Victoria para Jugador N°2\n")
+                            flag= False
+                            win=False"""
+                if turno == 1:
+                    sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
+                    if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20): 
+                        if contdmg==1:
+                            player2.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
+                        if contdmg==1:
+                            player3.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                        if contdmg==1:
+                            player4.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                        if contdmg==1:
+                            player5.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                        if contdmg==1:
+                            player6.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if aux >= 50:
+                        if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
+                            if contdmg==1:
+                                player1.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado A \n")
+                                contdmg-=1
+                                flag= False
 
                 if turno == 2:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
@@ -443,12 +512,30 @@ class Bullet():
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                            
-                        if player1.vida<=0:
-                            print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                            print("Victoria para Jugador N°2\n")
+                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
+                        if contdmg==1:
+                            player3.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
                             flag= False
-                            win=False
+                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                        if contdmg==1:
+                            player4.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                        if contdmg==1:
+                            player5.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                        if contdmg==1:
+                            player6.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
                     if aux >= 50:
                         if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):
                             if contdmg==1:
@@ -456,41 +543,163 @@ class Bullet():
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
-                                
-                            if player2.vida<=0:
-                                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                                print("Victoria para Jugador N°1\n")
-                                flag= False
-                                win=False
-
-                if turno == 1:
-                    
-                    sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
+                if turno == 3:
+                    sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
+                    if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
+                        if contdmg==1:
+                            player1.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20): 
                         if contdmg==1:
                             player2.dmge(damage)
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             contdmg-=1
                             flag= False
-                            
-                        if player2.vida<=0:
-                            print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                            print("Victoria para Jugador N°1\n")
+                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                        if contdmg==1:
+                            player4.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
                             flag= False
-                            win=False
+                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                        if contdmg==1:
+                            player5.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                        if contdmg==1:
+                            player6.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
                     if aux >= 50:
-                        if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
+                        if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):
                             if contdmg==1:
-                                player1.dmge(damage)
+                                player3.dmge(damage)
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
-                                
-                            if player1.vida<=0:
-                                print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                                print("Victoria para Jugador N°2\n")
+                if turno == 4:
+                    sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
+                    if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
+                        if contdmg==1:
+                            player1.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20): 
+                        if contdmg==1:
+                            player2.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
+                        if contdmg==1:
+                            player3.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                        if contdmg==1:
+                            player5.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                        if contdmg==1:
+                            player6.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if aux >= 50:
+                        if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):
+                            if contdmg==1:
+                                player4.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
                                 flag= False
-                                win=False
+                if turno == 5:
+                    sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
+                    if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
+                        if contdmg==1:
+                            player1.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20): 
+                        if contdmg==1:
+                            player2.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
+                        if contdmg==1:
+                            player3.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                        if contdmg==1:
+                            player4.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20): 
+                        if contdmg==1:
+                            player6.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if aux >= 50:
+                        if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):
+                            if contdmg==1:
+                                player5.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+                if turno == 5:
+                    sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
+                    if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20): 
+                        if contdmg==1:
+                            player1.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20): 
+                        if contdmg==1:
+                            player2.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20): 
+                        if contdmg==1:
+                            player3.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20): 
+                        if contdmg==1:
+                            player4.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20): 
+                        if contdmg==1:
+                            player5.dmge(damage)
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            contdmg-=1
+                            flag= False
+                    if aux >= 50:
+                        if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):
+                            if contdmg==1:
+                                player6.dmge(damage)
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                contdmg-=1
+                                flag= False
+    
                 aux+=1
 
             if flagLimite == False:
@@ -908,27 +1117,27 @@ fondo=pygame.image.load("assets/maps/world.png")
     #For Player One / Green
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
-img_right_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s_L.png") #Efecto espejo
+#img_right_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s_L.png") #Efecto espejo
     #For Player Tow  / Red
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
 img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
-img_left_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")#Efecto espejo
+#img_left_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")#Efecto espejo
     #For Player Blue
 img_Pblue = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s.png")
 img_Pblue = pygame.transform.scale(img_Pblue, (tile_width,tile_height))
-img_Pblue_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s_L.png")#Efecto espejo
+#img_Pblue_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s_L.png")#Efecto espejo
  #For Player Purple
 img_Ppurple = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s.png")
 img_Ppurple = pygame.transform.scale(img_Ppurple, (tile_width,tile_height))
-img_Ppurple_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s_L.png")#Efecto espejo
+#img_Ppurple_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s_L.png")#Efecto espejo
  #For Player White
 img_Pwhite = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s.png")
 img_Pwhite = pygame.transform.scale(img_Pwhite, (tile_width,tile_height))
-img_Pwhite_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s_L.png")#Efecto espejo
+#img_Pwhite_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s_L.png")#Efecto espejo
 #For Player Yellow
 img_Pyellow = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s.png")
 img_Pyellow = pygame.transform.scale(img_Pyellow, (tile_width,tile_height))
-img_Pyellow_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s_L.png")#Efecto espejo
+#img_Pyellow_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s_L.png")#Efecto espejo
     #For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
 turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
@@ -948,6 +1157,11 @@ texto9= pygame.font.SysFont("Comic Sans MS",16,5)
 #For the text of health
 texto10= pygame.font.SysFont("Comic Sans MS",16,5)
 texto11= pygame.font.SysFont("Comic Sans MS",16,5)
+texto12= pygame.font.SysFont("Comic Sans MS",16,5)
+texto13= pygame.font.SysFont("Comic Sans MS",16,5)
+texto14= pygame.font.SysFont("Comic Sans MS",16,5)
+texto15= pygame.font.SysFont("Comic Sans MS",16,5)
+
 
 
 Master_flag=True
@@ -983,20 +1197,24 @@ while Master_flag==True:
     #print("posiciones posibles: ",arreglo_aux)
     posPlayer1 = choice(posiciones_jugadores[0])
     posPlayer2 = choice(posiciones_jugadores[1])
-    #posPlayer3 = choice(posiciones_jugadores[2])
-    #posPlayer4 = choice(posiciones_jugadores[3])
-    #posPlayer5 = choice(posiciones_jugadores[4])
-    #posPlayer6 = choice(posiciones_jugadores[6])
+    posPlayer3 = choice(posiciones_jugadores[2])
+    posPlayer4 = choice(posiciones_jugadores[3])
+    posPlayer5 = choice(posiciones_jugadores[4])
+    posPlayer6 = choice(posiciones_jugadores[6])
 
     #BALAS
     #Variables Bala player One
-    bala105_1=num_105mm
-    balaPerforante_1=num_perforante
-    bala90_1=num_60mm
+    bala105_1=num_105mm; balaPerforante_1=num_perforante; bala90_1=num_60mm
     #Variables Bala player Tow
-    bala105_2=num_105mm
-    balaPerforante_2=num_perforante
-    bala90_2=num_60mm
+    bala105_2=num_105mm; balaPerforante_2=num_perforante; bala90_2=num_60mm
+    #Variables Bala player three
+    bala105_3=num_105mm; balaPerforante_3=num_perforante; bala90_3=num_60mm
+    #Variables Bala player four
+    bala105_4=num_105mm; balaPerforante_4=num_perforante; bala90_4=num_60mm
+    #Variables Bala player five
+    bala105_5=num_105mm; balaPerforante_5=num_perforante; bala90_5=num_60mm
+    #Variables Bala player six
+    bala105_6=num_105mm; balaPerforante_6=num_perforante; bala90_6=num_60mm
     #Variables auxiliares
     numero10=10    #valor estatico
     numero100=100  #valor estatico
@@ -1036,7 +1254,7 @@ while Master_flag==True:
         y_player2=gravedad(x_player2,y_player2,world_data)
         player2 = Player(x_player2,y_player2, img_left)
         #------------------------------------------------------------------------------------
-        """#spawn player 3
+        #spawn player 3
         x_player3= (posPlayer3[1]*tile_width)
         y_player3= (posPlayer3[0]*tile_height)-tile_height
         y_player3=gravedad(x_player3,y_player3,world_data)
@@ -1058,23 +1276,23 @@ while Master_flag==True:
         x_player6= (posPlayer6[1]*tile_width)
         y_player6= (posPlayer6[0]*tile_height)-tile_height
         y_player6=gravedad(x_player6,y_player6,world_data)
-        player6 = Player(x_player6,y_player6, img_Pyellow)"""
+        player6 = Player(x_player6,y_player6, img_Pyellow)
         #------------------------------------------------------------------------------------"""
         bala=""
         clock.tick(30)
         player1.update(player1)
         player2.update(player2) 
-        #player3.update(player3)
-        #player4.update(player4)
-        #player5.update(player5)
-        #player6.update(player6)
+        player3.update(player3)
+        player4.update(player4)
+        player5.update(player5)
+        player6.update(player6)
     #===========================================================================================================================
         if turno == 2:
             player1.update(player1)
             player2.update(player2) 
             print("el viento esta activado: ", viento)
             print("la intensidad del viento es de: ", intensidad_viento)
-            print("Turno DOS")
+            print("Turno Player 2")
             screen.blit(img_left,(screen_width*0.95,screen_height*0.9166))
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
@@ -1158,8 +1376,8 @@ while Master_flag==True:
             textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
             screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
 
-            bullet2 = Bullet(-temporalang,-temporalvel,bullet_default2,x_player2,y_player2,x_player1,y_player1)
-            win=bullet2.update(x_player1,y_player1,x_player2,y_player2,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+            bullet2 = Bullet(temporalang,temporalvel,bullet_default2,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+            win=bullet2.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
 
@@ -1180,20 +1398,26 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False
-                
+        
     #===========================================================================================================================
         intensidad_viento = randint(-10,10)
 
+                                                                                      
         if turno == 1:
+            print("Turno Player 1")
             player1.update(player1)
             player2.update(player2) 
+            player3.update(player3)
+            player4.update(player4)
+            player5.update(player5)
+            player6.update(player6)
             print("el viento esta activado: ", viento)
             print("la intensidad del viento es de: ", intensidad_viento)
-            print("Turno UNO")
+            
             screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
-            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
+            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))    
 
             while True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
@@ -1217,23 +1441,18 @@ while Master_flag==True:
                     if int (bala) == 3:
                         globala=3; bullet_default=bullet_90mm; bala90_1-=1; damage=30
                         break
-                
             if bala==666: bala=0; break #para hacer funcionar el boton reset
             
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
             screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
             temporalvel=int(textbox())
-                
             if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
-
             if temporalvel>numero100:
                 temporalvel=numero100
             if temporalvel<-numero100:
                 temporalvel=-numero100
-
             player1.setVel(temporalvel)
-
             #SE BORRA EL TEXTO ANTERIOR 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
             #Se imprime el texto angulo
@@ -1247,8 +1466,8 @@ while Master_flag==True:
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
 
-            bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2)
-            win=bullet1.update(x_player1,y_player1,x_player2,y_player2,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+            bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+            win=bullet1.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
 
@@ -1269,54 +1488,346 @@ while Master_flag==True:
                 Master_flag=False
                 run=False  
             
-                    
+                
     #===========================================================================================
-        # if turno==3:
-        #     print("turno 3")
-        #     player3.update(player3) 
-        #     screen.fill(blue_sky)
-        #     world = World(world_data)
-        #     screen.blit(fondo, (0, 0))
-        #     world.draw()
-        #     if i>6:
-        #         i=0
-        #     else:
-        #         i=i+1
-        #     turno=arregloTurnos[i]
-        # if turno==4:
-        #     print("turno 4")
-        #     player4.update(player4) 
-        #     screen.fill(blue_sky)
-        #     world = World(world_data)
-        #     screen.blit(fondo, (0, 0))
-        #     world.draw()
-        #     if i>6:
-        #         i=0
-        #     else:
-        #         i=i+1
-        #     turno=arregloTurnos[i]
-        # if turno==5:
-        #     print("turno 5")
-        #     player5.update(player5) 
-        #     screen.fill(blue_sky)
-        #     world = World(world_data)
-        #     screen.blit(fondo, (0, 0))
-        #     world.draw()
-        #     if i>6:
-        #         i=0
-        #     else:
-        #         i=i+1
-        #     turno=arregloTurnos[i]
-        # if turno==6:
-        #     print("Turno 6")
-        #     player6.update(player6)   
-        #     screen.fill(blue_sky)
-        #     world = World(world_data)
-        #     screen.blit(fondo, (0, 0))
-        #     world.draw()
-        #     i=0
+        if turno==3:
+            print("Turno Player 3")
+            player1.update(player1)
+            player2.update(player2) 
+            player3.update(player3)
+            player4.update(player4)
+            player5.update(player5)
+            player6.update(player6)
+            print("El viento esta activado: ", viento)
+            print("La intensidad del viento es de: ", intensidad_viento)
             
-        #     turno=arregloTurnos[i]
+            screen.blit(img_Pblue,(screen_width*0.95,screen_height*0.9166))
+            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+            textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
+            screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
+
+            while True:
+                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Empate\n")
+                        
+                SelectBala.text(bala105_3,balaPerforante_3,bala90_3)
+                bala=SelectBala.textBala()
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+            
+                if 0 < bala105_3 :
+                    if int (bala) == 1:
+                        globala=1; bullet_default3=bullet_105mm; bala105_3-=1; damage=50
+                        break
+                if  0 < balaPerforante_3 :
+                    if int (bala) == 2:
+                        globala=2; bullet_default3=bullet_perforante; balaPerforante_3-=1; damage=40;
+                        break
+                if  0 < bala90_3:
+                    if int (bala) == 3:
+                        globala=3; bullet_default3=bullet_90mm; bala90_3-=1; damage=30
+                        break
+            if bala==666: bala=0; break #para hacer funcionar el boton reset
+
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+            #SE IMORIME TEXTO VELOCIDAD
+            screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
+            temporalvel=int(textbox())
+            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+            if temporalvel>numero100:
+                temporalvel=numero100
+            if temporalvel<-numero100:
+                temporalvel=-numero100
+            player3.setVel(temporalvel)
+            #SE BORRA EL TEXTO ANTERIOR 
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+            #Se imprime el texto angulo
+            screen.blit(textang,(screen_width*0.818, screen_height*0.0083))
+            temporalang=int(textbox())
+            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+
+            player3.setAng(temporalang)
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+            textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
+            screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
+
+            bullet3 = Bullet(temporalang,temporalvel,bullet_default3,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+            win=bullet3.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player3,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+            #borra texto max atura, vel
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+
+
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            #Siguente turno
+            auxTurno=auxTurno+1
+            if auxTurno<num_jugadores:
+                turno=listaTurnos[auxTurno]
+            else:
+                auxTurno=0
+                turno=listaTurnos[auxTurno]
+            
+            if win == False:
+                Master_flag=False
+                run=False  
+            
+            
+        if turno==4:
+            print("Turno Player 4")
+            player1.update(player1)
+            player2.update(player2) 
+            player3.update(player3)
+            player4.update(player4)
+            player5.update(player5)
+            player6.update(player6)
+            print("El viento esta activado: ", viento)
+            print("La intensidad del viento es de: ", intensidad_viento)
+            
+            screen.blit(img_Ppurple,(screen_width*0.95,screen_height*0.9166))
+            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+            textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
+            screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
+
+            while True:
+                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Empate\n")
+                        
+                SelectBala.text(bala105_4,balaPerforante_4,bala90_4)
+                bala=SelectBala.textBala()
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+            
+                if 0 < bala105_4 :
+                    if int (bala) == 1:
+                        globala=1; bullet_default4=bullet_105mm; bala105_4-=1; damage=50
+                        break
+                if  0 < balaPerforante_4 :
+                    if int (bala) == 2:
+                        globala=2; bullet_default4=bullet_perforante; balaPerforante_4-=1; damage=40;
+                        break
+                if  0 < bala90_4:
+                    if int (bala) == 3:
+                        globala=3; bullet_default4=bullet_90mm; bala90_4-=1; damage=30
+                        break
+            if bala==666: bala=0; break #para hacer funcionar el boton reset
+
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+            #SE IMORIME TEXTO VELOCIDAD
+            screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
+            temporalvel=int(textbox())
+            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+            if temporalvel>numero100:
+                temporalvel=numero100
+            if temporalvel<-numero100:
+                temporalvel=-numero100
+            player4.setVel(temporalvel)
+            #SE BORRA EL TEXTO ANTERIOR 
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+            #Se imprime el texto angulo
+            screen.blit(textang,(screen_width*0.818, screen_height*0.0083))
+            temporalang=int(textbox())
+            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+
+            player4.setAng(temporalang)
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+            textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
+            screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
+
+            bullet4 = Bullet(temporalang,temporalvel,bullet_default4,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+            win=bullet4.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player4,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+            #borra texto max atura, vel
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+
+
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            #Siguente turno
+            auxTurno=auxTurno+1
+            if auxTurno<num_jugadores:
+                turno=listaTurnos[auxTurno]
+            else:
+                auxTurno=0
+                turno=listaTurnos[auxTurno]
+            
+            if win == False:
+                Master_flag=False
+                run=False  
+            
+        if turno==5:
+            print("Turno Player 5")
+            player1.update(player1)
+            player2.update(player2) 
+            player3.update(player3)
+            player4.update(player4)
+            player5.update(player5)
+            player6.update(player6)
+            print("El viento esta activado: ", viento)
+            print("La intensidad del viento es de: ", intensidad_viento)
+            
+            screen.blit(img_Pwhite,(screen_width*0.95,screen_height*0.9166))
+            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+            textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
+            screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
+
+            while True:
+                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Empate\n")
+                        
+                SelectBala.text(bala105_5,balaPerforante_5,bala90_5)
+                bala=SelectBala.textBala()
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+            
+                if 0 < bala105_5 :
+                    if int (bala) == 1:
+                        globala=1; bullet_default5=bullet_105mm; bala105_5-=1; damage=50
+                        break
+                if  0 < balaPerforante_5 :
+                    if int (bala) == 2:
+                        globala=2; bullet_default5=bullet_perforante; balaPerforante_5-=1; damage=40;
+                        break
+                if  0 < bala90_5:
+                    if int (bala) == 3:
+                        globala=3; bullet_default5=bullet_90mm; bala90_5-=1; damage=30
+                        break
+            if bala==666: bala=0; break #para hacer funcionar el boton reset
+
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+            #SE IMORIME TEXTO VELOCIDAD
+            screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
+            temporalvel=int(textbox())
+            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+            if temporalvel>numero100:
+                temporalvel=numero100
+            if temporalvel<-numero100:
+                temporalvel=-numero100
+            player5.setVel(temporalvel)
+            #SE BORRA EL TEXTO ANTERIOR 
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+            #Se imprime el texto angulo
+            screen.blit(textang,(screen_width*0.818, screen_height*0.0083))
+            temporalang=int(textbox())
+            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+            player5.setAng(temporalang)
+            #SE BORRA EL TEXTO ANTERIOR 
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+            textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
+            screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
+
+            bullet5 = Bullet(temporalang,temporalvel,bullet_default5,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+            win=bullet5.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player5,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+            #borra texto max atura, vel
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+
+
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            #Siguente turno
+            auxTurno=auxTurno+1
+            if auxTurno<num_jugadores:
+                turno=listaTurnos[auxTurno]
+            else:
+                auxTurno=0
+                turno=listaTurnos[auxTurno]
+            
+            if win == False:
+                Master_flag=False
+                run=False  
+            
+        if turno==6:
+            print("Turno Player 6")
+            player1.update(player1)
+            player2.update(player2) 
+            player3.update(player3)
+            player4.update(player4)
+            player5.update(player5)
+            player6.update(player6)
+            print("El viento esta activado: ", viento)
+            print("La intensidad del viento es de: ", intensidad_viento)
+            
+            screen.blit(img_Pyellow,(screen_width*0.95,screen_height*0.9166))
+            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+            textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
+            screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
+
+            while True:
+                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
+                    print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
+                    print("Empate\n")
+                        
+                SelectBala.text(bala105_6,balaPerforante_6,bala90_6)
+                bala=SelectBala.textBala()
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+            
+                if 0 < bala105_6 :
+                    if int (bala) == 1:
+                        globala=1; bullet_default6=bullet_105mm; bala105_6-=1; damage=50
+                        break
+                if  0 < balaPerforante_6 :
+                    if int (bala) == 2:
+                        globala=2; bullet_default6=bullet_perforante; balaPerforante_6-=1; damage=40;
+                        break
+                if  0 < bala90_6:
+                    if int (bala) == 3:
+                        globala=3; bullet_default6=bullet_90mm; bala90_6-=1; damage=30
+                        break
+            if bala==666: bala=0; break #para hacer funcionar el boton reset
+
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+            #SE IMORIME TEXTO VELOCIDAD
+            screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))
+            temporalvel=int(textbox())
+            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+            if temporalvel>numero100:
+                temporalvel=numero100
+            if temporalvel<-numero100:
+                temporalvel=-numero100
+            player6.setVel(temporalvel)
+            #SE BORRA EL TEXTO ANTERIOR 
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+            #Se imprime el texto angulo
+            screen.blit(textang,(screen_width*0.818, screen_height*0.0083))
+            temporalang=int(textbox())
+            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+            player6.setAng(temporalang)
+            #SE BORRA EL TEXTO ANTERIOR 
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+            textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
+            screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
+
+            bullet6 = Bullet(temporalang,temporalvel,bullet_default6,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+            win=bullet6.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player6,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+            #borra texto max atura, vel
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+
+
+            screen.fill(blue_sky)
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
+            #Siguente turno
+            auxTurno=auxTurno+1
+            if auxTurno<num_jugadores:
+                turno=listaTurnos[auxTurno]
+            else:
+                auxTurno=0
+                turno=listaTurnos[auxTurno]
+            
+            if win == False:
+                Master_flag=False
+                run=False  
+            
+
     screen.fill(blue_sky)
     world = World(world_data)
     screen.blit(fondo, (0, 0))
