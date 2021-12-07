@@ -1091,16 +1091,22 @@ def textbox():
         if aux2==1:
             return aux
 
-def gravedad(X_Player,Y_Player,world):
+def gravedad(X_Player,Y_Player,world,player):
+    print("a:",player.vida)
     while True:
+        
         y_player=int(Y_Player)//20
         x_player=int(X_Player)//20
-        while True:
-            if world[y_player][x_player] == 0 :
-                Y_Player+=10
-                break
-            elif world[y_player][x_player] != 0 :
-                return Y_Player-20
+    
+        if world[y_player][x_player] == 0 :
+            player.dmge(1)
+            Y_Player+=1
+            
+        elif world[y_player][x_player] != 0 :
+            
+            player.vida+=20
+            print(player.vida)
+            return Y_Player-20
     
 #SPAWNRANDOM
 def recorrer_mapa(world_data):
@@ -1232,37 +1238,31 @@ while Master_flag==True:
     #spawn player 1
     x_player1= (posPlayer1[1]*tile_width)
     y_player1= (posPlayer1[0]*tile_height)-tile_height
-    y_player1=gravedad(x_player1,y_player1,world_data)
     player1 = Player(x_player1,y_player1, img_right)
     #------------------------------------------------------------------------------------
     #spawn player 2
     x_player2= (posPlayer2[1]*tile_width)
     y_player2= (posPlayer2[0]*tile_height)-tile_height
-    y_player2=gravedad(x_player2,y_player2,world_data)
     player2 = Player(x_player2,y_player2, img_left)
     #------------------------------------------------------------------------------------
     #spawn player 3
     x_player3= (posPlayer3[1]*tile_width)
     y_player3= (posPlayer3[0]*tile_height)-tile_height
-    y_player3=gravedad(x_player3,y_player3,world_data)
     player3 = Player(x_player3,y_player3, img_Pblue)
     #------------------------------------------------------------------------------------
     #spawn player 4
     x_player4= (posPlayer4[1]*tile_width)
     y_player4= (posPlayer4[0]*tile_height)-tile_height
-    y_player4=gravedad(x_player4,y_player4,world_data)
     player4 = Player(x_player4,y_player4, img_Ppurple)
     #------------------------------------------------------------------------------------
     #spawn player 5
     x_player5= (posPlayer5[1]*tile_width)
     y_player5= (posPlayer5[0]*tile_height)-tile_height
-    y_player5=gravedad(x_player5,y_player5,world_data)
     player5 = Player(x_player5,y_player5, img_Pwhite)
     #------------------------------------------------------------------------------------
     #spawn player 6
     x_player6= (posPlayer6[1]*tile_width)
     y_player6= (posPlayer6[0]*tile_height)-tile_height
-    y_player6=gravedad(x_player6,y_player6,world_data)
     player6 = Player(x_player6,y_player6, img_Pyellow)
         #------------------------------------------------------------------------------------"""
     #BALAS
@@ -1293,10 +1293,6 @@ while Master_flag==True:
     #print(listaTurnos)#imprimir lista
     turno=listaTurnos[auxTurno]#ingresar turno 1
     auxSelectBot=1
-    #if num_bots >=1:
-     #   auxSelectBot+=1
-    
-
 
     valores_random=[True,False]
     graveDAD = choice(valores_random)
@@ -1306,22 +1302,19 @@ while Master_flag==True:
     print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
     while run:
-        if num_jugadores==2: 
-            if auxSelectBot==2: auxSelectBot=1
-        if num_jugadores==3: 
-            if auxSelectBot==3: auxSelectBot=1
-        if num_jugadores==4: 
-            if auxSelectBot==4: auxSelectBot=1
-        if num_jugadores==5: 
-            if auxSelectBot==5: auxSelectBot=1
-        if num_jugadores==6: 
-            if auxSelectBot==6: auxSelectBot=1
-    
-        bala=""
         clock.tick(30)
-          
-    #===========================================================================================================================
-                                                                              
+        bala=""
+        if num_jugadores==2:                    #Se condicionan variables para repetir funcionalidad de bots
+            if auxSelectBot==2: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+        if num_jugadores==3:                    #Se condicionan variables para repetir funcionalidad de bots
+            if auxSelectBot==3: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+        if num_jugadores==4:                     #Se condicionan variables para repetir funcionalidad de bots
+            if auxSelectBot==4: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+        if num_jugadores==5:                     #Se condicionan variables para repetir funcionalidad de bots
+            if auxSelectBot==5: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+        if num_jugadores==6:                     #Se condicionan variables para repetir funcionalidad de bots
+            if auxSelectBot==6: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+    #===========================================================================================================================                                                                    
         if turno == 1:
             print("Turno Player 1")
             player1.update(player1)
@@ -1350,8 +1343,6 @@ while Master_flag==True:
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                         print("Empate\n")
 
-
-                        
                 if num_bots>auxSelectBot:
                     player1_bot=True
                     auxSelectBot+=1
@@ -1429,7 +1420,7 @@ while Master_flag==True:
             screen.blit(fondo, (0, 0))
             world.draw()
             #   para que funcione la gravedad hacia los tankes
-            y_player1=gravedad(x_player1,y_player1,world_data)
+            y_player1=gravedad(x_player1,y_player1,world_data,player1)
             player1 = Player(x_player1,y_player1, img_right)
             player1.update(player1)
             #Siguente turno
@@ -1470,7 +1461,7 @@ while Master_flag==True:
                     if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                         print("Empate\n")
-                if num_bots>=auxSelectBot:
+                if num_bots>auxSelectBot:
                     player2_bot=True
                     auxSelectBot+=1
                 else:
@@ -1548,7 +1539,7 @@ while Master_flag==True:
             screen.blit(fondo, (0, 0))
             world.draw()
             #   para que funcione la gravedad hacia los tankes
-            y_player2=gravedad(x_player2,y_player2,world_data)
+            y_player2=gravedad(x_player2,y_player2,world_data,player2)
             player2 = Player(x_player2,y_player2, img_left)
             player2.update(player2)
             #Siguente turno
@@ -1559,13 +1550,9 @@ while Master_flag==True:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
             
-            
             if win == False:
                 Master_flag=False
                 run=False
-      
-            
-                
     #===========================================================================================
         if turno==3:
             print("Turno Player 3")
@@ -1592,7 +1579,7 @@ while Master_flag==True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Empate\n")
-                if num_bots>=auxSelectBot:
+                if num_bots>auxSelectBot:
                     player3_bot=True
                     auxSelectBot+=1
                 else:
@@ -1667,7 +1654,7 @@ while Master_flag==True:
             screen.blit(fondo, (0, 0))
             world.draw()
             #   para que funcione la gravedad hacia los tankes
-            y_player3=gravedad(x_player3,y_player3,world_data)
+            y_player3=gravedad(x_player3,y_player3,world_data,player3)
             player3 = Player(x_player3,y_player3, img_Pblue)
             player3.update(player3)
             #Siguente turno
@@ -1681,8 +1668,7 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
-            
-            
+    #===========================================================================================
         if turno==4:
             print("Turno Player 4")
             player1.update(player1)
@@ -1708,7 +1694,7 @@ while Master_flag==True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Empate\n")
-                if num_bots>=auxSelectBot:
+                if num_bots>auxSelectBot:
                     player4_bot=True
                     auxSelectBot+=1
                 else:
@@ -1783,7 +1769,7 @@ while Master_flag==True:
             screen.blit(fondo, (0, 0))
             world.draw()
             #   para que funcione la gravedad hacia los tankes
-            y_player4=gravedad(x_player4,y_player4,world_data)
+            y_player4=gravedad(x_player4,y_player4,world_data,player4)
             player4 = Player(x_player4,y_player4, img_Ppurple)
             player4.update(player4)
             #Siguente turno
@@ -1797,7 +1783,7 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
-            
+#===========================================================================================
         if turno==5:
             print("Turno Player 5")
             player1.update(player1)
@@ -1823,7 +1809,7 @@ while Master_flag==True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Empate\n")
-                if num_bots>=auxSelectBot:
+                if num_bots>auxSelectBot:
                     player5_bot=True
                     auxSelectBot+=1
                 else:
@@ -1898,7 +1884,7 @@ while Master_flag==True:
             screen.blit(fondo, (0, 0))
             world.draw()
             #   para que funcione la gravedad hacia los tankes
-            y_player5=gravedad(x_player5,y_player5,world_data)
+            y_player5=gravedad(x_player5,y_player5,world_data,player5)
             player5 = Player(x_player5,y_player5, img_Pwhite)
             player5.update(player5)
             #Siguente turno
@@ -1912,7 +1898,7 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
-            
+#===========================================================================================
         if turno==6:
             print("Turno Player 6")
             player1.update(player1)
@@ -1939,8 +1925,7 @@ while Master_flag==True:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Empate\n")
 
-
-                if num_bots>=auxSelectBot:
+                if num_bots>auxSelectBot:
                     player6_bot=True
                     auxSelectBot+=1
                 else:
@@ -2015,7 +2000,7 @@ while Master_flag==True:
             screen.blit(fondo, (0, 0))
             world.draw()
             #   para que funcione la gravedad hacia los tankes
-            y_player6=gravedad(x_player6,y_player6,world_data)
+            y_player6=gravedad(x_player6,y_player6,world_data,player6)
             player6 = Player(x_player6,y_player6, img_Pyellow)
             player6.update(player6)
             #Siguente turno
