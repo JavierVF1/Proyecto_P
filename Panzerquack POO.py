@@ -1292,9 +1292,9 @@ while Master_flag==True:
     shuffle(listaTurnos)#aleatorizar lista
     #print(listaTurnos)#imprimir lista
     turno=listaTurnos[auxTurno]#ingresar turno 1
-    auxSelectBot=0
-    if num_bots >=1:
-        auxSelectBot+=1
+    auxSelectBot=1
+    #if num_bots >=1:
+     #   auxSelectBot+=1
     
 
 
@@ -1306,8 +1306,17 @@ while Master_flag==True:
     print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
     while run:
-        if auxSelectBot==6:
-            auxSelectBot=1
+        if num_jugadores==2: 
+            if auxSelectBot==2: auxSelectBot=1
+        if num_jugadores==3: 
+            if auxSelectBot==3: auxSelectBot=1
+        if num_jugadores==4: 
+            if auxSelectBot==4: auxSelectBot=1
+        if num_jugadores==5: 
+            if auxSelectBot==5: auxSelectBot=1
+        if num_jugadores==6: 
+            if auxSelectBot==6: auxSelectBot=1
+    
         bala=""
         clock.tick(30)
           
@@ -1340,10 +1349,13 @@ while Master_flag==True:
                     if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                         print("Empate\n")
-                if num_bots>=auxSelectBot:
+
+
+                        
+                if num_bots>auxSelectBot:
                     player1_bot=True
                     auxSelectBot+=1
-                    print(auxSelectBot)
+                    #print(auxSelectBot)
                 else:
                     player1_bot=False
                 if num_bots==0:
@@ -1926,6 +1938,8 @@ while Master_flag==True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Empate\n")
+
+
                 if num_bots>=auxSelectBot:
                     player6_bot=True
                     auxSelectBot+=1
