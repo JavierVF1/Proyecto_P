@@ -29,9 +29,9 @@ num_105mm=10                   #Numero 10 por la definicion por defecto
 num_perforante=10
 num_60mm=10
 #Globales Efectos de Entorno---------------------------------
-Ggravedad=True
-Gviento=True
-val_gravedad=0
+Ggravedad=1
+Gviento=1
+intensidad_gravedad=5
 
 class Game():
     def __init__(self):
@@ -188,7 +188,7 @@ class MainMenu(Menu):
         global num_60mm          #   ""
         global Ggravedad      #Estado efectos de entorno
         global Gviento        #   "" 
-        global val_gravedad
+        global intensidad_gravedad
 
     
         self.game.display.fill(self.game.BLACK)
@@ -265,7 +265,7 @@ class MainMenu(Menu):
                         self.game.draw_text("Min:0    Max:10", 15, self.game.DISPLAY_W*0.49, self.game.DISPLAY_H*0.77)
                         gravedadG, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.75)
                         if int(gravedadG)>=0 and int(gravedadG)<=10:
-                            val_gravedad=int(gravedadG)
+                            intensidad_gravedad=int(gravedadG)
                             break
                 else:
                     Ggravedad=False
@@ -1092,9 +1092,8 @@ def textbox():
             return aux
 
 def gravedad(X_Player,Y_Player,world,player):
-    print("a:",player.vida)
+    #print(player.vida)
     while True:
-        
         y_player=int(Y_Player)//20
         x_player=int(X_Player)//20
     
@@ -1105,7 +1104,7 @@ def gravedad(X_Player,Y_Player,world,player):
         elif world[y_player][x_player] != 0 :
             
             player.vida+=20
-            print(player.vida)
+            #print(player.vida)
             return Y_Player-20
     
 #SPAWNRANDOM
@@ -1293,14 +1292,24 @@ while Master_flag==True:
     #print(listaTurnos)#imprimir lista
     turno=listaTurnos[auxTurno]#ingresar turno 1
     auxSelectBot=1
+    
+    
 
-    valores_random=[True,False]
-    graveDAD = choice(valores_random)
-    viento = choice(valores_random)
-    intensidad_gravedad = randint(0,15)
+    if Ggravedad==1:
+        graveDAD = True
+    else:
+        graveDAD = False
+
+    if Gviento==1:
+        viento = True
+    else:
+        viento = False
+    
     intensidad_viento = randint(-10,10)
     print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
+
+
     while run:
         clock.tick(30)
         bala=""
@@ -1313,7 +1322,7 @@ while Master_flag==True:
         if num_jugadores==5:                     #Se condicionan variables para repetir funcionalidad de bots
             if auxSelectBot==5: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
         if num_jugadores==6:                     #Se condicionan variables para repetir funcionalidad de bots
-            if auxSelectBot==6: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+            if auxSelectBot==6: auxSelectBot=0  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
     #===========================================================================================================================                                                                    
         if turno == 1:
             print("Turno Player 1")
