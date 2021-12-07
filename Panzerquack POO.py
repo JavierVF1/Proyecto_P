@@ -1293,23 +1293,17 @@ while Master_flag==True:
     turno=listaTurnos[auxTurno]#ingresar turno 1
     auxSelectBot=1
     
-    
-
-    if Ggravedad==1:
+    if Ggravedad==1:     #Condicion para saber si esta activada la gravedad
         graveDAD = True
     else:
         graveDAD = False
-
-    if Gviento==1:
+    if Gviento==1:        #Condicion para saber si esta activado el viento
         viento = True
     else:
         viento = False
-    
     intensidad_viento = randint(-10,10)
     print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
-
-
     while run:
         clock.tick(30)
         bala=""
@@ -1344,9 +1338,7 @@ while Master_flag==True:
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))    
-
             while True:
-                
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                     if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
                         print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -1360,7 +1352,6 @@ while Master_flag==True:
                     player1_bot=False
                 if num_bots==0:
                     player1_bot=False
-                    
                 #############BOT de tipo bala#############################
                                                                          #
                 if player1_bot==True:#player es un bot                   #
@@ -1384,7 +1375,6 @@ while Master_flag==True:
                         globala=3; bullet_default=bullet_90mm; bala90_1-=1; damage=30
                         break
             if bala==666: bala=0; break #para hacer funcionar el boton reset
-            
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
             ##############BOT de tipo velocidad###########################################
@@ -1411,7 +1401,6 @@ while Master_flag==True:
                 temporalang=int(textbox())                                         #                              
             ########################################################################
             if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-
             player1.setAng(temporalang)
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
@@ -1477,7 +1466,6 @@ while Master_flag==True:
                     player2_bot=False
                 if num_bots==0:
                     player2_bot=False
-                    
                 #############BOT de tipo bala#############################
                                                                          #
                 if player2_bot==True:#player es un bot                   #
@@ -1487,7 +1475,6 @@ while Master_flag==True:
                     bala=SelectBala.textBala()                           #
                 ##########################################################
                 if bala==666:  break #para hacer funcionar el boton reset
-
                 if 0 < bala105_2 :
                     if int (bala) == 1:
                         globala=1; bullet_default2=bullet_105mm; bala105_2-=1; damage=50
@@ -1501,7 +1488,6 @@ while Master_flag==True:
                         globala=3; bullet_default2=bullet_90mm; bala90_2-=1; damage=30
                         break
             if bala==666: bala=0; break #para hacer funcionar el boton reset
-            
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
            ##############BOT de tipo velocidad###########################################
@@ -1522,7 +1508,6 @@ while Master_flag==True:
             #SE BORRA EL TEXTO ANTERIOR 
             pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
             #Se imprime el texto angulo
-            
             #############BOT de tipo angulo#########################################
             if player2_bot==True:#player es un bot                                 #
                 temporalang=randint(1,180)                                         #     
@@ -1595,7 +1580,6 @@ while Master_flag==True:
                     player3_bot=False
                 if num_bots==0:
                     player3_bot=False
-                    
                 #############BOT de tipo bala#############################
                                                                          #
                 if player3_bot==True:#player es un bot                   #
@@ -1605,7 +1589,6 @@ while Master_flag==True:
                     bala=SelectBala.textBala()                           #
                 ##########################################################
                 if bala==666: break #para hacer funcionar el boton reset
-            
                 if 0 < bala105_3 :
                     if int (bala) == 1:
                         globala=1; bullet_default3=bullet_105mm; bala105_3-=1; damage=50
@@ -1619,7 +1602,6 @@ while Master_flag==True:
                         globala=3; bullet_default3=bullet_90mm; bala90_3-=1; damage=30
                         break
             if bala==666: bala=0; break #para hacer funcionar el boton reset
-
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
             ##############BOT de tipo velocidad###########################################
@@ -1646,7 +1628,6 @@ while Master_flag==True:
                 temporalang=int(textbox())                                         #                              
             ########################################################################
             if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-
             player3.setAng(temporalang)
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
@@ -1698,7 +1679,6 @@ while Master_flag==True:
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
             screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
-
             while True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -1710,7 +1690,6 @@ while Master_flag==True:
                     player4_bot=False
                 if num_bots==0:
                     player4_bot=False
-                    
                 #############BOT de tipo bala#############################
                                                                          #
                 if player4_bot==True:#player es un bot                   #
@@ -1720,7 +1699,6 @@ while Master_flag==True:
                     bala=SelectBala.textBala()                           #
                 ##########################################################
                 if bala==666:  break #para hacer funcionar el boton reset
-            
                 if 0 < bala105_4 :
                     if int (bala) == 1:
                         globala=1; bullet_default4=bullet_105mm; bala105_4-=1; damage=50
@@ -1734,7 +1712,6 @@ while Master_flag==True:
                         globala=3; bullet_default4=bullet_90mm; bala90_4-=1; damage=30
                         break
             if bala==666: bala=0; break #para hacer funcionar el boton reset
-
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
             ##############BOT de tipo velocidad###########################################
@@ -1761,7 +1738,6 @@ while Master_flag==True:
                 temporalang=int(textbox())                                         #                              
             ########################################################################
             if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-
             player4.setAng(temporalang)
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
@@ -1813,7 +1789,6 @@ while Master_flag==True:
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
             screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
-
             while True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
@@ -1825,7 +1800,6 @@ while Master_flag==True:
                     player5_bot=False
                 if num_bots==0:
                     player5_bot=False
-                    
                 #############BOT de tipo bala#############################
                                                                          #
                 if player5_bot==True:#player es un bot                   #
@@ -1835,7 +1809,6 @@ while Master_flag==True:
                     bala=SelectBala.textBala()                           #
                 ##########################################################
                 if bala==666:  break #para hacer funcionar el boton reset
-            
                 if 0 < bala105_5 :
                     if int (bala) == 1:
                         globala=1; bullet_default5=bullet_105mm; bala105_5-=1; damage=50
@@ -1849,7 +1822,6 @@ while Master_flag==True:
                         globala=3; bullet_default5=bullet_90mm; bala90_5-=1; damage=30
                         break
             if bala==666: bala=0; break #para hacer funcionar el boton reset
-
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
             ##############BOT de tipo velocidad###########################################
@@ -1928,12 +1900,10 @@ while Master_flag==True:
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
             textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
             screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
-
             while True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1 and  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2 and  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3 and bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4 and bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5 and  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
                     print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
                     print("Empate\n")
-
                 if num_bots>auxSelectBot:
                     player6_bot=True
                     auxSelectBot+=1
@@ -1941,7 +1911,6 @@ while Master_flag==True:
                     player6_bot=False
                 if num_bots==0:
                     player6_bot=False
-                    
                 #############BOT de tipo bala#############################
                                                                          #
                 if player6_bot==True:#player es un bot                   #
@@ -1951,7 +1920,6 @@ while Master_flag==True:
                     bala=SelectBala.textBala()                           #
                 ##########################################################
                 if bala==666:  break #para hacer funcionar el boton reset
-            
                 if 0 < bala105_6 :
                     if int (bala) == 1:
                         globala=1; bullet_default6=bullet_105mm; bala105_6-=1; damage=50
@@ -1965,7 +1933,6 @@ while Master_flag==True:
                         globala=3; bullet_default6=bullet_90mm; bala90_6-=1; damage=30
                         break
             if bala==666: bala=0; break #para hacer funcionar el boton reset
-
             pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
             #SE IMORIME TEXTO VELOCIDAD
             ##############BOT de tipo velocidad###########################################
@@ -2024,12 +1991,10 @@ while Master_flag==True:
                 Master_flag=False
                 run=False  
             
-
     screen.fill(blue_sky)
     world = World(world_data)
     screen.blit(fondo, (0, 0))
     world.draw()
-    #Siguente turno
     
 pygame.quit()
 sys.exit()
