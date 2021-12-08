@@ -39,7 +39,13 @@ player3NoBullet=False;
 player4NoBullet=False;
 player5NoBullet=False;
 player6NoBullet=False;
-
+#Varibles Globales players destruidos--------------------------------
+player1destruidos=0;
+player2destruidos=0;
+player3destruidos=0;
+player4destruidos=0;
+player5destruidos=0;
+player6destruidos=0;
 class Game():
     def __init__(self):
         pygame.init()
@@ -1403,7 +1409,6 @@ while Master_flag==True:
         if turno == 1:
             print("Turno Player 1")
             auxSelectBot2+=1
-
             y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
             player1.rect.y=y_player1
             player1.update(player1)
