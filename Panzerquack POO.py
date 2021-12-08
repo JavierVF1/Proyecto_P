@@ -375,9 +375,11 @@ class Player():
         self.rect.y = y
         self.width = self.imagen.get_width()
         self.height = self.imagen.get_height()
-        self.vel_y = 0
-        self.jumped = False
-        self.direction = 0
+        #self.vel_y = 0
+        #self.jumped = False
+        #self.direction = 0
+        self.dead=False
+
     def update(self,player):
         #(draw) player onto screen
         screen.blit(player.imagen, player.rect)
@@ -469,264 +471,306 @@ class Bullet():
                 flagLimite=colision(posicionY,posicionX,flagLimite,world)       #LLAMADA A FUNCION CHEQUEO COLISIONES DE MAPA
                 posicion_Y=posicionY
                 posicion_X=posicionX 
-                """if player1.vida<=0:
-                            print("\n ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ\n")
-                            print("Victoria para Jugador N°2\n")
-                            flag= False
-                            win=False
-                            """
     #==================================================================================
                 if turno == 1:
                     sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player2.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 2\n")
+                            player2.dead=True
                         flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
                             player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player3.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 3\n")
+                                player3.dead=True
                             flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
                             player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player4.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 4\n")
+                                player4.dead=True
                             flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
                             player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player5.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 5\n")
+                                player5.dead=True
                             flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
                             player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player6.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 5\n")
+                                player6.dead=True
                             flag= False
                     if aux >= 40:
                         if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
                             player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player1.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 acabo con su sufrimiento\n")
+                                player1.dead=True
                             flag= False
     #==================================================================================
                 if turno == 2:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player1.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 1\n")
+                            player1.dead=True
+                        flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player3.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 3\n")
+                                player3.dead=True
+                            flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player4.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 4\n")
+                                player4.dead=True
+                            flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player5.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 5\n")
+                                player5.dead=True
+                            flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player6.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 6\n")
+                                player6.dead=True
+                            flag= False
                     if aux >= 40:
                         if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player2.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 acabo con su sufrimiento\n")
+                                player2.dead=True
+                            flag= False
     #==================================================================================
                 if turno == 3:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player1.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 1\n")
+                            player1.dead=True
+                        flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player2.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 2\n")
+                            player2.dead=True
+                        flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player4.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 4\n")
+                                player4.dead=True
+                            flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player5.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 5\n")
+                                player5.dead=True
+                            flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player6.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 6\n")
+                                player6.dead=True
+                            flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if aux >= 40:
                             if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):        #CONFIRMACION IMPACTO
-                                if contdmg==1:
-                                    player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                    contdmg-=1
-                                    flag= False
+                                player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                if player3.vida <= 0:
+                                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 acabo con su sufrimiento\n")
+                                    player3.dead=True
+                                flag= False
     #==================================================================================
                 if turno == 4:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player1.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 1\n")
+                            player1.dead=True
+                        flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player2.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 2\n")
+                            player2.dead=True
+                        flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player3.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 3\n")
+                                player3.dead=True
+                            flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player5.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 5\n")
+                                player5.dead=True
+                            flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player6.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 6\n")
+                                player6.dead=True
+                            flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if aux >= 40:
                             if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):        #CONFIRMACION IMPACTO
-                                if contdmg==1:
-                                    player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                    contdmg-=1
-                                    flag= False
+                                player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                if player4.vida <= 0:
+                                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 acabo con su sufrimiento\n")
+                                    player4.dead=True
+                                flag= False
     #==================================================================================
                 if turno == 5:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player1.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 1\n")
+                            player1.dead=True
+                        flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player2.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 2\n")
+                            player2.dead=True
+                        flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player3.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 3\n")
+                                player3.dead=True
+                            flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player4.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 4\n")
+                                player4.dead=True
+                            flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player6.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 6\n")
+                                player6.dead=True
+                            flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if aux >= 40:
                             if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):        #CONFIRMACION IMPACTO
-                                if contdmg==1:
-                                    player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                    contdmg-=1
-                                    flag= False
+                                player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                if player5.vida <= 0:
+                                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 acabo con su sufrimiento\n")
+                                    player5.dead=True
+                                flag= False
     #==================================================================================
                 if turno == 6:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player1.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 1\n")
+                            player1.dead=True
+                        flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        if player2.vida <= 0:
+                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 2\n")
+                            player2.dead=True
+                        flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player3.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 3\n")
+                                player3.dead=True
+                            flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player4.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 4\n")
+                                player4.dead=True
+                            flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            if player5.vida <= 0:
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 5\n")
+                                player5.dead=True
+                            flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if aux >= 40:
                             if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):        #CONFIRMACION IMPACTO
-                                if contdmg==1:
-                                    player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                    contdmg-=1
-                                    flag= False
+                                player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                if player6.vida <= 0:
+                                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 acabo con su sufrimiento\n")
+                                    player6.dead=True
+                                flag= False
                 aux+=1
 
             if flagLimite == False:
@@ -1209,6 +1253,51 @@ def fun_selectbot(auxSelectBot,auxSelectBot2):
             auxSelectBot2=0 
     return auxSelectBot,auxSelectBot2
 
+def fun_update_gravedad(y_player1,y_player2,y_player3,y_player4,y_player5,y_player6):
+    if player1.dead == False:
+        y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
+        player1.rect.y=y_player1   #Se modifica la pocicion del tanke
+        player1.update(player1)
+    if player2.dead == False:
+        y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
+        player2.rect.y=y_player2    #Se modifica la pocicion del tanke
+        player2.update(player2)
+    if num_jugadores >=3 :     #Condicion para saber cuantos jugadores hy en juego
+        if player3.dead == False:
+            y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
+            player3.rect.y=y_player3    #Se modifica la pocicion del tanke
+            player3.update(player3)
+    if num_jugadores >=4 :     #Condicion para saber cuantos jugadores hy en juego
+        if player4.dead == False:
+            y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
+            player4.rect.y=y_player4    #Se modifica la pocicion del tanke
+            player4.update(player4)
+    if num_jugadores >=5 :     #Condicion para saber cuantos jugadores hy en juego
+        if player5.dead == False:
+            y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
+            player5.rect.y=y_player5    #Se modifica la pocicion del tanke
+            player5.update(player5)
+    if num_jugadores >=6 :     #Condicion para saber cuantos jugadores hy en juego
+        if player6.dead == False:
+            y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
+            player6.rect.y=y_player6    #Se modifica la pocicion del tanke
+            player6.update(player6)
+    return y_player1,y_player2,y_player3,y_player4,y_player5,y_player6
+
+def check_dead():
+    if player1.vida <= 0:
+        player1.dead=True
+    if player2.vida <= 0:
+        player2.dead=True
+    if player3.vida <= 0:
+        player3.dead=True
+    if player4.vida <= 0:
+        player4.dead=True
+    if player5.vida <= 0:
+        player5.dead=True
+    if player6.vida <= 0:
+        player6.dead=True
+
 g = Game()
 
 while g.running:
@@ -1385,7 +1474,7 @@ while Master_flag==True:
     print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
     while run:
-        #print(auxSelectBot)
+        check_dead()
         clock.tick(30)
         bala=""
         
@@ -1394,844 +1483,768 @@ while Master_flag==True:
         screen.blit(fondo, (0, 0))
         world.draw()
     #PLAYER 1===================================================================================================================                                                                    
-        if turno == 1:
-            print("Turno Player 1")
-            auxSelectBot2+=1
-            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1.rect.y=y_player1
-            player1.update(player1)
-            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2.rect.y=y_player2
-            player2.update(player2)
-            if num_jugadores >=3 :
-                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3.rect.y=y_player3
-                player3.update(player3)
-            if num_jugadores >=4 :
-                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4.rect.y=y_player4
-                player4.update(player4)
-            if num_jugadores >=5 :
-                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5.rect.y=y_player5
-                player5.update(player5)
-            if num_jugadores >=6 :
-                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6.rect.y=y_player6
-                player6.update(player6)
-            intensidad_viento = randint(-10,10)
-            print("el viento esta activado: ", viento)
-            print("la intensidad del viento es de: ", intensidad_viento)
-            
-            screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
-            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-            print("vida player 1:",player1.vida)
-            textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
-            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))    
-            while True:
-                if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
-                    player1NoBullet=True#el player 1 se quedo sin balas
-                    #print("checkeo")
-                    if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                        #print("poopoo")
-                        break
-                    if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                        break
-                    if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                        break
-                    if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                        break
-                    if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                        break
-                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                    auxTurno=auxTurno+1
-                    if auxTurno<num_jugadores:
-                        turno=listaTurnos[auxTurno]
+        if player1.dead == False:
+            if turno == 1:
+                print("Turno Player 1")
+                auxSelectBot2+=1
+                y_player1,y_player2,y_player3,y_player4,y_player5,y_player6=fun_update_gravedad(y_player1,y_player2,y_player3,y_player4,y_player5,y_player6)
+                intensidad_viento = randint(-10,10)
+                print("el viento esta activado: ", viento)
+                print("la intensidad del viento es de: ", intensidad_viento)
+                
+                screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
+                screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+                print("vida player 1:",player1.vida)
+                textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
+                screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))    
+                while True:
+                    if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
+                        player1NoBullet=True#el player 1 se quedo sin balas
+                        #print("checkeo")
+                        if num_jugadores==2 and player1NoBullet and player2NoBullet :
+                            #print("poopoo")
+                            break
+                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
+                            break
+                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
+                            break
+                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
+                            break
+                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
+                            break
+                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                        auxTurno=auxTurno+1
+                        if auxTurno<num_jugadores:
+                            turno=listaTurnos[auxTurno]
+                        else:
+                            auxTurno=0
+                            turno=listaTurnos[auxTurno]
+
+                    if num_bots>=auxSelectBot:
+                        player1_bot=True
+                        auxSelectBot+=1
+                        #print(auxSelectBot)
                     else:
-                        auxTurno=0
-                        turno=listaTurnos[auxTurno]
+                        player1_bot=False
+                    if num_bots==0:
+                        player1_bot=False
+                    #############BOT de tipo bala#############################
+                                                                            #
+                    if player1_bot==True:#player es un bot                   #
+                        bala=randint(1,3)                                    #
+                    if player1_bot==False:#player no es un bot               #
+                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        bala=SelectBala.textBala()                           #
+                    ##########################################################
+                    if bala==666:  break #para hacer funcionar el boton reset
+                
+                    if 0 < bala105_1 :
+                        if int (bala) == 1:
+                            globala=1; bullet_default=bullet_105mm; bala105_1-=1; damage=50
+                            break
+                    if  0 < balaPerforante_1 :
+                        if int (bala) == 2:
+                            globala=2; bullet_default=bullet_perforante; balaPerforante_1-=1; damage=40;
+                            break
+                    if  0 < bala90_1:
+                        if int (bala) == 3:
+                            globala=3; bullet_default=bullet_90mm; bala90_1-=1; damage=30
+                            break
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+                #SE IMORIME TEXTO VELOCIDAD
+                ##############BOT de tipo velocidad###########################################
+                if player1_bot==True:#player es un bot                                      #
+                    temporalvel=randint(1,100)                                              #
+                if player1_bot==False:#player no es un bot                                  #
+                    screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
+                    temporalvel=int(textbox())                                              #
+            ##############################################################################
+                if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+                if temporalvel>numero100:
+                    temporalvel=numero100
+                if temporalvel<-numero100:
+                    temporalvel=-numero100
+                player1.setVel(temporalvel)
+                #SE BORRA EL TEXTO ANTERIOR 
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+                #Se imprime el texto angulo
+                #############BOT de tipo angulo#########################################
+                if player1_bot==True:#player es un bot                                 #
+                    temporalang=randint(1,180)                                         #     
+                if player1_bot==False:#player no es un bot                             #
+                    screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
+                    temporalang=int(textbox())                                         #                              
+                ########################################################################
+                if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+                player1.setAng(temporalang)
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
-                if num_bots>=auxSelectBot:
-                    player1_bot=True
-                    auxSelectBot+=1
-                    #print(auxSelectBot)
+                textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
+                screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
+
+                bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+                win=bullet1.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+                #borra texto max atura, vel
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+                #Siguente turno
+                auxTurno=auxTurno+1
+                if auxTurno<num_jugadores:
+                    turno=listaTurnos[auxTurno]
                 else:
-                    player1_bot=False
-                if num_bots==0:
-                    player1_bot=False
-                #############BOT de tipo bala#############################
-                                                                         #
-                if player1_bot==True:#player es un bot                   #
-                    bala=randint(1,3)                                    #
-                if player1_bot==False:#player no es un bot               #
-                    SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
-                    bala=SelectBala.textBala()                           #
-                ##########################################################
-                if bala==666:  break #para hacer funcionar el boton reset
-            
-                if 0 < bala105_1 :
-                    if int (bala) == 1:
-                        globala=1; bullet_default=bullet_105mm; bala105_1-=1; damage=50
-                        break
-                if  0 < balaPerforante_1 :
-                    if int (bala) == 2:
-                        globala=2; bullet_default=bullet_perforante; balaPerforante_1-=1; damage=40;
-                        break
-                if  0 < bala90_1:
-                    if int (bala) == 3:
-                        globala=3; bullet_default=bullet_90mm; bala90_1-=1; damage=30
-                        break
-            if bala==666: bala=0; break #para hacer funcionar el boton reset
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-            #SE IMORIME TEXTO VELOCIDAD
-            ##############BOT de tipo velocidad###########################################
-            if player1_bot==True:#player es un bot                                      #
-                temporalvel=randint(1,100)                                              #
-            if player1_bot==False:#player no es un bot                                  #
-                screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
-                temporalvel=int(textbox())                                              #
-           ##############################################################################
-            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
-            if temporalvel>numero100:
-                temporalvel=numero100
-            if temporalvel<-numero100:
-                temporalvel=-numero100
-            player1.setVel(temporalvel)
-            #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
-            #Se imprime el texto angulo
-            #############BOT de tipo angulo#########################################
-            if player1_bot==True:#player es un bot                                 #
-                temporalang=randint(1,180)                                         #     
-            if player1_bot==False:#player no es un bot                             #
-                screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
-                temporalang=int(textbox())                                         #                              
-            ########################################################################
-            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-            player1.setAng(temporalang)
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+                    auxTurno=0
+                    turno=listaTurnos[auxTurno]
 
-            textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
-            screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
+                if win == False:
+                    Master_flag=False
+                    run=False  
 
-            bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
-            win=bullet1.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
-            #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            #Siguente turno
-            auxTurno=auxTurno+1
+                auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+                screen.fill(blue_sky)           #   para ver los daños causados al mapa
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
+        else:
+            auxTurno=auxTurno+1                     #Siguente turno
             if auxTurno<num_jugadores:
                 turno=listaTurnos[auxTurno]
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
 
-            if win == False:
-                Master_flag=False
-                run=False  
-
-            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
-            screen.fill(blue_sky)           #   para ver los daños causados al mapa
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
     #PLAYER 2====================================================================================================================
-        if turno == 2:
-            print("Turno Player 2")
-            auxSelectBot2+=1
-            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1.rect.y=y_player1
-            player1.update(player1)
-            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2.rect.y=y_player2
-            player2.update(player2)
-            if num_jugadores >=3 :
-                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3.rect.y=y_player3
-                player3.update(player3)
-            if num_jugadores >=4 :
-                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4.rect.y=y_player4
-                player4.update(player4)
-            if num_jugadores >=5 :
-                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5.rect.y=y_player5
-                player5.update(player5)
-            if num_jugadores >=6 :
-                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6.rect.y=y_player6
-                player6.update(player6)
-            intensidad_viento = randint(-10,10)
-            print("el viento esta activado: ", viento)
-            print("la intensidad del viento es de: ", intensidad_viento)
+        check_dead()
+        if player2.dead == False:
+            if turno == 2:
+                print("Turno Player 2")
+                auxSelectBot2+=1
+                y_player1,y_player2,y_player3,y_player4,y_player5,y_player6=fun_update_gravedad(y_player1,y_player2,y_player3,y_player4,y_player5,y_player6)
+                intensidad_viento = randint(-10,10)
+                print("el viento esta activado: ", viento)
+                print("la intensidad del viento es de: ", intensidad_viento)
 
-            screen.blit(img_left,(screen_width*0.95,screen_height*0.9166))
-            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-            textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
-            screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
-            
-            while True:
-                if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
-                    player2NoBullet=True#el player 2 se quedo sin balas
-                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                    print("checkeo")
-                    if num_jugadores==2 and player1NoBullet==True and player2NoBullet==True :
-                        print("poopoo")
-                        break
-                    if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                        break
-                    if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                        break
-                    if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                        break
-                    if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                        break
-                    auxTurno=auxTurno+1
-                    if auxTurno<num_jugadores:
-                        turno=listaTurnos[auxTurno]
+                screen.blit(img_left,(screen_width*0.95,screen_height*0.9166))
+                screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+                textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
+                screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
+                
+                while True:
+                    if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
+                        player2NoBullet=True#el player 2 se quedo sin balas
+                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                        print("checkeo")
+                        if num_jugadores==2 and player1NoBullet==True and player2NoBullet==True :
+                            print("poopoo")
+                            break
+                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
+                            break
+                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
+                            break
+                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
+                            break
+                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
+                            break
+                        auxTurno=auxTurno+1
+                        if auxTurno<num_jugadores:
+                            turno=listaTurnos[auxTurno]
+                        else:
+                            auxTurno=0
+                            turno=listaTurnos[auxTurno]
+                    if num_bots>=auxSelectBot:
+                        player2_bot=True
+                        auxSelectBot+=1
                     else:
-                        auxTurno=0
-                        turno=listaTurnos[auxTurno]
-                if num_bots>=auxSelectBot:
-                    player2_bot=True
-                    auxSelectBot+=1
+                        player2_bot=False
+                    if num_bots==0:
+                        player2_bot=False
+                    #############BOT de tipo bala#############################
+                                                                            #
+                    if player2_bot==True:#player es un bot                   #
+                        bala=randint(1,3)                                    #
+                    if player2_bot==False:#player no es un bot               #
+                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        bala=SelectBala.textBala()                           #
+                    ##########################################################
+                    if bala==666:  break #para hacer funcionar el boton reset
+                    if 0 < bala105_2 :
+                        if int (bala) == 1:
+                            globala=1; bullet_default2=bullet_105mm; bala105_2-=1; damage=50
+                            break
+                    if  0 < balaPerforante_2 :
+                        if int (bala) == 2:
+                            globala=2; bullet_default2=bullet_perforante; balaPerforante_2-=1; damage=40
+                            break
+                    if  0 < bala90_2:
+                        if int (bala) == 3:
+                            globala=3; bullet_default2=bullet_90mm; bala90_2-=1; damage=30
+                            break
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+                #SE IMORIME TEXTO VELOCIDAD
+            ##############BOT de tipo velocidad###########################################
+                if player2_bot==True:#player es un bot                                      #
+                    temporalvel=randint(1,100)                                              #
+                if player2_bot==False:#player no es un bot                                  #
+                    screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
+                    temporalvel=int(textbox())                                              #
+            ##############################################################################
+                if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+                if temporalvel>numero100:
+                    temporalvel=numero100
+                if temporalvel<-numero100:
+                    temporalvel=-numero100
+
+                player2.setVel(temporalvel)
+
+                #SE BORRA EL TEXTO ANTERIOR 
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+                #Se imprime el texto angulo
+                #############BOT de tipo angulo#########################################
+                if player2_bot==True:#player es un bot                                 #
+                    temporalang=randint(1,180)                                         #     
+                if player2_bot==False:#player no es un bot                             #
+                    screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
+                    temporalang=int(textbox())                                         #                              
+                ########################################################################
+                if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+
+                player2.setAng(temporalang)
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+                textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
+                screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
+
+                bullet2 = Bullet(temporalang,temporalvel,bullet_default2,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+                win=bullet2.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+                #borra texto max atura, vel
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+                #Siguente turno
+                auxTurno=auxTurno+1
+                if auxTurno<num_jugadores:
+                    turno=listaTurnos[auxTurno]
                 else:
-                    player2_bot=False
-                if num_bots==0:
-                    player2_bot=False
-                #############BOT de tipo bala#############################
-                                                                         #
-                if player2_bot==True:#player es un bot                   #
-                    bala=randint(1,3)                                    #
-                if player2_bot==False:#player no es un bot               #
-                    SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
-                    bala=SelectBala.textBala()                           #
-                ##########################################################
-                if bala==666:  break #para hacer funcionar el boton reset
-                if 0 < bala105_2 :
-                    if int (bala) == 1:
-                        globala=1; bullet_default2=bullet_105mm; bala105_2-=1; damage=50
-                        break
-                if  0 < balaPerforante_2 :
-                    if int (bala) == 2:
-                        globala=2; bullet_default2=bullet_perforante; balaPerforante_2-=1; damage=40
-                        break
-                if  0 < bala90_2:
-                    if int (bala) == 3:
-                        globala=3; bullet_default2=bullet_90mm; bala90_2-=1; damage=30
-                        break
-            if bala==666: bala=0; break #para hacer funcionar el boton reset
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-            #SE IMORIME TEXTO VELOCIDAD
-           ##############BOT de tipo velocidad###########################################
-            if player2_bot==True:#player es un bot                                      #
-                temporalvel=randint(1,100)                                              #
-            if player2_bot==False:#player no es un bot                                  #
-                screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
-                temporalvel=int(textbox())                                              #
-           ##############################################################################
-            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
-            if temporalvel>numero100:
-                temporalvel=numero100
-            if temporalvel<-numero100:
-                temporalvel=-numero100
-
-            player2.setVel(temporalvel)
-
-            #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
-            #Se imprime el texto angulo
-            #############BOT de tipo angulo#########################################
-            if player2_bot==True:#player es un bot                                 #
-                temporalang=randint(1,180)                                         #     
-            if player2_bot==False:#player no es un bot                             #
-                screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
-                temporalang=int(textbox())                                         #                              
-            ########################################################################
-            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-
-            player2.setAng(temporalang)
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-
-            textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
-            screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
-
-            bullet2 = Bullet(temporalang,temporalvel,bullet_default2,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
-            win=bullet2.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
-            #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            #Siguente turno
-            auxTurno=auxTurno+1
+                    auxTurno=0
+                    turno=listaTurnos[auxTurno]
+                
+                if win == False:
+                    Master_flag=False
+                    run=False
+                auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+                screen.fill(blue_sky)           #   para ver los daños causados al mapa
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
+        else:
+            auxTurno=auxTurno+1                     #Siguente turno
             if auxTurno<num_jugadores:
                 turno=listaTurnos[auxTurno]
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
-            
-            if win == False:
-                Master_flag=False
-                run=False
-            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
-            screen.fill(blue_sky)           #   para ver los daños causados al mapa
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
     #PLAYER3==================================================================
-        if turno==3:
-            print("Turno Player 3")
-            auxSelectBot2+=1
+        check_dead()
+        if player3.dead == False:
+            if turno==3:
+                print("Turno Player 3")
+                auxSelectBot2+=1
+                y_player1,y_player2,y_player3,y_player4,y_player5,y_player6=fun_update_gravedad(y_player1,y_player2,y_player3,y_player4,y_player5,y_player6)
+                intensidad_viento = randint(-10,10)
+                print("El viento esta activado: ", viento)
+                print("La intensidad del viento es de: ", intensidad_viento)
+                
+                screen.blit(img_Pblue,(screen_width*0.95,screen_height*0.9166))
+                screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+                textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
+                screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
 
-            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1.rect.y=y_player1
-            player1.update(player1)
-            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2.rect.y=y_player2
-            player2.update(player2)
-            if num_jugadores >=3 :
-                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3.rect.y=y_player3
-                player3.update(player3)
-            if num_jugadores >=4 :
-                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4.rect.y=y_player4
-                player4.update(player4)
-            if num_jugadores >=5 :
-                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5.rect.y=y_player5
-                player5.update(player5)
-            if num_jugadores >=6 :
-                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6.rect.y=y_player6
-                player6.update(player6)
-            intensidad_viento = randint(-10,10)
-            print("El viento esta activado: ", viento)
-            print("La intensidad del viento es de: ", intensidad_viento)
-            
-            screen.blit(img_Pblue,(screen_width*0.95,screen_height*0.9166))
-            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-            textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
-            screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
-
-            while True:
-                if  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3:
-                    player3NoBullet=True#el player 3 se quedo sin balas
-                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                    print("checkeo")
-                    if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                        break
-                    if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                        break
-                    if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                        break
-                    if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                        break
-                    if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                        break
-                    auxTurno=auxTurno+1
-                    if auxTurno<num_jugadores:
-                        turno=listaTurnos[auxTurno]
+                while True:
+                    if  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3:
+                        player3NoBullet=True#el player 3 se quedo sin balas
+                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                        print("checkeo")
+                        if num_jugadores==2 and player1NoBullet and player2NoBullet :
+                            break
+                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
+                            break
+                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
+                            break
+                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
+                            break
+                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
+                            break
+                        auxTurno=auxTurno+1
+                        if auxTurno<num_jugadores:
+                            turno=listaTurnos[auxTurno]
+                        else:
+                            auxTurno=0
+                            turno=listaTurnos[auxTurno]
+                    if num_bots>=auxSelectBot:
+                        player3_bot=True
+                        auxSelectBot+=1
                     else:
-                        auxTurno=0
-                        turno=listaTurnos[auxTurno]
-                if num_bots>=auxSelectBot:
-                    player3_bot=True
-                    auxSelectBot+=1
+                        player3_bot=False
+                    if num_bots==0:
+                        player3_bot=False
+                    #############BOT de tipo bala#############################
+                                                                            #
+                    if player3_bot==True:#player es un bot                   #
+                        bala=randint(1,3)                                    #
+                    if player3_bot==False:#player no es un bot               #
+                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        bala=SelectBala.textBala()                           #
+                    ##########################################################
+                    if bala==666: break #para hacer funcionar el boton reset
+                    if 0 < bala105_3 :
+                        if int (bala) == 1:
+                            globala=1; bullet_default3=bullet_105mm; bala105_3-=1; damage=50
+                            break
+                    if  0 < balaPerforante_3 :
+                        if int (bala) == 2:
+                            globala=2; bullet_default3=bullet_perforante; balaPerforante_3-=1; damage=40;
+                            break
+                    if  0 < bala90_3:
+                        if int (bala) == 3:
+                            globala=3; bullet_default3=bullet_90mm; bala90_3-=1; damage=30
+                            break
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+                #SE IMORIME TEXTO VELOCIDAD
+                ##############BOT de tipo velocidad###########################################
+                if player3_bot==True:#player es un bot                                      #
+                    temporalvel=randint(1,100)                                              #
+                if player3_bot==False:#player no es un bot                                  #
+                    screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
+                    temporalvel=int(textbox())                                              #
+            ##############################################################################
+                if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+                if temporalvel>numero100:
+                    temporalvel=numero100
+                if temporalvel<-numero100:
+                    temporalvel=-numero100
+                player3.setVel(temporalvel)
+                #SE BORRA EL TEXTO ANTERIOR 
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+                #Se imprime el texto angulo
+                #############BOT de tipo angulo#########################################
+                if player3_bot==True:#player es un bot                                 #
+                    temporalang=randint(1,180)                                         #     
+                if player3_bot==False:#player no es un bot                             #
+                    screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
+                    temporalang=int(textbox())                                         #                              
+                ########################################################################
+                if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+                player3.setAng(temporalang)
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+                textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
+                screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
+
+                bullet3 = Bullet(temporalang,temporalvel,bullet_default3,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+                win=bullet3.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player3,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+                #borra texto max atura, vel
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+                #   para ver los daños causados al mapa
+                #Siguente turno
+                auxTurno=auxTurno+1
+                if auxTurno<num_jugadores:
+                    turno=listaTurnos[auxTurno]
                 else:
-                    player3_bot=False
-                if num_bots==0:
-                    player3_bot=False
-                #############BOT de tipo bala#############################
-                                                                         #
-                if player3_bot==True:#player es un bot                   #
-                    bala=randint(1,3)                                    #
-                if player3_bot==False:#player no es un bot               #
-                    SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
-                    bala=SelectBala.textBala()                           #
-                ##########################################################
-                if bala==666: break #para hacer funcionar el boton reset
-                if 0 < bala105_3 :
-                    if int (bala) == 1:
-                        globala=1; bullet_default3=bullet_105mm; bala105_3-=1; damage=50
-                        break
-                if  0 < balaPerforante_3 :
-                    if int (bala) == 2:
-                        globala=2; bullet_default3=bullet_perforante; balaPerforante_3-=1; damage=40;
-                        break
-                if  0 < bala90_3:
-                    if int (bala) == 3:
-                        globala=3; bullet_default3=bullet_90mm; bala90_3-=1; damage=30
-                        break
-            if bala==666: bala=0; break #para hacer funcionar el boton reset
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-            #SE IMORIME TEXTO VELOCIDAD
-            ##############BOT de tipo velocidad###########################################
-            if player3_bot==True:#player es un bot                                      #
-                temporalvel=randint(1,100)                                              #
-            if player3_bot==False:#player no es un bot                                  #
-                screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
-                temporalvel=int(textbox())                                              #
-           ##############################################################################
-            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
-            if temporalvel>numero100:
-                temporalvel=numero100
-            if temporalvel<-numero100:
-                temporalvel=-numero100
-            player3.setVel(temporalvel)
-            #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
-            #Se imprime el texto angulo
-            #############BOT de tipo angulo#########################################
-            if player3_bot==True:#player es un bot                                 #
-                temporalang=randint(1,180)                                         #     
-            if player3_bot==False:#player no es un bot                             #
-                screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
-                temporalang=int(textbox())                                         #                              
-            ########################################################################
-            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-            player3.setAng(temporalang)
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-
-            textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
-            screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
-
-            bullet3 = Bullet(temporalang,temporalvel,bullet_default3,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
-            win=bullet3.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player3,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
-            #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            #   para ver los daños causados al mapa
-            #Siguente turno
+                    auxTurno=0
+                    turno=listaTurnos[auxTurno]
+                
+                if win == False:
+                    Master_flag=False
+                    run=False  
+                auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+                screen.fill(blue_sky)           #   para ver los daños causados al mapa
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
+        else:
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
                 turno=listaTurnos[auxTurno]
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
-            
-            if win == False:
-                Master_flag=False
-                run=False  
-            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
-            screen.fill(blue_sky)           #   para ver los daños causados al mapa
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
     #PLAYER 4===================================================================================
-        if turno==4:
-            print("Turno Player 4")
-            auxSelectBot2+=1
-
-            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1.rect.y=y_player1
-            player1.update(player1)
-            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2.rect.y=y_player2
-            player2.update(player2)
-            if num_jugadores >=3 :
-                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3.rect.y=y_player3
-                player3.update(player3)
-            if num_jugadores >=4 :
-                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4.rect.y=y_player4
-                player4.update(player4)
-            if num_jugadores >=5 :
-                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5.rect.y=y_player5
-                player5.update(player5)
-            if num_jugadores >=6 :
-                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6.rect.y=y_player6
-                player6.update(player6)
-            intensidad_viento = randint(-10,10)
-            print("El viento esta activado: ", viento)
-            print("La intensidad del viento es de: ", intensidad_viento)
-            
-            screen.blit(img_Ppurple,(screen_width*0.95,screen_height*0.9166))
-            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-            textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
-            screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
-            while True:
-                if  0 == bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4:
-                    player4NoBullet=True #EL PLAYER 4 SE QUEDO SIN BALAS
-                    print("checkeo")
-                    if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                        break
-                    if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                        break
-                    if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                        break
-                    if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                        break
-                    if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                        break
-                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                    auxTurno=auxTurno+1
-                    if auxTurno<num_jugadores:
-                        turno=listaTurnos[auxTurno]
+        check_dead()
+        if player4.dead == False:
+            if turno==4:
+                print("Turno Player 4")
+                auxSelectBot2+=1
+                y_player1,y_player2,y_player3,y_player4,y_player5,y_player6=fun_update_gravedad(y_player1,y_player2,y_player3,y_player4,y_player5,y_player6)
+                intensidad_viento = randint(-10,10)
+                print("El viento esta activado: ", viento)
+                print("La intensidad del viento es de: ", intensidad_viento)
+                
+                screen.blit(img_Ppurple,(screen_width*0.95,screen_height*0.9166))
+                screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+                textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
+                screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
+                while True:
+                    if  0 == bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4:
+                        player4NoBullet=True #EL PLAYER 4 SE QUEDO SIN BALAS
+                        print("checkeo")
+                        if num_jugadores==2 and player1NoBullet and player2NoBullet :
+                            break
+                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
+                            break
+                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
+                            break
+                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
+                            break
+                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
+                            break
+                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                        auxTurno=auxTurno+1
+                        if auxTurno<num_jugadores:
+                            turno=listaTurnos[auxTurno]
+                        else:
+                            auxTurno=0
+                            turno=listaTurnos[auxTurno]
+                    if num_bots>=auxSelectBot:
+                        player4_bot=True
+                        auxSelectBot+=1
                     else:
-                        auxTurno=0
-                        turno=listaTurnos[auxTurno]
-                if num_bots>=auxSelectBot:
-                    player4_bot=True
-                    auxSelectBot+=1
+                        player4_bot=False
+                    if num_bots==0:
+                        player4_bot=False
+                    #############BOT de tipo bala#############################
+                                                                            #
+                    if player4_bot==True:#player es un bot                   #
+                        bala=randint(1,3)                                    #
+                    if player4_bot==False:#player no es un bot               #
+                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        bala=SelectBala.textBala()                           #
+                    ##########################################################
+                    if bala==666:  break #para hacer funcionar el boton reset
+                    if 0 < bala105_4 :
+                        if int (bala) == 1:
+                            globala=1; bullet_default4=bullet_105mm; bala105_4-=1; damage=50
+                            break
+                    if  0 < balaPerforante_4 :
+                        if int (bala) == 2:
+                            globala=2; bullet_default4=bullet_perforante; balaPerforante_4-=1; damage=40;
+                            break
+                    if  0 < bala90_4:
+                        if int (bala) == 3:
+                            globala=3; bullet_default4=bullet_90mm; bala90_4-=1; damage=30
+                            break
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+                #SE IMORIME TEXTO VELOCIDAD
+                ##############BOT de tipo velocidad###########################################
+                if player4_bot==True:#player es un bot                                      #
+                    temporalvel=randint(1,100)                                              #
+                if player4_bot==False:#player no es un bot                                  #
+                    screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
+                    temporalvel=int(textbox())                                              #
+            ##############################################################################
+                if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+                if temporalvel>numero100:
+                    temporalvel=numero100
+                if temporalvel<-numero100:
+                    temporalvel=-numero100
+                player4.setVel(temporalvel)
+                #SE BORRA EL TEXTO ANTERIOR 
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+                #Se imprime el texto angulo
+                #############BOT de tipo angulo#########################################
+                if player4_bot==True:#player es un bot                                 #
+                    temporalang=randint(1,180)                                         #     
+                if player4_bot==False:#player no es un bot                             #
+                    screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
+                    temporalang=int(textbox())                                         #                              
+                ########################################################################
+                if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+                player4.setAng(temporalang)
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+                textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
+                screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
+
+                bullet4 = Bullet(temporalang,temporalvel,bullet_default4,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+                win=bullet4.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player4,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+                #borra texto max atura, vel
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+                #Siguente turno
+                auxTurno=auxTurno+1
+                if auxTurno<num_jugadores:
+                    turno=listaTurnos[auxTurno]
                 else:
-                    player4_bot=False
-                if num_bots==0:
-                    player4_bot=False
-                #############BOT de tipo bala#############################
-                                                                         #
-                if player4_bot==True:#player es un bot                   #
-                    bala=randint(1,3)                                    #
-                if player4_bot==False:#player no es un bot               #
-                    SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
-                    bala=SelectBala.textBala()                           #
-                ##########################################################
-                if bala==666:  break #para hacer funcionar el boton reset
-                if 0 < bala105_4 :
-                    if int (bala) == 1:
-                        globala=1; bullet_default4=bullet_105mm; bala105_4-=1; damage=50
-                        break
-                if  0 < balaPerforante_4 :
-                    if int (bala) == 2:
-                        globala=2; bullet_default4=bullet_perforante; balaPerforante_4-=1; damage=40;
-                        break
-                if  0 < bala90_4:
-                    if int (bala) == 3:
-                        globala=3; bullet_default4=bullet_90mm; bala90_4-=1; damage=30
-                        break
-            if bala==666: bala=0; break #para hacer funcionar el boton reset
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-            #SE IMORIME TEXTO VELOCIDAD
-            ##############BOT de tipo velocidad###########################################
-            if player4_bot==True:#player es un bot                                      #
-                temporalvel=randint(1,100)                                              #
-            if player4_bot==False:#player no es un bot                                  #
-                screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
-                temporalvel=int(textbox())                                              #
-           ##############################################################################
-            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
-            if temporalvel>numero100:
-                temporalvel=numero100
-            if temporalvel<-numero100:
-                temporalvel=-numero100
-            player4.setVel(temporalvel)
-            #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
-            #Se imprime el texto angulo
-            #############BOT de tipo angulo#########################################
-            if player4_bot==True:#player es un bot                                 #
-                temporalang=randint(1,180)                                         #     
-            if player4_bot==False:#player no es un bot                             #
-                screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
-                temporalang=int(textbox())                                         #                              
-            ########################################################################
-            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-            player4.setAng(temporalang)
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-
-            textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
-            screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
-
-            bullet4 = Bullet(temporalang,temporalvel,bullet_default4,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
-            win=bullet4.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player4,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
-            #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            #Siguente turno
-            auxTurno=auxTurno+1
+                    auxTurno=0
+                    turno=listaTurnos[auxTurno]
+                
+                if win == False:
+                    Master_flag=False
+                    run=False  
+                auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+                screen.fill(blue_sky)           #   para ver los daños causados al mapa
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
+        else:
+            auxTurno=auxTurno+1         #Siguente turno
             if auxTurno<num_jugadores:
                 turno=listaTurnos[auxTurno]
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
-            
-            if win == False:
-                Master_flag=False
-                run=False  
-            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
-            screen.fill(blue_sky)           #   para ver los daños causados al mapa
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
 #PLAYER 5====================================================================================
-        if turno==5:
-            print("Turno Player 5")
-            auxSelectBot2+=1
-
-            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1.rect.y=y_player1
-            player1.update(player1)
-            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2.rect.y=y_player2
-            player2.update(player2)
-            if num_jugadores >=3 :
-                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3.rect.y=y_player3
-                player3.update(player3)
-            if num_jugadores >=4 :
-                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4.rect.y=y_player4
-                player4.update(player4)
-            if num_jugadores >=5 :
-                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5.rect.y=y_player5
-                player5.update(player5)
-            if num_jugadores >=6 :
-                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6.rect.y=y_player6
-                player6.update(player6)
-            intensidad_viento = randint(-10,10)
-            print("El viento esta activado: ", viento)
-            print("La intensidad del viento es de: ", intensidad_viento)
-            
-            screen.blit(img_Pwhite,(screen_width*0.95,screen_height*0.9166))
-            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-            textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
-            screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
-            while True:
-                if 0 == bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5:
-                    player5NoBullet=True#el player 5 se quedo sin balas
-                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                    print("checkeo")
-                    if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                        break
-                    if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                        break
-                    if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                        break
-                    if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                        break
-                    if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                        break
-                    auxTurno=auxTurno+1
-                    if auxTurno<num_jugadores:
-                        turno=listaTurnos[auxTurno]
+        check_dead()
+        if player5.dead == False:
+            if turno==5:
+                print("Turno Player 5")
+                auxSelectBot2+=1
+                y_player1,y_player2,y_player3,y_player4,y_player5,y_player6=fun_update_gravedad(y_player1,y_player2,y_player3,y_player4,y_player5,y_player6)
+                intensidad_viento = randint(-10,10)
+                print("El viento esta activado: ", viento)
+                print("La intensidad del viento es de: ", intensidad_viento)
+                
+                screen.blit(img_Pwhite,(screen_width*0.95,screen_height*0.9166))
+                screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+                textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
+                screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
+                while True:
+                    if 0 == bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5:
+                        player5NoBullet=True#el player 5 se quedo sin balas
+                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                        print("checkeo")
+                        if num_jugadores==2 and player1NoBullet and player2NoBullet :
+                            break
+                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
+                            break
+                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
+                            break
+                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
+                            break
+                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
+                            break
+                        auxTurno=auxTurno+1
+                        if auxTurno<num_jugadores:
+                            turno=listaTurnos[auxTurno]
+                        else:
+                            auxTurno=0
+                            turno=listaTurnos[auxTurno]
+                    if num_bots>=auxSelectBot:
+                        player5_bot=True
+                        auxSelectBot+=1
                     else:
-                        auxTurno=0
-                        turno=listaTurnos[auxTurno]
-                if num_bots>=auxSelectBot:
-                    player5_bot=True
-                    auxSelectBot+=1
+                        player5_bot=False
+                    if num_bots==0:
+                        player5_bot=False
+                    #############BOT de tipo bala#############################
+                                                                            #
+                    if player5_bot==True:#player es un bot                   #
+                        bala=randint(1,3)                                    #
+                    if player5_bot==False:#player no es un bot               #
+                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        bala=SelectBala.textBala()                           #
+                    ##########################################################
+                    if bala==666:  break #para hacer funcionar el boton reset
+                    if 0 < bala105_5 :
+                        if int (bala) == 1:
+                            globala=1; bullet_default5=bullet_105mm; bala105_5-=1; damage=50
+                            break
+                    if  0 < balaPerforante_5 :
+                        if int (bala) == 2:
+                            globala=2; bullet_default5=bullet_perforante; balaPerforante_5-=1; damage=40;
+                            break
+                    if  0 < bala90_5:
+                        if int (bala) == 3:
+                            globala=3; bullet_default5=bullet_90mm; bala90_5-=1; damage=30
+                            break
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+                #SE IMORIME TEXTO VELOCIDAD
+                ##############BOT de tipo velocidad###########################################
+                if player5_bot==True:#player es un bot                                      #
+                    temporalvel=randint(1,100)                                              #
+                if player5_bot==False:#player no es un bot                                  #
+                    screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
+                    temporalvel=int(textbox())                                              #
+            ##############################################################################
+                if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+                if temporalvel>numero100:
+                    temporalvel=numero100
+                if temporalvel<-numero100:
+                    temporalvel=-numero100
+                player5.setVel(temporalvel)
+                #SE BORRA EL TEXTO ANTERIOR 
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+                #Se imprime el texto angulo
+                #############BOT de tipo angulo#########################################
+                if player5_bot==True:#player es un bot                                 #
+                    temporalang=randint(1,180)                                         #     
+                if player5_bot==False:#player no es un bot                             #
+                    screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
+                    temporalang=int(textbox())                                         #                              
+                ########################################################################
+                if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+                player5.setAng(temporalang)
+                #SE BORRA EL TEXTO ANTERIOR 
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+                textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
+                screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
+
+                bullet5 = Bullet(temporalang,temporalvel,bullet_default5,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+                win=bullet5.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player5,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+                #borra texto max atura, vel
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+                
+                #Siguente turno
+                auxTurno=auxTurno+1
+                if auxTurno<num_jugadores:
+                    turno=listaTurnos[auxTurno]
                 else:
-                    player5_bot=False
-                if num_bots==0:
-                    player5_bot=False
-                #############BOT de tipo bala#############################
-                                                                         #
-                if player5_bot==True:#player es un bot                   #
-                    bala=randint(1,3)                                    #
-                if player5_bot==False:#player no es un bot               #
-                    SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
-                    bala=SelectBala.textBala()                           #
-                ##########################################################
-                if bala==666:  break #para hacer funcionar el boton reset
-                if 0 < bala105_5 :
-                    if int (bala) == 1:
-                        globala=1; bullet_default5=bullet_105mm; bala105_5-=1; damage=50
-                        break
-                if  0 < balaPerforante_5 :
-                    if int (bala) == 2:
-                        globala=2; bullet_default5=bullet_perforante; balaPerforante_5-=1; damage=40;
-                        break
-                if  0 < bala90_5:
-                    if int (bala) == 3:
-                        globala=3; bullet_default5=bullet_90mm; bala90_5-=1; damage=30
-                        break
-            if bala==666: bala=0; break #para hacer funcionar el boton reset
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-            #SE IMORIME TEXTO VELOCIDAD
-            ##############BOT de tipo velocidad###########################################
-            if player5_bot==True:#player es un bot                                      #
-                temporalvel=randint(1,100)                                              #
-            if player5_bot==False:#player no es un bot                                  #
-                screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
-                temporalvel=int(textbox())                                              #
-           ##############################################################################
-            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
-            if temporalvel>numero100:
-                temporalvel=numero100
-            if temporalvel<-numero100:
-                temporalvel=-numero100
-            player5.setVel(temporalvel)
-            #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
-            #Se imprime el texto angulo
-            #############BOT de tipo angulo#########################################
-            if player5_bot==True:#player es un bot                                 #
-                temporalang=randint(1,180)                                         #     
-            if player5_bot==False:#player no es un bot                             #
-                screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
-                temporalang=int(textbox())                                         #                              
-            ########################################################################
-            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-            player5.setAng(temporalang)
-            #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-
-            textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
-            screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
-
-            bullet5 = Bullet(temporalang,temporalvel,bullet_default5,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
-            win=bullet5.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player5,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
-            #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            
-            #Siguente turno
-            auxTurno=auxTurno+1
+                    auxTurno=0
+                    turno=listaTurnos[auxTurno]
+                
+                if win == False:
+                    Master_flag=False
+                    run=False  
+                auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+                screen.fill(blue_sky)           #   para ver los daños causados al mapa
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
+        else:
+            auxTurno=auxTurno+1             #Siguente turno
             if auxTurno<num_jugadores:
                 turno=listaTurnos[auxTurno]
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
-            
-            if win == False:
-                Master_flag=False
-                run=False  
-            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
-            screen.fill(blue_sky)           #   para ver los daños causados al mapa
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
 #===========================================================================================
-        if turno==6:
-            print("Turno Player 6")
-            auxSelectBot2+=1
-            
-            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1.rect.y=y_player1
-            player1.update(player1)
-            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2.rect.y=y_player2
-            player2.update(player2)
-            if num_jugadores >=3 :
-                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3.rect.y=y_player3
-                player3.update(player3)
-            if num_jugadores >=4 :
-                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4.rect.y=y_player4
-                player4.update(player4)
-            if num_jugadores >=5 :
-                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5.rect.y=y_player5
-                player5.update(player5)
-            if num_jugadores >=6 :
-                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6.rect.y=y_player6
-                player6.update(player6)
-            intensidad_viento = randint(-10,10)
-            print("El viento esta activado: ", viento)
-            print("La intensidad del viento es de: ", intensidad_viento)
-            
-            screen.blit(img_Pyellow,(screen_width*0.95,screen_height*0.9166))
-            screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-            textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
-            screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
-            while True:
-                if  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
-                    player6NoBullet=True#el player 6 se quedo sin balas
-                    #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                    print("checkeo")
-                    if num_jugadores==2 and player1NoBullet==True and player2NoBullet==True :
-                        break
-                    if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                        break
-                    if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                        break
-                    if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                        break
-                    if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                        break
-                    auxTurno=auxTurno+1
-                    if auxTurno<num_jugadores:
-                        turno=listaTurnos[auxTurno]
+        check_dead()
+        if player6.dead == False:
+            if turno==6:
+                print("Turno Player 6")
+                auxSelectBot2+=1
+                y_player1,y_player2,y_player3,y_player4,y_player5,y_player6=fun_update_gravedad(y_player1,y_player2,y_player3,y_player4,y_player5,y_player6)
+                intensidad_viento = randint(-10,10)
+                print("El viento esta activado: ", viento)
+                print("La intensidad del viento es de: ", intensidad_viento)
+                
+                screen.blit(img_Pyellow,(screen_width*0.95,screen_height*0.9166))
+                screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+                textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
+                screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
+                while True:
+                    if  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
+                        player6NoBullet=True#el player 6 se quedo sin balas
+                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                        print("checkeo")
+                        if num_jugadores==2 and player1NoBullet==True and player2NoBullet==True :
+                            break
+                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
+                            break
+                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
+                            break
+                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
+                            break
+                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
+                            break
+                        auxTurno=auxTurno+1
+                        if auxTurno<num_jugadores:
+                            turno=listaTurnos[auxTurno]
+                        else:
+                            auxTurno=0
+                            turno=listaTurnos[auxTurno]
+                            
+                    if num_bots>=auxSelectBot:
+                        player6_bot=True
+                        auxSelectBot+=1
                     else:
-                        auxTurno=0
-                        turno=listaTurnos[auxTurno]
+                        player6_bot=False
+                    if num_bots==0:
+                        player6_bot=False
                         
-                if num_bots>=auxSelectBot:
-                    player6_bot=True
-                    auxSelectBot+=1
+                    #############BOT de tipo bala#############################
+                                                                            #
+                    if player6_bot==True:#player es un bot                   #
+                        bala=randint(1,3)                                    #
+                    if player6_bot==False:#player no es un bot               #
+                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        bala=SelectBala.textBala()                           #
+                    ##########################################################
+                    if bala==666:  break #para hacer funcionar el boton reset
+                    if 0 < bala105_6 :
+                        if int (bala) == 1:
+                            globala=1; bullet_default6=bullet_105mm; bala105_6-=1; damage=50
+                            break
+                    if  0 < balaPerforante_6 :
+                        if int (bala) == 2:
+                            globala=2; bullet_default6=bullet_perforante; balaPerforante_6-=1; damage=40;
+                            break
+                    if  0 < bala90_6:
+                        if int (bala) == 3:
+                            globala=3; bullet_default6=bullet_90mm; bala90_6-=1; damage=30
+                            break
+                if bala==666: bala=0; break #para hacer funcionar el boton reset
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+                #SE IMORIME TEXTO VELOCIDAD
+                ##############BOT de tipo velocidad###########################################
+                if player6_bot==True:#player es un bot                                      #
+                    temporalvel=randint(1,100)                                              #
+                if player6_bot==False:#player no es un bot                                  #
+                    screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
+                    temporalvel=int(textbox())                                              #
+            ##############################################################################
+                if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
+                if temporalvel>numero100:
+                    temporalvel=numero100
+                if temporalvel<-numero100:
+                    temporalvel=-numero100
+                player6.setVel(temporalvel)
+                #SE BORRA EL TEXTO ANTERIOR 
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
+                #Se imprime el texto angulo
+                #############BOT de tipo angulo#########################################
+                if player6_bot==True:#player es un bot                                 #
+                    temporalang=randint(1,180)                                         #     
+                if player6_bot==False:#player no es un bot                             #
+                    screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
+                    temporalang=int(textbox())                                         #                              
+                ########################################################################
+                if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
+                player6.setAng(temporalang)
+                #SE BORRA EL TEXTO ANTERIOR 
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
+
+                textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
+                screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
+
+                bullet6 = Bullet(temporalang,temporalvel,bullet_default6,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
+                win=bullet6.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player6,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
+                #borra texto max atura, vel
+                pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
+                
+                #Siguente turno
+                auxTurno=auxTurno+1
+                if auxTurno<num_jugadores:
+                    turno=listaTurnos[auxTurno]
                 else:
-                    player6_bot=False
-                if num_bots==0:
-                    player6_bot=False
-                    
-                #############BOT de tipo bala#############################
-                                                                         #
-                if player6_bot==True:#player es un bot                   #
-                    bala=randint(1,3)                                    #
-                if player6_bot==False:#player no es un bot               #
-                    SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
-                    bala=SelectBala.textBala()                           #
-                ##########################################################
-                if bala==666:  break #para hacer funcionar el boton reset
-                if 0 < bala105_6 :
-                    if int (bala) == 1:
-                        globala=1; bullet_default6=bullet_105mm; bala105_6-=1; damage=50
-                        break
-                if  0 < balaPerforante_6 :
-                    if int (bala) == 2:
-                        globala=2; bullet_default6=bullet_perforante; balaPerforante_6-=1; damage=40;
-                        break
-                if  0 < bala90_6:
-                    if int (bala) == 3:
-                        globala=3; bullet_default6=bullet_90mm; bala90_6-=1; damage=30
-                        break
-            if bala==666: bala=0; break #para hacer funcionar el boton reset
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-            #SE IMORIME TEXTO VELOCIDAD
-            ##############BOT de tipo velocidad###########################################
-            if player6_bot==True:#player es un bot                                      #
-                temporalvel=randint(1,100)                                              #
-            if player6_bot==False:#player no es un bot                                  #
-                screen.blit(textvel,(screen_width*0.818, screen_height*0.0083))         #
-                temporalvel=int(textbox())                                              #
-           ##############################################################################
-            if temporalvel==666: temporalvel=0; break #para hacer funcionar el boton reset
-            if temporalvel>numero100:
-                temporalvel=numero100
-            if temporalvel<-numero100:
-                temporalvel=-numero100
-            player6.setVel(temporalvel)
-            #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.8125, screen_height*0.0083, 200, 60])
-            #Se imprime el texto angulo
-            #############BOT de tipo angulo#########################################
-            if player6_bot==True:#player es un bot                                 #
-                temporalang=randint(1,180)                                         #     
-            if player6_bot==False:#player no es un bot                             #
-                screen.blit(textang,(screen_width*0.81875, screen_height*0.0083))  #
-                temporalang=int(textbox())                                         #                              
-            ########################################################################
-            if temporalang==666 : temporalang=0; break     #para hacer funcionar el boton resetbreak    
-            player6.setAng(temporalang)
-            #SE BORRA EL TEXTO ANTERIOR 
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
-
-            textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
-            screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
-
-            bullet6 = Bullet(temporalang,temporalvel,bullet_default6,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
-            win=bullet6.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player6,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
-            #borra texto max atura, vel
-            pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            
-            #Siguente turno
+                    auxTurno=0
+                    turno=listaTurnos[auxTurno]
+                
+                if win == False:
+                    Master_flag=False
+                    run=False  
+                auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+                screen.fill(blue_sky)           #   para ver los daños causados al mapa
+                world = World(world_data)
+                screen.blit(fondo, (0, 0))
+                world.draw()
+        else:
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
                 turno=listaTurnos[auxTurno]
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
-            
-            if win == False:
-                Master_flag=False
-                run=False  
-            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
-            screen.fill(blue_sky)           #   para ver los daños causados al mapa
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
 pygame.quit()
 sys.exit()
 
