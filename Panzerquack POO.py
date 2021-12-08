@@ -22,12 +22,12 @@ ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
 #numero players--------------------------------------------
-num_jugadores=2
-num_bots=0
+num_jugadores=6
+num_bots=6
 #Globales Numero De Balas---------------------------------
-num_105mm=1               #Numero 10 por la definicion por defecto
-num_perforante=0
-num_60mm=0
+num_105mm=10               #Numero 10 por la definicion por defecto
+num_perforante=10
+num_60mm=10
 #Globales Efectos de Entorno---------------------------------
 Ggravedad=1
 Gviento=1
@@ -1134,6 +1134,83 @@ def split_list(arreglo,num_players):
     for i in range(0,len(arreglo),num_players):
         yield arreglo[i:i+num_players]
 
+def fun_selectbot(auxSelectBot,auxSelectBot2):
+    print("a:",auxSelectBot2)
+    if num_jugadores==2:                    #Se condicionan variables para repetir funcionalidad de bots
+        if auxSelectBot2>=2: 
+            auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+            auxSelectBot2=0
+    if num_jugadores==3:                     #Se condicionan variables para repetir funcionalidad de bots
+        if num_bots ==1:                   
+            if auxSelectBot2>2:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if auxSelectBot2>=3: 
+            auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+            auxSelectBot2=0 
+    if num_jugadores==4:                     #Se condicionan variables para repetir funcionalidad de bots
+        if num_bots ==1:                   
+            if auxSelectBot2>3:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==2:                   
+            if auxSelectBot2>3:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==3:                   
+            if auxSelectBot2>4:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if auxSelectBot2>=4: 
+            auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+            auxSelectBot2=0 
+    if num_jugadores==5:                     #Se condicionan variables para repetir funcionalidad de bots
+        if num_bots ==1:                   
+            if auxSelectBot2>4:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==2:                   
+            if auxSelectBot2>4:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==3:                   
+            if auxSelectBot2>5:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==4:                   
+            if auxSelectBot2>5:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if auxSelectBot2>=5: 
+            auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+            auxSelectBot2=0 
+    if num_jugadores==6:                     #Se condicionan variables para repetir funcionalidad de bots
+        if num_bots ==1:                   
+            if auxSelectBot2>5:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==2:                   
+            if auxSelectBot2>5:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==3:                   
+            if auxSelectBot2>6:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==4:                   
+            if auxSelectBot2>6:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if num_bots ==5:                   
+            if auxSelectBot2>6:         #Aca utilisamos la segunda variable para saber cuando sera el turno del bot
+                auxSelectBot=1
+                auxSelectBot2=0
+        if auxSelectBot2>=6: 
+            auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+            auxSelectBot2=0 
+    return auxSelectBot,auxSelectBot2
+
+
 g = Game()
 
 while g.running:
@@ -1215,9 +1292,6 @@ while Master_flag==True:
     posiciones_jugadores= list(split_list(arreglo_aux,promedio))
     #print("posiciones para cada jugador: ",posiciones_jugadores)
     
-    pygame.display.update()
-    screen.blit(fondo, (0, 0))
-    world.draw()
     # draw_grid()
     restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
     exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
@@ -1298,7 +1372,8 @@ while Master_flag==True:
     shuffle(listaTurnos)#aleatorizar lista
     #print(listaTurnos)#imprimir lista
     turno=listaTurnos[auxTurno]#ingresar turno 1
-    auxSelectBot=num_bots
+    auxSelectBot=1
+    auxSelectBot2=0
     
     if Ggravedad==1:     #Condicion para saber si esta activada la gravedad
         graveDAD = True
@@ -1312,31 +1387,43 @@ while Master_flag==True:
     print("la gravedad esta activada: ",graveDAD) #si no esta activada la gravedad por defecto es 6
     print("la intensidad de la gravedad es de: ",intensidad_gravedad)
     while run:
+        #print(auxSelectBot)
         clock.tick(30)
         bala=""
-        if num_jugadores==2:                    #Se condicionan variables para repetir funcionalidad de bots
-            if auxSelectBot==2: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
-        if num_jugadores==3:                    #Se condicionan variables para repetir funcionalidad de bots
-            if auxSelectBot==3: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
-        if num_jugadores==4:                     #Se condicionan variables para repetir funcionalidad de bots
-            if auxSelectBot==4: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
-        if num_jugadores==5:                     #Se condicionan variables para repetir funcionalidad de bots
-            if auxSelectBot==5: auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
-        if num_jugadores==6:                     #Se condicionan variables para repetir funcionalidad de bots
-            if auxSelectBot==6: auxSelectBot=0  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
+
+        #auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+
+        screen.fill(blue_sky)           #   para ver los daños causados al mapa
+        world = World(world_data)
+        screen.blit(fondo, (0, 0))
+        world.draw()
     #PLAYER 1===================================================================================================================                                                                    
         if turno == 1:
             print("Turno Player 1")
+            auxSelectBot2+=1
+
+            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
+            player1 = Player(x_player1,y_player1, img_right)
             player1.update(player1)
-            player2.update(player2) 
+            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
+            player2 = Player(x_player2,y_player2, img_left)
+            player2.update(player2)
             if num_jugadores >=3 :
+                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
+                player3 = Player(x_player3,y_player3, img_Pblue)
                 player3.update(player3)
-                if num_jugadores >=4 :
-                    player4.update(player4)
-                    if num_jugadores >=5 :
-                        player5.update(player5)
-                        if num_jugadores >=6 :
-                            player6.update(player6)
+            if num_jugadores >=4 :
+                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
+                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.update(player4)
+            if num_jugadores >=5 :
+                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
+                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.update(player5)
+            if num_jugadores >=6 :
+                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
+                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("el viento esta activado: ", viento)
             print("la intensidad del viento es de: ", intensidad_viento)
@@ -1348,9 +1435,9 @@ while Master_flag==True:
             while True:
                 if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
                     player1NoBullet=True#el player 1 se quedo sin balas
-                    print("checkeo")
+                    #print("checkeo")
                     if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                        print("poopoo")
+                        #print("poopoo")
                         break
                     if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
                         break
@@ -1368,7 +1455,7 @@ while Master_flag==True:
                         auxTurno=0
                         turno=listaTurnos[auxTurno]
 
-                if num_bots>auxSelectBot:
+                if num_bots>=auxSelectBot:
                     player1_bot=True
                     auxSelectBot+=1
                     #print(auxSelectBot)
@@ -1435,16 +1522,6 @@ while Master_flag==True:
             win=bullet1.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player1,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-
-            #   para ver los daños causados al mapa
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            #   para que funcione la gravedad hacia los tankes
-            y_player1=gravedad(x_player1,y_player1,world_data,player1)
-            player1 = Player(x_player1,y_player1, img_right)
-            player1.update(player1)
             #Siguente turno
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
@@ -1456,19 +1533,38 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
+
+            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+            screen.fill(blue_sky)           #   para ver los daños causados al mapa
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
     #PLAYER 2====================================================================================================================
         if turno == 2:
             print("Turno Player 2")
+            auxSelectBot2+=1
+            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
+            player1 = Player(x_player1,y_player1, img_right)
             player1.update(player1)
-            player2.update(player2) 
+            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
+            player2 = Player(x_player2,y_player2, img_left)
+            player2.update(player2)
             if num_jugadores >=3 :
+                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
+                player3 = Player(x_player3,y_player3, img_Pblue)
                 player3.update(player3)
-                if num_jugadores >=4 :
-                    player4.update(player4)
-                    if num_jugadores >=5 :
-                        player5.update(player5)
-                        if num_jugadores >=6 :
-                            player6.update(player6)
+            if num_jugadores >=4 :
+                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
+                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.update(player4)
+            if num_jugadores >=5 :
+                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
+                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.update(player5)
+            if num_jugadores >=6 :
+                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
+                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("el viento esta activado: ", viento)
             print("la intensidad del viento es de: ", intensidad_viento)
@@ -1500,7 +1596,7 @@ while Master_flag==True:
                     else:
                         auxTurno=0
                         turno=listaTurnos[auxTurno]
-                if num_bots>auxSelectBot:
+                if num_bots>=auxSelectBot:
                     player2_bot=True
                     auxSelectBot+=1
                 else:
@@ -1568,15 +1664,6 @@ while Master_flag==True:
             win=bullet2.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player2,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            #   para ver los daños causados al mapa
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            #   para que funcione la gravedad hacia los tankes
-            y_player2=gravedad(x_player2,y_player2,world_data,player2)
-            player2 = Player(x_player2,y_player2, img_left)
-            player2.update(player2)
             #Siguente turno
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
@@ -1588,19 +1675,38 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False
+            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+            screen.fill(blue_sky)           #   para ver los daños causados al mapa
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
     #PLAYER3==================================================================
         if turno==3:
             print("Turno Player 3")
+            auxSelectBot2+=1
+
+            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
+            player1 = Player(x_player1,y_player1, img_right)
             player1.update(player1)
-            player2.update(player2) 
+            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
+            player2 = Player(x_player2,y_player2, img_left)
+            player2.update(player2)
             if num_jugadores >=3 :
+                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
+                player3 = Player(x_player3,y_player3, img_Pblue)
                 player3.update(player3)
-                if num_jugadores >=4 :
-                    player4.update(player4)
-                    if num_jugadores >=5 :
-                        player5.update(player5)
-                        if num_jugadores >=6 :
-                            player6.update(player6)
+            if num_jugadores >=4 :
+                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
+                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.update(player4)
+            if num_jugadores >=5 :
+                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
+                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.update(player5)
+            if num_jugadores >=6 :
+                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
+                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("El viento esta activado: ", viento)
             print("La intensidad del viento es de: ", intensidad_viento)
@@ -1631,7 +1737,7 @@ while Master_flag==True:
                     else:
                         auxTurno=0
                         turno=listaTurnos[auxTurno]
-                if num_bots>auxSelectBot:
+                if num_bots>=auxSelectBot:
                     player3_bot=True
                     auxSelectBot+=1
                 else:
@@ -1697,14 +1803,6 @@ while Master_flag==True:
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
             #   para ver los daños causados al mapa
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            #   para que funcione la gravedad hacia los tankes
-            y_player3=gravedad(x_player3,y_player3,world_data,player3)
-            player3 = Player(x_player3,y_player3, img_Pblue)
-            player3.update(player3)
             #Siguente turno
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
@@ -1716,19 +1814,38 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
+            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+            screen.fill(blue_sky)           #   para ver los daños causados al mapa
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
     #PLAYER 4===================================================================================
         if turno==4:
             print("Turno Player 4")
+            auxSelectBot2+=1
+
+            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
+            player1 = Player(x_player1,y_player1, img_right)
             player1.update(player1)
-            player2.update(player2) 
+            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
+            player2 = Player(x_player2,y_player2, img_left)
+            player2.update(player2)
             if num_jugadores >=3 :
+                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
+                player3 = Player(x_player3,y_player3, img_Pblue)
                 player3.update(player3)
-                if num_jugadores >=4 :
-                    player4.update(player4)
-                    if num_jugadores >=5 :
-                        player5.update(player5)
-                        if num_jugadores >=6 :
-                            player6.update(player6)
+            if num_jugadores >=4 :
+                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
+                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.update(player4)
+            if num_jugadores >=5 :
+                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
+                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.update(player5)
+            if num_jugadores >=6 :
+                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
+                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("El viento esta activado: ", viento)
             print("La intensidad del viento es de: ", intensidad_viento)
@@ -1758,7 +1875,7 @@ while Master_flag==True:
                     else:
                         auxTurno=0
                         turno=listaTurnos[auxTurno]
-                if num_bots>auxSelectBot:
+                if num_bots>=auxSelectBot:
                     player4_bot=True
                     auxSelectBot+=1
                 else:
@@ -1823,15 +1940,6 @@ while Master_flag==True:
             win=bullet4.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player4,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            #   para ver los daños causados al mapa
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            #   para que funcione la gravedad hacia los tankes
-            y_player4=gravedad(x_player4,y_player4,world_data,player4)
-            player4 = Player(x_player4,y_player4, img_Ppurple)
-            player4.update(player4)
             #Siguente turno
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
@@ -1843,19 +1951,38 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
+            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+            screen.fill(blue_sky)           #   para ver los daños causados al mapa
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
 #PLAYER 5====================================================================================
         if turno==5:
             print("Turno Player 5")
+            auxSelectBot2+=1
+
+            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
+            player1 = Player(x_player1,y_player1, img_right)
             player1.update(player1)
-            player2.update(player2) 
+            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
+            player2 = Player(x_player2,y_player2, img_left)
+            player2.update(player2)
             if num_jugadores >=3 :
+                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
+                player3 = Player(x_player3,y_player3, img_Pblue)
                 player3.update(player3)
-                if num_jugadores >=4 :
-                    player4.update(player4)
-                    if num_jugadores >=5 :
-                        player5.update(player5)
-                        if num_jugadores >=6 :
-                            player6.update(player6)
+            if num_jugadores >=4 :
+                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
+                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.update(player4)
+            if num_jugadores >=5 :
+                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
+                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.update(player5)
+            if num_jugadores >=6 :
+                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
+                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("El viento esta activado: ", viento)
             print("La intensidad del viento es de: ", intensidad_viento)
@@ -1885,7 +2012,7 @@ while Master_flag==True:
                     else:
                         auxTurno=0
                         turno=listaTurnos[auxTurno]
-                if num_bots>auxSelectBot:
+                if num_bots>=auxSelectBot:
                     player5_bot=True
                     auxSelectBot+=1
                 else:
@@ -1951,15 +2078,7 @@ while Master_flag==True:
             win=bullet5.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player5,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            #   para ver los daños causados al mapa
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            #   para que funcione la gravedad hacia los tankes
-            y_player5=gravedad(x_player5,y_player5,world_data,player5)
-            player5 = Player(x_player5,y_player5, img_Pwhite)
-            player5.update(player5)
+            
             #Siguente turno
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
@@ -1971,19 +2090,39 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
+            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+            screen.fill(blue_sky)           #   para ver los daños causados al mapa
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
 #===========================================================================================
         if turno==6:
             print("Turno Player 6")
+            auxSelectBot2+=1
+
+            y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
+            player1 = Player(x_player1,y_player1, img_right)
             player1.update(player1)
-            player2.update(player2) 
+            y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
+            player2 = Player(x_player2,y_player2, img_left)
+            player2.update(player2)
             if num_jugadores >=3 :
+                y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
+                player3 = Player(x_player3,y_player3, img_Pblue)
                 player3.update(player3)
-                if num_jugadores >=4 :
-                    player4.update(player4)
-                    if num_jugadores >=5 :
-                        player5.update(player5)
-                        if num_jugadores >=6 :
-                            player6.update(player6)
+            if num_jugadores >=4 :
+                y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
+                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.update(player4)
+            if num_jugadores >=5 :
+                y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
+                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.update(player5)
+            if num_jugadores >=6 :
+                y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
+                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.update(player6)
+
             intensidad_viento = randint(-10,10)
             print("El viento esta activado: ", viento)
             print("La intensidad del viento es de: ", intensidad_viento)
@@ -2014,7 +2153,7 @@ while Master_flag==True:
                         auxTurno=0
                         turno=listaTurnos[auxTurno]
                         
-                if num_bots>auxSelectBot:
+                if num_bots>=auxSelectBot:
                     player6_bot=True
                     auxSelectBot+=1
                 else:
@@ -2081,15 +2220,7 @@ while Master_flag==True:
             win=bullet6.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player6,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
             #borra texto max atura, vel
             pygame.draw.rect(screen, blue_sky, [screen_width*0.018, screen_height*0.0166, 220, 60])
-            #   para ver los daños causados al mapa
-            screen.fill(blue_sky)
-            world = World(world_data)
-            screen.blit(fondo, (0, 0))
-            world.draw()
-            #   para que funcione la gravedad hacia los tankes
-            y_player6=gravedad(x_player6,y_player6,world_data,player6)
-            player6 = Player(x_player6,y_player6, img_Pyellow)
-            player6.update(player6)
+            
             #Siguente turno
             auxTurno=auxTurno+1
             if auxTurno<num_jugadores:
@@ -2101,11 +2232,11 @@ while Master_flag==True:
             if win == False:
                 Master_flag=False
                 run=False  
-            
-    screen.fill(blue_sky)
-    world = World(world_data)
-    screen.blit(fondo, (0, 0))
-    world.draw()
+            auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
+            screen.fill(blue_sky)           #   para ver los daños causados al mapa
+            world = World(world_data)
+            screen.blit(fondo, (0, 0))
+            world.draw()
 pygame.quit()
 sys.exit()
 
