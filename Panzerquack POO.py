@@ -14,24 +14,24 @@ tile_height=int(screen_height//40)
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 clock = pygame.time.Clock()
 #sonidos--------------------------------------------------
-pygame.mixer.init()
-soundObj = pygame.mixer.Sound('assets/sound/sfx/quack_sfx.mp3')
+#pygame.mixer.init()
+#soundObj = pygame.mixer.Sound('assets/sound/sfx/quack_sfx.mp3')
 #Colores--------------------------------------------------
 negro = 0,0,0
 ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
 #numero players--------------------------------------------
-num_jugadores=6
-num_bots=6
+num_jugadores=2
+num_bots=0
 #Globales Numero De Balas---------------------------------
 num_105mm=10               #Numero 10 por la definicion por defecto
 num_perforante=10
 num_60mm=10
 #Globales Efectos de Entorno---------------------------------
-Ggravedad=1
-Gviento=1
-intensidad_gravedad=5
+Ggravedad=0
+Gviento=0
+intensidad_gravedad=6
 #Varibles Globales players sin balas--------------------------------
 player1NoBullet=False;
 player2NoBullet=False;
@@ -469,6 +469,7 @@ class Bullet():
                             flag= False
                             win=False
                             """
+    #==================================================================================
                 if turno == 1:
                     sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
@@ -508,11 +509,11 @@ class Bullet():
                     if aux >= 40:
                         if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
                             if contdmg==1:
-                                player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                                player1.dmge(damage)     #RESTA DE VIDA PRODUCTO DE LA COLISION
+                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado a\n")
                                 contdmg-=1
                                 flag= False
-
+    #==================================================================================
                 if turno == 2:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
@@ -556,6 +557,7 @@ class Bullet():
                                 print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                 contdmg-=1
                                 flag= False
+    #==================================================================================
                 if turno == 3:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
@@ -599,6 +601,7 @@ class Bullet():
                                     print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                     contdmg-=1
                                     flag= False
+    #==================================================================================
                 if turno == 4:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
@@ -642,6 +645,7 @@ class Bullet():
                                     print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                     contdmg-=1
                                     flag= False
+    #==================================================================================
                 if turno == 5:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
@@ -685,6 +689,7 @@ class Bullet():
                                     print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                                     contdmg-=1
                                     flag= False
+    #==================================================================================
                 if turno == 6:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
@@ -1135,7 +1140,7 @@ def split_list(arreglo,num_players):
         yield arreglo[i:i+num_players]
 
 def fun_selectbot(auxSelectBot,auxSelectBot2):
-    print("a:",auxSelectBot2)
+    #print("a:",auxSelectBot2)
     if num_jugadores==2:                    #Se condicionan variables para repetir funcionalidad de bots
         if auxSelectBot2>=2: 
             auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
@@ -1209,7 +1214,6 @@ def fun_selectbot(auxSelectBot,auxSelectBot2):
             auxSelectBot=1  #Se iguala a 1 una variable auxiliar para comenzar denuevo selecionando bots, esto coniguendo un cilo
             auxSelectBot2=0 
     return auxSelectBot,auxSelectBot2
-
 
 g = Game()
 
@@ -1390,9 +1394,7 @@ while Master_flag==True:
         #print(auxSelectBot)
         clock.tick(30)
         bala=""
-
-        #auxSelectBot,auxSelectBot2=fun_selectbot(auxSelectBot,auxSelectBot2)
-
+        
         screen.fill(blue_sky)           #   para ver los daños causados al mapa
         world = World(world_data)
         screen.blit(fondo, (0, 0))
@@ -1403,26 +1405,26 @@ while Master_flag==True:
             auxSelectBot2+=1
 
             y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1 = Player(x_player1,y_player1, img_right)
+            player1.rect.y=y_player1
             player1.update(player1)
             y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2 = Player(x_player2,y_player2, img_left)
+            player2.rect.y=y_player2
             player2.update(player2)
             if num_jugadores >=3 :
                 y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3 = Player(x_player3,y_player3, img_Pblue)
+                player3.rect.y=y_player3
                 player3.update(player3)
             if num_jugadores >=4 :
                 y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.rect.y=y_player4
                 player4.update(player4)
             if num_jugadores >=5 :
                 y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.rect.y=y_player5
                 player5.update(player5)
             if num_jugadores >=6 :
                 y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.rect.y=y_player6
                 player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("el viento esta activado: ", viento)
@@ -1430,6 +1432,7 @@ while Master_flag==True:
             
             screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
             screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
+            print("vida player 1:",player1.vida)
             textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
             screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))    
             while True:
@@ -1544,26 +1547,26 @@ while Master_flag==True:
             print("Turno Player 2")
             auxSelectBot2+=1
             y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1 = Player(x_player1,y_player1, img_right)
+            player1.rect.y=y_player1
             player1.update(player1)
             y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2 = Player(x_player2,y_player2, img_left)
+            player2.rect.y=y_player2
             player2.update(player2)
             if num_jugadores >=3 :
                 y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3 = Player(x_player3,y_player3, img_Pblue)
+                player3.rect.y=y_player3
                 player3.update(player3)
             if num_jugadores >=4 :
                 y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.rect.y=y_player4
                 player4.update(player4)
             if num_jugadores >=5 :
                 y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.rect.y=y_player5
                 player5.update(player5)
             if num_jugadores >=6 :
                 y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.rect.y=y_player6
                 player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("el viento esta activado: ", viento)
@@ -1686,26 +1689,26 @@ while Master_flag==True:
             auxSelectBot2+=1
 
             y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1 = Player(x_player1,y_player1, img_right)
+            player1.rect.y=y_player1
             player1.update(player1)
             y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2 = Player(x_player2,y_player2, img_left)
+            player2.rect.y=y_player2
             player2.update(player2)
             if num_jugadores >=3 :
                 y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3 = Player(x_player3,y_player3, img_Pblue)
+                player3.rect.y=y_player3
                 player3.update(player3)
             if num_jugadores >=4 :
                 y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.rect.y=y_player4
                 player4.update(player4)
             if num_jugadores >=5 :
                 y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.rect.y=y_player5
                 player5.update(player5)
             if num_jugadores >=6 :
                 y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.rect.y=y_player6
                 player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("El viento esta activado: ", viento)
@@ -1825,26 +1828,26 @@ while Master_flag==True:
             auxSelectBot2+=1
 
             y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1 = Player(x_player1,y_player1, img_right)
+            player1.rect.y=y_player1
             player1.update(player1)
             y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2 = Player(x_player2,y_player2, img_left)
+            player2.rect.y=y_player2
             player2.update(player2)
             if num_jugadores >=3 :
                 y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3 = Player(x_player3,y_player3, img_Pblue)
+                player3.rect.y=y_player3
                 player3.update(player3)
             if num_jugadores >=4 :
                 y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.rect.y=y_player4
                 player4.update(player4)
             if num_jugadores >=5 :
                 y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.rect.y=y_player5
                 player5.update(player5)
             if num_jugadores >=6 :
                 y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.rect.y=y_player6
                 player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("El viento esta activado: ", viento)
@@ -1962,26 +1965,26 @@ while Master_flag==True:
             auxSelectBot2+=1
 
             y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1 = Player(x_player1,y_player1, img_right)
+            player1.rect.y=y_player1
             player1.update(player1)
             y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2 = Player(x_player2,y_player2, img_left)
+            player2.rect.y=y_player2
             player2.update(player2)
             if num_jugadores >=3 :
                 y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3 = Player(x_player3,y_player3, img_Pblue)
+                player3.rect.y=y_player3
                 player3.update(player3)
             if num_jugadores >=4 :
                 y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.rect.y=y_player4
                 player4.update(player4)
             if num_jugadores >=5 :
                 y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.rect.y=y_player5
                 player5.update(player5)
             if num_jugadores >=6 :
                 y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.rect.y=y_player6
                 player6.update(player6)
             intensidad_viento = randint(-10,10)
             print("El viento esta activado: ", viento)
@@ -2099,30 +2102,29 @@ while Master_flag==True:
         if turno==6:
             print("Turno Player 6")
             auxSelectBot2+=1
-
+            
             y_player1=gravedad(x_player1,y_player1,world_data,player1)  #   para que funcione la gravedad hacia los tankes
-            player1 = Player(x_player1,y_player1, img_right)
+            player1.rect.y=y_player1
             player1.update(player1)
             y_player2=gravedad(x_player2,y_player2,world_data,player2)  #   para que funcione la gravedad hacia los tankes
-            player2 = Player(x_player2,y_player2, img_left)
+            player2.rect.y=y_player2
             player2.update(player2)
             if num_jugadores >=3 :
                 y_player3=gravedad(x_player3,y_player3,world_data,player3)  #   para que funcione la gravedad hacia los tankes
-                player3 = Player(x_player3,y_player3, img_Pblue)
+                player3.rect.y=y_player3
                 player3.update(player3)
             if num_jugadores >=4 :
                 y_player4=gravedad(x_player4,y_player4,world_data,player4)  #   para que funcione la gravedad hacia los tankes
-                player4 = Player(x_player4,y_player4, img_Ppurple)
+                player4.rect.y=y_player4
                 player4.update(player4)
             if num_jugadores >=5 :
                 y_player5=gravedad(x_player5,y_player5,world_data,player5)  #   para que funcione la gravedad hacia los tankes
-                player5 = Player(x_player5,y_player5, img_Pwhite)
+                player5.rect.y=y_player5
                 player5.update(player5)
             if num_jugadores >=6 :
                 y_player6=gravedad(x_player6,y_player6,world_data,player6)  #   para que funcione la gravedad hacia los tankes
-                player6 = Player(x_player6,y_player6, img_Pyellow)
+                player6.rect.y=y_player6
                 player6.update(player6)
-
             intensidad_viento = randint(-10,10)
             print("El viento esta activado: ", viento)
             print("La intensidad del viento es de: ", intensidad_viento)
