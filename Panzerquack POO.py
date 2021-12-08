@@ -479,46 +479,34 @@ class Bullet():
                 if turno == 1:
                     sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
-                        if contdmg==1:
-                            player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                            contdmg-=1
-                            flag= False
+                        player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                        flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                                contdmg-=1
-                                flag= False
+                            player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            flag= False
                     if aux >= 40:
                         if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                            if contdmg==1:
-                                player1.dmge(damage)     #RESTA DE VIDA PRODUCTO DE LA COLISION
-                                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado a\n")
-                                contdmg-=1
-                                flag= False
+                            player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+                            print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+                            flag= False
     #==================================================================================
                 if turno == 2:
                     sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
@@ -1227,19 +1215,19 @@ while g.running:
     g.curr_menu.display_menu()
     g.game_loop()
     
-   #imagenes de balas
+#imagenes de balas
 bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
 bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
 bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
 fondo=pygame.image.load("assets/maps/world.png")
-    #For Player One / Green
+#For Player One / Green
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
 #img_right_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s_L.png") #Efecto espejo
     #For Player Tow  / Red
-img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")
+img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")
 img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
-#img_left_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")#Efecto espejo
+#img_left_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")#Efecto espejo
     #For Player Blue
 img_Pblue = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s.png")
 img_Pblue = pygame.transform.scale(img_Pblue, (tile_width,tile_height))
