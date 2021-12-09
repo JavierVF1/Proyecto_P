@@ -25,20 +25,14 @@ blue_sky=0,160,235
 num_jugadores=2
 num_bots=0
 #Globales Numero De Balas---------------------------------
-num_105mm=10               #Numero 10 por la definicion por defecto
+num_105mm=10              #Numero 10 por la definicion por defecto
 num_perforante=10
 num_60mm=10
 #Globales Efectos de Entorno---------------------------------
 Ggravedad=0
 Gviento=0
 intensidad_gravedad=6
-#Varibles Globales players sin balas--------------------------------
-player1NoBullet=False
-player2NoBullet=False
-player3NoBullet=False
-player4NoBullet=False
-player5NoBullet=False
-player6NoBullet=False
+
 class Game():
     def __init__(self):
         pygame.init()
@@ -373,6 +367,7 @@ class Player():
         #self.direction = 0
         self.dead=False
         self.kills=0
+        self.ammo=True
     def update(self,player):
         #(draw) player onto screen
         screen.blit(player.imagen, player.rect)
@@ -385,6 +380,7 @@ class Player():
         #print(self.vida)
     def kill(self):
         self.kills=self.kills+1
+
 class Bullet():
     def __init__(self, ang, vel,imagen,x,y,XTanke2,YTanke2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6):
         self.ang=ang
@@ -437,7 +433,6 @@ class Bullet():
         ti = 0
         aux=0
         sustituto=0
-        contdmg=1 #contador para evitar que la bala golpee mas de una vez
         var_viento=(intensidad_v/10) #variable para aplicar el viento
         
         while posicionY < screen_height and posicionX<screen_width:
@@ -859,6 +854,7 @@ class SelectBala():
                         else:
                             if event.unicode == "1" or event.unicode == "2" or event.unicode == "3":
                                 text += event.unicode
+            pygame.draw.rect(screen, blue_sky, [screen_width*0.9375, screen_height*0.05, 140, 32])
             txt_surface = font.render(text, True, color)
             width = max(30, txt_surface.get_width()+10)
             input_box.w = width
@@ -1132,6 +1128,7 @@ def textbox():
     done = False
     aux2=0
     while not done:
+        
         if restart_button.draw(screen):
             print("\nReStart")
             restar=666
@@ -1155,7 +1152,8 @@ def textbox():
                         pygame.draw.rect(screen, blue_sky, [screen_width*0.8125,screen_height*0.045, 140, 32])
                     else:
                         if event.unicode=="1"or event.unicode=="2"or event.unicode=="3"or event.unicode=="4"or event.unicode=="5"or event.unicode=="6"or event.unicode=="7"or event.unicode=="8"or event.unicode=="9"or event.unicode=="0":
-                                text += event.unicode
+                            text += event.unicode
+        pygame.draw.rect(screen, blue_sky, [screen_width*0.8125,screen_height*0.045, 140, 32])
         txt_surface = font.render(text, True, color)
         width = max(100, txt_surface.get_width()+10)
         input_box.w = width
@@ -1322,6 +1320,20 @@ def check_dead():
     if player6.vida <= 0:
         player6.dead=True
 
+def check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6):
+    if  bala105_1==0 and balaPerforante_1==0  and bala90_1== 0:
+        player1.ammo=False
+    if  bala105_2==0 and balaPerforante_2==0  and bala90_2== 0:
+        player2.ammo=False
+    if  bala105_3==0 and balaPerforante_3==0  and bala90_3== 0:
+        player3.ammo=False
+    if  bala105_4==0 and balaPerforante_4==0  and bala90_4== 0:
+        player4.ammo=False
+    if  bala105_5==0 and balaPerforante_5==0  and bala90_5== 0:
+        player5.ammo=False
+    if  bala105_6==0 and balaPerforante_6==0  and bala90_6== 0:
+        player6.ammo=False
+    return
 g = Game()
 
 while g.running:
@@ -1380,8 +1392,6 @@ texto12= pygame.font.SysFont("Comic Sans MS",16,5)
 texto13= pygame.font.SysFont("Comic Sans MS",16,5)
 texto14= pygame.font.SysFont("Comic Sans MS",16,5)
 texto15= pygame.font.SysFont("Comic Sans MS",16,5)
-
-
 
 Master_flag=True
 while Master_flag==True:
@@ -1480,6 +1490,7 @@ while Master_flag==True:
     win=True    #Variable control de victoria
     #Turnos aleatorios
     auxTurno=0
+    brake=False#par ejecutar un brake forsado
     l=[1,2,3,4,5,6]
     listaTurnos=reductorLista(l,num_jugadores)#reducir lista
     shuffle(listaTurnos)#aleatorizar lista
@@ -1508,6 +1519,8 @@ while Master_flag==True:
         world = World(world_data)
         screen.blit(fondo, (0, 0))
         world.draw()
+
+        check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
     #PLAYER 1===================================================================================================================                                                                    
         if player1.dead == False:
             if turno == 1:
@@ -1520,32 +1533,32 @@ while Master_flag==True:
                 
                 screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-                print("vida player 1:",player1.vida)
+                #print("vida player 1:",player1.vida)
                 textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
-                screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))    
-                while True:
-                    if  0 == bala105_1 and 0 == balaPerforante_1 and 0 == bala90_1:
-                        player1NoBullet=True#el player 1 se quedo sin balas
-                        #print("checkeo")
-                        if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                            #print("poopoo")
-                            break
-                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                            break
-                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                            break
-                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                            break
-                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                            break
-                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                        auxTurno=auxTurno+1
-                        if auxTurno<num_jugadores:
-                            turno=listaTurnos[auxTurno]
-                        else:
-                            auxTurno=0
-                            turno=listaTurnos[auxTurno]
+                screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))   
+                
+                if  bala105_1==0 and balaPerforante_1==0  and bala90_1== 0:
+                    player1.ammo=False#el player 1 se quedo sin balas
+                    if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
+                        print("Pantalla empate")
+                    if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
+                        print("Pantalla empate")
+                    #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                    auxTurno=auxTurno+1
+                    if auxTurno<num_jugadores:
+                        turno=listaTurnos[auxTurno]
+                    else:
+                        auxTurno=0
+                        turno=listaTurnos[auxTurno]
+                    print("NO AMMO")
 
+                while True:
                     if num_bots>=auxSelectBot:
                         player1_bot=True
                         auxSelectBot+=1
@@ -1559,7 +1572,7 @@ while Master_flag==True:
                     if player1_bot==True:#player es un bot                   #
                         bala=randint(1,3)                                    #
                     if player1_bot==False:#player no es un bot               #
-                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        SelectBala.text(bala105_1,balaPerforante_1,bala90_1) #
                         bala=SelectBala.textBala()                           #
                     ##########################################################
                     if bala==666:  break #para hacer funcionar el boton reset
@@ -1576,6 +1589,8 @@ while Master_flag==True:
                         if int (bala) == 3:
                             globala=3; bullet_default=bullet_90mm; bala90_1-=1; damage=30
                             break
+                if brake==True: brake=False; print("a"); break #Break forzado
+
                 if bala==666: bala=0; break #para hacer funcionar el boton reset
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
                 #SE IMORIME TEXTO VELOCIDAD
@@ -1640,6 +1655,7 @@ while Master_flag==True:
 
     #PLAYER 2====================================================================================================================
         check_dead()
+        check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
         if player2.dead == False:
             if turno == 2:
                 print("Turno Player 2")
@@ -1653,29 +1669,31 @@ while Master_flag==True:
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
                 screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
+
                 
+                if  bala105_2==0 and balaPerforante_2==0  and bala90_2== 0:
+                    player2.ammo=False#el player 2 se quedo sin balas
+                    #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                    print("checkeo")
+                    if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
+                        print("Pantalla empate")
+                    if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
+                        print("Pantalla empate")
+                    auxTurno=auxTurno+1
+                    if auxTurno<num_jugadores:
+                        turno=listaTurnos[auxTurno]
+                    else:
+                        auxTurno=0
+                        turno=listaTurnos[auxTurno]
+                    print("NO AMMO")
                 while True:
-                    if  0 == bala105_2 and 0 == balaPerforante_2 and 0 == bala90_2:
-                        player2NoBullet=True#el player 2 se quedo sin balas
-                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                        print("checkeo")
-                        if num_jugadores==2 and player1NoBullet==True and player2NoBullet==True :
-                            print("poopoo")
-                            break
-                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                            break
-                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                            break
-                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                            break
-                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                            break
-                        auxTurno=auxTurno+1
-                        if auxTurno<num_jugadores:
-                            turno=listaTurnos[auxTurno]
-                        else:
-                            auxTurno=0
-                            turno=listaTurnos[auxTurno]
+                    
                     if num_bots>=auxSelectBot:
                         player2_bot=True
                         auxSelectBot+=1
@@ -1704,6 +1722,7 @@ while Master_flag==True:
                         if int (bala) == 3:
                             globala=3; bullet_default2=bullet_90mm; bala90_2-=1; damage=30
                             break
+                if brake==True: brake=False;  break #Break forzado
                 if bala==666: bala=0; break #para hacer funcionar el boton reset
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
                 #SE IMORIME TEXTO VELOCIDAD
@@ -1769,6 +1788,7 @@ while Master_flag==True:
                 turno=listaTurnos[auxTurno]
     #PLAYER3==================================================================
         check_dead()
+        check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
         if player3.dead == False:
             if turno==3:
                 print("Turno Player 3")
@@ -1782,28 +1802,26 @@ while Master_flag==True:
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
                 screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
-
-                while True:
-                    if  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3:
+                if  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3:
                         player3NoBullet=True#el player 3 se quedo sin balas
                         #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                        print("checkeo")
-                        if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                            break
-                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                            break
-                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                            break
-                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                            break
-                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                            break
+                        if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
+                            print("Pantalla empate")
+                        if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
+                            print("Pantalla empate")
+                        if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
+                            print("Pantalla empate")
+                        if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
+                            print("Pantalla empate")
+                        if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
+                            print("Pantalla empate")
                         auxTurno=auxTurno+1
                         if auxTurno<num_jugadores:
                             turno=listaTurnos[auxTurno]
                         else:
                             auxTurno=0
                             turno=listaTurnos[auxTurno]
+                while True:
                     if num_bots>=auxSelectBot:
                         player3_bot=True
                         auxSelectBot+=1
@@ -1816,7 +1834,7 @@ while Master_flag==True:
                     if player3_bot==True:#player es un bot                   #
                         bala=randint(1,3)                                    #
                     if player3_bot==False:#player no es un bot               #
-                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        SelectBala.text(bala105_3,balaPerforante_3,bala90_3) #
                         bala=SelectBala.textBala()                           #
                     ##########################################################
                     if bala==666: break #para hacer funcionar el boton reset
@@ -1895,6 +1913,7 @@ while Master_flag==True:
                 turno=listaTurnos[auxTurno]
     #PLAYER 4===================================================================================
         check_dead()
+        check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
         if player4.dead == False:
             if turno==4:
                 print("Turno Player 4")
@@ -1908,27 +1927,26 @@ while Master_flag==True:
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
                 screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
+                if  0 == bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4:
+                    player4NoBullet=True #EL PLAYER 4 SE QUEDO SIN BALAS
+                    if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
+                        print("Pantalla empate")
+                    if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
+                        print("Pantalla empate")
+                    #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                    auxTurno=auxTurno+1
+                    if auxTurno<num_jugadores:
+                        turno=listaTurnos[auxTurno]
+                    else:
+                        auxTurno=0
+                        turno=listaTurnos[auxTurno]
                 while True:
-                    if  0 == bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4:
-                        player4NoBullet=True #EL PLAYER 4 SE QUEDO SIN BALAS
-                        print("checkeo")
-                        if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                            break
-                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                            break
-                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                            break
-                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                            break
-                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                            break
-                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                        auxTurno=auxTurno+1
-                        if auxTurno<num_jugadores:
-                            turno=listaTurnos[auxTurno]
-                        else:
-                            auxTurno=0
-                            turno=listaTurnos[auxTurno]
                     if num_bots>=auxSelectBot:
                         player4_bot=True
                         auxSelectBot+=1
@@ -1941,7 +1959,7 @@ while Master_flag==True:
                     if player4_bot==True:#player es un bot                   #
                         bala=randint(1,3)                                    #
                     if player4_bot==False:#player no es un bot               #
-                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        SelectBala.text(bala105_4,balaPerforante_4,bala90_4) #
                         bala=SelectBala.textBala()                           #
                     ##########################################################
                     if bala==666:  break #para hacer funcionar el boton reset
@@ -2019,6 +2037,7 @@ while Master_flag==True:
                 turno=listaTurnos[auxTurno]
 #PLAYER 5====================================================================================
         check_dead()
+        check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
         if player5.dead == False:
             if turno==5:
                 print("Turno Player 5")
@@ -2032,27 +2051,26 @@ while Master_flag==True:
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
                 screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
+                if 0 == bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5:
+                    player5NoBullet=True#el player 5 se quedo sin balas
+                    #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                    if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
+                        print("Pantalla empate")
+                    if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
+                        print("Pantalla empate")
+                    auxTurno=auxTurno+1
+                    if auxTurno<num_jugadores:
+                        turno=listaTurnos[auxTurno]
+                    else:
+                        auxTurno=0
+                        turno=listaTurnos[auxTurno]
                 while True:
-                    if 0 == bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5:
-                        player5NoBullet=True#el player 5 se quedo sin balas
-                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                        print("checkeo")
-                        if num_jugadores==2 and player1NoBullet and player2NoBullet :
-                            break
-                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                            break
-                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                            break
-                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                            break
-                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                            break
-                        auxTurno=auxTurno+1
-                        if auxTurno<num_jugadores:
-                            turno=listaTurnos[auxTurno]
-                        else:
-                            auxTurno=0
-                            turno=listaTurnos[auxTurno]
                     if num_bots>=auxSelectBot:
                         player5_bot=True
                         auxSelectBot+=1
@@ -2065,7 +2083,7 @@ while Master_flag==True:
                     if player5_bot==True:#player es un bot                   #
                         bala=randint(1,3)                                    #
                     if player5_bot==False:#player no es un bot               #
-                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        SelectBala.text(bala105_5,balaPerforante_5,bala90_5) #
                         bala=SelectBala.textBala()                           #
                     ##########################################################
                     if bala==666:  break #para hacer funcionar el boton reset
@@ -2145,6 +2163,7 @@ while Master_flag==True:
                 turno=listaTurnos[auxTurno]
 #===========================================================================================
         check_dead()
+        check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
         if player6.dead == False:
             if turno==6:
                 print("Turno Player 6")
@@ -2158,28 +2177,26 @@ while Master_flag==True:
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
                 screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
+                if  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
+                    player6NoBullet=True#el player 6 se quedo sin balas
+                    #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
+                    if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
+                        print("Pantalla empate")
+                    if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
+                        print("Pantalla empate")
+                    if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
+                        print("Pantalla empate")
+                    auxTurno=auxTurno+1
+                    if auxTurno<num_jugadores:
+                        turno=listaTurnos[auxTurno]
+                    else:
+                        auxTurno=0
+                        turno=listaTurnos[auxTurno]
                 while True:
-                    if  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
-                        player6NoBullet=True#el player 6 se quedo sin balas
-                        #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
-                        print("checkeo")
-                        if num_jugadores==2 and player1NoBullet==True and player2NoBullet==True :
-                            break
-                        if num_jugadores==3 and player1NoBullet and player2NoBullet and player3NoBullet:
-                            break
-                        if num_jugadores==4 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet:
-                            break
-                        if num_jugadores==5 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet:
-                            break
-                        if num_jugadores==6 and player1NoBullet and player2NoBullet and player3NoBullet  and player4NoBullet and player5NoBullet and player6NoBullet:
-                            break
-                        auxTurno=auxTurno+1
-                        if auxTurno<num_jugadores:
-                            turno=listaTurnos[auxTurno]
-                        else:
-                            auxTurno=0
-                            turno=listaTurnos[auxTurno]
-                            
                     if num_bots>=auxSelectBot:
                         player6_bot=True
                         auxSelectBot+=1
@@ -2193,7 +2210,7 @@ while Master_flag==True:
                     if player6_bot==True:#player es un bot                   #
                         bala=randint(1,3)                                    #
                     if player6_bot==False:#player no es un bot               #
-                        SelectBala.text(bala105_2,balaPerforante_2,bala90_2) #
+                        SelectBala.text(bala105_6,balaPerforante_6,bala90_6) #
                         bala=SelectBala.textBala()                           #
                     ##########################################################
                     if bala==666:  break #para hacer funcionar el boton reset
