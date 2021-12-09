@@ -33,12 +33,12 @@ Ggravedad=0
 Gviento=0
 intensidad_gravedad=6
 #Varibles Globales players sin balas--------------------------------
-player1NoBullet=False;
-player2NoBullet=False;
-player3NoBullet=False;
-player4NoBullet=False;
-player5NoBullet=False;
-player6NoBullet=False;
+player1NoBullet=False
+player2NoBullet=False
+player3NoBullet=False
+player4NoBullet=False
+player5NoBullet=False
+player6NoBullet=False
 class Game():
     def __init__(self):
         pygame.init()
@@ -1409,7 +1409,9 @@ while Master_flag==True:
     #create button instances
     restart_button = button.Button(screen_width*0.4, screen_height*0.0083, restart_img, 0.3)
     exit_button = button.Button(screen_width*0.5375, screen_height*0.0083, exit_img, 0.3)
-    
+    if num_jugadores==3 or num_jugadores==6:
+        posiciones_jugadores.pop(len(posiciones_jugadores)-1)
+    shuffle(posiciones_jugadores)
     #print("posiciones posibles: ",arreglo_aux)
     posPlayer1 = choice(posiciones_jugadores[0])
     posPlayer2 = choice(posiciones_jugadores[1])
@@ -1424,7 +1426,7 @@ while Master_flag==True:
         posPlayer5 = choice(posiciones_jugadores[4])
     posPlayer6 = choice(posiciones_jugadores[randint(0,1)])
     if num_jugadores >=6 :
-        posPlayer6 = choice(posiciones_jugadores[6])
+        posPlayer6 = choice(posiciones_jugadores[5])
     #------------------------------------------------------------------------------------
     #spawn player 1
     x_player1= (posPlayer1[1]*tile_width)
