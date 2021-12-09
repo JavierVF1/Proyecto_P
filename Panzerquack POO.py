@@ -39,13 +39,6 @@ player3NoBullet=False;
 player4NoBullet=False;
 player5NoBullet=False;
 player6NoBullet=False;
-#Varibles Globales players destruidos--------------------------------
-player1destruidos=0;
-player2destruidos=0;
-player3destruidos=0;
-player4destruidos=0;
-player5destruidos=0;
-player6destruidos=0;
 class Game():
     def __init__(self):
         pygame.init()
@@ -379,7 +372,7 @@ class Player():
         #self.jumped = False
         #self.direction = 0
         self.dead=False
-
+        self.kills=0
     def update(self,player):
         #(draw) player onto screen
         screen.blit(player.imagen, player.rect)
@@ -390,7 +383,8 @@ class Player():
     def dmge(self,dmge):
         self.vida-=dmge
         #print(self.vida)
-  
+    def kill(self):
+        self.kills=self.kills+1
 class Bullet():
     def __init__(self, ang, vel,imagen,x,y,XTanke2,YTanke2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6):
         self.ang=ang
@@ -478,6 +472,7 @@ class Bullet():
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player2.vida <= 0:
+                            player1.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 2\n")
                             player2.dead=True
                         flag= False
@@ -486,6 +481,7 @@ class Bullet():
                             player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player3.vida <= 0:
+                                player1.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 3\n")
                                 player3.dead=True
                             flag= False
@@ -494,6 +490,7 @@ class Bullet():
                             player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player4.vida <= 0:
+                                player1.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 4\n")
                                 player4.dead=True
                             flag= False
@@ -502,6 +499,7 @@ class Bullet():
                             player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player5.vida <= 0:
+                                player1.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 5\n")
                                 player5.dead=True
                             flag= False
@@ -510,7 +508,8 @@ class Bullet():
                             player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player6.vida <= 0:
-                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 5\n")
+                                player1.kill()
+                                print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 6\n")
                                 player6.dead=True
                             flag= False
                     if aux >= 40:
@@ -528,6 +527,7 @@ class Bullet():
                         player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player1.vida <= 0:
+                            player2.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 1\n")
                             player1.dead=True
                         flag= False
@@ -536,6 +536,7 @@ class Bullet():
                             player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player3.vida <= 0:
+                                player2.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 3\n")
                                 player3.dead=True
                             flag= False
@@ -544,6 +545,7 @@ class Bullet():
                             player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player4.vida <= 0:
+                                player2.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 4\n")
                                 player4.dead=True
                             flag= False
@@ -552,6 +554,7 @@ class Bullet():
                             player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player5.vida <= 0:
+                                player2.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 5\n")
                                 player5.dead=True
                             flag= False
@@ -560,6 +563,7 @@ class Bullet():
                             player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player6.vida <= 0:
+                                player2.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 6\n")
                                 player6.dead=True
                             flag= False
@@ -578,6 +582,7 @@ class Bullet():
                         player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player1.vida <= 0:
+                            player3.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 1\n")
                             player1.dead=True
                         flag= False
@@ -585,6 +590,7 @@ class Bullet():
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player2.vida <= 0:
+                            player3.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 2\n")
                             player2.dead=True
                         flag= False
@@ -593,6 +599,7 @@ class Bullet():
                             player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player4.vida <= 0:
+                                player3.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 4\n")
                                 player4.dead=True
                             flag= False
@@ -601,6 +608,7 @@ class Bullet():
                             player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player5.vida <= 0:
+                                player3.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 5\n")
                                 player5.dead=True
                             flag= False
@@ -609,6 +617,7 @@ class Bullet():
                             player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player6.vida <= 0:
+                                player3.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 6\n")
                                 player6.dead=True
                             flag= False
@@ -628,6 +637,7 @@ class Bullet():
                         player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player1.vida <= 0:
+                            player4.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 1\n")
                             player1.dead=True
                         flag= False
@@ -635,6 +645,7 @@ class Bullet():
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player2.vida <= 0:
+                            player4.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 2\n")
                             player2.dead=True
                         flag= False
@@ -643,6 +654,7 @@ class Bullet():
                             player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player3.vida <= 0:
+                                player4.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 3\n")
                                 player3.dead=True
                             flag= False
@@ -651,6 +663,7 @@ class Bullet():
                             player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player5.vida <= 0:
+                                player4.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 5\n")
                                 player5.dead=True
                             flag= False
@@ -659,6 +672,7 @@ class Bullet():
                             player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player6.vida <= 0:
+                                player4.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 6\n")
                                 player6.dead=True
                             flag= False
@@ -678,6 +692,7 @@ class Bullet():
                         player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player1.vida <= 0:
+                            player5.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 1\n")
                             player1.dead=True
                         flag= False
@@ -685,6 +700,7 @@ class Bullet():
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player2.vida <= 0:
+                            player5.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 2\n")
                             player2.dead=True
                         flag= False
@@ -693,6 +709,7 @@ class Bullet():
                             player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player3.vida <= 0:
+                                player5.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 3\n")
                                 player3.dead=True
                             flag= False
@@ -701,6 +718,7 @@ class Bullet():
                             player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player4.vida <= 0:
+                                player5.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 4\n")
                                 player4.dead=True
                             flag= False
@@ -709,6 +727,7 @@ class Bullet():
                             player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player6.vida <= 0:
+                                player5.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 6\n")
                                 player6.dead=True
                             flag= False
@@ -728,6 +747,7 @@ class Bullet():
                         player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player1.vida <= 0:
+                            player6.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 1\n")
                             player1.dead=True
                         flag= False
@@ -735,6 +755,7 @@ class Bullet():
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                         if player2.vida <= 0:
+                            player6.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 2\n")
                             player2.dead=True
                         flag= False
@@ -743,6 +764,7 @@ class Bullet():
                             player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player3.vida <= 0:
+                                player6.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 3\n")
                                 player3.dead=True
                             flag= False
@@ -751,6 +773,7 @@ class Bullet():
                             player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player4.vida <= 0:
+                                player6.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 4\n")
                                 player4.dead=True
                             flag= False
@@ -759,6 +782,7 @@ class Bullet():
                             player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                             print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
                             if player5.vida <= 0:
+                                player6.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 5\n")
                                 player5.dead=True
                             flag= False
@@ -1658,7 +1682,7 @@ while Master_flag==True:
                     if num_bots==0:
                         player2_bot=False
                     #############BOT de tipo bala#############################
-                                                                            #
+                                                                             #
                     if player2_bot==True:#player es un bot                   #
                         bala=randint(1,3)                                    #
                     if player2_bot==False:#player no es un bot               #
@@ -2163,7 +2187,7 @@ while Master_flag==True:
                         player6_bot=False
                         
                     #############BOT de tipo bala#############################
-                                                                            #
+                                                                             #
                     if player6_bot==True:#player es un bot                   #
                         bala=randint(1,3)                                    #
                     if player6_bot==False:#player no es un bot               #
