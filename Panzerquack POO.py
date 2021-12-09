@@ -414,22 +414,22 @@ class Bullet():
         angulo= self.ang
         #Definicion Punto de partida Bala 
         if turno==1:
-            posicionX=x_player1
+            posicionX=x_player1+5
             posicionY=y_player1
         if turno==2:
-            posicionX=x_player2
+            posicionX=x_player2+5
             posicionY=y_player2
         if turno==3:
-            posicionX=x_player3
+            posicionX=x_player3+5
             posicionY=y_player3
         if turno==4:
-            posicionX=x_player4
+            posicionX=x_player4+5
             posicionY=y_player4
         if turno==5:
-            posicionX=x_player5
+            posicionX=x_player5+5
             posicionY=y_player5
         if turno==6:
-            posicionX=x_player6
+            posicionX=x_player6+5
             posicionY=y_player6
         #velocidad iY e iX modifican el angulo de disparo
         velocidadiY = velocidadi * sin(radians(angulo))
