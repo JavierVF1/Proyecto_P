@@ -24,6 +24,7 @@ blue_sky=0,160,235
 #numero players--------------------------------------------
 num_jugadores=2
 num_bots=0
+num_jugadores_vivos=num_jugadores
 #Globales Numero De Balas---------------------------------
 num_105mm=10              #Numero 10 por la definicion por defecto
 num_perforante=10
@@ -401,6 +402,7 @@ class Bullet():
         self.y_player6 = y_player6
 
     def update(self,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,tanque,world,damage,wind,gravity,intensidad_v,intensidad_g):
+        global num_jugadores_vivos
         #key = pygame.key.get_pressed()
         #rectangulobala = bullet_default.get_rect()
         #rectangulobala = rectangulobala.move(1,1)
@@ -470,6 +472,7 @@ class Bullet():
                             player1.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 2\n")
                             player2.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
@@ -479,6 +482,7 @@ class Bullet():
                                 player1.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 3\n")
                                 player3.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
@@ -488,6 +492,7 @@ class Bullet():
                                 player1.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 4\n")
                                 player4.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
@@ -497,6 +502,7 @@ class Bullet():
                                 player1.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 5\n")
                                 player5.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
@@ -506,6 +512,7 @@ class Bullet():
                                 player1.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 6\n")
                                 player6.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if aux >= 40:
                         if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
@@ -514,6 +521,7 @@ class Bullet():
                             if player1.vida <= 0:
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 acabo con su sufrimiento\n")
                                 player1.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
     #==================================================================================
                 if turno == 2:
@@ -525,6 +533,7 @@ class Bullet():
                             player2.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 1\n")
                             player1.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
@@ -534,6 +543,7 @@ class Bullet():
                                 player2.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 3\n")
                                 player3.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
@@ -543,6 +553,7 @@ class Bullet():
                                 player2.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 4\n")
                                 player4.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
@@ -552,6 +563,7 @@ class Bullet():
                                 player2.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 5\n")
                                 player5.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
@@ -561,6 +573,7 @@ class Bullet():
                                 player2.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 6\n")
                                 player6.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if aux >= 40:
                         if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
@@ -569,6 +582,7 @@ class Bullet():
                             if player2.vida <= 0:
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 acabo con su sufrimiento\n")
                                 player2.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
     #==================================================================================
                 if turno == 3:
@@ -580,6 +594,7 @@ class Bullet():
                             player3.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 1\n")
                             player1.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
@@ -588,6 +603,7 @@ class Bullet():
                             player3.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 2\n")
                             player2.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
@@ -597,6 +613,7 @@ class Bullet():
                                 player3.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 4\n")
                                 player4.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
@@ -606,6 +623,7 @@ class Bullet():
                                 player3.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 5\n")
                                 player5.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
@@ -615,6 +633,7 @@ class Bullet():
                                 player3.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 6\n")
                                 player6.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if aux >= 40:
@@ -624,6 +643,7 @@ class Bullet():
                                 if player3.vida <= 0:
                                     print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 acabo con su sufrimiento\n")
                                     player3.dead=True
+                                    num_jugadores_vivos-=1
                                 flag= False
     #==================================================================================
                 if turno == 4:
@@ -635,6 +655,7 @@ class Bullet():
                             player4.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 1\n")
                             player1.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
@@ -643,6 +664,7 @@ class Bullet():
                             player4.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 2\n")
                             player2.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
@@ -652,6 +674,7 @@ class Bullet():
                                 player4.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 3\n")
                                 player3.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
@@ -661,6 +684,7 @@ class Bullet():
                                 player4.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 5\n")
                                 player5.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
@@ -670,6 +694,7 @@ class Bullet():
                                 player4.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 6\n")
                                 player6.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if aux >= 40:
@@ -679,6 +704,7 @@ class Bullet():
                                 if player4.vida <= 0:
                                     print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 acabo con su sufrimiento\n")
                                     player4.dead=True
+                                    num_jugadores_vivos-=1
                                 flag= False
     #==================================================================================
                 if turno == 5:
@@ -690,6 +716,7 @@ class Bullet():
                             player5.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 1\n")
                             player1.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
@@ -698,6 +725,7 @@ class Bullet():
                             player5.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 2\n")
                             player2.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
@@ -707,6 +735,7 @@ class Bullet():
                                 player5.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 3\n")
                                 player3.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
@@ -716,6 +745,7 @@ class Bullet():
                                 player5.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 4\n")
                                 player4.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
@@ -725,6 +755,7 @@ class Bullet():
                                 player5.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 6\n")
                                 player6.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if aux >= 40:
@@ -734,6 +765,7 @@ class Bullet():
                                 if player5.vida <= 0:
                                     print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 acabo con su sufrimiento\n")
                                     player5.dead=True
+                                    num_jugadores_vivos-=1
                                 flag= False
     #==================================================================================
                 if turno == 6:
@@ -745,6 +777,7 @@ class Bullet():
                             player6.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 1\n")
                             player1.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
@@ -753,6 +786,7 @@ class Bullet():
                             player6.kill()
                             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 2\n")
                             player2.dead=True
+                            num_jugadores_vivos-=1
                         flag= False
                     if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
@@ -762,6 +796,7 @@ class Bullet():
                                 player6.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 3\n")
                                 player3.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
@@ -771,6 +806,7 @@ class Bullet():
                                 player6.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 4\n")
                                 player4.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                         if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
@@ -780,6 +816,7 @@ class Bullet():
                                 player6.kill()
                                 print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 5\n")
                                 player5.dead=True
+                                num_jugadores_vivos-=1
                             flag= False
                     if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                         if aux >= 40:
@@ -789,9 +826,10 @@ class Bullet():
                                 if player6.vida <= 0:
                                     print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 acabo con su sufrimiento\n")
                                     player6.dead=True
+                                    num_jugadores_vivos-=1
                                 flag= False
                 aux+=1
-
+            
             if flagLimite == False:
                 return win
 
@@ -1334,6 +1372,41 @@ def check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2
     if  bala105_6==0 and balaPerforante_6==0  and bala90_6== 0:
         player6.ammo=False
     return
+
+
+def check_win():
+    if num_jugadores_vivos==1:
+        #print("num jugdores vivios:",num_jugadores_vivos)
+        screen.fill(blue_sky)
+        screen.blit(fondowin, (0, 200))
+        pygame.display.flip()
+        
+
+        print("\nkills player1:", player1.kills)
+        print("kills player2:", player2.kills)
+        print("kills player3:", player3.kills)
+        print("kills player4:", player4.kills)
+        print("kills player5:", player5.kills)
+        print("kills player6:", player6.kills)
+
+        if player1.kills>player2.kills and player1.kills>player3.kills and player1.kills>player4.kills and player1.kills>player5.kills and player1.kills>player6.kills:
+            print("\nVictoria pra player 1")
+        elif player2.kills>player1.kills and player2.kills>player3.kills and player2.kills>player4.kills and player2.kills>player5.kills and player2.kills>player6.kills:
+            print("\nVictoria pra player 2")
+        elif player3.kills>player2.kills and player3.kills>player1.kills and player3.kills>player4.kills and player3.kills>player5.kills and player3.kills>player6.kills:
+            print("\nVictoria pra player 3")
+        elif player4.kills>player2.kills and player4.kills>player3.kills and player4.kills>player1.kills and player4.kills>player5.kills and player4.kills>player6.kills:
+            print("\nVictoria pra player 4")
+        elif player5.kills>player2.kills and player5.kills>player3.kills and player5.kills>player4.kills and player5.kills>player1.kills and player5.kills>player6.kills:
+            print("\nVictoria pra player 5")
+        elif player6.kills>player2.kills and player6.kills>player3.kills and player6.kills>player4.kills and player6.kills>player5.kills and player6.kills>player1.kills:
+            print("\nVictoria pra player 6")
+        else:
+            print("\nEmpate")
+        time.sleep(41)
+        pygame.quit()
+        sys.exit()
+
 g = Game()
 
 while g.running:
@@ -1345,30 +1418,25 @@ bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
 bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
 bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
 fondo=pygame.image.load("assets/maps/world.png")
+fondowin=pygame.image.load("assets/maps/worldA.png")
 #For Player One / Green
 img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
 img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
-#img_right_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s_L.png") #Efecto espejo
     #For Player Tow  / Red
 img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")
 img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
-#img_left_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s.png")#Efecto espejo
     #For Player Blue
 img_Pblue = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s.png")
 img_Pblue = pygame.transform.scale(img_Pblue, (tile_width,tile_height))
-#img_Pblue_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s_L.png")#Efecto espejo
  #For Player Purple
 img_Ppurple = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s.png")
 img_Ppurple = pygame.transform.scale(img_Ppurple, (tile_width,tile_height))
-#img_Ppurple_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s_L.png")#Efecto espejo
  #For Player White
 img_Pwhite = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s.png")
 img_Pwhite = pygame.transform.scale(img_Pwhite, (tile_width,tile_height))
-#img_Pwhite_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s_L.png")#Efecto espejo
 #For Player Yellow
 img_Pyellow = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s.png")
 img_Pyellow = pygame.transform.scale(img_Pyellow, (tile_width,tile_height))
-#img_Pyellow_l = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s_L.png")#Efecto espejo
     #For Turns
 turn_text=pygame.image.load("assets/Textures/turn_text.png")
 turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
@@ -1415,8 +1483,6 @@ while Master_flag==True:
     recorrer_mapa(world_data)
     split_list(arreglo_aux,num_jugadores)
     posiciones_jugadores= list(split_list(arreglo_aux,promedio))
-    #print("posiciones para cada jugador: ",posiciones_jugadores)
-    
     # draw_grid()
     restart_img = pygame.image.load('assets/sprites/restart_btn.png').convert_alpha()
     exit_img = pygame.image.load('assets/sprites/exit_btn.png').convert_alpha()
@@ -1486,10 +1552,8 @@ while Master_flag==True:
     #Variables Bala player six
     bala105_6=num_105mm; balaPerforante_6=num_perforante; bala90_6=num_60mm
     #Variables auxiliares
-    numero10=10    #valor estatico
     numero100=100  #valor estatico
     run = True   #Variable while principal
-    auxT=0   #Variable Pantalla de inicio (texto de inicio panzerquak)
     #arregloTurnos=turn_aleat()
     win=True    #Variable control de victoria
     #Turnos aleatorios
@@ -1502,6 +1566,7 @@ while Master_flag==True:
     turno=listaTurnos[auxTurno]#ingresar turno 1
     auxSelectBot=1
     auxSelectBot2=0
+    num_jugadores_vivos=num_jugadores    #para elegir ganador
     
     if Ggravedad==1:     #Condicion para saber si esta activada la gravedad
         graveDAD = True
@@ -1525,6 +1590,7 @@ while Master_flag==True:
         world.draw()
 
         check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
+        check_win()
     #PLAYER 1===================================================================================================================                                                                    
         if player1.dead == False:
             if turno == 1:
@@ -1680,6 +1746,7 @@ while Master_flag==True:
     #PLAYER 2====================================================================================================================
         check_dead()
         check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
+        check_win()
         if player2.dead == False:
             if turno == 2:
                 print("Turno Player 2")
@@ -1832,6 +1899,7 @@ while Master_flag==True:
     #PLAYER3==================================================================
         check_dead()
         check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
+        check_win()
         if player3.dead == False:
             if turno==3:
                 print("Turno Player 3")
@@ -1977,6 +2045,7 @@ while Master_flag==True:
     #PLAYER 4===================================================================================
         check_dead()
         check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
+        check_win()
         if player4.dead == False:
             if turno==4:
                 print("Turno Player 4")
@@ -2122,6 +2191,7 @@ while Master_flag==True:
 #PLAYER 5====================================================================================
         check_dead()
         check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
+        check_win()
         if player5.dead == False:
             if turno==5:
                 print("Turno Player 5")
@@ -2269,6 +2339,7 @@ while Master_flag==True:
 #Player 6========================================================================================
         check_dead()
         check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
+        check_win()
         if player6.dead == False:
             if turno==6:
                 print("Turno Player 6")
@@ -2414,6 +2485,5 @@ while Master_flag==True:
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
-pygame.quit()
-sys.exit()
+
 
