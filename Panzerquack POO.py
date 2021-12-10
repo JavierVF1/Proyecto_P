@@ -1536,14 +1536,34 @@ while Master_flag==True:
                 print("la intensidad del viento es de: ", intensidad_viento)
                 textIntViento = texto13.render("intensidad viento: "+str(intensidad_viento), 0, negro)
                 screen.blit(textIntViento,(screen_width/15, screen_height/15))
+                
                 if intensidad_viento>0:#viento hacia la derecha
                     screen.blit(flag_right,(screen_width/10,screen_height/10))
                 if intensidad_viento<0:#viento hacia la izquierda
                     screen.blit(flag_left,(screen_width/10,screen_height/10))
+                    
                 screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-                #print("vida player 1:",player1.vida)
-                textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
+                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
                 screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))   
                 
                 if  bala105_1==0 and balaPerforante_1==0  and bala90_1== 0:
@@ -1630,7 +1650,26 @@ while Master_flag==True:
                 player1.setAng(temporalang)
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
-                textvidap1 = texto10.render("Vida: "+str(player1.vida), 0, negro)
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
                 screen.blit(textvidap1,(screen_width*0.9, screen_height*0.88))
 
                 bullet1 = Bullet(temporalang,temporalvel,bullet_default,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
@@ -1673,19 +1712,35 @@ while Master_flag==True:
                 intensidad_viento = randint(-10,10)
                 print("el viento esta activado: ", viento)
                 print("la intensidad del viento es de: ", intensidad_viento)
-                
+                textIntViento = texto13.render("intensidad viento: "+str(intensidad_viento), 0, negro)
                 screen.blit(textIntViento,(screen_width/15, screen_height/15))
                 if intensidad_viento>0:#viento hacia la derecha
                     screen.blit(flag_right,(screen_width/10,screen_height/10))
                 if intensidad_viento<0:#viento hacia la izquierda
                     screen.blit(flag_left,(screen_width/10,screen_height/10))
-                    
+
                 screen.blit(img_left,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-                textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
-                screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
-
                 
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
                 if  bala105_2==0 and balaPerforante_2==0  and bala90_2== 0:
                     player2.ammo=False#el player 2 se quedo sin balas
                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
@@ -1771,7 +1826,26 @@ while Master_flag==True:
                 player2.setAng(temporalang)
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
-                textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
                 screen.blit(textvidap2,(screen_width*0.9, screen_height*0.88))
 
                 bullet2 = Bullet(temporalang,temporalvel,bullet_default2,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
@@ -1812,7 +1886,7 @@ while Master_flag==True:
                 intensidad_viento = randint(-10,10)
                 print("El viento esta activado: ", viento)
                 print("La intensidad del viento es de: ", intensidad_viento)
-                
+                textIntViento = texto13.render("intensidad viento: "+str(intensidad_viento), 0, negro)
                 screen.blit(textIntViento,(screen_width/15, screen_height/15))
                 if intensidad_viento>0:#viento hacia la derecha
                     screen.blit(flag_right,(screen_width/10,screen_height/10))
@@ -1821,8 +1895,27 @@ while Master_flag==True:
                     
                 screen.blit(img_Pblue,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-                textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
-                screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
+                screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
                 if  0 == bala105_3 and 0 == balaPerforante_3 and 0 == bala90_3:
                         player3NoBullet=True#el player 3 se quedo sin balas
                         #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
@@ -1901,8 +1994,27 @@ while Master_flag==True:
                 player3.setAng(temporalang)
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
-                textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
-                screen.blit(textvidap3,(screen_width*0.9, screen_height*0.88))
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
+                screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
 
                 bullet3 = Bullet(temporalang,temporalvel,bullet_default3,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
                 win=bullet3.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player3,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
@@ -1943,7 +2055,7 @@ while Master_flag==True:
                 intensidad_viento = randint(-10,10)
                 print("El viento esta activado: ", viento)
                 print("La intensidad del viento es de: ", intensidad_viento)
-                
+                textIntViento = texto13.render("intensidad viento: "+str(intensidad_viento), 0, negro)
                 screen.blit(textIntViento,(screen_width/15, screen_height/15))
                 if intensidad_viento>0:#viento hacia la derecha
                     screen.blit(flag_right,(screen_width/10,screen_height/10))
@@ -1952,8 +2064,27 @@ while Master_flag==True:
                     
                 screen.blit(img_Ppurple,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-                textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
-                screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
+                screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
                 if  0 == bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4:
                     player4NoBullet=True #EL PLAYER 4 SE QUEDO SIN BALAS
                     if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
@@ -2032,8 +2163,27 @@ while Master_flag==True:
                 player4.setAng(temporalang)
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
-                textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
-                screen.blit(textvidap4,(screen_width*0.9, screen_height*0.88))
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
+                screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
 
                 bullet4 = Bullet(temporalang,temporalvel,bullet_default4,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
                 win=bullet4.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player4,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
@@ -2073,7 +2223,7 @@ while Master_flag==True:
                 intensidad_viento = randint(-10,10)
                 print("El viento esta activado: ", viento)
                 print("La intensidad del viento es de: ", intensidad_viento)
-                
+                textIntViento = texto13.render("intensidad viento: "+str(intensidad_viento), 0, negro)
                 screen.blit(textIntViento,(screen_width/15, screen_height/15))
                 if intensidad_viento>0:#viento hacia la derecha
                     screen.blit(flag_right,(screen_width/10,screen_height/10))
@@ -2082,8 +2232,27 @@ while Master_flag==True:
                     
                 screen.blit(img_Pwhite,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-                textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
-                screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                
+                screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
                 if 0 == bala105_5 and 0 == balaPerforante_5 and 0 == bala90_5:
                     player5NoBullet=True#el player 5 se quedo sin balas
                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
@@ -2163,8 +2332,27 @@ while Master_flag==True:
                 #SE BORRA EL TEXTO ANTERIOR 
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
-                textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
-                screen.blit(textvidap5,(screen_width*0.9, screen_height*0.88))
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
+                screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
 
                 bullet5 = Bullet(temporalang,temporalvel,bullet_default5,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
                 win=bullet5.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player5,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
@@ -2194,7 +2382,7 @@ while Master_flag==True:
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
-#===========================================================================================
+#Player 6========================================================================================
         check_dead()
         check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2,bala90_2,bala105_3,balaPerforante_3,bala90_3,bala105_4,balaPerforante_4,bala90_4,bala105_5,balaPerforante_5,bala90_5,bala105_6,balaPerforante_6,bala90_6)
         if player6.dead == False:
@@ -2205,7 +2393,7 @@ while Master_flag==True:
                 intensidad_viento = randint(-10,10)
                 print("El viento esta activado: ", viento)
                 print("La intensidad del viento es de: ", intensidad_viento)
-                
+                textIntViento = texto13.render("intensidad viento: "+str(intensidad_viento), 0, negro)
                 screen.blit(textIntViento,(screen_width/15, screen_height/15))
                 if intensidad_viento>0:#viento hacia la derecha
                     screen.blit(flag_right,(screen_width/10,screen_height/10))
@@ -2214,8 +2402,29 @@ while Master_flag==True:
                     
                 screen.blit(img_Pyellow,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
-                textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
-                screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                
+                
+                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
+                screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
                 if  0 == bala105_6 and 0 == balaPerforante_6 and 0 == bala90_6:
                     player6NoBullet=True#el player 6 se quedo sin balas
                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
@@ -2296,8 +2505,27 @@ while Master_flag==True:
                 #SE BORRA EL TEXTO ANTERIOR 
                 pygame.draw.rect(screen, blue_sky, [screen_width*0.7, screen_height*0, 340, 152])
 
-                textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
-                screen.blit(textvidap6,(screen_width*0.9, screen_height*0.88))
+                                
+                textvidap1 = texto10.render("Vida p1: "+str(player1.vida), 0, (0,128,0))
+                textvidap2 = texto10.render("Vida p2: "+str(player2.vida), 0, (255,0,0))
+                textvidap3 = texto10.render("Vida p3: "+str(player3.vida), 0, (0, 0, 255))
+                textvidap4 = texto10.render("Vida p4: "+str(player4.vida), 0, (128, 0, 128))
+                textvidap5 = texto10.render("Vida p5: "+str(player1.vida), 0, (0,0,0))
+                textvidap6 = texto10.render("Vida p6: "+str(player1.vida), 0, (255,255,0))
+                                                
+                if num_jugadores>=2:
+                    screen.blit(textvidap1,(screen_width*0.86, screen_height*0.5))
+                    screen.blit(textvidap2,(screen_width*0.86, screen_height*0.48))
+                if num_jugadores>=3:
+                    screen.blit(textvidap3,(screen_width*0.86, screen_height*0.46))
+                if num_jugadores>=4:
+                    screen.blit(textvidap4,(screen_width*0.86, screen_height*0.44))
+                if num_jugadores>=5:
+                    screen.blit(textvidap5,(screen_width*0.86, screen_height*0.42))
+                if num_jugadores>=6:
+                    screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
+                    
+                screen.blit(textvidap6,(screen_width*0.86, screen_height*0.40))
 
                 bullet6 = Bullet(temporalang,temporalvel,bullet_default6,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6)
                 win=bullet6.update(x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,player6,world_data,damage,viento,graveDAD,intensidad_viento,intensidad_gravedad)
