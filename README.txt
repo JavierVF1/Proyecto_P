@@ -35,4 +35,7 @@ TRAS LOS PASOS ANTERIORES:
 3)Errores o bugs
 -Primero que nada, quedan numeros magicos y falta restructurar el codigo para aumentar la eficiencia.
 -Al dejar jugndo el codigo solo medinte bots se queda pegado al transcurso de unos minutos jugndo solo.
+-Al colicionar una bala que destruye el terreno a su alrrededor (bala105mm) con el vorde del mapa este genera un error el cual nos dice que la lista se salio del rngo esto es entendible ya que quiere modificar un valor de la lista que no existe. 
+world_data[posiciony][posicionx+1] = 0
+IndexError: list assignment index out of range
 -Es posible seguir encontrndo errores esto ya que a nuestro grupo en lo personal nos falto tiempo para afinar detalles.
