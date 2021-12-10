@@ -1379,6 +1379,10 @@ dirt_cliff=pygame.image.load("assets/textures/grassHillLeft.png")
 dirt_cliff2 = pygame.transform.flip(dirt_cliff, True, False)
 grass_corner=pygame.image.load("assets/textures/grassHillLeft2.png")
 grass_corner2 = pygame.transform.flip(grass_corner, True, False)
+#####IMAGENES BANDERA#########
+flag_right=pygame.image.load("assets/textures/flag_right.png")
+flag_right = pygame.transform.scale(flag_right, (tile_width*3,tile_height*3))
+flag_left = pygame.transform.flip(flag_right, True, False)
 #For the text of Vel. and Ang.
 texto7= pygame.font.SysFont("Comic Sans MS",16,5)
 textvel= texto7.render("Velocidad:", 0, negro)
@@ -1514,7 +1518,7 @@ while Master_flag==True:
         check_dead()
         clock.tick(30)
         bala=""
-        
+
         screen.fill(blue_sky)           #   para ver los daños causados al mapa
         world = World(world_data)
         screen.blit(fondo, (0, 0))
@@ -1530,7 +1534,12 @@ while Master_flag==True:
                 intensidad_viento = randint(-10,10)
                 print("el viento esta activado: ", viento)
                 print("la intensidad del viento es de: ", intensidad_viento)
-                
+                textIntViento = texto13.render("intensidad viento: "+str(intensidad_viento), 0, negro)
+                screen.blit(textIntViento,(screen_width/15, screen_height/15))
+                if intensidad_viento>0:#viento hacia la derecha
+                    screen.blit(flag_right,(screen_width/10,screen_height/10))
+                if intensidad_viento<0:#viento hacia la izquierda
+                    screen.blit(flag_left,(screen_width/10,screen_height/10))
                 screen.blit(img_right,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 #print("vida player 1:",player1.vida)
@@ -1664,7 +1673,13 @@ while Master_flag==True:
                 intensidad_viento = randint(-10,10)
                 print("el viento esta activado: ", viento)
                 print("la intensidad del viento es de: ", intensidad_viento)
-
+                
+                screen.blit(textIntViento,(screen_width/15, screen_height/15))
+                if intensidad_viento>0:#viento hacia la derecha
+                    screen.blit(flag_right,(screen_width/10,screen_height/10))
+                if intensidad_viento<0:#viento hacia la izquierda
+                    screen.blit(flag_left,(screen_width/10,screen_height/10))
+                    
                 screen.blit(img_left,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap2 = texto11.render("Vida: "+str(player2.vida), 0, negro)
@@ -1798,6 +1813,12 @@ while Master_flag==True:
                 print("El viento esta activado: ", viento)
                 print("La intensidad del viento es de: ", intensidad_viento)
                 
+                screen.blit(textIntViento,(screen_width/15, screen_height/15))
+                if intensidad_viento>0:#viento hacia la derecha
+                    screen.blit(flag_right,(screen_width/10,screen_height/10))
+                if intensidad_viento<0:#viento hacia la izquierda
+                    screen.blit(flag_left,(screen_width/10,screen_height/10))
+                    
                 screen.blit(img_Pblue,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap3 = texto12.render("Vida: "+str(player3.vida), 0, negro)
@@ -1923,6 +1944,12 @@ while Master_flag==True:
                 print("El viento esta activado: ", viento)
                 print("La intensidad del viento es de: ", intensidad_viento)
                 
+                screen.blit(textIntViento,(screen_width/15, screen_height/15))
+                if intensidad_viento>0:#viento hacia la derecha
+                    screen.blit(flag_right,(screen_width/10,screen_height/10))
+                if intensidad_viento<0:#viento hacia la izquierda
+                    screen.blit(flag_left,(screen_width/10,screen_height/10))
+                    
                 screen.blit(img_Ppurple,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap4 = texto13.render("Vida: "+str(player4.vida), 0, negro)
@@ -2047,6 +2074,12 @@ while Master_flag==True:
                 print("El viento esta activado: ", viento)
                 print("La intensidad del viento es de: ", intensidad_viento)
                 
+                screen.blit(textIntViento,(screen_width/15, screen_height/15))
+                if intensidad_viento>0:#viento hacia la derecha
+                    screen.blit(flag_right,(screen_width/10,screen_height/10))
+                if intensidad_viento<0:#viento hacia la izquierda
+                    screen.blit(flag_left,(screen_width/10,screen_height/10))
+                    
                 screen.blit(img_Pwhite,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap5 = texto14.render("Vida: "+str(player5.vida), 0, negro)
@@ -2173,6 +2206,12 @@ while Master_flag==True:
                 print("El viento esta activado: ", viento)
                 print("La intensidad del viento es de: ", intensidad_viento)
                 
+                screen.blit(textIntViento,(screen_width/15, screen_height/15))
+                if intensidad_viento>0:#viento hacia la derecha
+                    screen.blit(flag_right,(screen_width/10,screen_height/10))
+                if intensidad_viento<0:#viento hacia la izquierda
+                    screen.blit(flag_left,(screen_width/10,screen_height/10))
+                    
                 screen.blit(img_Pyellow,(screen_width*0.95,screen_height*0.9166))
                 screen.blit(turn_text,(screen_width*0.85,screen_height*0.9083))
                 textvidap6 = texto15.render("Vida: "+str(player6.vida), 0, negro)
