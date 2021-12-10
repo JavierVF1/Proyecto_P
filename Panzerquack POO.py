@@ -1373,6 +1373,15 @@ def check_no_ammo(bala105_1,balaPerforante_1,bala90_1,bala105_2,balaPerforante_2
         player6.ammo=False
     return
 
+def empate():
+    screen.fill(blue_sky)
+    screen.blit(fondowin, (0, 200))
+    pygame.display.flip()
+
+    print("\nEmpate")
+    time.sleep(4)
+    pygame.quit()
+    sys.exit()
 
 def check_win():
     if num_jugadores_vivos==1:
@@ -1380,7 +1389,6 @@ def check_win():
         screen.fill(blue_sky)
         screen.blit(fondowin, (0, 200))
         pygame.display.flip()
-        
 
         print("\nkills player1:", player1.kills)
         print("kills player2:", player2.kills)
@@ -1403,9 +1411,10 @@ def check_win():
             print("\nVictoria pra player 6")
         else:
             print("\nEmpate")
-        time.sleep(41)
+        time.sleep(4)
         pygame.quit()
         sys.exit()
+    
 
 g = Game()
 
@@ -1633,15 +1642,15 @@ while Master_flag==True:
                 if  bala105_1==0 and balaPerforante_1==0  and bala90_1== 0:
                     player1.ammo=False#el player 1 se quedo sin balas
                     if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
                     auxTurno=auxTurno+1
                     if auxTurno<num_jugadores:
@@ -1789,15 +1798,15 @@ while Master_flag==True:
                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
                     print("checkeo")
                     if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     auxTurno=auxTurno+1
                     if auxTurno<num_jugadores:
                         turno=listaTurnos[auxTurno]
@@ -1940,15 +1949,15 @@ while Master_flag==True:
                         player3NoBullet=True#el player 3 se quedo sin balas
                         #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
                         if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
-                            print("Pantalla empate")
+                            empate()
                         if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
-                            print("Pantalla empate")
+                            empate()
                         if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
-                            print("Pantalla empate")
+                            empate()
                         if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
-                            print("Pantalla empate")
+                            empate()
                         if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
-                            print("Pantalla empate")
+                            empate()
                         auxTurno=auxTurno+1
                         if auxTurno<num_jugadores:
                             turno=listaTurnos[auxTurno]
@@ -2086,15 +2095,15 @@ while Master_flag==True:
                 if  0 == bala105_4 and 0 == balaPerforante_4 and 0 == bala90_4:
                     player4NoBullet=True #EL PLAYER 4 SE QUEDO SIN BALAS
                     if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
                     auxTurno=auxTurno+1
                     if auxTurno<num_jugadores:
@@ -2233,15 +2242,15 @@ while Master_flag==True:
                     player5NoBullet=True#el player 5 se quedo sin balas
                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
                     if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     auxTurno=auxTurno+1
                     if auxTurno<num_jugadores:
                         turno=listaTurnos[auxTurno]
@@ -2381,15 +2390,15 @@ while Master_flag==True:
                     player6NoBullet=True#el player 6 se quedo sin balas
                     #EL PLAYER NO TIENE BALAS POR LO QUE PASA AL SIGUIENTE TURNO
                     if num_jugadores==2 and player1.ammo==False and player2.ammo==False :
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==3 and player1.ammo==False and player2.ammo==False and player3.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==4 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==5 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     if num_jugadores==6 and player1.ammo==False and player2.ammo==False and player3.ammo==False  and player4.ammo==False and player5.ammo==False and player6.ammo==False:
-                        print("Pantalla empate")
+                        empate()
                     auxTurno=auxTurno+1
                     if auxTurno<num_jugadores:
                         turno=listaTurnos[auxTurno]
