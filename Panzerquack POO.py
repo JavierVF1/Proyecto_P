@@ -464,7 +464,7 @@ class Bullet():
                 posicion_X=posicionX 
     #==================================================================================
                 if turno == 1:
-                    sustituto=texttankI(int(posicion_Y),int(posicion_X),tanque,sustituto)
+                    sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
                     if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
                         player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
                         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
@@ -1100,24 +1100,6 @@ def text():
     screen.blit(SubTitulo,(screen_width*0.3,screen_height*0.5166))
     return
 
-def texttankI(posicion_Y,posicion_X,tanque,sustituto):
-    posicionY=screen_height-posicion_Y   #Se le restan 140 de correccion para que la altura comiense en 0
-    posicionX=posicion_X - tanque.x
-    if sustituto < posicionY :
-        sustituto=posicionY
-    texto3= pygame.font.SysFont("Comic Sans MS",20)
-    altura= texto3.render(str(sustituto), 0, ColorMagico)
-    texto4= pygame.font.SysFont("Comic Sans MS",20)
-    altura_a= texto4.render("Altura Max:", 0, ColorMagico)
-    texto5= pygame.font.SysFont("Comic Sans MS",20)
-    distancia= texto5.render(str(posicionX), 0, ColorMagico) # el -5 el por margen de error
-    distancia_d= texto4.render("Distancia:", 0, ColorMagico)
-    pygame.draw.rect(screen, blue_sky, [screen_width*0.01875,screen_height*0.0166, 220, 60])
-    screen.blit(altura_a,(screen_width*0.01875,screen_height*0.0166))
-    screen.blit(altura,(screen_width*0.01875,screen_height*0.05))
-    screen.blit(distancia_d,(screen_width*0.175,screen_height*0.0166))
-    screen.blit(distancia,(screen_width*0.175,screen_height*0.05))
-    return sustituto
 
 def texttankD(posicion_Y,posicion_X,tanque,sustituto):
     posicionY=screen_height-posicion_Y
@@ -1129,7 +1111,7 @@ def texttankD(posicion_Y,posicion_X,tanque,sustituto):
     texto4= pygame.font.SysFont("Comic Sans MS",20)
     altura_a= texto4.render("Altura:", 0, ColorMagico)
     texto5= pygame.font.SysFont("Comic Sans MS",20)
-    distancia= texto5.render(str(-1*posicionX+30), 0, ColorMagico) #el +5 es por margen de error
+    distancia= texto5.render(str(posicionX-5), 0, ColorMagico) #el -5 es por margen de error
     distancia_d= texto4.render("Distancia:", 0, ColorMagico)
     pygame.draw.rect(screen, blue_sky, [screen_width*0.01875,screen_height*0.0166, 220, 60])
     screen.blit(altura_a,(screen_width*0.01875,screen_height*0.0166))
