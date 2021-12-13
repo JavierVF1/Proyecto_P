@@ -435,25 +435,26 @@ class Bullet():
         ti = 0
         aux=0
         sustituto=0
+        posinX = posicionX
+        posinY = posicionY
         var_viento=(intensidad_v/10) #variable para aplicar el viento
         
         while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
             if wind == False and gravity == False:
-                posicionX = posicionX + velocidadiX/10 * ti
-                posicionY = posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2)
+                posicionX = posinX + velocidadiX * ti
+                posicionY = posinY - velocidadiY * ti +(1/2)*6*(ti**2)
             if wind == True and gravity == False:
-                posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
-                posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*6*(ti**2))+var_viento
+                posicionX = (posinX + velocidadiX * ti)+var_viento
+                posicionY = (posinY - velocidadiY * ti +(1/2)*6*(ti**2))+var_viento
             if wind == False and gravity == True:
-                posicionX = posicionX + velocidadiX/10 * ti
-                posicionY = posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2)
+                posicionX = posinX + velocidadiX * ti
+                posicionY = posinY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2)
             if wind == True and gravity == True:
-                posicionX = (posicionX + velocidadiX/10 * ti)+var_viento
-                posicionY = (posicionY - velocidadiY/10 * ti +(1/2)*intensidad_g*(ti**2))+var_viento
-
+                posicionX = (posinX + velocidadiX * ti)+var_viento
+                posicionY = (posinY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2))+var_viento
             # ti modifica la velocidad del tiro
-            ti += 0.01  
+            ti += 0.1  
             flag=True
             flagLimite=True
             win=True
