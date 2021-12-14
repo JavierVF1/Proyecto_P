@@ -471,15 +471,15 @@ class Bullet():
             posicionX=x_player6+5
             posicionY=y_player6
         
-        var_viento=intensidad_v #variable para aplicar el viento
+        if wind == False:
+            intensidad_v = 0
         
+        if gravity == False:
+            intensidad_g = 6
+            
         #velocidad iY e iX modifican el angulo de disparo
         velocidadiY = velocidadi * sin(radians(angulo))
-        if wind == True:
-            velocidadiX= velocidadi * cos(radians(angulo)) + var_viento
-        else:
-            velocidadiX = velocidadi * cos(radians(angulo))
-        
+        velocidadiX= velocidadi * cos(radians(angulo)) + intensidad_v
         ti = 0
         aux=0
         sustituto=0
@@ -489,9 +489,7 @@ class Bullet():
         while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
             posicionX = posinX + velocidadiX * ti
-            posicionY = posinY - velocidadiY * ti +(1/2)*6*(ti**2)
-            if gravity == True:
-               posicionY = posinY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2) 
+            posicionY = posinY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2)
 
             # ti modifica la velocidad del tiro
             ti += 0.1  
