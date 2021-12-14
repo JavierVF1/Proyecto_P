@@ -30,8 +30,8 @@ num_105mm=10              #Numero 10 por la definicion por defecto
 num_perforante=10
 num_60mm=10
 #Globales Efectos de Entorno---------------------------------
-Ggravedad=0
-Gviento=0
+Ggravedad=1
+Gviento=1
 intensidad_gravedad=6
 
 class Game():
@@ -196,7 +196,7 @@ class MainMenu(Menu):
         self.game.draw_text("configuraciones", 50, self.game.DISPLAY_W/2.5, self.game.DISPLAY_H/10)
         flor_img = pygame.image.load('assets/sprites/grass.png')
         self.game.display.blit(flor_img, (screen_width*0, screen_height*0.940))
-        duck_g = pygame.image.load('assets/Textures/duck_1.png')
+        duck_g = pygame.image.load('assets/textures/duck_1.png')
         duck_g =pygame.transform.scale(duck_g , (int(screen_width),int(screen_height)))
         self.game.display.blit(duck_g, (0, 0))
 
@@ -458,7 +458,6 @@ class Bullet():
             flag=True
             flagLimite=True
             win=True
-            
             if flag == True:
                 flagLimite=colision(posicionY,posicionX,flagLimite,world)       #LLAMADA A FUNCION CHEQUEO COLISIONES DE MAPA
                 posicion_Y=posicionY
@@ -1406,31 +1405,31 @@ while g.running:
     g.game_loop()
     
 #imagenes de balas
-bullet_105mm=pygame.image.load("assets/sprites/BULLETS/Bullet105mm.png")
-bullet_perforante=pygame.image.load("assets/sprites/BULLETS/Bulletperforante.png")
-bullet_90mm=pygame.image.load("assets/sprites/BULLETS/Bullet90mm.png")
+bullet_105mm=pygame.image.load("assets/sprites/bullets/bullet105mm.png")
+bullet_perforante=pygame.image.load("assets/sprites/bullets/bulletperforante.png")
+bullet_90mm=pygame.image.load("assets/sprites/bullets/bullet90mm.png")
 fondo=pygame.image.load("assets/maps/world.png")
-fondowin=pygame.image.load("assets/maps/worldA.png")
+fondowin=pygame.image.load("assets/maps/worldend.png")
 #For Player One / Green
-img_right = pygame.image.load("assets\sprites\PLAYERS\GREEN_P\duck_s.png")
+img_right = pygame.image.load("assets/sprites/players/duck_p/duck_s.png")
 img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
     #For Player Tow  / Red
-img_left = pygame.image.load("assets\sprites\PLAYERS\GREEN_R\duck_s_L.png")
+img_left = pygame.image.load("assets/sprites/players/duck_r/duck_s_l.png")
 img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
     #For Player Blue
-img_Pblue = pygame.image.load("assets\sprites\PLAYERS\GREEN_B\duck_s.png")
+img_Pblue = pygame.image.load("assets/sprites/players/duck_b/duck_s.png")
 img_Pblue = pygame.transform.scale(img_Pblue, (tile_width,tile_height))
  #For Player Purple
-img_Ppurple = pygame.image.load("assets\sprites\PLAYERS\GREEN_Pu\duck_s.png")
+img_Ppurple = pygame.image.load("assets/sprites/players/duck_pu/duck_s.png")
 img_Ppurple = pygame.transform.scale(img_Ppurple, (tile_width,tile_height))
  #For Player White
-img_Pwhite = pygame.image.load("assets\sprites\PLAYERS\GREEN_W\duck_s.png")
+img_Pwhite = pygame.image.load("assets/sprites/players/duck_w/duck_s.png")
 img_Pwhite = pygame.transform.scale(img_Pwhite, (tile_width,tile_height))
 #For Player Yellow
-img_Pyellow = pygame.image.load("assets\sprites\PLAYERS\GREEN_Y\duck_s.png")
+img_Pyellow = pygame.image.load("assets/sprites/players/duck_y/duck_s.png")
 img_Pyellow = pygame.transform.scale(img_Pyellow, (tile_width,tile_height))
     #For Turns
-turn_text=pygame.image.load("assets/Textures/turn_text.png")
+turn_text=pygame.image.load("assets/textures/turn_text.png")
 turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
 ######IMAGENES MAPA############
 dirt_img =pygame.image.load("assets/textures/grassCenter.png")
