@@ -1216,7 +1216,7 @@ def gravedad(X_Player,Y_Player,world,player):
         y_player=int(Y_Player)//20
         x_player=int(X_Player)//20
     
-        if world[y_player][x_player] == 0 :
+        if world[y_player][x_player] == 0:
             player.dmge(1)
             Y_Player+=1
             
@@ -1224,7 +1224,7 @@ def gravedad(X_Player,Y_Player,world,player):
             
             player.vida+=20
             #print(player.vida)
-            return Y_Player-20
+            return Y_Player-screen_height/40
     
 #SPAWNRANDOM
 def recorrer_mapa(world_data):
