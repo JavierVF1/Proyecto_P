@@ -30,8 +30,8 @@ num_105mm=10              #Numero 10 por la definicion por defecto
 num_perforante=10
 num_60mm=10
 #Globales Efectos de Entorno---------------------------------
-Ggravedad=1
-Gviento=1
+Ggravedad=0
+Gviento=0
 intensidad_gravedad=6
 
 class Game():
@@ -470,30 +470,29 @@ class Bullet():
         if turno==6:
             posicionX=x_player6+5
             posicionY=y_player6
+        
+        var_viento=intensidad_v #variable para aplicar el viento
+        
         #velocidad iY e iX modifican el angulo de disparo
         velocidadiY = velocidadi * sin(radians(angulo))
-        velocidadiX = velocidadi * cos(radians(angulo))
+        if wind == True:
+            velocidadiX= velocidadi * cos(radians(angulo)) + var_viento
+        else:
+            velocidadiX = velocidadi * cos(radians(angulo))
+        
         ti = 0
         aux=0
         sustituto=0
         posinX = posicionX
         posinY = posicionY
-        var_viento=(intensidad_v/10) #variable para aplicar el viento
-        
+    
         while posicionY < screen_height and posicionX<screen_width:
             time.sleep(0.01)
-            if wind == False and gravity == False:
-                posicionX = posinX + velocidadiX * ti
-                posicionY = posinY - velocidadiY * ti +(1/2)*6*(ti**2)
-            if wind == True and gravity == False:
-                posicionX = (posinX + velocidadiX * ti)+var_viento
-                posicionY = (posinY - velocidadiY * ti +(1/2)*6*(ti**2))+var_viento
-            if wind == False and gravity == True:
-                posicionX = posinX + velocidadiX * ti
-                posicionY = posinY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2)
-            if wind == True and gravity == True:
-                posicionX = (posinX + velocidadiX * ti)+var_viento
-                posicionY = (posinY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2))+var_viento
+            posicionX = posinX + velocidadiX * ti
+            posicionY = posinY - velocidadiY * ti +(1/2)*6*(ti**2)
+            if gravity == True:
+               posicionY = posinY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2) 
+
             # ti modifica la velocidad del tiro
             ti += 0.1  
             flag=True
