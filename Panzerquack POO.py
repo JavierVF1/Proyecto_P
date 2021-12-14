@@ -284,6 +284,47 @@ class MainMenu(Menu):
          
         self.blit_screen()
         self.game.reset_keys()
+        #se actualiza todo
+        tile_width =int(screen_width//40)
+        tile_height=int(screen_height//40)
+        #imagenes de balas
+        bullet_105mm=pygame.image.load("assets/sprites/bullets/bullet105mm.png")
+        bullet_perforante=pygame.image.load("assets/sprites/bullets/bulletperforante.png")
+        bullet_90mm=pygame.image.load("assets/sprites/bullets/bullet90mm.png")
+        fondo=pygame.image.load("assets/maps/world.png")
+        fondowin=pygame.image.load("assets/maps/worldend.png")
+        #For Player One / Green
+        img_right = pygame.image.load("assets/sprites/players/duck_p/duck_s.png")
+        img_right = pygame.transform.scale(img_right, (tile_width,tile_height))
+            #For Player Tow  / Red
+        img_left = pygame.image.load("assets/sprites/players/duck_r/duck_s_l.png")
+        img_left = pygame.transform.scale(img_left, (tile_width,tile_height))
+            #For Player Blue
+        img_Pblue = pygame.image.load("assets/sprites/players/duck_b/duck_s.png")
+        img_Pblue = pygame.transform.scale(img_Pblue, (tile_width,tile_height))
+         #For Player Purple
+        img_Ppurple = pygame.image.load("assets/sprites/players/duck_pu/duck_s.png")
+        img_Ppurple = pygame.transform.scale(img_Ppurple, (tile_width,tile_height))
+         #For Player White
+        img_Pwhite = pygame.image.load("assets/sprites/players/duck_w/duck_s.png")
+        img_Pwhite = pygame.transform.scale(img_Pwhite, (tile_width,tile_height))
+        #For Player Yellow
+        img_Pyellow = pygame.image.load("assets/sprites/players/duck_y/duck_s.png")
+        img_Pyellow = pygame.transform.scale(img_Pyellow, (tile_width,tile_height))
+            #For Turns
+        turn_text=pygame.image.load("assets/textures/turn_text.png")
+        turn_text=pygame.transform.scale(turn_text, (int(screen_width*0.15),int(screen_height*0.0833)))
+        ######IMAGENES MAPA############
+        dirt_img =pygame.image.load("assets/textures/grassCenter.png")
+        grass_img = pygame.image.load("assets/textures/grass.png")
+        dirt_cliff=pygame.image.load("assets/textures/grassHillLeft.png")
+        dirt_cliff2 = pygame.transform.flip(dirt_cliff, True, False)
+        grass_corner=pygame.image.load("assets/textures/grassHillLeft2.png")
+        grass_corner2 = pygame.transform.flip(grass_corner, True, False)
+        #####IMAGENES BANDERA#########
+        flag_right=pygame.image.load("assets/textures/flag_right.png")
+        flag_right = pygame.transform.scale(flag_right, (tile_width*3,tile_height*3))
+        flag_left = pygame.transform.flip(flag_right, True, False)
         return 
             
      
