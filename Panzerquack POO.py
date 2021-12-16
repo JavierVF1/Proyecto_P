@@ -443,19 +443,19 @@ class Bullet():
         #velocidad i modifica la intensidad del disparo
         velocidadi = self.vel
         angulo= self.ang
-        #Definicion Punto de partida Bala 
+        #Definicion Punto de partida Bala (el +5 es la cantidad de pixeles hacia la derecha donde spawnea la bala)
         if turno==1:
-            posicionX=x_player1; posicionY=y_player1
+            posicionX=x_player1+5; posicionY=y_player1
         if turno==2:
-            posicionX=x_player2; posicionY=y_player2
+            posicionX=x_player2+5; posicionY=y_player2
         if turno==3:
-            posicionX=x_player3; posicionY=y_player3
+            posicionX=x_player3+5; posicionY=y_player3
         if turno==4:
-            posicionX=x_player4; posicionY=y_player4
+            posicionX=x_player4+5; posicionY=y_player4
         if turno==5:
-            posicionX=x_player5; posicionY=y_player5
+            posicionX=x_player5+5; posicionY=y_player5
         if turno==6:
-            posicionX=x_player6; posicionY=y_player6
+            posicionX=x_player6+5; posicionY=y_player6
         
         if wind == False:
             intensidad_v = 0
