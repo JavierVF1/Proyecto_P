@@ -442,22 +442,22 @@ class Bullet():
         angulo= self.ang
         #Definicion Punto de partida Bala 
         if turno==1:
-            posicionX=x_player1+5
+            posicionX=x_player1
             posicionY=y_player1
         if turno==2:
-            posicionX=x_player2+5
+            posicionX=x_player2
             posicionY=y_player2
         if turno==3:
-            posicionX=x_player3+5
+            posicionX=x_player3
             posicionY=y_player3
         if turno==4:
-            posicionX=x_player4+5
+            posicionX=x_player4
             posicionY=y_player4
         if turno==5:
-            posicionX=x_player5+5
+            posicionX=x_player5
             posicionY=y_player5
         if turno==6:
-            posicionX=x_player6+5
+            posicionX=x_player6
             posicionY=y_player6
         
         if wind == False:
@@ -1529,32 +1529,32 @@ while Master_flag==True:
     #------------------------------------------------------------------------------------
     #spawn player 1
     x_player1= (posPlayer1[1]*tile_width)
-    y_player1= (posPlayer1[0]*tile_height)-tile_height
+    y_player1= (posPlayer1[0]*tile_height)
     player1 = Player(x_player1,y_player1, img_right)
     #------------------------------------------------------------------------------------
     #spawn player 2
     x_player2= (posPlayer2[1]*tile_width)
-    y_player2= (posPlayer2[0]*tile_height)-tile_height
+    y_player2= (posPlayer2[0]*tile_height)
     player2 = Player(x_player2,y_player2, img_left)
     #------------------------------------------------------------------------------------
     #spawn player 3
     x_player3= (posPlayer3[1]*tile_width)
-    y_player3= (posPlayer3[0]*tile_height)-tile_height
+    y_player3= (posPlayer3[0]*tile_height)
     player3 = Player(x_player3,y_player3, img_Pblue)
     #------------------------------------------------------------------------------------
     #spawn player 4
     x_player4= (posPlayer4[1]*tile_width)
-    y_player4= (posPlayer4[0]*tile_height)-tile_height
+    y_player4= (posPlayer4[0]*tile_height)
     player4 = Player(x_player4,y_player4, img_Ppurple)
     #------------------------------------------------------------------------------------
     #spawn player 5
     x_player5= (posPlayer5[1]*tile_width)
-    y_player5= (posPlayer5[0]*tile_height)-tile_height
+    y_player5= (posPlayer5[0]*tile_height)
     player5 = Player(x_player5,y_player5, img_Pwhite)
     #------------------------------------------------------------------------------------
     #spawn player 6
     x_player6= (posPlayer6[1]*tile_width)
-    y_player6= (posPlayer6[0]*tile_height)-tile_height
+    y_player6= (posPlayer6[0]*tile_height)
     player6 = Player(x_player6,y_player6, img_Pyellow)
         #------------------------------------------------------------------------------------"""
     #BALAS
