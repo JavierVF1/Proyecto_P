@@ -7,11 +7,11 @@ from pygame.locals import *
 import button
 #variables importantes-------------------------------------
 #Numero 800 por la definicion por defecto
-screen_width=800
+screen_width=1000
 screen_height=800
 #Tamaño de los recuadros del mapa ------------------------
-tile_width =int(screen_width//40)
-tile_height=int(screen_height//40)
+tile_width =screen_width/40
+tile_height=screen_height/40
 globala=0 #variable global que define que tipo de bala está seleccionada (no me siento orgulloso)
 clock = pygame.time.Clock()
 #sonidos--------------------------------------------------
