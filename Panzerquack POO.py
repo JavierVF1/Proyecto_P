@@ -1211,8 +1211,8 @@ def gravedad(X_Player,Y_Player,world,player):
             Y_Player+=1
             
         elif world[y_player][x_player] != 0 :
-            
-            player.vida+=20
+            if player.vida<100:
+                player.vida+=20
             #print(player.vida)
             return Y_Player-screen_height/40
     
