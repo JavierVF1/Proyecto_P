@@ -933,8 +933,8 @@ class SelectBala():
 
 def colision(posicionY,posicionX,flagLimite,world):
         
-        posiciony=int(posicionY)//20   # "posicionY"  representa el valor de eje Y para bala
-        posicionx=int(posicionX)//20    # "posicionX"  representa el valor de eje X para bala
+        posiciony=int(posicionY)//int(screen_height/40)   # "posicionY"  representa el valor de eje Y para bala
+        posicionx=int(posicionX)//int(screen_width/40)    # "posicionX"  representa el valor de eje X para bala
         if  posicionY < 0  : 
             print("\nLIMITE SUPERIOR ALCANZADO!!!!!\n")
             flagLimite=False
@@ -1213,8 +1213,8 @@ def textbox():
 def gravedad(X_Player,Y_Player,world,player):
     #print(player.vida)
     while True:
-        y_player=int(Y_Player)//20
-        x_player=int(X_Player)//20
+        y_player=int(Y_Player)//int(screen_height/40)
+        x_player=int(X_Player)//int (screen_width/40)
     
         if world[y_player][x_player] == 0:
             player.dmge(1)
