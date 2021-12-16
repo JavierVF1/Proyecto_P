@@ -6,9 +6,8 @@ from random import randint,choice,shuffle
 from pygame.locals import *
 import button
 #variables importantes-------------------------------------
-global screen_width  #Numero 800 por la definicion por defecto
-global screen_height
-screen_width=1000
+#Numero 800 por la definicion por defecto
+screen_width=800
 screen_height=800
 #Tamaño de los recuadros del mapa ------------------------
 tile_width =int(screen_width//40)
@@ -184,6 +183,8 @@ class MainMenu(Menu):
     def display_config(self):
         global screen_width
         global screen_height
+        global tile_width
+        global tile_height
         global num_jugadores   #nuemro players
         global num_bots        #nuemro bots
         global num_105mm         #nuemro balas
@@ -211,12 +212,14 @@ class MainMenu(Menu):
             ancho, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.2)
             if int(ancho)>=800 and int(ancho)<=1600:
                 screen_width=int(ancho)
+                tile_width =int(screen_width//40)
                 break
         self.game.draw_text("Largo:", 25, self.game.DISPLAY_W*0.22, self.game.DISPLAY_H*0.27)
         while True:
             largo, xtext, ytext=textboxConfig(self, xtext*0.28, ytext*0.253)
             if int(largo)>=800 and int(largo)<=1600:
                 screen_height=int(largo)
+                tile_height=int(screen_height//40)
                 break
         self.game.draw_text("Jugadores", 20, self.game.DISPLAY_W*0.15, self.game.DISPLAY_H*0.32)
         self.game.draw_text("Numero de jugadores:", 25, self.game.DISPLAY_W*0.18, self.game.DISPLAY_H*0.37)
@@ -347,7 +350,7 @@ class MainMenu(Menu):
             if self.state == 'Start':
                 self.game.playing = True
             elif self.state == 'Configuraciones':
-                self.display_config(screen_width,screen_height)
+                self.display_config()
                 
             elif self.state == 'Exit':
                 sys.exit()
