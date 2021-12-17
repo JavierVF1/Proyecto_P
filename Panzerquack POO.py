@@ -7,7 +7,7 @@ from pygame.locals import *
 import button
 #variables importantes-------------------------------------
 #Numero 800 por la definicion por defecto
-screen_width=1100
+screen_width=800
 screen_height=800
 #Tamaño de los recuadros del mapa ------------------------
 tile_width =screen_width/40
@@ -23,8 +23,8 @@ ColorMagico = 0,70,70
 gray = 127,127,127
 blue_sky=0,160,235
 #numero players--------------------------------------------
-num_jugadores=6
-num_bots=6
+num_jugadores=2
+num_bots=0
 num_jugadores_vivos=num_jugadores
 #Globales Numero De Balas---------------------------------
 num_105mm=10              #Numero 10 por la definicion por defecto
@@ -560,10 +560,15 @@ def impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite):
         player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
         if player1.vida <= 0:
-            player2.kill()
             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato un player\n")
             player1.dead=True
             num_jugadores_vivos-=1
+            if turno==1: player1.kill() 
+            if turno==2: player2.kill()
+            if turno==3: player3.kill()
+            if turno==4: player4.kill()
+            if turno==5: player5.kill()
+            if turno==6: player6.kill()
         flagLimite= False
     return flagLimite
 
@@ -576,6 +581,12 @@ def impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite):
             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato un player\n")
             player2.dead=True
             num_jugadores_vivos-=1
+            if turno==1: player1.kill()
+            if turno==2: player2.kill()
+            if turno==3: player3.kill()
+            if turno==4: player4.kill()
+            if turno==5: player5.kill()
+            if turno==6: player6.kill()
         flagLimite= False
     return flagLimite
 
@@ -585,10 +596,15 @@ def impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite):
         player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
         if player3.vida <= 0:
-            player2.kill()
             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a un player\n")
             player3.dead=True
             num_jugadores_vivos-=1
+            if turno==1: player1.kill()
+            if turno==2: player2.kill()
+            if turno==3: player3.kill()
+            if turno==4: player4.kill()
+            if turno==5: player5.kill()
+            if turno==6: player6.kill()
         flagLimite= False
     return flagLimite
 
@@ -598,10 +614,15 @@ def impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite):
         player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
         if player4.vida <= 0:
-            player2.kill()
             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a un player\n")
             player4.dead=True
             num_jugadores_vivos-=1
+            if turno==1: player1.kill()
+            if turno==2: player2.kill()
+            if turno==3: player3.kill()
+            if turno==4: player4.kill()
+            if turno==5: player5.kill()
+            if turno==6: player6.kill()
         flagLimite= False
     return flagLimite
 
@@ -611,10 +632,15 @@ def impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite):
         player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
         if player5.vida <= 0:
-            player2.kill()
             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a un player\n")
             player5.dead=True
             num_jugadores_vivos-=1
+            if turno==1: player1.kill()
+            if turno==2: player2.kill()
+            if turno==3: player3.kill()
+            if turno==4: player4.kill()
+            if turno==5: player5.kill()
+            if turno==6: player6.kill()
         flagLimite= False
     return flagLimite
 
@@ -624,10 +650,15 @@ def impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite):
         player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
         print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
         if player6.vida <= 0:
-            player2.kill()
             print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a un player\n")
             player6.dead=True
             num_jugadores_vivos-=1
+            if turno==1: player1.kill()
+            if turno==2: player2.kill()
+            if turno==3: player3.kill()
+            if turno==4: player4.kill()
+            if turno==5: player5.kill()
+            if turno==6: player6.kill()
         flagLimite= False
     return flagLimite
 
@@ -669,91 +700,65 @@ def colision(posicionY,posicionX,posicion_Y,posicion_X,x_player1,y_player1,x_pla
         if turno == 1:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
             flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
-            if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
-            if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
-            if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
-            if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
-            if activa_suicidio >= 40:
-                flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
+            if num_jugadores >=3: flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
+            if num_jugadores >=4: flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
+            if num_jugadores >=5: flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
+            if num_jugadores >=6: flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
+            if activa_suicidio >= 40: flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
             return flagLimite
         #==================================================================================
         if turno == 2:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
             flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
-            if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
-            if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
-            if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
-            if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
-            if activa_suicidio >= 20:
-                flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
+            if num_jugadores >=3:  flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
+            if num_jugadores >=4:  flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
+            if num_jugadores >=5:  flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
+            if num_jugadores >=6:  flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
+            if activa_suicidio >= 20: flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
             return flagLimite 
             #==================================================================================
         if turno == 3:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
             flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
             flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
-            if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
-            if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
-            if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
+            if num_jugadores >=4:   flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
+            if num_jugadores >=5:   flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
+            if num_jugadores >=6:   flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                if activa_suicidio >= 40:
-                    flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
+                if activa_suicidio >= 40: flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
             return flagLimite
             #==================================================================================
         if turno == 4:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
             flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
             flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
-            if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
-            if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
-            if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
+            if num_jugadores >=3:  flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
+            if num_jugadores >=5:  flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
+            if num_jugadores >=6:  flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                if activa_suicidio >= 40:
-                    flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
+                if activa_suicidio >= 40:  flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
             return flagLimite
         #==================================================================================
         if turno == 5:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
             flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
             flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
-            if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
-            if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
-            if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
+            if num_jugadores >=3:  flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
+            if num_jugadores >=4:  flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
+            if num_jugadores >=6:  flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                if activa_suicidio >= 40:
-                    flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
+                if activa_suicidio >= 40:  flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
             return flagLimite
         #==================================================================================
         if turno == 6:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
             flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
             flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
-            if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
-            if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
-            if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
+            if num_jugadores >=3:  flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
+            if num_jugadores >=4:  flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
+            if num_jugadores >=5:  flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
             if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                if activa_suicidio >= 40:
-                    flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
+                if activa_suicidio >= 40:  flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             return flagLimite
                
 def MapaSelect(seleccion):
