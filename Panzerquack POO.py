@@ -436,10 +436,6 @@ class Bullet():
 
     def update(self,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,tanque,world,damage,wind,gravity,intensidad_v,intensidad_g):
         global num_jugadores_vivos
-        #key = pygame.key.get_pressed()
-        #rectangulobala = bullet_default.get_rect()
-        #rectangulobala = rectangulobala.move(1,1)
-        #self.rect = self.rect.move(1,1) #velocidad del rect
         #velocidad i modifica la intensidad del disparo
         velocidadi = self.vel
         angulo= self.ang
@@ -476,20 +472,20 @@ class Bullet():
             time.sleep(0.01)
             posicionX = posinX + velocidadiX * ti
             posicionY = posinY - velocidadiY * ti +(1/2)*intensidad_g*(ti**2)
-
             # ti modifica la velocidad del tiro
             ti += 0.1  
             flag=True
             flagLimite=True
             win=True
             if flag == True:
-                
                 posicion_Y=posicionY
                 posicion_X=posicionX
                 flagLimite=colision(posicionY,posicionX,posicion_Y,posicion_X,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,flagLimite,world,tanque,sustituto,activa_suicidio,damage)       #LLAMADA A FUNCION CHEQUEO COLISIONES DE MAPA
                 activa_suicidio+=1
+
             if flagLimite == False:
                 return win
+
             screen.blit(self.imagen,(posicionX,posicionY))
             time.sleep(0.001)
             pygame.display.flip()
@@ -759,8 +755,7 @@ def colision(posicionY,posicionX,posicion_Y,posicion_X,x_player1,y_player1,x_pla
                 if activa_suicidio >= 40:
                     flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             return flagLimite
-        
-           
+               
 def MapaSelect(seleccion):
 
     world_data = [
@@ -2289,5 +2284,3 @@ while Master_flag==True:
             else:
                 auxTurno=0
                 turno=listaTurnos[auxTurno]
-
-
