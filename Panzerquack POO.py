@@ -486,15 +486,10 @@ class Bullet():
                 
                 posicion_Y=posicionY
                 posicion_X=posicionX
-                flagLimite=colision(posicionY,posicionX,posicion_Y,posicion_X,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,flagLimite,world,tanque,sustituto,activa_suicidio)       #LLAMADA A FUNCION CHEQUEO COLISIONES DE MAPA
-    #==================================================================================
-                
+                flagLimite=colision(posicionY,posicionX,posicion_Y,posicion_X,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,flagLimite,world,tanque,sustituto,activa_suicidio,damage)       #LLAMADA A FUNCION CHEQUEO COLISIONES DE MAPA
+                activa_suicidio+=1
             if flagLimite == False:
                 return win
-
-            if flag == False:
-                return win
-
             screen.blit(self.imagen,(posicionX,posicionY))
             time.sleep(0.001)
             pygame.display.flip()
@@ -563,7 +558,84 @@ class SelectBala():
 
 #FUNCTIONS
 
-def colision(posicionY,posicionX,posicion_Y,posicion_X,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,flagLimite,world,tanque,sustituto,activa_suicidio):
+def impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite):
+    global num_jugadores_vivos
+    if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
+        player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+        if player1.vida <= 0:
+            player2.kill()
+            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato un player\n")
+            player1.dead=True
+            num_jugadores_vivos-=1
+        flagLimite= False
+    return flagLimite
+
+def impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite):
+    global num_jugadores_vivos
+    if  (y_player2 <= posicion_Y <= y_player2+20) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
+        player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+        if player2.vida <= 0:
+            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato un player\n")
+            player2.dead=True
+            num_jugadores_vivos-=1
+        flagLimite= False
+    return flagLimite
+
+def impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite):
+    global num_jugadores_vivos
+    if  (y_player3 <= posicion_Y <= y_player3+20) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
+        player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+        if player3.vida <= 0:
+            player2.kill()
+            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a un player\n")
+            player3.dead=True
+            num_jugadores_vivos-=1
+        flagLimite= False
+    return flagLimite
+
+def impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite):
+    global num_jugadores_vivos
+    if  (y_player4 <= posicion_Y <= y_player4+20) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
+        player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+        if player4.vida <= 0:
+            player2.kill()
+            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a un player\n")
+            player4.dead=True
+            num_jugadores_vivos-=1
+        flagLimite= False
+    return flagLimite
+
+def impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite):
+    global num_jugadores_vivos
+    if  (y_player5 <= posicion_Y <= y_player5+20) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
+        player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+        if player5.vida <= 0:
+            player2.kill()
+            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a un player\n")
+            player5.dead=True
+            num_jugadores_vivos-=1
+        flagLimite= False
+    return flagLimite
+
+def impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite):
+    global num_jugadores_vivos
+    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
+        player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
+        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
+        if player6.vida <= 0:
+            player2.kill()
+            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a un player\n")
+            player6.dead=True
+            num_jugadores_vivos-=1
+        flagLimite= False
+    return flagLimite
+
+def colision(posicionY,posicionX,posicion_Y,posicion_X,x_player1,y_player1,x_player2,y_player2,x_player3,y_player3,x_player4,y_player4,x_player5,y_player5,x_player6,y_player6,flagLimite,world,tanque,sustituto,activa_suicidio,damage):
         global num_jugadores_vivos
         posiciony=int(posicionY)//int(screen_height/40)   # "posicionY"  representa el valor de eje Y para bala
         posicionx=int(posicionX)//int(screen_width/40)    # "posicionX"  representa el valor de eje X para bala
@@ -597,413 +669,98 @@ def colision(posicionY,posicionX,posicion_Y,posicion_X,x_player1,y_player1,x_pla
                 world_data[posiciony-1][posicionx] = 0
             flagLimite=False
             return flagLimite
-            
+        #==================================================================================
         if turno == 1:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-            if  (y_player2 <= posicion_Y <= y_player2+screen_height/40) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
-                player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player2.vida <= 0:
-                    player1.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 2\n")
-                    player2.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
+            flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
             if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player3 <= posicion_Y <= y_player3+screen_height/40) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
-                    player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player3.vida <= 0:
-                        player1.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 3\n")
-                        player3.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
             if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player4 <= posicion_Y <= y_player4+screen_height/40) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
-                    player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player4.vida <= 0:
-                        player1.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 4\n")
-                        player4.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
             if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player5 <= posicion_Y <= y_player5+screen_height/40) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
-                    player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player5.vida <= 0:
-                        player1.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 5\n")
-                        player5.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
             if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player6 <= posicion_Y <= y_player6+screen_height/40) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
-                    player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player6.vida <= 0:
-                        player1.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 mato a Player 6\n")
-                        player6.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             if activa_suicidio >= 40:
-                if  (y_player1 <= posicion_Y <= y_player1+20) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                    player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player1.vida <= 0:
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 1 acabo con su sufrimiento\n")
-                        player1.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
-            
-#==================================================================================
+                flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
+            return flagLimite
+        #==================================================================================
         if turno == 2:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-            if  (y_player1 <= posicion_Y <= y_player1+screen_height/40) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player1.vida <= 0:
-                    player2.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 1\n")
-                    player1.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
+            flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
             if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player3 <= posicion_Y <= y_player3+screen_height/40) and (x_player3 <= posicion_X <= x_player3+20):         #CONFIRMACION IMPACTO
-                    player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player3.vida <= 0:
-                        player2.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 3\n")
-                        player3.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
             if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player4 <= posicion_Y <= y_player4+screen_height/40) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
-                    player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player4.vida <= 0:
-                        player2.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 4\n")
-                        player4.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
             if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player5 <= posicion_Y <= y_player5+screen_height/40) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
-                    player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player5.vida <= 0:
-                        player2.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 5\n")
-                        player5.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
             if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player6 <= posicion_Y <= y_player6+screen_height/40) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
-                    player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player6.vida <= 0:
-                        player2.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 mato a Player 6\n")
-                        player6.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
-            if activa_suicidio >= 40:
-                if  (y_player2 <= posicion_Y <= y_player2+screen_height/40) and (x_player2 <= posicion_X <= x_player2+20):        #CONFIRMACION IMPACTO
-                    player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player2.vida <= 0:
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 2 acabo con su sufrimiento\n")
-                        player2.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
-#==================================================================================
+                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
+            if activa_suicidio >= 20:
+                flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
+            return flagLimite 
+            #==================================================================================
         if turno == 3:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-            if  (y_player1 <= posicion_Y <= y_player1+screen_height/40) and (x_player1 <= posicion_X <= x_player1+20):         #CONFIRMACION IMPACTO
-                player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player1.vida <= 0:
-                    player3.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 1\n")
-                    player1.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
-            if  (y_player2 <= posicion_Y <= y_player2+screen_height/40) and (x_player2 <= posicion_X <= x_player2+20):         #CONFIRMACION IMPACTO
-                player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player2.vida <= 0:
-                    player3.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 2\n")
-                    player2.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
+            flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
+            flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
             if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player4 <= posicion_Y <= y_player4+screen_height/40) and (x_player4 <= posicion_X <= x_player4+20):         #CONFIRMACION IMPACTO
-                    player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player4.vida <= 0:
-                        player3.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 4\n")
-                        player4.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
             if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player5 <= posicion_Y <= y_player5+screen_height/40) and (x_player5 <= posicion_X <= x_player5+20):         #CONFIRMACION IMPACTO
-                    player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player5.vida <= 0:
-                        player3.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 5\n")
-                        player5.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
             if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player6 <= posicion_Y <= y_player6+screen_height/40) and (x_player6 <= posicion_X <= x_player6+20):         #CONFIRMACION IMPACTO
-                    player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player6.vida <= 0:
-                        player3.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 mato a Player 6\n")
-                        player6.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
                 if activa_suicidio >= 40:
-                    if  (y_player3 <= posicion_Y <= y_player3+screen_height/40) and (x_player3 <= posicion_X <= x_player3+20):        #CONFIRMACION IMPACTO
-                        player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                        if player3.vida <= 0:
-                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 3 acabo con su sufrimiento\n")
-                            player3.dead=True
-                            num_jugadores_vivos-=1
-                        flagLimite= False
-                        return flagLimite
-#==================================================================================
+                    flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
+            return flagLimite
+            #==================================================================================
         if turno == 4:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-            if  (y_player1 <= posicion_Y <= y_player1+screen_height/40) and (x_player1 <= posicion_X <= x_player1+screen_width/40):         #CONFIRMACION IMPACTO
-                player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player1.vida <= 0:
-                    player4.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 1\n")
-                    player1.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
-            if  (y_player2 <= posicion_Y <= y_player2+screen_height/40) and (x_player2 <= posicion_X <= x_player2+screen_width/40):         #CONFIRMACION IMPACTO
-                player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player2.vida <= 0:
-                    player4.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 2\n")
-                    player2.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
+            flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
+            flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
             if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player3 <= posicion_Y <= y_player3+screen_height/40) and (x_player3 <= posicion_X <= x_player3+screen_width/40):         #CONFIRMACION IMPACTO
-                    player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player3.vida <= 0:
-                        player4.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 3\n")
-                        player3.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
             if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player5 <= posicion_Y <= y_player5+screen_height/40) and (x_player5 <= posicion_X <= x_player5+screen_width/40):         #CONFIRMACION IMPACTO
-                    player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player5.vida <= 0:
-                        player4.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 5\n")
-                        player5.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
             if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player6 <= posicion_Y <= y_player6+screen_height/40) and (x_player6 <= posicion_X <= x_player6+screen_width/40):         #CONFIRMACION IMPACTO
-                    player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player6.vida <= 0:
-                        player4.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 mato a Player 6\n")
-                        player6.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
                 if activa_suicidio >= 40:
-                    if  (y_player4 <= posicion_Y <= y_player4+screen_height/40) and (x_player4 <= posicion_X <= x_player4+screen_width/40):        #CONFIRMACION IMPACTO
-                        player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                        if player4.vida <= 0:
-                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 4 acabo con su sufrimiento\n")
-                            player4.dead=True
-                            num_jugadores_vivos-=1
-                        flagLimite= False
-                        return flagLimite
-#==================================================================================
+                    flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
+            return flagLimite
+        #==================================================================================
         if turno == 5:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-            if  (y_player1 <= posicion_Y <= y_player1+screen_height/40) and (x_player1 <= posicion_X <= x_player1+screen_width/40):         #CONFIRMACION IMPACTO
-                player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player1.vida <= 0:
-                    player5.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 1\n")
-                    player1.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
-            if  (y_player2 <= posicion_Y <= y_player2+screen_height/40) and (x_player2 <= posicion_X <= x_player2+screen_width/40):         #CONFIRMACION IMPACTO
-                player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player2.vida <= 0:
-                    player5.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 2\n")
-                    player2.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
+            flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
+            flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
             if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player3 <= posicion_Y <= y_player3+screen_height/40) and (x_player3 <= posicion_X <= x_player3+screen_width/40):         #CONFIRMACION IMPACTO
-                    player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player3.vida <= 0:
-                        player5.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 3\n")
-                        player3.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
             if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player4 <= posicion_Y <= y_player4+screen_height/40) and (x_player4 <= posicion_X <= x_player4+screen_width/40):         #CONFIRMACION IMPACTO
-                    player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player4.vida <= 0:
-                        player5.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 4\n")
-                        player4.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
             if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player6 <= posicion_Y <= y_player6+screen_height/40) and (x_player6 <= posicion_X <= x_player6+screen_width/40):         #CONFIRMACION IMPACTO
-                    player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player6.vida <= 0:
-                        player5.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 mato a Player 6\n")
-                        player6.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
             if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
                 if activa_suicidio >= 40:
-                    if  (y_player5 <= posicion_Y <= y_player5+screen_height/40) and (x_player5 <= posicion_X <= x_player5+screen_width/40):        #CONFIRMACION IMPACTO
-                        player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                        if player5.vida <= 0:
-                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 5 acabo con su sufrimiento\n")
-                            player5.dead=True
-                            num_jugadores_vivos-=1
-                        flagLimite= False
-                        return flagLimite
-#==================================================================================
+                    flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
+            return flagLimite
+        #==================================================================================
         if turno == 6:
             sustituto=texttankD(int(posicion_Y),int(posicion_X),tanque,sustituto)
-            if  (y_player1 <= posicion_Y <= y_player1+screen_height/40) and (x_player1 <= posicion_X <= x_player1+screen_width/40):         #CONFIRMACION IMPACTO
-                player1.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player1.vida <= 0:
-                    player6.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 1\n")
-                    player1.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
-            if  (y_player2 <= posicion_Y <= y_player2+screen_height/40) and (x_player2 <= posicion_X <= x_player2+screen_width/40):         #CONFIRMACION IMPACTO
-                player2.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                if player2.vida <= 0:
-                    player6.kill()
-                    print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 2\n")
-                    player2.dead=True
-                    num_jugadores_vivos-=1
-                flagLimite= False
-                return flagLimite
+            flagLimite=impacto_p1(posicion_Y,posicion_X,y_player1,x_player1,flagLimite)
+            flagLimite=impacto_p2(posicion_Y,posicion_X,y_player2,x_player2,flagLimite)
             if num_jugadores >=3:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player3 <= posicion_Y <= y_player3+screen_height/40) and (x_player3 <= posicion_X <= x_player3+screen_width/40):         #CONFIRMACION IMPACTO
-                    player3.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player3.vida <= 0:
-                        player6.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 3\n")
-                        player3.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p3(posicion_Y,posicion_X,y_player3,x_player3,flagLimite)
             if num_jugadores >=4:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player4 <= posicion_Y <= y_player4+screen_height/40) and (x_player4 <= posicion_X <= x_player4+screen_width/40):         #CONFIRMACION IMPACTO
-                    player4.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player4.vida <= 0:
-                        player6.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 4\n")
-                        player4.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p4(posicion_Y,posicion_X,y_player4,x_player4,flagLimite)
             if num_jugadores >=5:        #CONFIRMACION NUMERO DE PLAYERS
-                if  (y_player5 <= posicion_Y <= y_player5+screen_height/40) and (x_player5 <= posicion_X <= x_player5+screen_width/40):         #CONFIRMACION IMPACTO
-                    player5.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                    print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                    if player5.vida <= 0:
-                        player6.kill()
-                        print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 mato a Player 5\n")
-                        player5.dead=True
-                        num_jugadores_vivos-=1
-                    flagLimite= False
-                    return flagLimite
+                flagLimite=impacto_p5(posicion_Y,posicion_X,y_player5,x_player5,flagLimite)
             if num_jugadores >=6:        #CONFIRMACION NUMERO DE PLAYERS
                 if activa_suicidio >= 40:
-                    if  (y_player6 <= posicion_Y <= y_player6+20) and (x_player6 <= posicion_X <= x_player6+screen_width/40):        #CONFIRMACION IMPACTO
-                        player6.dmge(damage)        #RESTA DE VIDA PRODUCTO DE LA COLISION
-                        print("\n (ノಠ益ಠ)ノ彡  Impacto Confirmado \n")
-                        if player6.vida <= 0:
-                            print(" ༼ つ ◕ _ ◕ ༽つ━━☆ﾟ.*･｡ﾟ  Player 6 acabo con su sufrimiento\n")
-                            player6.dead=True
-                            num_jugadores_vivos-=1
-                        flagLimite= False
-                        return flagLimite
-        activa_suicidio+=1
+                    flagLimite=impacto_p6(posicion_Y,posicion_X,y_player6,x_player6,flagLimite)
+            return flagLimite
         
-    
-
+           
 def MapaSelect(seleccion):
 
     world_data = [
